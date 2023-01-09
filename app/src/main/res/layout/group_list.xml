@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imgGroupmain"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/imgKingCk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/imgGroupmain"
+        app:layout_constraintStart_toStartOf="@+id/imgGroupmain"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/btn_star_big_on" />
+
+    <TextView
+        android:id="@+id/tvGroupTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="광주 무등산 모여라"
+        app:layout_constraintBottom_toBottomOf="@+id/imgGroupmain"
+        app:layout_constraintStart_toEndOf="@+id/imgGroupmain"
+        app:layout_constraintTop_toTopOf="@+id/imgGroupmain" />
+
+    <TextView
+        android:id="@+id/tvGroupLimit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(1/5)"
+        app:layout_constraintBottom_toBottomOf="@+id/tvGroupTitle"
+        app:layout_constraintStart_toEndOf="@+id/tvGroupTitle"
+        app:layout_constraintTop_toTopOf="@+id/tvGroupTitle" />
+</androidx.constraintlayout.widget.ConstraintLayout>
