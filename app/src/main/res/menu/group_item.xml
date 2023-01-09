@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/grouptab1"
+        android:title="메아리톡" />
+    <item
+        android:id="@+id/grouptab2"
+        android:title="참여인원" />
+    <item
+        android:id="@+id/grouptab3"
+        android:title="산행일정" />
+    <item
+        android:id="@+id/grouptab4"
+        android:title="모임설정" />
+</menu>

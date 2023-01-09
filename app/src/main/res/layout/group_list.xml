@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imgGroupmain"
+        android:id="@+id/imgGroupPro"
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:layout_marginStart="10dp"
@@ -19,8 +19,9 @@
         android:id="@+id/imgKingCk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/imgGroupmain"
-        app:layout_constraintStart_toStartOf="@+id/imgGroupmain"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/imgGroupPro"
+        app:layout_constraintStart_toStartOf="@+id/imgGroupPro"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/btn_star_big_on" />
 
@@ -30,12 +31,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:text="광주 무등산 모여라"
-        app:layout_constraintBottom_toBottomOf="@+id/imgGroupmain"
-        app:layout_constraintStart_toEndOf="@+id/imgGroupmain"
-        app:layout_constraintTop_toTopOf="@+id/imgGroupmain" />
+        app:layout_constraintBottom_toBottomOf="@+id/imgGroupPro"
+        app:layout_constraintStart_toEndOf="@+id/imgGroupPro"
+        app:layout_constraintTop_toTopOf="@+id/imgGroupPro" />
 
     <TextView
-        android:id="@+id/tvGroupLimit"
+        android:id="@+id/tvGroupPer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="(1/5)"
