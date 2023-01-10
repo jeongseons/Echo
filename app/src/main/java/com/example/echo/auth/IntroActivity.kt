@@ -15,6 +15,7 @@ import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.model.KakaoSdkError
+import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 
 class IntroActivity : AppCompatActivity() {
@@ -23,6 +24,9 @@ class IntroActivity : AppCompatActivity() {
         setContentView(R.layout.activity_intro)
 
         var imgKakaoLogin = findViewById<ImageView>(R.id.imgKakaoLogin)
+
+        var keyHash = Utility.getKeyHash(this)
+        Log.d("key", keyHash)
 
         imgKakaoLogin.setOnClickListener {
             KakaoSdk.init(this, "f5b248e1f5c7496e71b711e2650daf28")
