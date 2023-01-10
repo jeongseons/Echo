@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         tvHello = findViewById<TextView>(R.id.tvHello)
-        hel()
+        hel() //스프링 데이터 확인
 
         val flMain = findViewById<FrameLayout>(R.id.flMain)
         val bnvMain = findViewById<BottomNavigationView>(R.id.bnvMain)
