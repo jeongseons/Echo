@@ -1,20 +1,27 @@
 package com.example.echo
 
+import android.content.ContentValues.TAG
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.FrameLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.example.echo.auth.IntroActivity
 import com.example.echo.board.BoardFragment
 import com.example.echo.group.GroupFragment
 import com.example.echo.myPage.MyPageFragment
 import com.example.echo.path.PathFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.kakao.sdk.common.util.Utility
+import com.kakao.sdk.user.UserApiClient
+import com.kakao.sdk.user.model.User
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class MainActivity : AppCompatActivity() {
     lateinit var tvHello: TextView
@@ -23,10 +30,38 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         tvHello = findViewById<TextView>(R.id.tvHello)
-        hel()
+        hel() //스프링 데이터 확인
 
         val flMain = findViewById<FrameLayout>(R.id.flMain)
         val bnvMain = findViewById<BottomNavigationView>(R.id.bnvMain)
+        val tvLogout = findViewById<TextView>(R.id.tvLogout)
+
+        var keyHash = Utility.getKeyHash(this)
+        Log.d("key", keyHash)
+
+        UserApiClient.instance.me { user, error ->
+            if (error != null) {
+                Log.e(TAG, "사용자 정보 요청 실패", error)
+            }
+            else if (user != null) {
+                Log.i(TAG, "사용자 정보 요청 성공" +
+                        "\n회원번호: ${user.id}" +
+                        "\n이메일: ${user.kakaoAccount?.email}" +
+                        "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
+                        "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}"
+                +
+                "\n연령대: ${user.kakaoAccount?.ageRange}"
+                +
+                    "\n성별: ${user.kakaoAccount?.gender}")
+            }
+        }
+
+        tvLogout.setOnClickListener {
+            kakaoLogout()
+            val intent = Intent(this, IntroActivity::class.java)
+            startActivity(intent)
+        }
+
 
         supportFragmentManager.beginTransaction().replace(
             R.id.flMain,
@@ -103,4 +138,17 @@ class MainActivity : AppCompatActivity() {
 
             })
         }
+
+    fun kakaoLogout() {
+        // 로그아웃
+        UserApiClient.instance.logout { error ->
+            if (error != null) {
+                Log.e("Hello", "로그아웃 실패. SDK에서 토큰 삭제됨", error)
+            } else {
+                Log.i("Hello", "로그아웃 성공. SDK에서 토큰 삭제됨")
+                Toast.makeText(this, "로그아웃 성공",
+                    Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
     }
