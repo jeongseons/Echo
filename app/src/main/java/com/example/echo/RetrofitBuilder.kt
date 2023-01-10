@@ -10,6 +10,7 @@ object RetrofitBuilder {
     init {
         var retrofit = Retrofit.Builder()
             .baseUrl("http://10.0.2.2:8090/echo/")
+//            .baseUrl("http://localhost:8090/echo/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
         api = retrofit.create(API::class.java)
