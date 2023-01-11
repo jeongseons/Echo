@@ -6,4 +6,69 @@
     android:layout_height="match_parent"
     tools:context=".auth.JoinActivity">
 
+    <EditText
+        android:id="@+id/etUserNick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="닉네임"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgUserProfile" />
+
+    <EditText
+        android:id="@+id/etUserBirthdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="date"
+        android:text="20230111"
+        app:layout_constraintEnd_toEndOf="@+id/etUserNick"
+        app:layout_constraintStart_toStartOf="@+id/etUserNick"
+        app:layout_constraintTop_toBottomOf="@+id/etUserNick" />
+
+    <ImageView
+        android:id="@+id/imgUserProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/btnUserJoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="회원가입"
+        app:layout_constraintTop_toBottomOf="@+id/rdoUserGender"
+        tools:layout_editor_absoluteX="158dp" />
+
+    <RadioGroup
+        android:id="@+id/rdoUserGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/etUserBirthdate"
+        app:layout_constraintTop_toBottomOf="@+id/etUserBirthdate">
+
+        <RadioButton
+            android:id="@+id/rdoJoinFemale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="여성" />
+
+        <RadioButton
+            android:id="@+id/rdoJoinMale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="남성" />
+
+    </RadioGroup>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

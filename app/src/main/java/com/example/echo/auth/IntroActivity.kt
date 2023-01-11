@@ -39,7 +39,7 @@ class IntroActivity : AppCompatActivity() {
                     Log.e(TAG, "로그인 성공 ${token.accessToken}")
                     Toast.makeText(this, "로그인 성공",
                         Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, JoinActivity::class.java)
                     startActivity(intent)
                 }
             }
@@ -63,6 +63,7 @@ class IntroActivity : AppCompatActivity() {
                     // 로그인 성공 부분
                     else if (token != null) {
                         Log.e(TAG, "로그인 성공 ${token.accessToken}")
+
                         Toast.makeText(this, "로그인 성공",
                             Toast.LENGTH_SHORT).show()
                         val intent = Intent(this, MainActivity::class.java)
