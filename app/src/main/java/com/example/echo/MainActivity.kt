@@ -14,6 +14,7 @@ import com.example.echo.auth.IntroActivity
 import com.example.echo.board.BoardFragment
 import com.example.echo.group.GroupFragment
 import com.example.echo.myPage.MyPageFragment
+import com.example.echo.path.MapFragment
 import com.example.echo.path.PathFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.ktx.Firebase
@@ -89,7 +90,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.tab1 -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.flMain,
-                        PathFragment()
+                        MapFragment()
                     ).commit()
                 }
 
