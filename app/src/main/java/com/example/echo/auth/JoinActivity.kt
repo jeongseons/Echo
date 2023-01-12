@@ -1,13 +1,12 @@
 package com.example.echo.auth
 
 import android.content.ContentValues
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.RadioButton
+import android.widget.*
+import com.example.echo.MainActivity
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
 import com.kakao.sdk.user.UserApiClient
@@ -44,6 +43,10 @@ class JoinActivity : AppCompatActivity() {
 
             var user = UserVO(user_id, user_nick, user_birthdate, user_profile_img, user_gender)
 
+            Toast.makeText(this, "환영합니다",
+                Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
 
     }
@@ -54,6 +57,7 @@ class JoinActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>
             ) {
                 Log.d("외않되", "가입성공")
+
             }
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Log.d("외않되", t.localizedMessage)
