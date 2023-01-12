@@ -10,12 +10,20 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface API {
+    //스프링 연결 확인용
     @GET("api/hello")
     fun getHello(): Call<ResponseBody>
 
+    //회원가입
     @POST("api/join")
     fun userJoin(
         @Body user : UserVO
+    ): Call<ResponseBody>
+
+    //로그인체크
+    @POST("api/login")
+    fun userLogin(
+        @Field("user_id") user_id: String
     ): Call<ResponseBody>
 
     @POST("api/addgroup") //

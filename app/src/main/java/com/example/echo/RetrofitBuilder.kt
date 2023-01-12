@@ -9,7 +9,7 @@ object RetrofitBuilder {
     var gson = GsonBuilder().setLenient().create()
     init {
         var retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8090/echo/")
+            .baseUrl("http://10.0.2.2:8099/echo/")
 //            .baseUrl("https://9ea6-121-147-0-214.jp.ngrok.io/echo/")
 //            .baseUrl("http://localhost:8090/echo/")
             .addConverterFactory(GsonConverterFactory.create(gson))

@@ -53,6 +53,7 @@
         android:id="@+id/rdoUserGender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="onRadioButtonClicked"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/etUserBirthdate"
         app:layout_constraintTop_toBottomOf="@+id/etUserBirthdate">

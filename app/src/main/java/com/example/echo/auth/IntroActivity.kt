@@ -31,12 +31,14 @@ class IntroActivity : AppCompatActivity() {
         imgKakaoLogin.setOnClickListener {
             KakaoSdk.init(this, "f5b248e1f5c7496e71b711e2650daf28")
 
-// 이메일 로그인 콜백
+        // 이메일 로그인 콜백
             val mCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
                 if (error != null) {
                     Log.e(TAG, "로그인 실패 $error")
                 } else if (token != null) {
                     Log.e(TAG, "로그인 성공 ${token.accessToken}")
+
+
                     Toast.makeText(this, "로그인 성공",
                         Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, JoinActivity::class.java)
@@ -44,7 +46,7 @@ class IntroActivity : AppCompatActivity() {
                 }
             }
 
-// 카카오톡 설치 확인
+        // 카카오톡 설치 확인
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
                 // 카카오톡 로그인
                 UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
@@ -94,6 +96,8 @@ class IntroActivity : AppCompatActivity() {
             }
 
         }
+
+        // 기 회원가입 체크
 
 
 
