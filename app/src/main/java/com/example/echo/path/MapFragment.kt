@@ -57,7 +57,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     fun getLocation() {
-        googleMap.setLocationSource()
+//        googleMap?.setLocationSource(LocationSource)
     }
 
     override fun onStart() {
