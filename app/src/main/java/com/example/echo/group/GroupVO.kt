@@ -1,16 +1,19 @@
 package com.example.echo.group
 
+import java.util.Date
+
 //가입한 그룹리스트 띄우기용 모델
 data class GroupVO(var group_seq:Int, var group_profile_img:String, var group_auth:String,
                    var group_name:String, var user_max:Int, var group_current:Int
                    ) {
 }
 
+//그룹 생성용 모델
 data class NewGroupVO(val group_owner_id : String,
-                      val group_profile_img:Int,
+                      val group_profile_img:String,
                       val group_name : String,
                       val group_area : String,
-                      val user_max : String,
+                      val user_max : Int,
                       val group_age : String,
                       val group_level : String,
                       val group_dt : String,
