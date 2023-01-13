@@ -164,7 +164,11 @@ class AddGroupActivity : AppCompatActivity() {
 
             //날짜 선택창 띄우는 부분
             val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                dateString = "${year}-${month+1}-${dayOfMonth} "
+                if(month>10){
+                    dateString = "${year}-${month+1}-${dayOfMonth} "
+                }else{
+                    dateString = "${year}-0${month+1}-${dayOfMonth} "
+                }
 
             }
             DatePickerDialog(this, dateSetListener, year, month, day).show()
@@ -210,6 +214,7 @@ class AddGroupActivity : AppCompatActivity() {
             //산행 분류 선택
             var type = ""
 
+
             if(ckAddGroupType1.isChecked){
                 type="등산"
                 if(ckAddGroupType1.isChecked&&ckAddGroupType2.isChecked){
@@ -252,7 +257,11 @@ class AddGroupActivity : AppCompatActivity() {
                 addGroup(newGroup)
             }
 
-        }//모임 생성
+
+
+        }
+
+
 
     }//onCreate 바깥
 
