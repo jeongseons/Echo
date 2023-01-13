@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
+
     <application
         android:name=".utils.GlobalApplication"
         android:allowBackup="true"
@@ -26,6 +27,13 @@
 
         <activity
             android:name=".board.BoardWrite"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".group.AddGroupActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

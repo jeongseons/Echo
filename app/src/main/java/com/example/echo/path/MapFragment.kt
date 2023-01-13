@@ -55,7 +55,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val view = inflater.inflate(R.layout.fragment_map, container, false)
 
         imgMapRecordStart = view.findViewById(R.id.imgMapRecordStart)
-        val imgMapCurrentLocation = view.findViewById<ImageView>(R.id.imgMapCurrentLocation)
+//        val imgMapCurrentLocation = view.findViewById<ImageView>(R.id.imgMapCurrentLocation)
 
 
         mView = view.findViewById(R.id.map) as MapView
@@ -86,10 +86,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 //            Log.d("산행중 gps값 받아오기","${mLatitude},${mLongitude}")
         }
 
-        imgMapCurrentLocation.setOnClickListener {
-            googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 19F))
-            googleMap?.moveCamera(CameraUpdateFactory.newLatLng(myLocation))
-        }
+//        imgMapCurrentLocation.setOnClickListener {
+//            googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 19F))
+//            googleMap?.moveCamera(CameraUpdateFactory.newLatLng(myLocation))
+//        }
 
                 return view
 
