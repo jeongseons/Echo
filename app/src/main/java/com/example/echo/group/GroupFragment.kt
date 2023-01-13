@@ -28,7 +28,7 @@ import java.security.acl.Group
 class GroupFragment : Fragment() {
 
     lateinit var adapter: GroupListAdapter
-    lateinit var id: String
+    var id: String = ""
 
     var groupList = ArrayList<GroupVO>()
 
@@ -43,17 +43,16 @@ class GroupFragment : Fragment() {
         val btnEnterGroup = view.findViewById<Button>(R.id.btnEnterGroup)
 
 
-//        UserApiClient.instance.me { user, error ->
-//            if (error != null) {
-//                Log.e(ContentValues.TAG, "사용자 정보 요청 실패", error)
-//            }
-//            else if (user != null) {
-//                id = user.id.toString()
-//            }
-//        }
-        //임의 id값. - 나중에 지우기
-        id = "2615514467"
-        GetGroup(id)
+        UserApiClient.instance.me { user, error ->
+            if (error != null) {
+                Log.e(ContentValues.TAG, "사용자 정보 요청 실패", error)
+            }
+            else if (user != null) {
+                id = user.id.toString()
+                Log.d("id",id )
+                GetGroup(id)
+            }
+        }
 
 
         adapter = GroupListAdapter(requireContext(), groupList)
@@ -75,7 +74,7 @@ class GroupFragment : Fragment() {
         call.enqueue(object : Callback<List<GroupVO>> {
             override fun onResponse(call: Call<List<GroupVO>>, response: Response<List<GroupVO>>) {
                 if (response.isSuccessful) {//성공
-                    Log.d("asd",response.body().toString())
+                    Log.d("rty",response.body().toString())
                     if(response.body()?.size!=0) {//가입한 그룹이 있을 때
                         for (i: Int in 0 until response.body()!!.size) {
                             //그룹리스트 정보 담아줌.

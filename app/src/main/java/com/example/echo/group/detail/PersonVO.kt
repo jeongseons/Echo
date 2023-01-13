@@ -1,5 +1,5 @@
 package com.example.echo.group.detail
 
-data class PersonVO(var profile:Int, var auth:Boolean, var nick:String
+data class PersonVO(var user_profile_img:String, var group_auth:String, var user_nick:String
 ) {
 }

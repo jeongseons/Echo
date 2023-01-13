@@ -27,8 +27,13 @@ interface API {
         @Query("user_id") id : String
     ): Call<List<GroupVO>>
 
+    @GET("api/personlist") //가입한 그룹의 회원들을 가져온다.
+    fun getPerson(
+        @Query("group_seq") seq : Int
+    ): Call<List<PersonVO>>
+
     @GET("api/dropuser")
     fun dropUser(
-//        @Path nick : String
+        @Query("user_nick") nick : String
     ): Call<ResponseBody>
 }

@@ -35,8 +35,8 @@ class PersonAdapter(val context: Context, val personlist: ArrayList<PersonVO>, v
             imgPersonKing = itemView.findViewById(R.id.imgPersonKing)
             imgPersonPro = itemView.findViewById(R.id.imgPersonPro)
         tvPersonAuth.setOnClickListener { //강퇴하기
-            if(!personlist[adapterPosition].auth) {
-                onClickAlert(personlist[adapterPosition].nick.toString())
+            if(personlist[adapterPosition].group_auth!="y") {
+                onClickAlert(personlist[adapterPosition].user_nick)
             }
         }
 
@@ -50,14 +50,13 @@ class PersonAdapter(val context: Context, val personlist: ArrayList<PersonVO>, v
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvPersonNick.setText(personlist[position].nick)
-        holder.imgPersonPro.setImageResource(personlist[position].profile)//
-        if(!personlist[position].auth){
+        holder.tvPersonNick.setText(personlist[position].user_nick)
+        holder.imgPersonPro.setImageResource(R.drawable.p1)//
+        if(personlist[position].group_auth!="y"){
             holder.imgPersonKing.isVisible = false
         }else{
             holder.tvPersonAuth.text = "그룹장"
         }
-
     }
 
     override fun getItemCount(): Int {
@@ -69,7 +68,7 @@ class PersonAdapter(val context: Context, val personlist: ArrayList<PersonVO>, v
             .setMessage("${nick}님을 정말 강퇴할까요?")
             .setPositiveButton(
                 "강퇴"
-            ) { dialogInterface, i -> dropUser() }
+            ) { dialogInterface, i -> dropUser(nick) }
             .setNegativeButton(
                 "취소"
             ) { dialogInterface, i ->
@@ -80,11 +79,12 @@ class PersonAdapter(val context: Context, val personlist: ArrayList<PersonVO>, v
         msgDlg.show()
     }
 
-    fun dropUser(){
-        val call = RetrofitBuilder.api.dropUser()
+    fun dropUser(nick:String){
+        val call = RetrofitBuilder.api.dropUser(nick)
         call.enqueue(object : Callback<ResponseBody>{
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if(response.isSuccessful){
+                    Log.d("드랍 실행", response.body().toString())
                     val intent = (context as Activity).intent
                     context.finish() //현재 액티비티 종료 실시
                     context.overridePendingTransition(0, 0) //효과 없애기

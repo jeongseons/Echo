@@ -30,6 +30,7 @@ RecyclerView.Adapter<GroupListAdapter.ViewHolder>(){
             itemView.setOnClickListener{
                 val intent = Intent(context, GroupActivity :: class.java)
                 intent.putExtra("title", grouplist[adapterPosition].group_name)
+                intent.putExtra("num", grouplist[adapterPosition].group_seq)
                 context.startActivity(intent)
             }
         }
