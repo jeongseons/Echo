@@ -6,6 +6,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.Response
 import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 
@@ -23,7 +24,7 @@ interface API {
     //로그인체크
     @POST("api/login")
     fun userLogin(
-        @Field("user_id") user_id: String
+        @Body user_id: String
     ): Call<ResponseBody>
 
     @POST("api/addgroup") //

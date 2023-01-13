@@ -59,6 +59,8 @@ class MainActivity : AppCompatActivity() {
 
         tvLogout.setOnClickListener {
             kakaoLogout()
+
+
             val intent = Intent(this, IntroActivity::class.java)
             startActivity(intent)
         }
@@ -142,7 +144,7 @@ class MainActivity : AppCompatActivity() {
 
     fun kakaoLogout() {
         // 로그아웃
-        UserApiClient.instance.logout { error ->
+        UserApiClient.instance.unlink { error ->
             if (error != null) {
                 Log.e("Hello", "로그아웃 실패. SDK에서 토큰 삭제됨", error)
             } else {

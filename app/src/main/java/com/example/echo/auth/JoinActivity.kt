@@ -27,12 +27,24 @@ class JoinActivity : AppCompatActivity() {
         var etUserNick = findViewById<EditText>(R.id.etUserNick)
         var etUserBirthdate =  findViewById<EditText>(R.id.etUserBirthdate)
         var imgUserProfile = findViewById<ImageView>(R.id.imgUserProfile)
-
-//        var rdoUserGender = findViewById<RadioGroup>(R.id.rdoUserGender)
-//        var rdoJoinFemale = findViewById<RadioButton>(R.id.rdoJoinFemale)
-//        var rdoJoinMale = findViewById<RadioButton>(R.id.rdoJoinMale)
+        var rdoUserGender = findViewById<RadioGroup>(R.id.rdoUserGender)
 
         var btnUserJoin = findViewById<Button>(R.id.btnUserJoin)
+
+        rdoUserGender.setOnCheckedChangeListener { _, checkedId ->
+            Log.d(" ", "RadioButton is Clicked")
+            when (checkedId) {
+                R.id.rdoJoinFemale -> {
+                    user_gender = "여"
+                }
+                R.id.rdoJoinMale -> {
+                    user_gender = "남"
+                }
+            }
+        }
+
+
+
 
         UserApiClient.instance.me { user, error ->
             user_id = user?.id.toString()
@@ -88,5 +100,7 @@ class JoinActivity : AppCompatActivity() {
                     }
             }
         }
+        Log.d("외않되", user_gender)
+
     }
 }
