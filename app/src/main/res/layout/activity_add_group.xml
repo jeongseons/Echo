@@ -68,6 +68,7 @@
                 android:id="@+id/spAddGroupMax"
                 android:layout_width="150dp"
                 android:layout_height="0dp"
+                android:entries="@array/max"
                 app:layout_constraintBottom_toBottomOf="@+id/textView13"
                 app:layout_constraintEnd_toEndOf="@+id/etAddGroupName" />
 
@@ -155,6 +156,7 @@
                 android:id="@+id/spAddGroupAge"
                 android:layout_width="150dp"
                 android:layout_height="0dp"
+                android:entries="@array/max"
                 app:layout_constraintBottom_toBottomOf="@+id/textView25"
                 app:layout_constraintEnd_toEndOf="@+id/spAddGroupGender"
                 app:layout_constraintTop_toTopOf="@+id/textView25" />

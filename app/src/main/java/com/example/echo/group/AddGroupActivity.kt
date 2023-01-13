@@ -10,7 +10,13 @@ import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.app.AppCompatActivity
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
+import okhttp3.ResponseBody
+import org.apache.commons.lang3.math.NumberUtils.toInt
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.Calendar
+import java.util.Date
 
 
 class AddGroupActivity : AppCompatActivity() {
@@ -63,6 +69,19 @@ class AddGroupActivity : AppCompatActivity() {
         var agree = true
         //세부일정 공백 체크
         var detailCk = false
+
+        var name:String
+        var date:String
+        var detail:String
+        //스피너 값 변수에 저장
+        var age:String
+        var area:String
+        var max :Int
+        var gender:String
+        var lev:String
+        //산행 분류 선택
+        var type:String
+
 
 
 
@@ -179,16 +198,15 @@ class AddGroupActivity : AppCompatActivity() {
         //모임 생성 버튼을 클릭했을 때
         btnAddGroupAdd.setOnClickListener{
             //사용자 입력값 저장
-            val name = etAddGroupName.text.toString()
-            val date = tvAddGroupDate.text.toString()
-            val detail = mtAddGroupDetailDate.text.toString()
+            name = etAddGroupName.text.toString()
+            date = tvAddGroupDate.text.toString()
+            detail = mtAddGroupDetailDate.text.toString()
             //스피너 값 변수에 저장
-            val age = spAddGroupAge.selectedItem.toString()
-            val area = spAddGroupArea.selectedItem.toString()
-            val max = spAddGroupMax.selectedItem.toString()
-            val gender = spAddGroupGender.selectedItem.toString()
-            val lev = spAddGroupLevel.selectedItem.toString()
-
+            age = spAddGroupAge.selectedItem.toString()
+            area = spAddGroupArea.selectedItem.toString()
+            max = toInt(spAddGroupMax.selectedItem.toString())
+            gender = spAddGroupGender.selectedItem.toString()
+            lev = spAddGroupLevel.selectedItem.toString()
             //산행 분류 선택
             var type = ""
 
@@ -227,16 +245,12 @@ class AddGroupActivity : AppCompatActivity() {
             //조건 만족 시 그룹 생성
             if(agree==true&&nameCk==true&&detailCk==true){
                 //New 그룹 VO에 값 담기
-                val newGroup = NewGroupVO("allmonde1994@gmail.com",
-                    R.drawable.echo,name,area,max,age,lev,date,
+                val newGroup = NewGroupVO(intent.getStringExtra("user")!!,
+                    "1234",name,area,max,age,lev,date,
                     swAddGroupYn.isChecked,gender,type,detail)
 
                 Log.d("값확인VO",newGroup.toString())
-            }
-
-            //데이터 베이스로 전송
-            fun addGroup(group:GroupVO){
-                val call = RetrofitBuilder.api
+                addGroup(newGroup)
             }
 
 
@@ -247,7 +261,20 @@ class AddGroupActivity : AppCompatActivity() {
 
     }//onCreate 바깥
 
-
+    //그룹 추가 - 스프링 통신
+    fun addGroup(group:NewGroupVO){
+        val call = RetrofitBuilder.api.addGroup(group)
+        call.enqueue(object : Callback<ResponseBody>{
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                Log.d("확인",response.body().toString())
+                Toast.makeText(this@AddGroupActivity,"모임이 생성되었습니다.",Toast.LENGTH_LONG)
+            }
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Toast.makeText(this@AddGroupActivity,"가입한 모임이 없습니다!",Toast.LENGTH_LONG)
+                Log.d("저장실패", t.localizedMessage)
+            }
+        })
+    }
 
 
 }
