@@ -6,68 +6,76 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/tvBoardTitle"
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="타이틀"
-        android:textSize="20sp"
+        android:text="지난 주말 설악산에 다녀왔습니다"
+        android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvBoardDate"
+        android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="작성일자"
-        app:layout_constraintStart_toStartOf="@+id/tvBoardTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvBoardTitle" />
+        android:layout_marginTop="4dp"
+        android:text="2023-01-07"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="글쓴이 :"
-        app:layout_constraintStart_toStartOf="@+id/tvBoardDate"
-        app:layout_constraintTop_toBottomOf="@+id/tvBoardDate" />
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"
+        android:text="글쓴이"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <TextView
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="누리"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"
+        android:text="정서니"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView14"
-        app:layout_constraintTop_toBottomOf="@+id/tvBoardDate" />
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toEndOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:srcCompat="@drawable/ic_baseline_recommend_24" />
 
     <TextView
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:text="좋아요수"
-        app:layout_constraintBottom_toTopOf="@+id/textView14"
-        app:layout_constraintStart_toEndOf="@+id/tvBoardDate"
-        app:layout_constraintTop_toBottomOf="@+id/tvBoardTitle" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:text="10"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:id="@+id/imageView5"
+        android:layout_width="71dp"
+        android:layout_height="66dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="600dp"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="-35dp"
-        tools:layout_editor_absoluteY="-3dp" />
+        app:srcCompat="@android:drawable/ic_menu_report_image" />
 </androidx.constraintlayout.widget.ConstraintLayout>
