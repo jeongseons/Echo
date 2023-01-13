@@ -5,3 +5,20 @@ data class GroupVO(var group_seq:Int, var group_profile_img:String, var group_au
                    var group_name:String, var user_max:Int, var group_current:Int
                    ) {
 }
+
+data class NewGroupVO(val group_owner_id : String,
+                      val group_profile_img:Int,
+                      val group_name : String,
+                      val group_area : String,
+                      val user_max : String,
+                      val group_age : String,
+                      val group_level : String,
+                      val group_dt : String,
+                      val group_yn : Boolean,
+                      val group_gender : String,
+                      val group_type : String,
+                      val group_detail : String){
+
+}
+
+
