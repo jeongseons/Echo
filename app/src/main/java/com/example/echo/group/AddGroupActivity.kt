@@ -164,7 +164,11 @@ class AddGroupActivity : AppCompatActivity() {
 
             //날짜 선택창 띄우는 부분
             val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                dateString = "${year}-${month+1}-${dayOfMonth} "
+                if(month>10){
+                    dateString = "${year}-${month+1}-${dayOfMonth} "
+                }else{
+                    dateString = "${year}-0${month+1}-${dayOfMonth} "
+                }
 
             }
             DatePickerDialog(this, dateSetListener, year, month, day).show()
