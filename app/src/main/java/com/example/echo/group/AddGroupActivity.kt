@@ -240,18 +240,8 @@ class AddGroupActivity : AppCompatActivity() {
             }
 
 
-            
-
 
         }
-
-
-
-
-
-
-
-
 
 
 

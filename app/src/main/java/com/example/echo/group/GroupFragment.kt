@@ -1,6 +1,5 @@
 package com.example.echo.group
 
-import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
@@ -55,6 +54,11 @@ class GroupFragment : Fragment() {
         id = "2615514467"
         GetGroup(id)
 
+        btnAddGroup.setOnClickListener {
+            val intent = Intent(context, AddGroupActivity::class.java)
+            intent.putExtra("user", id)
+            startActivity(intent)
+        }
 
         adapter = GroupListAdapter(requireContext(), groupList)
         //어댑터 리스트로 띄워졌을때 해당 액티비티로 이동해야함.

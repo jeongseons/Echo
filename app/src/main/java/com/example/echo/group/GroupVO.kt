@@ -6,6 +6,7 @@ data class GroupVO(var group_seq:Int, var group_profile_img:String, var group_au
                    ) {
 }
 
+//새로운 모임 생성용 모델
 data class NewGroupVO(val group_owner_id : String,
                       val group_profile_img:Int,
                       val group_name : String,
@@ -20,5 +21,6 @@ data class NewGroupVO(val group_owner_id : String,
                       val group_detail : String){
 
 }
+
 
 
