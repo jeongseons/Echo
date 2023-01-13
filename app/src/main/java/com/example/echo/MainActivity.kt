@@ -36,6 +36,9 @@ class MainActivity : AppCompatActivity() {
         val flMain = findViewById<FrameLayout>(R.id.flMain)
         val bnvMain = findViewById<BottomNavigationView>(R.id.bnvMain)
         val tvLogout = findViewById<TextView>(R.id.tvLogout)
+        
+        //하단 메뉴바 아이콘 색상 틴트 빼기
+        bnvMain.setItemIconTintList(null);
 
         var keyHash = Utility.getKeyHash(this)
         Log.d("key", keyHash)

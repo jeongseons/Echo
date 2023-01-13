@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="지역">
+    <string-array name="area">
         <item>서울특별시</item>
         <item>경기도</item>
         <item>강원도</item>
