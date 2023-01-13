@@ -92,19 +92,18 @@ class IntroActivity : AppCompatActivity() {
 
                         userLogin(user_id)
 
-                        if (joinCk == true) {
+                        if (joinCk) {
                             Toast.makeText(
                                 this, "로그인 성공",
                                 Toast.LENGTH_SHORT
                             ).show()
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
+                        }else{
+                            val intent = Intent(this, JoinActivity::class.java)
+                            startActivity(intent)
                         }
-                    }else{
-                        val intent = Intent(this, JoinActivity::class.java)
-                        startActivity(intent)
                     }
-
                 }
             } else {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = mCallback) // 카카오 이메일 로그인
@@ -128,17 +127,17 @@ class IntroActivity : AppCompatActivity() {
 
             userLogin(user_id)
 
-            if (joinCk == true) {
+            if (joinCk) {
                 Toast.makeText(
                     this, "로그인 성공",
                     Toast.LENGTH_SHORT
                 ).show()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
+            }else{
+                val intent = Intent(this, JoinActivity::class.java)
+                startActivity(intent)
             }
-        }else{
-            val intent = Intent(this, JoinActivity::class.java)
-            startActivity(intent)
         }
     }
 
@@ -148,16 +147,14 @@ class IntroActivity : AppCompatActivity() {
         val call2 = RetrofitBuilder.userAPI.userLogin(user_id)
         call2.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if(response.body().toString()!=null){
-                    Log.d("스프링login리스폰스", response.body().toString())
+                Log.d("스프링login리스폰스", response.body().toString())
+                var body = response.body()?.string()
+                if(body!!.length >2){
                     joinCk = true
-                    var body = response.body()?.string()
                     Log.d("스프링login리스폰스", "${response.body()}")
                     Log.d("스프링login리스폰스", "$body")
-
-
                 }
-                }
+            }
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Log.d("외않되", t.localizedMessage)
 

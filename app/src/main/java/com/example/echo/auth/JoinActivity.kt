@@ -26,6 +26,7 @@ class JoinActivity : AppCompatActivity() {
 
     var user_gender = ""
     var user_id = ""
+    var isJoinSuccess = ""
     lateinit var imgJoinUserProfile: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,38 +73,99 @@ class JoinActivity : AppCompatActivity() {
         btnUserJoin.setOnClickListener {
             var isJoin = true //회원가입 조건 체크
 
-
             imgUpload(user_id)
             var user_nick = etJoinUserNick.text.toString()
             var user_birthdate = etJoinUserBirth.text.toString()
-            var user_profile_img = Firebase.storage.reference.child("$user_id.png").downloadUrl.toString()
+            var user_profile_img = "https://firebasestorage.googleapis.com/v0/b/echo-73cf6.appspot.com/o/${user_id}.png?alt=media"
             Log.d("프로필",user_profile_img)
 
-            var user = UserVO(user_id, user_nick, user_birthdate, user_profile_img, user_gender)
+            if(user_nick.isEmpty()){
+                isJoin = false
+                Toast.makeText(this,"닉네임을 입력해주세요",Toast.LENGTH_SHORT).show()
 
-            userJoin(user)
-            imgUpload(user_id)
+            }
+            if(user_birthdate.isEmpty()){
+                isJoin = false
+                Toast.makeText(this,"생일을 입력해주세요",Toast.LENGTH_SHORT).show()
+            }
+            if(user_gender.isEmpty()){
+                isJoin = false
+                Toast.makeText(this,"성별을 선택해주세요",Toast.LENGTH_SHORT).show()
+            }
+            if(user_birthdate.length != 8){
+                isJoin = false
+                Toast.makeText(this,"생일을 20020101 형식으로 입력해주세요",Toast.LENGTH_SHORT).show()
+            }
 
-            Toast.makeText(this, "${user_nick}님 환영합니다",
-                Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            if(isJoin) {
+                var user = UserVO(user_id, user_nick, user_birthdate, user_profile_img, user_gender)
+
+                    val call = RetrofitBuilder.api.userJoin(user)
+                    call.enqueue(object : Callback<ResponseBody> {
+                        override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>
+                        ) {
+                            isJoinSuccess = response.body()!!.string()
+                            Log.d("test-isJoin", isJoinSuccess)
+
+                            if(isJoinSuccess=="success") {
+                                Toast.makeText(
+                                    this@JoinActivity, "${user_nick}님 환영합니다",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                val intent = Intent(this@JoinActivity, MainActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }else {
+                                Toast.makeText(
+                                    this@JoinActivity, "가입에 실패했습니다 다시 시도해주세요",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+
+                        }
+                        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                            Log.d("test-가입실패", t.localizedMessage)
+                        }
+                    })
+
+//                if(isJoinSuccess=="success") {
+//                    Toast.makeText(
+//                        this, "${user_nick}님 환영합니다",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                    val intent = Intent(this, MainActivity::class.java)
+//                    startActivity(intent)
+//                    finish()
+//                }else {
+//                    Toast.makeText(
+//                        this, "가입에 실패했습니다 다시 시도해주세요",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+
+            }
         }
 
     }
 
-    fun userJoin(user : UserVO) {
-        val call = RetrofitBuilder.api.userJoin(user)
-        call.enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>
-            ) {
-                Log.d("test-가입성공", response.body()!!.string())
-            }
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Log.d("test-가입실패", t.localizedMessage)
-            }
-        })
-}
+//    fun userJoin(user : UserVO) {
+//        val call = RetrofitBuilder.api.userJoin(user)
+//        call.enqueue(object : Callback<ResponseBody> {
+//            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>
+//            ) {
+//                var joinCk = response.body()!!.string()
+//                if(joinCk=="success"){
+//                    isJoinSuccess = true
+//                }
+//                Log.d("test-가입성공", joinCk)
+//                Log.d("test-isJoin", isJoinSuccess.toString())
+//
+//            }
+//            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+//                Log.d("test-가입실패", t.localizedMessage)
+//            }
+//        })
+//}
 
     // 프로필 이미지 업로드
     fun imgUpload(key:String){

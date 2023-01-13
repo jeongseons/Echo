@@ -14,7 +14,7 @@ class SplashActivity : AppCompatActivity() {
 
         // postDelayed ({실행할 코드},지연시간)
         Handler().postDelayed({//
-            val intent = Intent(this@SplashActivity, JoinActivity::class.java)
+            val intent = Intent(this@SplashActivity, IntroActivity::class.java)
             startActivity(intent)
         },2000)
 
