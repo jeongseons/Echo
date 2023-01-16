@@ -4,7 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isGone
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.echo.R
 import com.example.echo.group.GroupListAdapter
@@ -16,9 +20,14 @@ class DetailDateAdapter(val context: Context, val dateList:ArrayList<NewDateVO>)
 
         val tvGroupDateDate : TextView
         val tvGroupDateDetail : TextView
+        val imgDropDate : ImageView
+        val tvGroupDateText : TextView
         init {
             tvGroupDateDate = itemView.findViewById(R.id.tvGroupDateDate)
             tvGroupDateDetail = itemView.findViewById(R.id.tvGroupDateDetail)
+            imgDropDate = itemView.findViewById(R.id.imgDropDate)
+            tvGroupDateText = itemView.findViewById(R.id.tvGroupDateText)
+
         }
 
     }
@@ -32,6 +41,25 @@ class DetailDateAdapter(val context: Context, val dateList:ArrayList<NewDateVO>)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvGroupDateDate.text = dateList[position].group_dt
         holder.tvGroupDateDetail.text = dateList[position].group_detail
+
+        holder.imgDropDate.tag = false
+        holder.tvGroupDateText.visibility=View.GONE
+        holder.tvGroupDateDetail.visibility=View.GONE
+
+
+        holder.imgDropDate.setOnClickListener{
+            if(holder.imgDropDate.tag == true){
+                holder.imgDropDate.setImageResource(R.drawable.ic_drop_up)
+                holder.tvGroupDateText.visibility=View.GONE
+                holder.tvGroupDateDetail.visibility=View.GONE
+                holder.imgDropDate.tag = false
+            }else{
+                holder.imgDropDate.setImageResource(R.drawable.ic_drop_down)
+                holder.tvGroupDateText.visibility=View.VISIBLE
+                holder.tvGroupDateDetail.visibility=View.VISIBLE
+                holder.imgDropDate.tag = true
+            }
+        }
 
     }
 

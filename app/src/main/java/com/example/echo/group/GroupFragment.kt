@@ -4,25 +4,22 @@ import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.echo.R
-import com.example.echo.ResponseDTO
 import com.example.echo.RetrofitBuilder
-import com.example.echo.group.detail.PersonVO
 import com.kakao.sdk.user.UserApiClient
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.security.acl.Group
 
 class GroupFragment : Fragment() {
 
@@ -30,6 +27,15 @@ class GroupFragment : Fragment() {
     var id: String = ""
 
     var groupList = ArrayList<GroupVO>()
+    override fun onResume() {
+        super.onResume()
+        
+
+        GetGroup(id)
+        Log.d("값생명주기","옴")
+        Log.d("값생명아이디",id)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +46,7 @@ class GroupFragment : Fragment() {
         val rvGroupList = view.findViewById<RecyclerView>(R.id.rvGroupList)
         val btnAddGroup = view.findViewById<Button>(R.id.btnAddGroup)
         val btnEnterGroup = view.findViewById<Button>(R.id.btnEnterGroup)
+
 
 
         UserApiClient.instance.me { user, error ->
@@ -63,6 +70,7 @@ class GroupFragment : Fragment() {
         //어댑터 리스트로 띄워졌을때 해당 액티비티로 이동해야함.
         rvGroupList.adapter = adapter
         rvGroupList.layoutManager = LinearLayoutManager(requireContext())
+
 
         btnAddGroup.setOnClickListener {
             val intent = Intent(context, AddGroupActivity::class.java)
@@ -109,4 +117,6 @@ class GroupFragment : Fragment() {
 
         })
     }
+
+
 }
