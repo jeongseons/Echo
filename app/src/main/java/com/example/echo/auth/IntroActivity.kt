@@ -92,17 +92,18 @@ class IntroActivity : AppCompatActivity() {
 
                         userLogin(user_id)
 
-                        if (joinCk) {
-                            Toast.makeText(
-                                this, "로그인 성공",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            val intent = Intent(this, MainActivity::class.java)
-                            startActivity(intent)
-                        }else{
-                            val intent = Intent(this, JoinActivity::class.java)
-                            startActivity(intent)
-                        }
+//                        if (joinCk) {
+//                            Toast.makeText(
+//                                this, "로그인 성공",
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+//                            val intent = Intent(this, MainActivity::class.java)
+//                            startActivity(intent)
+//                        }else{
+//                            val intent = Intent(this, JoinActivity::class.java)
+//                            startActivity(intent)
+//                        }
+
                     }
                 }
             } else {
@@ -127,17 +128,6 @@ class IntroActivity : AppCompatActivity() {
 
             userLogin(user_id)
 
-            if (joinCk) {
-                Toast.makeText(
-                    this, "로그인 성공",
-                    Toast.LENGTH_SHORT
-                ).show()
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-            }else{
-                val intent = Intent(this, JoinActivity::class.java)
-                startActivity(intent)
-            }
         }
     }
 
@@ -154,6 +144,19 @@ class IntroActivity : AppCompatActivity() {
                     Log.d("스프링login리스폰스", "${response.body()}")
                     Log.d("스프링login리스폰스", "$body")
                 }
+
+                if (joinCk) {
+                    Toast.makeText(
+                        this@IntroActivity, "로그인 성공",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val intent = Intent(this@IntroActivity, MainActivity::class.java)
+                    startActivity(intent)
+                }else{
+                    val intent = Intent(this@IntroActivity, JoinActivity::class.java)
+                    startActivity(intent)
+                }
+
             }
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Log.d("외않되", t.localizedMessage)

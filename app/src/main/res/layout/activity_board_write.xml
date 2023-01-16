@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".board.BoardWrite">
+    tools:context=".board.BoardWriteActivity">
 
     <TextView
         android:id="@+id/textView19"
@@ -13,8 +13,8 @@
         android:layout_marginTop="16dp"
         android:text="내용"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintStart_toStartOf="@+id/etBoardWriteTitle"
+        app:layout_constraintTop_toBottomOf="@+id/etBoardWriteTitle" />
 
     <TextView
         android:id="@+id/textView17"
@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/etBoardWriteTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -49,32 +49,32 @@
         android:ems="10"
         android:hint="내용을 입력해주세요"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/etBoardWriteTitle"
         app:layout_constraintStart_toStartOf="@+id/textView19"
         app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
     <Button
-        android:id="@+id/btnBoardWriteCourseAdd"
+        android:id="@+id/btnBoardWriteCourse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:text="경로추가"
-        app:layout_constraintBottom_toBottomOf="@+id/btnBoardWritePicAdd"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintBottom_toBottomOf="@+id/btnBoardWritePic"
+        app:layout_constraintStart_toStartOf="@+id/imgBoardWritePic"
+        app:layout_constraintTop_toBottomOf="@+id/imgBoardWritePic"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/btnBoardWritePicAdd"
+        android:id="@+id/btnBoardWritePic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="사진추가"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintStart_toEndOf="@+id/btnBoardWriteCourseAdd"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintEnd_toEndOf="@+id/imgBoardWritePic"
+        app:layout_constraintStart_toEndOf="@+id/btnBoardWriteCourse"
+        app:layout_constraintTop_toBottomOf="@+id/imgBoardWritePic" />
 
     <Button
         android:id="@+id/btnBoardWrtePost"
@@ -84,7 +84,7 @@
         android:text="게시글 등록"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnBoardWriteCourseAdd" />
+        app:layout_constraintTop_toBottomOf="@+id/btnBoardWriteCourse" />
 
     <TextView
         android:id="@+id/textView18"
@@ -98,7 +98,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imgBoardWritePic"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="16dp"

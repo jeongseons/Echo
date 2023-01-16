@@ -26,7 +26,7 @@
 
 
         <activity
-            android:name=".board.BoardWrite"
+            android:name=".board.BoardWriteActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
