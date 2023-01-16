@@ -203,7 +203,7 @@ class AddGroupActivity : AppCompatActivity() {
         btnAddGroupAdd.setOnClickListener{
             //사용자 입력값 저장
             name = etAddGroupName.text.toString()
-            date = tvAddGroupDate.text.toString()
+            date = tvAddGroupDate.text.substring(0,16)
             detail = mtAddGroupDetailDate.text.toString()
             //스피너 값 변수에 저장
             age = spAddGroupAge.selectedItem.toString()

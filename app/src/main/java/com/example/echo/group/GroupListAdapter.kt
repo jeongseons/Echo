@@ -31,6 +31,7 @@ RecyclerView.Adapter<GroupListAdapter.ViewHolder>(){
                 val intent = Intent(context, GroupActivity :: class.java)
                 intent.putExtra("title", grouplist[adapterPosition].group_name)
                 intent.putExtra("num", grouplist[adapterPosition].group_seq)
+                intent.putExtra("auth",grouplist[adapterPosition].group_auth)
                 context.startActivity(intent)
             }
         }
@@ -46,7 +47,7 @@ RecyclerView.Adapter<GroupListAdapter.ViewHolder>(){
         holder.tvGroupTitle.setText(grouplist[position].group_name)
         holder.tvGroupPer.setText("(${grouplist[position].group_current}/${grouplist[position].user_max})")
         holder.imgGroupPro.setImageResource(R.drawable.p1)//
-        if(grouplist[position].group_auth!="n"){
+        if(grouplist[position].group_auth!="y"){
             holder.imgKingCk.isVisible = false
         }
     }

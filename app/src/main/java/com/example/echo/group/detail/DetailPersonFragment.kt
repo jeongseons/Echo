@@ -34,6 +34,7 @@ class DetailPersonFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_detail_person, container, false)
         val title = requireActivity().intent.getStringExtra("title")
         val seq = requireActivity().intent.getIntExtra("num", 0)
+        val auth = requireActivity().intent.getStringExtra("auth")
         val rvPersonList = view.findViewById<RecyclerView>(R.id.rvPersonList)
 
         Log.d("title확인", title.toString())
@@ -41,7 +42,7 @@ class DetailPersonFragment : Fragment() {
 
         GetPerson(seq)
 
-        adapter = PersonAdapter(requireContext(), personList, title!!)
+        adapter = PersonAdapter(requireContext(), personList, title!!, auth!!)
         //어댑터 리스트로 띄워졌을때 해당 액티비티로 이동해야함.
         rvPersonList.adapter = adapter
         rvPersonList.layoutManager = GridLayoutManager(requireContext(),3)
