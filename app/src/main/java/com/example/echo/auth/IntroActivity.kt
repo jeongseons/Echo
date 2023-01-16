@@ -88,9 +88,9 @@ class IntroActivity : AppCompatActivity() {
 
                         UserApiClient.instance.me { user, error ->
                             user_id = user?.id.toString()
+                            userLogin(user_id)
                         }
 
-                        userLogin(user_id)
 
 //                        if (joinCk) {
 //                            Toast.makeText(
@@ -124,9 +124,9 @@ class IntroActivity : AppCompatActivity() {
 
             UserApiClient.instance.me { user, error ->
                 user_id = user?.id.toString()
+                userLogin(user_id)
             }
 
-            userLogin(user_id)
 
         }
     }
