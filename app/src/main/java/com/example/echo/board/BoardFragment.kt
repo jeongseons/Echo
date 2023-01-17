@@ -1,21 +1,18 @@
 package com.example.echo.board
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.echo.MainActivity
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
-import com.example.echo.auth.JoinActivity
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,7 +43,6 @@ class BoardFragment : Fragment() {
         Log.d("text-create안게시글전부조회", boardList.toString())
 
         adapter = BoardListAdapter(requireContext(), boardList)
-
 
         // 각 게시글 클릭 이벤트 - 게시글 내부로 이동
         adapter.setOnItemClickListener(object : BoardListAdapter.OnItemClickListener {
@@ -89,14 +85,21 @@ class BoardFragment : Fragment() {
                 }
                 boardList.reverse()
                 adapter.notifyDataSetChanged()
+                Log.d("test-재조회여부", "yes")
             }
             override fun onFailure(call: Call<List<BoardListVO>>, t: Throwable) {
                 Log.d("text-게시글전부조회", t.localizedMessage)
 
             }
-
-
         })
+    }
+
+    fun refresh(){
+        val intent = (context as Activity).intent
+        (context as Activity).finish() //현재 액티비티 종료 실시
+        (context as Activity).overridePendingTransition(0, 0) //효과 없애기
+        (context as Activity).startActivity(intent) //현재 액티비티 재실행 실시
+        (context as Activity).overridePendingTransition(0, 0) //효과 없애기
     }
 
 }

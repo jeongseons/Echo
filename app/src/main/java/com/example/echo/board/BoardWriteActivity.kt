@@ -1,15 +1,17 @@
 package com.example.echo.board
 
+import android.app.FragmentTransaction
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import com.example.echo.MainActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.echo.RetrofitBuilder
 import com.example.echo.databinding.ActivityBoardWriteBinding
 import com.google.firebase.ktx.Firebase
@@ -57,6 +59,27 @@ class BoardWriteActivity : AppCompatActivity() {
 
         }
 
+        // 글 수정 경우
+        val modifyCk = intent.getStringExtra("modifyCk")
+//        if(modifyCk=="true"){
+//            val board_seq = intent.getStringExtra("boardVO")!!.toInt()
+//            val board_title = intent.getStringExtra("board_title")
+//            val board_content = intent.getStringExtra("board_content")
+//            val board_file = intent.getStringExtra("board_file")
+//            val user_nick = intent.getStringExtra("user_nick")
+//            var board_dt = intent.getStringExtra("board_dt")
+//            var user_id = intent.getStringExtra("user_id")
+//            var mnt_name = intent.getStringExtra("mnt_name")
+//            var board_reco_cnt = intent.getStringExtra("board_reco_cnt")
+//
+//            binding.etBoardWriteTitle.setText(board_title)
+//            binding.etBoardWrtieContent.setText(board_content)
+//            binding.etBoardWriteMnt.setText(mnt_name)
+//            Glide.with(this)
+//                .load(board_file)
+//                .into(binding.imgBoardWritePic) //지역변수
+//        }
+
     }
     val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         //받아올 결과값이 맞는지 확인 과정
@@ -101,14 +124,11 @@ class BoardWriteActivity : AppCompatActivity() {
                 ).show()
 
                 finish()
-
             }
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Log.d("test-가입실패", t.localizedMessage)
             }
         })
     }
-
-
 
 }

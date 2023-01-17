@@ -1,6 +1,7 @@
 package com.example.echo.board
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -71,7 +72,9 @@ class BoardDetailActivity : AppCompatActivity() {
 
         // 글 수정
         binding.tvBoardDetailModify.setOnClickListener {
-
+            val intent = Intent(this, BoardWriteActivity::class.java)
+            intent.putExtra("modifyCk","true")
+            startActivity(intent)
         }
 
         // 글 삭제
@@ -157,7 +160,6 @@ class BoardDetailActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     finish()
-
                 }else{
                     Toast.makeText(
                         this@BoardDetailActivity, "다시 시도해주세요",
@@ -202,7 +204,7 @@ class BoardDetailActivity : AppCompatActivity() {
                     this@BoardDetailActivity, "등록되었습니다",
                     Toast.LENGTH_SHORT
                 ).show()
-
+                refresh()
             }
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Log.d("test-가입실패", t.localizedMessage)
@@ -255,6 +257,14 @@ class BoardDetailActivity : AppCompatActivity() {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
             }
         })
+    }
+
+    fun refresh(){
+        finish() //인텐트 종료
+        overridePendingTransition(0, 0) //인텐트 효과 없애기
+        val intent = intent //인텐트
+        startActivity(intent) //액티비티 열기
+        overridePendingTransition(0, 0) //인텐트 효과 없애기
     }
 
 }
