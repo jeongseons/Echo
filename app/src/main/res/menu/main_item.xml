@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
     <item
         android:id="@+id/tab1"
-        android:icon="@android:drawable/ic_menu_add"
-        android:title="나의 경로" />
+        android:icon="@drawable/selector_menu_icon"
+        android:title="나의 경로"
+        />
     <item
         android:id="@+id/tab2"
-        android:icon="@android:drawable/ic_menu_agenda"
+        android:icon="@drawable/team"
         android:title="메아리모임" />
     <item
         android:id="@+id/tab3"
-        android:icon="@android:drawable/ic_menu_always_landscape_portrait"
+        android:icon="@drawable/board"
         android:title="게시판" />
     <item
         android:id="@+id/tab4"
-        android:icon="@android:drawable/ic_menu_call"
+        android:icon="@drawable/user"
         android:title="마이페이지" />
 </menu>

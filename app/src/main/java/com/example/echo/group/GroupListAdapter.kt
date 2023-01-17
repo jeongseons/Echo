@@ -2,6 +2,7 @@ package com.example.echo.group
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.echo.R
 
-class GroupListAdapter(val context: Context, val grouplist: ArrayList<GroupVO>):
+class GroupListAdapter(val context: Context, var grouplist: ArrayList<GroupVO>):
 RecyclerView.Adapter<GroupListAdapter.ViewHolder>(){
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvGroupTitle: TextView
@@ -21,13 +22,15 @@ RecyclerView.Adapter<GroupListAdapter.ViewHolder>(){
         val imgKingCk: ImageView
 
         init {
+//            Log.d("qwe", grouplist.toString())
             tvGroupTitle = itemView.findViewById(R.id.tvGroupTitle)
             tvGroupPer = itemView.findViewById(R.id.tvGroupPer)
             imgGroupPro = itemView.findViewById(R.id.imgGroupPro)
             imgKingCk = itemView.findViewById(R.id.imgKingCk)
             itemView.setOnClickListener{
                 val intent = Intent(context, GroupActivity :: class.java)
-                intent.putExtra("title", grouplist[adapterPosition].title.toString())
+                intent.putExtra("title", grouplist[adapterPosition].group_name)
+                intent.putExtra("num", grouplist[adapterPosition].group_seq)
                 context.startActivity(intent)
             }
         }
@@ -40,10 +43,10 @@ RecyclerView.Adapter<GroupListAdapter.ViewHolder>(){
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvGroupTitle.setText(grouplist[position].title)
-        holder.tvGroupPer.setText(grouplist[position].person)
-        holder.imgGroupPro.setImageResource(grouplist[position].profile)//
-        if(!grouplist[position].king){
+        holder.tvGroupTitle.setText(grouplist[position].group_name)
+        holder.tvGroupPer.setText("(${grouplist[position].group_current}/${grouplist[position].user_max})")
+        holder.imgGroupPro.setImageResource(R.drawable.p1)//
+        if(grouplist[position].group_auth!="n"){
             holder.imgKingCk.isVisible = false
         }
     }

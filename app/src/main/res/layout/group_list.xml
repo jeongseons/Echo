@@ -5,12 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgGroupPro"
         android:layout_width="65dp"
         android:layout_height="65dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -19,18 +22,21 @@
         android:id="@+id/imgKingCk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="-16dp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/imgGroupPro"
         app:layout_constraintStart_toStartOf="@+id/imgGroupPro"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imgGroupPro"
         app:srcCompat="@android:drawable/btn_star_big_on" />
 
     <TextView
         android:id="@+id/tvGroupTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="광주 무등산 모여라"
+        android:layout_marginStart="24dp"
+        android:text="그룹명 들어가는 자리"
+        android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgGroupPro"
         app:layout_constraintStart_toEndOf="@+id/imgGroupPro"
         app:layout_constraintTop_toTopOf="@+id/imgGroupPro" />
@@ -39,8 +45,30 @@
         android:id="@+id/tvGroupPer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="(1/5)"
+        android:layout_marginStart="24dp"
+        android:text="인원 수"
+        android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvGroupTitle"
         app:layout_constraintStart_toEndOf="@+id/tvGroupTitle"
         app:layout_constraintTop_toTopOf="@+id/tvGroupTitle" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="430dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvGroupPer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvGroupPer"
+        app:srcCompat="@drawable/ic_input" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

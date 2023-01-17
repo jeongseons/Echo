@@ -4,13 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.example.echo.HomeFragment
 import com.example.echo.R
 import com.example.echo.board.BoardFragment
-import com.example.echo.group.detail.DetailDateFragment
-import com.example.echo.group.detail.DetailPersonFragment
-import com.example.echo.group.detail.DetailSettingFragment
-import com.example.echo.group.detail.DetailTalkFragment
+import com.example.echo.group.detail.*
 import com.example.echo.myPage.MyPageFragment
 import com.example.echo.path.PathFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -27,6 +25,7 @@ class GroupActivity : AppCompatActivity() {
         val title = intent.getStringExtra("title")
         tvGroupTitle2.setText(title)
 
+
         supportFragmentManager.beginTransaction().replace(
             R.id.flGroup,
             DetailTalkFragment()
@@ -36,12 +35,8 @@ class GroupActivity : AppCompatActivity() {
             when (item.itemId) {
 
                 R.id.grouptab1 -> {
-                    supportFragmentManager.beginTransaction().replace(
-                        R.id.flGroup,
-                        DetailTalkFragment()
-                    ).commit()
+                    changeFragment(DetailTalkFragment())
                 }
-
 
                 R.id.grouptab2 -> {
                     supportFragmentManager.beginTransaction().replace(
@@ -67,5 +62,12 @@ class GroupActivity : AppCompatActivity() {
             }
             true
         }
+
+    }
+    fun changeFragment(fragment: Fragment){
+        supportFragmentManager.beginTransaction().replace(
+            R.id.flGroup,
+            fragment
+        ).commit()
     }
 }

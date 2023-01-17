@@ -5,8 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import com.example.echo.R
-
+import com.example.echo.group.GroupActivity
 
 
 class DetailTalkFragment : Fragment() {
@@ -15,8 +16,14 @@ class DetailTalkFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail_talk, container, false)
+        val view = inflater.inflate(R.layout.fragment_detail_talk, container, false)
+
+        val btnToLocation = view.findViewById<Button>(R.id.btnToLocation)
+        val activity = activity as GroupActivity
+
+        btnToLocation.setOnClickListener { activity.changeFragment(DetailLocationFragment()) }
+
+        return view
     }
 
 }

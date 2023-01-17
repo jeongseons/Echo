@@ -10,6 +10,8 @@
         android:id="@+id/btnAddGroupBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="뒤로가기"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,226 +21,276 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddGroupBack">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imgAddGroupImg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:id="@+id/imgAddGroup"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/profile" />
 
             <EditText
-                android:id="@+id/etAddGroupTitle"
-                android:layout_width="match_parent"
+                android:id="@+id/etAddGroupName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:ems="10"
-                android:hint="모임 제목"
-                android:inputType="textPersonName" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textViewGroupSpinner2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="인원" />
-
-                <EditText
-                    android:id="@+id/etAddGroupMax"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="5명까지 입력가능합니다."
-                    android:inputType="textPersonName" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textViewGroupCk1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="분류" />
-
-                <CheckBox
-                    android:id="@+id/ckAddGroupHike"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:checked="false"
-                    android:clickable="false"
-                    android:duplicateParentState="false"
-                    android:text="등산" />
-
-                <CheckBox
-                    android:id="@+id/ckAddGroupClimb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="등반" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textViewGroupSpinner1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="지역" />
-
-                <Spinner
-                    android:id="@+id/spinnerGroupArea"
-                    android:layout_width="193dp"
-                    android:layout_height="30dp"
-                    android:entries="@array/지역" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textViewGroupSpinner3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="성별" />
-
-                <Spinner
-                    android:id="@+id/spinnerGroupGen"
-                    android:layout_width="193dp"
-                    android:layout_height="30dp"
-                    android:entries="@array/성별" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textViewGroupSpinner4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="연령" />
-
-                <Spinner
-                    android:id="@+id/spinnerGroupAge"
-                    android:layout_width="193dp"
-                    android:layout_height="30dp"
-                    android:entries="@array/연령대" />
-            </LinearLayout>
+                android:hint="모임명을 입력하세요"
+                android:inputType="textPersonName"
+                android:paddingLeft="5dp"
+                app:layout_constraintEnd_toEndOf="@+id/imgAddGroup"
+                app:layout_constraintStart_toStartOf="@+id/imgAddGroup"
+                app:layout_constraintTop_toBottomOf="@+id/imgAddGroup"/>
 
             <TextView
-                android:id="@+id/textView16"
-                android:layout_width="match_parent"
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="산행 난이도"
-                android:textAlignment="center" />
+                android:layout_marginTop="24dp"
+                android:text="인원"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/etAddGroupName"
+                app:layout_constraintTop_toBottomOf="@+id/etAddGroupName" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/ckAddGroupHigh"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="상" />
-
-                <CheckBox
-                    android:id="@+id/ckAddGroupMedium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="중" />
-
-                <CheckBox
-                    android:id="@+id/ckAddGroupLow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="하" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="산행 일자"
-                android:textAlignment="center" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvGroupDt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="변경날짜"
-                    android:textAlignment="center" />
-
-                <ImageView
-                    android:id="@+id/imgAddGroupDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@android:drawable/ic_menu_my_calendar" />
-
-            </LinearLayout>
+            <Spinner
+                android:id="@+id/spAddGroupMax"
+                android:layout_width="150dp"
+                android:layout_height="0dp"
+                android:entries="@array/max"
+                app:layout_constraintBottom_toBottomOf="@+id/textView13"
+                app:layout_constraintEnd_toEndOf="@+id/etAddGroupName" />
 
             <TextView
                 android:id="@+id/textView20"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="분류"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/textView13"
+                app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+            <CheckBox
+                android:id="@+id/ckAddGroupType1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="등산"
+                app:layout_constraintBottom_toBottomOf="@+id/textView20"
+                app:layout_constraintEnd_toStartOf="@+id/ckAddGroupType2"
+                app:layout_constraintTop_toTopOf="@+id/textView20" />
+
+            <CheckBox
+                android:id="@+id/ckAddGroupType2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="등반"
+                app:layout_constraintBottom_toBottomOf="@+id/ckAddGroupType1"
+                app:layout_constraintEnd_toEndOf="@+id/spAddGroupMax"
+                app:layout_constraintTop_toTopOf="@+id/ckAddGroupType1" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="지역"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/textView20"
+                app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+            <Spinner
+                android:id="@+id/spAddGroupArea"
+                android:layout_width="150dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView19"
+                app:layout_constraintEnd_toEndOf="@+id/spAddGroupMax"
+                app:layout_constraintTop_toTopOf="@+id/textView19" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="성별"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/textView19"
+                app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+            <Spinner
+                android:id="@+id/spAddGroupGender"
+                android:layout_width="150dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView24"
+                app:layout_constraintEnd_toEndOf="@+id/spAddGroupArea"
+                app:layout_constraintTop_toTopOf="@+id/textView24" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="연령"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/textView24"
+                app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+            <Spinner
+                android:id="@+id/spAddGroupAge"
+                android:layout_width="150dp"
+                android:layout_height="0dp"
+                android:entries="@array/max"
+                app:layout_constraintBottom_toBottomOf="@+id/textView25"
+                app:layout_constraintEnd_toEndOf="@+id/spAddGroupGender"
+                app:layout_constraintTop_toTopOf="@+id/textView25" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="난이도"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/textView25"
+                app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+            <TextView
+                android:id="@+id/textView31"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:layout_marginTop="16dp"
+                android:text="산행 일자"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/spAddGroupLevel"
+                app:layout_constraintStart_toStartOf="@+id/textView26"
+                app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+            <TextView
+                android:id="@+id/tvAddGroupDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="2022-01-12 07:00AM"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/textView31"
+                app:layout_constraintStart_toStartOf="@+id/textView31"
+                app:layout_constraintTop_toBottomOf="@+id/textView31" />
+
+            <ImageView
+                android:id="@+id/imgAddGroupCalendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvAddGroupDate"
+                app:layout_constraintStart_toEndOf="@+id/tvAddGroupDate"
+                app:layout_constraintTop_toTopOf="@+id/tvAddGroupDate"
+                app:srcCompat="@drawable/ic_calendar" />
+
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:layout_marginTop="16dp"
                 android:text="세부 일정"
-                android:textAlignment="center" />
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/tvAddGroupDate"
+                app:layout_constraintStart_toStartOf="@+id/tvAddGroupDate"
+                app:layout_constraintTop_toBottomOf="@+id/swAddGroupYn" />
 
             <EditText
-                android:id="@+id/etAddGroupContent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/mtAddGroupDetailDate"
+                android:layout_width="230dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="8dp"
+                android:background="#ECECEC"
                 android:ems="10"
-                android:hint="내용을 입력해주세요."
-                android:inputType="textPersonName" />
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:overScrollMode="ifContentScrolls"
+                android:padding="5dp"
+                android:scrollbarAlwaysDrawHorizontalTrack="true"
+                app:layout_constraintEnd_toEndOf="@+id/textView33"
+                app:layout_constraintStart_toStartOf="@+id/textView33"
+                app:layout_constraintTop_toBottomOf="@+id/textView33" />
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="모임 활동에 필요한 개인정보 수집에 동의 하십니까?"
+                app:layout_constraintEnd_toEndOf="@+id/mtAddGroupDetailDate"
+                app:layout_constraintStart_toStartOf="@+id/mtAddGroupDetailDate"
+                app:layout_constraintTop_toBottomOf="@+id/mtAddGroupDetailDate" />
+
+            <CheckBox
+                android:id="@+id/ckAddGroupAgreement1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="동의합니다"
+                app:layout_constraintStart_toStartOf="@+id/textView30"
+                app:layout_constraintTop_toBottomOf="@+id/textView30" />
+
+            <CheckBox
+                android:id="@+id/ckAddGroupAgreement2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="동의하지 않습니다"
+                app:layout_constraintEnd_toEndOf="@+id/textView30"
+                app:layout_constraintTop_toTopOf="@+id/ckAddGroupAgreement1" />
 
             <Button
-                android:id="@+id/btnAddGroupSubmit"
-                android:layout_width="match_parent"
+                android:id="@+id/btnAddGroupAdd"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="모임 개설" />
+                android:layout_marginTop="24dp"
+                android:text="모임 생성"
+                app:layout_constraintEnd_toEndOf="@+id/ckAddGroupAgreement2"
+                app:layout_constraintStart_toStartOf="@+id/ckAddGroupAgreement1"
+                app:layout_constraintTop_toBottomOf="@+id/ckAddGroupAgreement2" />
 
-        </LinearLayout>
+            <Switch
+                android:id="@+id/swAddGroupYn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="일정 조율 가능"
+                app:layout_constraintStart_toStartOf="@+id/tvAddGroupDate"
+                app:layout_constraintTop_toBottomOf="@+id/tvAddGroupDate" />
+
+            <Spinner
+                android:id="@+id/spAddGroupLevel"
+                android:layout_width="150dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView26"
+                app:layout_constraintEnd_toEndOf="@+id/spAddGroupAge"
+                app:layout_constraintTop_toTopOf="@+id/textView26" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

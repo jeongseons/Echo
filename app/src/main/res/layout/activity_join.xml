@@ -7,38 +7,28 @@
     tools:context=".auth.JoinActivity">
 
     <EditText
-        android:id="@+id/etUserNick"
+        android:id="@+id/etJoinUserNick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="닉네임"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgUserProfile" />
+        app:layout_constraintTop_toBottomOf="@+id/imgJoinUserProfile" />
 
     <EditText
-        android:id="@+id/etUserBirthdate"
+        android:id="@+id/etJoinUserBirth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="date"
         android:text="20230111"
-        app:layout_constraintEnd_toEndOf="@+id/etUserNick"
-        app:layout_constraintStart_toStartOf="@+id/etUserNick"
-        app:layout_constraintTop_toBottomOf="@+id/etUserNick" />
-
-    <ImageView
-        android:id="@+id/imgUserProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintEnd_toEndOf="@+id/etJoinUserNick"
+        app:layout_constraintStart_toStartOf="@+id/etJoinUserNick"
+        app:layout_constraintTop_toBottomOf="@+id/etJoinUserNick" />
 
     <Button
         android:id="@+id/btnUserJoin"
@@ -46,16 +36,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="회원가입"
-        app:layout_constraintTop_toBottomOf="@+id/rdoUserGender"
-        tools:layout_editor_absoluteX="158dp" />
+        app:layout_constraintEnd_toEndOf="@+id/etJoinUserBirth"
+        app:layout_constraintStart_toStartOf="@+id/etJoinUserBirth"
+        app:layout_constraintTop_toBottomOf="@+id/rdoUserGender" />
 
     <RadioGroup
         android:id="@+id/rdoUserGender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/etUserBirthdate"
-        app:layout_constraintTop_toBottomOf="@+id/etUserBirthdate">
+        app:layout_constraintEnd_toEndOf="@+id/etJoinUserBirth"
+        app:layout_constraintTop_toBottomOf="@+id/etJoinUserBirth">
 
         <RadioButton
             android:id="@+id/rdoJoinFemale"
@@ -70,5 +61,16 @@
             android:text="남성" />
 
     </RadioGroup>
+
+    <ImageView
+        android:id="@+id/imgJoinUserProfile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/p1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
