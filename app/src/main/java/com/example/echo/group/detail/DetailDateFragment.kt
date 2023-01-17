@@ -40,8 +40,8 @@ class DetailDateFragment : Fragment() {
         cvGroupCalendar.addDecorator(SunDeco())
         //오늘 표시
         cvGroupCalendar.addDecorator(TodayDeco())
-        //선택날짜
-        //cvGroupCalendar.addDecorator(SelectedDeco(requireActivity()))
+        //다음달 회색표시
+        cvGroupCalendar.addDecorator(OtherMonthDeco())
 
         //일정에서 날짜, 상세설명 불러와서 입력하는 부분분
         dateList.add(NewDateVO("2023-01-13 07:00","상세설명",76))

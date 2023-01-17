@@ -50,6 +50,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:mcv_calendarMode="month"
+                    app:mcv_showOtherDates="all"
                     app:mcv_tileSize="40dp">
 
                 </com.prolificinteractive.materialcalendarview.MaterialCalendarView>

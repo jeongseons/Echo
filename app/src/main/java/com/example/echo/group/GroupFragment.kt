@@ -61,6 +61,12 @@ class GroupFragment : Fragment() {
             startActivity(intent)
         }
 
+        btnEnterGroup.setOnClickListener{
+            val intent = Intent(context,JoinGroupActivity::class.java)
+            intent.putExtra("user",id)
+            startActivity(intent)
+        }
+
         adapter = GroupListAdapter(requireContext(), groupList)
         //어댑터 리스트로 띄워졌을때 해당 액티비티로 이동해야함.
         rvGroupList.adapter = adapter
