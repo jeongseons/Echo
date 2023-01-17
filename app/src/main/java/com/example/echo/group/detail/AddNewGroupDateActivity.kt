@@ -10,9 +10,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.echo.R
 import com.example.echo.group.NewDateVO
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -83,7 +85,8 @@ class AddNewGroupDateActivity : AppCompatActivity() {
         btnNewGroupDateAdd.setOnClickListener{
 
         var addNewDetail = mtNewGroupDateDetail.text.toString()
-        var date = tvNewGroupDateDate.text.toString()
+        var getDate = tvNewGroupDateDate.text.toString()
+
 
         //저장된 그룹 번호 불러오기
         val sharedPreferences = getSharedPreferences("group_seq",0)
@@ -91,9 +94,15 @@ class AddNewGroupDateActivity : AppCompatActivity() {
         Log.d("값확인-그룹번호",group_seq.toString())
 
 
-        var addNewDateDate = NewDateVO(date,addNewDetail,group_seq)
+        var addNewDateDate = NewDateVO(getDate,addNewDetail,group_seq)
 
-        Log.d("값확인", addNewDateDate.toString())
+            if(addNewDetail != ""){
+                Log.d("값확인", addNewDateDate.toString())
+
+            }else{
+                Toast.makeText(this,"상세일정을 입력하세요",Toast.LENGTH_SHORT).show()
+            }
+
 
         }
 

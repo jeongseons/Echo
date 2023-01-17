@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="세부 일정"
+        android:text="상세 일정"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="@+id/tvNewGroupDateDate"
         app:layout_constraintStart_toStartOf="@+id/tvNewGroupDateDate"
