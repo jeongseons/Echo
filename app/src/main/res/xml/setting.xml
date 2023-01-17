@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:defaultValue="Default value"
+        android:gravity="center"
+        android:key="edit_text_preference_1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="환경 설정" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="ps"
+        android:title="Push 알림" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="stLogin"
+        android:title="자동 로그인" />
+</PreferenceScreen>
