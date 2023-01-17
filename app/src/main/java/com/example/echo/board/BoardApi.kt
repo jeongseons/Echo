@@ -12,7 +12,7 @@ interface BoardApi {
     ): Call<List<BoardListVO>>
 
     //게시글 등록
-    @POST("api/board/add")
+    @POST("api/board")
     fun addBoard(
         @Body board: BoardVO
     ): Call<ResponseBody>
@@ -20,6 +20,12 @@ interface BoardApi {
     @DELETE("api/board/{board_seq}")
     fun deleteBoard(
         @Path("board_seq") board_seq : Int
+    ): Call<ResponseBody>
+
+    @PUT("api/board/{board_seq}")
+    fun modifyBoard(
+        @Path("board_seq") board_seq : Int,
+        @Body board: BoardVO
     ): Call<ResponseBody>
 
 }
