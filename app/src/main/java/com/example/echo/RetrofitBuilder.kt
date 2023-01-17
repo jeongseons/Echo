@@ -2,10 +2,12 @@ package com.example.echo
 
 import com.example.echo.auth.userApi
 import com.example.echo.board.BoardApi
+import com.example.echo.board.CommentApi
 import com.google.gson.GsonBuilder
 import com.kakao.sdk.user.UserApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 object RetrofitBuilder {
     var api: API
@@ -22,6 +24,7 @@ object RetrofitBuilder {
         api = retrofit.create(API::class.java)
         userAPI = retrofit.create(userApi::class.java)
         boardApi = retrofit.create(BoardApi::class.java)
+        val commentApi: CommentApi = retrofit.create()
     }
 
 

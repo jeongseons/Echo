@@ -9,7 +9,7 @@ import androidx.appcompat.view.menu.MenuView.ItemView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.echo.R
 
-class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardVO>)
+class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardListVO>)
     :RecyclerView.Adapter<BoardListAdapter.ViewHolder>() {
 
     // 리스너 커스텀
@@ -58,8 +58,9 @@ class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardVO>)
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             holder.tvBoardTitle.text = BoardList[position].board_title
-            holder.tvBoardWriter.text = BoardList[position].user_id
+            holder.tvBoardWriter.text = BoardList[position].user_nick
             holder.tvBoardDate.text = BoardList[position].board_dt
+            holder.tvBoardRecoCount.text = BoardList[position].board_reco_cnt.toString()
         }
 
         override fun getItemCount(): Int {

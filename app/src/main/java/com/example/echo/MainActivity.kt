@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.echo.auth.IntroActivity
 import com.example.echo.board.BoardFragment
+import com.example.echo.board.BoardPostFragment
 import com.example.echo.group.GroupFragment
 import com.example.echo.myPage.MyPageFragment
 import com.example.echo.path.MapFragment
@@ -181,6 +182,17 @@ class MainActivity : AppCompatActivity() {
                     .load(task.result)
                     .into(imgMainUserProfile) //지역변수
 
+            }
+        }
+    }
+
+    fun changeFragment(index: Int){
+        when(index){
+            1 -> {
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.flMain,
+                    BoardPostFragment()
+                ).commit()
             }
         }
     }
