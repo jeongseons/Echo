@@ -32,6 +32,13 @@ RecyclerView.Adapter<GroupListAdapter.ViewHolder>(){
                 val intent = Intent(context, GroupActivity :: class.java)
                 intent.putExtra("title", grouplist[adapterPosition].group_name)
                 intent.putExtra("num", grouplist[adapterPosition].group_seq)
+                var sharedPreferences = context.getSharedPreferences("group_seq",0)
+                var editor = sharedPreferences.edit()
+
+
+                editor.putInt("group_seq", grouplist[adapterPosition].group_seq)
+                editor.commit()
+
                 context.startActivity(intent)
             }
         }

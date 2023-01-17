@@ -33,13 +33,6 @@ class GroupFragment : Fragment() {
 
     var groupList = ArrayList<GroupVO>()
 
-    override fun onResume() {
-        super.onResume()
-        groupList.clear()
-        adapter.notifyDataSetChanged()
-
-        Log.d("값확인 - 배열",groupList.size.toString())
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,10 +84,10 @@ class GroupFragment : Fragment() {
 
                 if (response.isSuccessful) {//성공
                     Log.d("rty",response.body().toString())
+                    groupList.clear()
                     if(response.body()?.size!=0) {//가입한 그룹이 있을 때
                         for (i: Int in 0 until response.body()!!.size) {
                             //그룹리스트 정보 담아줌.
-
                             groupList.add(
                                 GroupVO(
                                     response.body()!!.get(i).group_seq,

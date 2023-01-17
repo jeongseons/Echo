@@ -40,6 +40,8 @@ class AddNewGroupDateActivity : AppCompatActivity() {
             var timeString = ""
 
 
+
+
             //시간 선택창 띄우는 부분
             val timeSetListener = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
 
@@ -83,8 +85,13 @@ class AddNewGroupDateActivity : AppCompatActivity() {
         var addNewDetail = mtNewGroupDateDetail.text.toString()
         var date = tvNewGroupDateDate.text.toString()
 
+        //저장된 그룹 번호 불러오기
+        val sharedPreferences = getSharedPreferences("group_seq",0)
+        var group_seq = sharedPreferences.getInt("group_seq",0)
+        Log.d("값확인-그룹번호",group_seq.toString())
 
-        var addNewDateDate = NewDateVO(date,addNewDetail)
+
+        var addNewDateDate = NewDateVO(date,addNewDetail,group_seq)
 
         Log.d("값확인", addNewDateDate.toString())
 
