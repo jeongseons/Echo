@@ -84,6 +84,7 @@ class AddNewGroupDateActivity : AppCompatActivity() {
 
         btnNewGroupDateAdd.setOnClickListener{
 
+        //사용자 입력값 불러오기
         var addNewDetail = mtNewGroupDateDetail.text.toString()
         var getDate = tvNewGroupDateDate.text.toString()
 
@@ -96,8 +97,10 @@ class AddNewGroupDateActivity : AppCompatActivity() {
 
         var addNewDateDate = NewDateVO(getDate,addNewDetail,group_seq)
 
+            //상세일정이 null 이 아닐 시 데이터 값 출력 후 종료
             if(addNewDetail != ""){
                 Log.d("값확인", addNewDateDate.toString())
+                finish()
 
             }else{
                 Toast.makeText(this,"상세일정을 입력하세요",Toast.LENGTH_SHORT).show()
