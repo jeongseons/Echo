@@ -266,6 +266,14 @@ class AddGroupActivity : AppCompatActivity() {
                 Log.d("값확인VO",newGroup.toString())
                 addGroup(newGroup)
 
+
+                // 여기서 통신하는거임
+                // add를 해서 -> db에
+                // 성공, 실패
+                // 성공 -> add -> finish()
+                // 실패 ->
+
+//                System.exit(0)
                 finish()
 
 

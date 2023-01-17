@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".group.detail.AddNewGroupDateActivity">
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:text="새로운 일정 추가"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvNewGroupDateDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="2023-01-16 04:15"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView15"
+        app:layout_constraintStart_toStartOf="@+id/textView15"
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+    <ImageView
+        android:id="@+id/imgNewGroupDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/ic_calendar"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNewGroupDateDate"
+        app:layout_constraintStart_toEndOf="@+id/tvNewGroupDateDate"
+        app:layout_constraintTop_toTopOf="@+id/tvNewGroupDateDate" />
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="세부 일정"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="@+id/tvNewGroupDateDate"
+        app:layout_constraintStart_toStartOf="@+id/tvNewGroupDateDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvNewGroupDateDate" />
+
+    <EditText
+        android:id="@+id/mtNewGroupDateDetail"
+        android:layout_width="230dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
+        android:background="#ECECEC"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:overScrollMode="ifContentScrolls"
+        android:padding="5dp"
+        android:scrollbarAlwaysDrawHorizontalTrack="true"
+        app:layout_constraintEnd_toEndOf="@+id/textView27"
+        app:layout_constraintStart_toStartOf="@+id/textView27"
+        app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+    <Button
+        android:id="@+id/btnNewGroupDateAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="일정 추가"
+        app:layout_constraintEnd_toEndOf="@+id/mtNewGroupDateDetail"
+        app:layout_constraintStart_toStartOf="@+id/mtNewGroupDateDetail"
+        app:layout_constraintTop_toBottomOf="@+id/mtNewGroupDateDetail" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

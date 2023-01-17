@@ -1,23 +1,24 @@
 package com.example.echo.group.detail.CalendarDecorate
 
 import android.graphics.Color
-import android.graphics.Typeface
 import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
+import java.util.*
 
-class TodayDecorate:DayViewDecorator {
+class SunDeco:DayViewDecorator {
 
-    private var date = CalendarDay.today()
+    private val calendar = Calendar.getInstance()
 
     override fun shouldDecorate(day: CalendarDay?): Boolean {
-        return day?.equals(date)!!
+        day?.copyTo(calendar)
+        val weekDay = calendar.get(Calendar.DAY_OF_WEEK)
+        return weekDay == Calendar.SUNDAY
     }
 
     override fun decorate(view: DayViewFacade?) {
-        view?.addSpan(StyleSpan(Typeface.BOLD))
-        view?.addSpan(ForegroundColorSpan(Color.parseColor("#3A4CA8")))
+        view?.addSpan(object : ForegroundColorSpan(Color.parseColor("#ff0000")){})
     }
+
 }

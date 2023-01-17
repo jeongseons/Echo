@@ -28,3 +28,4 @@ data class NewGroupVO(val group_owner_id : String,
 data class NewDateVO(val group_dt : String, val group_detail : String)
 
 
+

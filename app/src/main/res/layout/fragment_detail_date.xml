@@ -45,6 +45,7 @@
                     android:background="@drawable/border"
                     android:elevation="10dp"
                     android:paddingBottom="10dp"
+                    app:mcv_selectionColor="@color/teal_700"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
