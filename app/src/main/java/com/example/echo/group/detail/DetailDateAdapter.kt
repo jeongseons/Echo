@@ -43,8 +43,8 @@ class DetailDateAdapter(val context: Context, val dateList:ArrayList<NewDateVO>)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvGroupDateDate.text = dateList[position].group_dt
-        holder.tvGroupDateDetail.text = dateList[position].group_detail
+        holder.tvGroupDateDate.text = dateList[position].cal_dt
+        holder.tvGroupDateDetail.text = dateList[position].cal_content
         
         //상세정보 기본 접어두기
         holder.imgDropDate.tag = false

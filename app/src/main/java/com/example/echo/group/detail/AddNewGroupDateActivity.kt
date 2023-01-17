@@ -91,7 +91,7 @@ class AddNewGroupDateActivity : AppCompatActivity() {
 
         //저장된 그룹 번호 불러오기
         val sharedPreferences = getSharedPreferences("group_seq",0)
-        var group_seq = sharedPreferences.getInt("group_seq",0)
+        var group_seq = sharedPreferences.getInt("group_seq",0).toInt()
         Log.d("값확인-그룹번호",group_seq.toString())
 
 
