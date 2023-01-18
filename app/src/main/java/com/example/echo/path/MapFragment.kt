@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -39,7 +40,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private var REQUEST_PERMISSION_LOCATION = 10
     private var mLatitude: Double = 0.0
     private var mLongitude: Double = 0.0
-    lateinit var imgMapRecordStart : ImageView
+
 
     lateinit var manager : LocationManager
     lateinit var locationListener : LocationListener
@@ -54,7 +55,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_map, container, false)
 
-        imgMapRecordStart = view.findViewById(R.id.imgMapRecordStart)
+        val imgMapRecordStart = view.findViewById<Button>(R.id.imgMapRecordStart)
 //        val imgMapCurrentLocation = view.findViewById<ImageView>(R.id.imgMapCurrentLocation)
 
 

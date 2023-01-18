@@ -24,7 +24,12 @@ data class NewGroupVO(val group_owner_id : String,
 
 }
 
-//일정 불러오기용 모델
-data class NewDateVO(val group_dt : String, val group_detail : String)
+//일정 추가하기 모델
+data class NewDateVO(val cal_dt : String,
+                     val cal_content : String,
+                     val group_seq : Int)
+
+
+
 
 

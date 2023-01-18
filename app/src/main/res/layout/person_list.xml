@@ -7,10 +7,12 @@
 
     <ImageView
         android:id="@+id/imgPersonPro"
-        android:layout_width="118dp"
-        android:layout_height="121dp"
-        android:layout_marginStart="12dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -19,19 +21,20 @@
         android:id="@+id/imgPersonKing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/imgPersonPro"
         app:layout_constraintEnd_toEndOf="@+id/imgPersonPro"
-        app:layout_constraintStart_toStartOf="@+id/imgPersonPro"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/btn_star_big_on" />
 
     <TextView
         android:id="@+id/tvPersonNick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:gravity="center"
         android:text="민욱"
+        android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/imgPersonPro"
         app:layout_constraintHorizontal_bias="0.481"
@@ -42,6 +45,7 @@
         android:id="@+id/tvPersonAuth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="강퇴하기"
         app:layout_constraintEnd_toEndOf="@+id/tvPersonNick"
         app:layout_constraintStart_toStartOf="@+id/tvPersonNick"
