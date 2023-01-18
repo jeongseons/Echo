@@ -22,8 +22,13 @@ class GroupActivity : AppCompatActivity() {
         val flGroup = findViewById<FrameLayout>(R.id.flGroup)
         val bnvGroup = findViewById<BottomNavigationView>(R.id.bnvGroup)
 
+        //선택한 그룹명
         val title = intent.getStringExtra("title")
         tvGroupTitle2.setText(title)
+
+        //그룹번호 정보(소켓서버 오픈용)
+        val num = intent.getStringExtra("num")
+
 
 
         supportFragmentManager.beginTransaction().replace(

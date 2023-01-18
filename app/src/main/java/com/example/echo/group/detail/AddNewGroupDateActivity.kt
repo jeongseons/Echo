@@ -13,13 +13,22 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.echo.R
+import com.example.echo.RetrofitBuilder
 import com.example.echo.group.NewDateVO
+import com.example.echo.group.NewGroupVO
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
 class AddNewGroupDateActivity : AppCompatActivity() {
+
+    lateinit var addNewDateDate:NewDateVO
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,8 +104,8 @@ class AddNewGroupDateActivity : AppCompatActivity() {
         Log.d("값확인-그룹번호",group_seq.toString())
 
 
-        var addNewDateDate = NewDateVO(getDate,addNewDetail,group_seq)
-
+        addNewDateDate = NewDateVO(getDate,addNewDetail,group_seq)
+        addCal(addNewDateDate)
             //상세일정이 null 이 아닐 시 데이터 값 출력 후 종료
             if(addNewDetail != ""){
                 Log.d("값확인", addNewDateDate.toString())
@@ -113,6 +122,20 @@ class AddNewGroupDateActivity : AppCompatActivity() {
 
 
     }
+
+    fun addCal(cal: NewDateVO){
+        val call = RetrofitBuilder.api.addCal(cal)
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                Log.d("확인",response.body().toString())
+                Toast.makeText(applicationContext,"일정이 생성되었습니다.",Toast.LENGTH_LONG)
+            }
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.d("저장실패", t.localizedMessage)
+            }
+        })
+    }
+
 
 
 

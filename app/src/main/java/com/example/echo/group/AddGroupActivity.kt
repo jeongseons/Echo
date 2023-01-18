@@ -87,6 +87,7 @@ class AddGroupActivity : AppCompatActivity() {
         var detailCk = false
 
         var name:String
+        var date:String
         var detail:String
         //스피너 값 변수에 저장
         var age:String
@@ -94,7 +95,6 @@ class AddGroupActivity : AppCompatActivity() {
         var max :Int
         var gender:String
         var lev:String
-        var date:String
         //산행 분류 선택
         var type:String
 
@@ -163,7 +163,6 @@ class AddGroupActivity : AppCompatActivity() {
 
 
 
-
                 //사용자가 선택한 시간 텍스트 뷰에 적용
                 tvAddGroupDate.text = "${dateString}${timeString}"
             }
@@ -213,6 +212,7 @@ class AddGroupActivity : AppCompatActivity() {
         btnAddGroupAdd.setOnClickListener{
             //사용자 입력값 저장
             name = etAddGroupName.text.toString()
+            date = tvAddGroupDate.text.substring(0,16)
             detail = mtAddGroupDetailDate.text.toString()
             //스피너 값 변수에 저장
             age = spAddGroupAge.selectedItem.toString()
@@ -220,7 +220,6 @@ class AddGroupActivity : AppCompatActivity() {
             max = toInt(spAddGroupMax.selectedItem.toString())
             gender = spAddGroupGender.selectedItem.toString()
             lev = spAddGroupLevel.selectedItem.toString()
-            date = tvAddGroupDate.text.substring(0,16)
             //산행 분류 선택
             var type = ""
 
