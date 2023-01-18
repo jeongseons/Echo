@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ScrollView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
@@ -24,6 +25,7 @@ import com.example.echo.group.NewDateVO
 import com.example.echo.group.detail.CalendarDecorate.*
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,6 +42,8 @@ class DetailDateFragment : Fragment() {
 
     var dateList = ArrayList<NewDateVO>()
     lateinit var adapter : DetailDateAdapter
+    lateinit var cvGroupCalendar:MaterialCalendarView
+    lateinit var adapterDate:String
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -48,14 +52,32 @@ class DetailDateFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_detail_date, container, false)
 
-        val cvGroupCalendar = view.findViewById<MaterialCalendarView>(R.id.cvGroupCalendar)
+        //모임장인지 확인
+        val auth = requireActivity().intent.getStringExtra("auth")
+
+        cvGroupCalendar = view.findViewById(R.id.cvGroupCalendar)
         val rvDetailGroupDate = view.findViewById<RecyclerView>(R.id.rvDetailGroupDate)
+
+        //모임장인 경우에만 활성화
         val btnNewDate = view.findViewById<Button>(R.id.btnNewDate)
+        if(auth.equals("y")){
+            btnNewDate.visibility=View.VISIBLE
+        }else{
+            btnNewDate.visibility=View.GONE
+        }
+
         val seq = requireActivity().intent.getIntExtra("num", 0)
 
         //초기 month 셋팅
         val getMonth = Calendar.getInstance().time
         val month = SimpleDateFormat("MM",Locale.KOREA).format(getMonth)
+
+
+
+
+        //일정 리스트  불러오기
+        GetCalList(seq)
+
 
         //평일 표시
         cvGroupCalendar.addDecorator(WeekDayDeco())
@@ -66,17 +88,6 @@ class DetailDateFragment : Fragment() {
         cvGroupCalendar.addDecorator(TodayDeco(requireContext()))
         //다른 달 날짜 표기
         cvGroupCalendar.addDecorator(OtherDaysDeco(month.toInt()-1))
-
-        //Dot 색상 선택
-        val colorArray:Array<String> = arrayOf("#FF0000")
-
-        cvGroupCalendar.addDecorator(EventDeco
-            (requireContext(),colorArray,CalendarDay(2023,0,20)))
-        cvGroupCalendar.addDecorator(EventDeco
-            (requireContext(),colorArray,CalendarDay(2023,0,22)))
-
-
-
 
 
         //달력 이동시 데코레이션 적용
@@ -97,16 +108,43 @@ class DetailDateFragment : Fragment() {
             //다른 달 날짜 표기
             cvGroupCalendar.addDecorator(OtherDaysDeco(month.toInt()-1))
 
+            GetCalList(seq)
         }
 
-        GetCalList(seq)
 
 
-        adapter = DetailDateAdapter(requireContext(),dateList)
+        //선택 일자에 따라 상세 일정 띄워주는 부분 어댑터
+        cvGroupCalendar.setOnDateChangedListener(OnDateSelectedListener { widget, date, selected ->
+            val year = date.year
+            val month = date.month+1
+            val day = date.day
+
+            if(month<10){
+                adapterDate="${year}-0${month}-${day}"
+                if(day<10){
+                    adapterDate="${year}-0${month}-0${day}"
+                }
+            }else{
+                adapterDate="${year}-${month}-${day}"
+                if(day<10){
+                    adapterDate="${year}-${month}-0${day}"
+                }
+            }
+
+            adapter = DetailDateAdapter(requireContext(),dateList,adapterDate,auth!!)
+            rvDetailGroupDate.adapter = adapter
+            rvDetailGroupDate.layoutManager = LinearLayoutManager(requireContext())
 
 
+            Log.d("값확인-날짜변경리스너",adapterDate)
+
+        })
+        val AdapterDateNow = LocalDate.now().toString()
+        adapter = DetailDateAdapter(requireContext(),dateList,AdapterDateNow,auth!!)
         rvDetailGroupDate.adapter = adapter
         rvDetailGroupDate.layoutManager = LinearLayoutManager(requireContext())
+
+
 
 
 
@@ -121,13 +159,9 @@ class DetailDateFragment : Fragment() {
                 var selectedMonth = selectedDate.month+1
                 val selectedDay = selectedDate.day
 
-                intent.putExtra("year",selectedYear)
-                intent.putExtra("month",selectedMonth)
-                intent.putExtra("day",selectedDay)
-
-                
                 if(selectedMonth>10){
                     intent.putExtra("date","${selectedYear}-${selectedMonth}-${selectedDay}")
+
                     if(selectedDay>10){
                         intent.putExtra("date","${selectedYear}-${selectedMonth}-0${selectedDay}")
                     }
@@ -138,7 +172,12 @@ class DetailDateFragment : Fragment() {
                     }
                 }
 
+                intent.putExtra("year","${selectedYear}")
+                intent.putExtra("month","${selectedMonth}")
+                intent.putExtra("day","${selectedDay}")
+
                 Log.d("값확인-보내는날짜","${selectedYear}-${selectedMonth}-${selectedDay}")
+
             }
             startActivity(intent)
 
@@ -167,7 +206,23 @@ class DetailDateFragment : Fragment() {
                                     seq
                                 )
                             )
+
                         }
+
+                        //Dot 색상 선택
+                        val colorArray:Array<String> = arrayOf("#FF0000")
+
+
+                        for(i in 0 until dateList.size){
+                            val year = dateList[i].cal_dt.substring(0,4).toInt()
+                            val month = dateList[i].cal_dt.substring(5,7).toInt()
+                            val day = dateList[i].cal_dt.substring(8,10).toInt()
+
+                            cvGroupCalendar.addDecorator(EventDeco
+                                (requireContext(),colorArray,CalendarDay(year,month-1,day)))
+                        }
+
+
                         //리스트 추가후 어댑터 새로고침 필수!
                         // 근본적인 원인 : API 호출 이후 새로고침이 일어나야 하는데
                         // 새로고침이 일어난 이후에 데이터가 쌓임

@@ -9,6 +9,7 @@
 
 
     <ScrollView
+        android:id="@+id/detailDateScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -45,11 +46,11 @@
                     android:background="@drawable/border"
                     android:elevation="10dp"
                     android:paddingBottom="10dp"
-                    app:mcv_selectionColor="@color/teal_700"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:mcv_calendarMode="month"
+                    app:mcv_selectionColor="@color/teal_700"
                     app:mcv_showOtherDates="all"
                     app:mcv_tileSize="40dp">
 

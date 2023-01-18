@@ -28,16 +28,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imgDropDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:tag="true"
-        app:layout_constraintBottom_toBottomOf="@+id/tvGroupDateDate"
-        app:layout_constraintStart_toEndOf="@+id/tvGroupDateDate"
-        app:layout_constraintTop_toTopOf="@+id/tvGroupDateDate"
-        app:srcCompat="@drawable/ic_drop_down" />
-
     <TextView
         android:id="@+id/tvGroupDateText"
         android:layout_width="wrap_content"
@@ -52,12 +42,14 @@
     <TextView
         android:id="@+id/tvGroupDateDetail"
         android:layout_width="300dp"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/border"
         android:elevation="10dp"
-        android:gravity="center"
+        android:padding="20dp"
+        android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tvGroupDateText"
         app:layout_constraintStart_toStartOf="@+id/tvGroupDateText"
