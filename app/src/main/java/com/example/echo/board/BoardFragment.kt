@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,6 +31,8 @@ class BoardFragment : Fragment() {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_board, container, false)
         val btnBoardPost = view.findViewById<Button>(R.id.btnBoardPost)
+        val svBoardSearch = view.findViewById<SearchView>(R.id.svBoardSearch)
+//        svBoardSearch.isSubmitButtonEnabled = true
 
         btnBoardPost.setOnClickListener {
             val intent = Intent(requireContext(), BoardWriteActivity::class.java)
@@ -42,32 +45,49 @@ class BoardFragment : Fragment() {
         getBoard()
         Log.d("text-create안게시글전부조회", boardList.toString())
 
+        // 검색 기능
+        var searchViewTextListener: SearchView.OnQueryTextListener =
+            object : SearchView.OnQueryTextListener {
+                //검색버튼 입력시 호출, 검색버튼이 없으므로 사용하지 않음
+                override fun onQueryTextSubmit(s: String): Boolean {
+                    return false
+                }
+                //텍스트 입력/수정시에 호출
+                override fun onQueryTextChange(s: String): Boolean {
+                    adapter.getFilter().filter(s)
+                    Log.d("test-서치뷰", "SearchVies Text is changed : $s")
+                    return false
+                }
+            }
+
+        svBoardSearch.setOnQueryTextListener(searchViewTextListener)
+
         adapter = BoardListAdapter(requireContext(), boardList)
 
         // 각 게시글 클릭 이벤트 - 게시글 내부로 이동
-        adapter.setOnItemClickListener(object : BoardListAdapter.OnItemClickListener {
-            override fun onItemClick(view: View, position: Int) {
-
-                val intent = Intent(requireActivity(), BoardDetailActivity::class.java)
-
-                intent.putExtra("board_seq", boardList[position].board_seq.toString())
-                intent.putExtra("board_title", boardList[position].board_title)
-                intent.putExtra("board_content", boardList[position].board_content)
-                intent.putExtra("board_file",boardList[position].board_file)
-                intent.putExtra("user_nick", boardList[position].user_nick)
-                intent.putExtra("board_dt", boardList[position].board_dt)
-                intent.putExtra("user_id", boardList[position].user_id)
-                intent.putExtra("mnt_name", boardList[position].mnt_name)
-                intent.putExtra("board_reco_cnt", boardList[position].board_reco_cnt.toString())
-
-                startActivity(intent)
-
-            }
-        })
+//        adapter.setOnItemClickListener(object : BoardListAdapter.OnItemClickListener {
+//            override fun onItemClick(view: View, position: Int) {
+//
+//                val intent = Intent(requireActivity(), BoardDetailActivity::class.java)
+//
+//                intent.putExtra("board_seq", boardList[position].board_seq.toString())
+//                intent.putExtra("board_title", boardList[position].board_title)
+//                intent.putExtra("board_content", boardList[position].board_content)
+//                intent.putExtra("board_file",boardList[position].board_file)
+//                intent.putExtra("user_nick", boardList[position].user_nick)
+//                intent.putExtra("board_dt", boardList[position].board_dt)
+//                intent.putExtra("user_id", boardList[position].user_id)
+//                intent.putExtra("mnt_name", boardList[position].mnt_name)
+//                intent.putExtra("board_reco_cnt", boardList[position].board_reco_cnt.toString())
+//
+//                startActivity(intent)
+//
+//            }
+//        })
 
         rvBoardList.adapter = adapter
         rvBoardList.layoutManager = LinearLayoutManager(requireContext())
-        adapter.notifyDataSetChanged()
+
 
         return view
 
@@ -77,10 +97,11 @@ class BoardFragment : Fragment() {
         val call = RetrofitBuilder.boardApi.getBoard()
         call.enqueue(object : Callback<List<BoardListVO>> {
             override fun onResponse(call: Call<List<BoardListVO>>, response: Response<List<BoardListVO>>) {
-                Log.d("text-게시글전부조회", response.body().toString())
+//                Log.d("test-게시글전부조회", response.body().toString())
                 if(response.isSuccessful&& response.body()?.size!!>0){
                     for(i in 0 until response.body()!!.size){
                         boardList.add(response.body()!!.get(i))
+                Log.d("test-게시글전부조회", response.body().toString())
                     }
                 }
                 boardList.reverse()
@@ -88,7 +109,7 @@ class BoardFragment : Fragment() {
                 Log.d("test-재조회여부", "yes")
             }
             override fun onFailure(call: Call<List<BoardListVO>>, t: Throwable) {
-                Log.d("text-게시글전부조회", t.localizedMessage)
+                Log.d("test-게시글전부조회", t.localizedMessage)
 
             }
         })
