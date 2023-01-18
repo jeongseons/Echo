@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -29,7 +30,7 @@ class MapSaveActivity : AppCompatActivity() {
         val tvMapSaveAlt = findViewById<TextView>(R.id.tvMapSaveAlt)
         val tvMapSaveDistance = findViewById<TextView>(R.id.tvMapSaveDistance)
         val tvMapSaveDurationofTime = findViewById<TextView>(R.id.tvMapSaveDurationofTime)
-
+        val etMapSaveTitle = findViewById<EditText>(R.id.etMapSaveTitle)
 
 
         btnSaveBack.setOnClickListener {
@@ -40,7 +41,10 @@ class MapSaveActivity : AppCompatActivity() {
 
         btnSaveCoursesave.setOnClickListener {
         val intent = Intent(this, MainActivity::class.java)
-//            intent.putExtra(tvMapSaveAlt.toString(), )
+            intent.putExtra("tvMapSaveAlt", tvMapSaveAlt.toString())
+            intent.putExtra("tvMapSaveDistance", tvMapSaveDistance.toString())
+            intent.putExtra("tvMapSaveDurationofTime", tvMapSaveDurationofTime.toString())
+            intent.putExtra("etMapSaveTitle", etMapSaveTitle.toString())
             startActivity(intent)
 
         }

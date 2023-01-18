@@ -30,6 +30,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.PolylineOptions
+import java.text.SimpleDateFormat
 
 
 class MapFragment : Fragment(), OnMapReadyCallback {
@@ -67,6 +68,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private val locationRequest: LocationRequest? = null
     private val location: Location? = null
     private val mLayout: View? = null
+    lateinit var tvMapCurrentTime : TextView
 
 
     @SuppressLint("MissingInflatedId")
@@ -79,8 +81,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val view = inflater.inflate(R.layout.fragment_map, container, false)
         val btnMapRecordStart = view.findViewById<Button>(R.id.btnMapRecordStart)
         val btnMapRecordEnd = view.findViewById<Button>(R.id.btnMapRecordEnd)
-        val tvMapCurrentTime = view.findViewById<TextView>(R.id.tvMapCurrentTime)
+        tvMapCurrentTime = view.findViewById(R.id.tvMapCurrentTime)
         val tvMApCurrentLocation = view.findViewById<TextView>(R.id.tvMApCurrentLocation)
+
 
 
         //경로저장하는 Array polilines
@@ -98,6 +101,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         }
 
+
         btnMapRecordEnd.setOnClickListener {
 
             val intent = Intent(requireContext(), MapSaveActivity::class.java)
@@ -108,10 +112,25 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mView.onCreate(savedInstanceState)
         mView.getMapAsync(this)
 
+        main()
+
                 return view
     }
 
 
+    fun main() {
+
+        val currentTime = System.currentTimeMillis()
+        convertTimestampToDate(currentTime)
+
+    }
+
+    fun convertTimestampToDate(timestamp: Long) {
+        val time = SimpleDateFormat("yyyy년 MM월 dd일 hh시 mm분")
+        val date = time.format(timestamp)
+        tvMapCurrentTime.text = date
+         //2021년06월10일02시37분
+    }
 
 
     //Map실행
