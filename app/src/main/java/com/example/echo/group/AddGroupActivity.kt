@@ -175,8 +175,14 @@ class AddGroupActivity : AppCompatActivity() {
             val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                 if(month>10){
                     dateString = "${year}-${month+1}-${dayOfMonth} "
+                    if(dayOfMonth<10){
+                        dateString = "${year}-${month+1}-0${dayOfMonth} "
+                    }
                 }else{
                     dateString = "${year}-0${month+1}-${dayOfMonth} "
+                    if(dayOfMonth<10){
+                        dateString = "${year}-0${month+1}-0${dayOfMonth} "
+                    }
                 }
 
             }

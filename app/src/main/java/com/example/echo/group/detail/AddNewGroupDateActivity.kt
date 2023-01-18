@@ -27,6 +27,7 @@ import java.util.*
 
 class AddNewGroupDateActivity : AppCompatActivity() {
 
+
     lateinit var addNewDateDate:NewDateVO
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -35,14 +36,24 @@ class AddNewGroupDateActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_new_group_date)
 
         val tvNewGroupDateDate = findViewById<TextView>(R.id.tvNewGroupDateDate)
+
+        //사용자가 달력에서 선택한 날짜
+        val getDate = intent.getStringExtra("date")
+        Log.d("값확인-가져온날짜", getDate.toString())
+
+
         val toDate = LocalDateTime.now()
-        tvNewGroupDateDate.text =toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+        if (getDate != null) {
+            tvNewGroupDateDate.text = "${getDate} 00:00"
+        } else {
+            tvNewGroupDateDate.text = toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+        }
         val imgNewGroupDate = findViewById<ImageView>(R.id.imgNewGroupDate)
         val mtNewGroupDateDetail = findViewById<EditText>(R.id.mtNewGroupDateDetail)
         val btnNewGroupDateAdd = findViewById<Button>(R.id.btnNewGroupDateAdd)
 
 
-        imgNewGroupDate.setOnClickListener{
+        imgNewGroupDate.setOnClickListener {
             val calendar = Calendar.getInstance()
             val year = calendar.get(Calendar.YEAR)
             val month = calendar.get(Calendar.MONTH)
@@ -56,14 +67,14 @@ class AddNewGroupDateActivity : AppCompatActivity() {
             //시간 선택창 띄우는 부분
             val timeSetListener = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
 
-                if(hourOfDay < 10){
+                if (hourOfDay < 10) {
                     timeString = "0${hourOfDay}:${minute}"
-                    if(minute < 10){
+                    if (minute < 10) {
                         timeString = "0${hourOfDay}:0${minute}"
                     }
-                }else{
+                } else {
                     timeString = "${hourOfDay}:${minute}"
-                    if(minute < 10){
+                    if (minute < 10) {
                         timeString = "${hourOfDay}:0${minute}"
                     }
                 }
@@ -74,45 +85,63 @@ class AddNewGroupDateActivity : AppCompatActivity() {
                 tvNewGroupDateDate.text = "${dateString}${timeString}"
             }
 
-            TimePickerDialog(this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE),false).show()
+            TimePickerDialog(
+                this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE), false
+            ).show()
 
 
             //날짜 선택창 띄우는 부분
-            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                if(month>10){
-                    dateString = "${year}-${month+1}-${dayOfMonth} "
-                }else{
-                    dateString = "${year}-0${month+1}-${dayOfMonth} "
-                }
+            val dateSetListener =
+                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                    if (month > 10) {
+                        dateString = "${year}-${month + 1}-${dayOfMonth} "
+                        if (dayOfMonth < 10) {
+                            dateString = "${year}-${month + 1}-0${dayOfMonth} "
+                        }
+                    } else {
+                        dateString = "${year}-0${month + 1}-${dayOfMonth} "
+                        if (dayOfMonth < 10) {
+                            dateString = "${year}-0${month + 1}-0${dayOfMonth} "
+                        }
+                    }
 
+                }
+            if(getDate != null){
+                val year = intent.getStringExtra("year")!!.toInt()
+                val month = intent.getStringExtra("month")!!.toInt()
+                val day = intent.getStringExtra("day")!!.toInt()
+                DatePickerDialog(this, dateSetListener, year, month,day).show()
+            }else {
+                DatePickerDialog(this, dateSetListener, year, month, day).show()
             }
-            DatePickerDialog(this, dateSetListener, year, month, day).show()
 
         }
 
-        btnNewGroupDateAdd.setOnClickListener{
+        btnNewGroupDateAdd.setOnClickListener {
 
-        //사용자 입력값 불러오기
-        var addNewDetail = mtNewGroupDateDetail.text.toString()
-        var getDate = tvNewGroupDateDate.text.toString()
-
-
-        //저장된 그룹 번호 불러오기
-        val sharedPreferences = getSharedPreferences("group_seq",0)
-        var group_seq = sharedPreferences.getInt("group_seq",0).toInt()
-        Log.d("값확인-그룹번호",group_seq.toString())
+            //사용자 입력값 불러오기
+            var addNewDetail = mtNewGroupDateDetail.text.toString()
+            var getDate = tvNewGroupDateDate.text.toString()
 
 
-        addNewDateDate = NewDateVO(getDate,addNewDetail,group_seq)
-        addCal(addNewDateDate)
+            //저장된 그룹 번호 불러오기
+            val sharedPreferences = getSharedPreferences("group_seq", 0)
+            var group_seq = sharedPreferences.getInt("group_seq", 0).toInt()
+            Log.d("값확인-그룹번호", group_seq.toString())
+
+
+            addNewDateDate = NewDateVO(getDate, addNewDetail, group_seq)
+
             //상세일정이 null 이 아닐 시 데이터 값 출력 후 종료
-            if(addNewDetail != ""){
+
+            if (addNewDetail != "") {
                 Log.d("값확인", addNewDateDate.toString())
+                addCal(addNewDateDate)
                 finish()
 
-            }else{
-                Toast.makeText(this,"상세일정을 입력하세요",Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "상세일정을 입력하세요", Toast.LENGTH_SHORT).show()
             }
 
 

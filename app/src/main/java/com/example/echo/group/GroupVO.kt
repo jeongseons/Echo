@@ -27,7 +27,17 @@ data class NewGroupVO(val group_owner_id : String,
 //일정 추가하기 모델
 data class NewDateVO(val cal_dt : String,
                      val cal_content : String,
-                     val group_seq : Int)
+                     val group_seq : Int){
+
+}
+
+//기존 모임 찾기용 모델
+
+data class FindGroupVO(val group_type : String,
+                       val group_age : String,
+                       val group_gender : String,
+                       val group_level : String,
+                       val group_area : String)
 
 
 

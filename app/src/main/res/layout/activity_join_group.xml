@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spJoinGroupType"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
@@ -59,12 +59,12 @@
         android:textColor="#000000"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/spinner"
-        app:layout_constraintEnd_toStartOf="@+id/spinner2"
-        app:layout_constraintTop_toTopOf="@+id/spinner" />
+        app:layout_constraintBottom_toBottomOf="@+id/spJoinGroupType"
+        app:layout_constraintEnd_toStartOf="@+id/spJoinGroupAge"
+        app:layout_constraintTop_toTopOf="@+id/spJoinGroupType" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/spJoinGroupAge"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_marginEnd="50dp"
@@ -73,7 +73,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView29" />
 
     <Spinner
-        android:id="@+id/spinner12"
+        android:id="@+id/spJoinGroupGender"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
@@ -82,12 +82,12 @@
         app:layout_constraintTop_toTopOf="@+id/textView42" />
 
     <Spinner
-        android:id="@+id/spinner13"
+        android:id="@+id/spJoinGroupLevel"
         android:layout_width="100dp"
         android:layout_height="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/spinner12"
-        app:layout_constraintEnd_toEndOf="@+id/spinner2"
-        app:layout_constraintTop_toTopOf="@+id/spinner12" />
+        app:layout_constraintBottom_toBottomOf="@+id/spJoinGroupGender"
+        app:layout_constraintEnd_toEndOf="@+id/spJoinGroupAge"
+        app:layout_constraintTop_toTopOf="@+id/spJoinGroupGender" />
 
     <TextView
         android:id="@+id/textView42"
@@ -110,48 +110,46 @@
         android:textColor="#000000"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/spinner13"
-        app:layout_constraintEnd_toStartOf="@+id/spinner13"
-        app:layout_constraintTop_toTopOf="@+id/spinner13" />
+        app:layout_constraintBottom_toBottomOf="@+id/spJoinGroupLevel"
+        app:layout_constraintEnd_toStartOf="@+id/spJoinGroupLevel"
+        app:layout_constraintTop_toTopOf="@+id/spJoinGroupLevel" />
 
     <TextView
         android:id="@+id/textView45"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
         android:layout_marginTop="16dp"
         android:text="지역"
         android:textColor="#000000"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner13" />
+        app:layout_constraintStart_toStartOf="@+id/textView42"
+        app:layout_constraintTop_toBottomOf="@+id/spJoinGroupLevel" />
 
     <Spinner
-        android:id="@+id/spinner14"
+        android:id="@+id/spJoinGroupArea"
         android:layout_width="150dp"
         android:layout_height="30dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView45"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView45"
         app:layout_constraintTop_toTopOf="@+id/textView45" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="모임찾기"
-        app:layout_constraintEnd_toEndOf="@+id/spinner13"
-        app:layout_constraintStart_toStartOf="@+id/textView42"
-        app:layout_constraintTop_toBottomOf="@+id/spinner14" />
-
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvJoinGroupList"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/imgJoinGroupFind" />
+
+    <ImageView
+        android:id="@+id/imgJoinGroupFind"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/spJoinGroupLevel"
+        app:layout_constraintTop_toBottomOf="@+id/spJoinGroupLevel"
+        app:srcCompat="@drawable/ic_baseline_search_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
