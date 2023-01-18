@@ -1,5 +1,6 @@
 package com.example.echo.board
 
+import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.echo.MainActivity
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
 import com.example.echo.board.social.CmtListVO
@@ -74,6 +76,14 @@ class BoardDetailActivity : AppCompatActivity() {
         binding.tvBoardDetailModify.setOnClickListener {
             val intent = Intent(this, BoardWriteActivity::class.java)
             intent.putExtra("modifyCk","true")
+            intent.putExtra("board_seq", board_seq)
+            intent.putExtra("board_title", board_title)
+            intent.putExtra("board_content", board_content)
+            intent.putExtra("board_file", board_file)
+            intent.putExtra("user_nick", user_nick)
+            intent.putExtra("board_dt", board_dt)
+            intent.putExtra("user_id", user_id)
+            intent.putExtra("mnt_name", mnt_name)
             startActivity(intent)
         }
 
@@ -144,7 +154,6 @@ class BoardDetailActivity : AppCompatActivity() {
                 binding.tvBoardDetailRecoCnt.text = (++recoCnt).toString()
             }
         }
-
 
     }
 
