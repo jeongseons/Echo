@@ -22,9 +22,8 @@ interface BoardApi {
         @Path("board_seq") board_seq : Int
     ): Call<ResponseBody>
 
-    @PUT("api/board/{board_seq}")
+    @PUT("api/board")
     fun modifyBoard(
-        @Path("board_seq") board_seq : Int,
         @Body board: BoardVO
     ): Call<ResponseBody>
 
