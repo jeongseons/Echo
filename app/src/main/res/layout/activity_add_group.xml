@@ -84,24 +84,24 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
             <CheckBox
-                android:id="@+id/ckAddGroupType1"
+                android:id="@+id/ckUnprotectType1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:text="등산"
                 app:layout_constraintBottom_toBottomOf="@+id/textView20"
-                app:layout_constraintEnd_toStartOf="@+id/ckAddGroupType2"
+                app:layout_constraintEnd_toStartOf="@+id/ckProtectType1"
                 app:layout_constraintTop_toTopOf="@+id/textView20" />
 
             <CheckBox
-                android:id="@+id/ckAddGroupType2"
+                android:id="@+id/ckProtectType1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:text="등반"
-                app:layout_constraintBottom_toBottomOf="@+id/ckAddGroupType1"
+                app:layout_constraintBottom_toBottomOf="@+id/ckUnprotectType1"
                 app:layout_constraintEnd_toEndOf="@+id/spAddGroupMax"
-                app:layout_constraintTop_toTopOf="@+id/ckAddGroupType1" />
+                app:layout_constraintTop_toTopOf="@+id/ckUnprotectType1" />
 
             <TextView
                 android:id="@+id/textView19"
