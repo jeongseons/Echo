@@ -32,68 +32,41 @@
         android:id="@+id/textView28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
         android:text="분류"
         android:textColor="#000000"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
-
-    <Spinner
-        android:id="@+id/spJoinGroupType"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView28"
-        app:layout_constraintStart_toEndOf="@+id/textView28"
-        app:layout_constraintTop_toTopOf="@+id/textView28" />
-
-    <TextView
-        android:id="@+id/textView29"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="연령"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/spJoinGroupType"
-        app:layout_constraintEnd_toStartOf="@+id/spJoinGroupAge"
-        app:layout_constraintTop_toTopOf="@+id/spJoinGroupType" />
+        app:layout_constraintTop_toBottomOf="@+id/bottomNavigationView" />
 
     <Spinner
         android:id="@+id/spJoinGroupAge"
         android:layout_width="100dp"
         android:layout_height="30dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="60dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView29"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView29" />
+        app:layout_constraintTop_toTopOf="@+id/textView29"
+        app:layout_constraintVertical_bias="1.0" />
 
-    <Spinner
-        android:id="@+id/spJoinGroupGender"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView42"
-        app:layout_constraintStart_toEndOf="@+id/textView42"
-        app:layout_constraintTop_toTopOf="@+id/textView42" />
-
-    <Spinner
-        android:id="@+id/spJoinGroupLevel"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/spJoinGroupGender"
-        app:layout_constraintEnd_toEndOf="@+id/spJoinGroupAge"
-        app:layout_constraintTop_toTopOf="@+id/spJoinGroupGender" />
+    <ImageView
+        android:id="@+id/imgJoinGroupFind"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/spJoinGroupLevel"
+        app:layout_constraintTop_toBottomOf="@+id/spJoinGroupLevel"
+        app:srcCompat="@drawable/ic_baseline_search_24" />
 
     <TextView
         android:id="@+id/textView42"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
         android:text="성별"
         android:textColor="#000000"
         android:textSize="14sp"
@@ -101,24 +74,32 @@
         app:layout_constraintStart_toStartOf="@+id/textView28"
         app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
-    <TextView
-        android:id="@+id/textView43"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:layout_marginEnd="16dp"
-        android:text="난이도"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/spJoinGroupLevel"
-        app:layout_constraintEnd_toStartOf="@+id/spJoinGroupLevel"
-        app:layout_constraintTop_toTopOf="@+id/spJoinGroupLevel" />
+    <Spinner
+        android:id="@+id/spJoinGroupArea"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView45"
+        app:layout_constraintStart_toEndOf="@+id/textView45"
+        app:layout_constraintTop_toTopOf="@+id/textView45"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Spinner
+        android:id="@+id/spJoinGroupLevel"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/spJoinGroupGender"
+        app:layout_constraintEnd_toEndOf="@+id/spJoinGroupAge"
+        app:layout_constraintTop_toTopOf="@+id/spJoinGroupGender"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView45"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
         android:text="지역"
         android:textColor="#000000"
         android:textStyle="bold"
@@ -126,30 +107,69 @@
         app:layout_constraintTop_toBottomOf="@+id/spJoinGroupLevel" />
 
     <Spinner
-        android:id="@+id/spJoinGroupArea"
-        android:layout_width="150dp"
+        android:id="@+id/spJoinGroupGender"
+        android:layout_width="100dp"
         android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView45"
-        app:layout_constraintStart_toEndOf="@+id/textView45"
-        app:layout_constraintTop_toTopOf="@+id/textView45" />
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView42"
+        app:layout_constraintStart_toEndOf="@+id/textView42"
+        app:layout_constraintTop_toTopOf="@+id/textView42"
+        app:layout_constraintVertical_bias="0.818" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:text="연령"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/spJoinGroupType"
+        app:layout_constraintEnd_toStartOf="@+id/spJoinGroupAge"
+        app:layout_constraintTop_toTopOf="@+id/textView28" />
+
+    <TextView
+        android:id="@+id/textView43"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginEnd="4dp"
+        android:text="난이도"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/spJoinGroupLevel"
+        app:layout_constraintEnd_toStartOf="@+id/spJoinGroupLevel"
+        app:layout_constraintTop_toTopOf="@+id/spJoinGroupLevel"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Spinner
+        android:id="@+id/spJoinGroupType"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView28"
+        app:layout_constraintStart_toEndOf="@+id/textView28"
+        app:layout_constraintTop_toTopOf="@+id/textView28"
+        app:layout_constraintVertical_bias="0.545" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvJoinGroupList"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgJoinGroupFind" />
 
-    <ImageView
-        android:id="@+id/imgJoinGroupFind"
-        android:layout_width="50dp"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/spJoinGroupLevel"
-        app:layout_constraintTop_toBottomOf="@+id/spJoinGroupLevel"
-        app:srcCompat="@drawable/ic_baseline_search_24" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
