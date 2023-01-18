@@ -19,6 +19,7 @@ import com.example.echo.myPage.MyPageFragment
 
 class MapSaveActivity : AppCompatActivity() {
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_save)

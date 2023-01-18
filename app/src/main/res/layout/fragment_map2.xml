@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".path.MapFragment">
+    tools:context=".path.MapFragment2">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,22 +12,22 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tvMapCurrentTime"
+            android:id="@+id/tvMapCurrentTime2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:text="현재시간"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvMApCurrentLocation" />
+            app:layout_constraintTop_toBottomOf="@+id/tvMApCurrentLocation2" />
 
         <TextView
-            android:id="@+id/tvMApCurrentLocation"
+            android:id="@+id/tvMApCurrentLocation2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             android:text="무등산"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -35,47 +35,48 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.gms.maps.MapView
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.MapFragment"
+            android:id="@+id/map2"
+            android:name="com.google.android.gms.maps.MapFragment2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnMapRecordStart2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvMapCurrentTime"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/tvMapCurrentTime2" />
 
         <Button
-            android:id="@+id/btnMapRecordStart"
+            android:id="@+id/btnMapRecordStart2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="180dp"
             android:text="기록시작하기"
-            app:layout_constraintBottom_toBottomOf="@+id/map"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/map" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/btnMapRecordEnd"
+            android:id="@+id/btnMapRecordEnd2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="180dp"
             android:text="기록중지하기"
-            app:layout_constraintBottom_toBottomOf="@+id/map"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/map" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/tvMapTimer"
+            android:id="@+id/tvMapTimer2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="hello world"
+            android:layout_marginEnd="24dp"
+            android:text="소요시간임"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvMapCurrentTime" />
+            app:layout_constraintTop_toBottomOf="@+id/btnMapRecordStart2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
