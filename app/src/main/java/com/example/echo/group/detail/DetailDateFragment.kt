@@ -11,16 +11,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.echo.R
+import com.example.echo.RetrofitBuilder
+import com.example.echo.group.GroupVO
 import com.example.echo.group.NewDateVO
 import com.example.echo.group.detail.CalendarDecorate.*
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.Closeable
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -44,6 +50,7 @@ class DetailDateFragment : Fragment() {
         val cvGroupCalendar = view.findViewById<MaterialCalendarView>(R.id.cvGroupCalendar)
         val rvDetailGroupDate = view.findViewById<RecyclerView>(R.id.rvDetailGroupDate)
         val btnNewDate = view.findViewById<Button>(R.id.btnNewDate)
+        val seq = requireActivity().intent.getIntExtra("num", 0)
 
         //초기 month 셋팅
         val getMonth = Calendar.getInstance().time
@@ -91,10 +98,7 @@ class DetailDateFragment : Fragment() {
 
         }
 
-
-
-
-
+        GetCalList(seq)
 
         //일정에서 날짜, 상세설명 불러와서 입력하는 부분분
         dateList.add(NewDateVO("2023-01-13 07:00","상세설명",76))
@@ -123,7 +127,39 @@ class DetailDateFragment : Fragment() {
         return view
     }//OnCreate 바깥
 
+    fun GetCalList(seq: Int) {//그룹 리스트 - 스프링 통신
+        val call = RetrofitBuilder.api.getCalList(seq)
+        call.enqueue(object : Callback<List<NewDateVO>> {
 
+            override fun onResponse(call: Call<List<NewDateVO>>, response: Response<List<NewDateVO>>) {
+
+                if (response.isSuccessful) {//성공
+                    Log.d("rty",response.body().toString())
+//                    dateList.clear()
+//                    if(response.body()?.size!=0) {//가입한 그룹이 있을 때
+//                        for (i: Int in 0 until response.body()!!.size) {
+//                            //그룹리스트 정보 담아줌.
+//                            dateList.add(
+//                                NewDateVO(
+//                                    response.body()!!.get(i).cal_dt,
+//                                    response.body()!!.get(i).cal_content,
+//                                    seq
+//                                )
+//                            )
+//                        }
+//                        //리스트 추가후 어댑터 새로고침 필수!
+//                        // 근본적인 원인 : API 호출 이후 새로고침이 일어나야 하는데
+//                        // 새로고침이 일어난 이후에 데이터가 쌓임
+//                        adapter.notifyDataSetChanged()
+                    }
+                }
+
+            override fun onFailure(call: Call<List<NewDateVO>>, t: Throwable) {
+                Log.d("불러오기실패", t.localizedMessage)
+            }
+
+        })
+    }
 
 
 

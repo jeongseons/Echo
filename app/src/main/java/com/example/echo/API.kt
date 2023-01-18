@@ -2,6 +2,7 @@ package com.example.echo
 
 import com.example.echo.auth.UserVO
 import com.example.echo.group.GroupVO
+import com.example.echo.group.NewDateVO
 import com.example.echo.group.NewGroupVO
 import com.example.echo.group.detail.PersonVO
 import okhttp3.ResponseBody
@@ -31,7 +32,7 @@ interface API {
         @Body user_id: String
     ): Call<ResponseBody>
 
-    @POST("api/addgroup") //
+    @POST("api/addgroup") // 모임을 생성한다.
     fun addGroup(
         @Body addgroup : NewGroupVO
     ): Call<ResponseBody>
@@ -50,4 +51,14 @@ interface API {
     fun dropUser(
         @Query("user_nick") nick : String
     ): Call<ResponseBody>
+
+    @POST("api/addcal") // 일정을 추가한다..
+    fun addCal(
+        @Body addCal : NewDateVO
+    ): Call<ResponseBody>
+
+    @GET("api/callist") //한 그룹에 대해 추가되어 있는 일정들을 가져온다.
+    fun getCalList(
+        @Query("group_seq") seq : Int
+    ): Call<List<NewDateVO>>
 }
