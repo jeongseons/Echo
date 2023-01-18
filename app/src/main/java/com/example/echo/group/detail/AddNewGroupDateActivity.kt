@@ -79,8 +79,6 @@ class AddNewGroupDateActivity : AppCompatActivity() {
                     }
                 }
 
-
-
                 //사용자가 선택한 시간 텍스트 뷰에 적용
                 tvNewGroupDateDate.text = "${dateString}${timeString}"
             }
@@ -129,7 +127,6 @@ class AddNewGroupDateActivity : AppCompatActivity() {
             val sharedPreferences = getSharedPreferences("group_seq", 0)
             var group_seq = sharedPreferences.getInt("group_seq", 0).toInt()
             Log.d("값확인-그룹번호", group_seq.toString())
-
 
             addNewDateDate = NewDateVO(getDate, addNewDetail, group_seq)
 
