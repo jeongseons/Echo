@@ -5,11 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView.ItemView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.echo.R
 
-class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardVO>)
+class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardListVO>)
     :RecyclerView.Adapter<BoardListAdapter.ViewHolder>() {
 
     // 리스너 커스텀
@@ -31,12 +30,14 @@ class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardVO>)
         val tvBoardDate: TextView
         val tvBoardWriter: TextView
         val tvBoardRecoCount: TextView
+        val tvBoardMntName : TextView
 
         init {
             tvBoardTitle = itemView.findViewById(R.id.tvBoardTitle)
             tvBoardWriter = itemView.findViewById(R.id.tvBoardWriter)
             tvBoardDate = itemView.findViewById(R.id.tvBoardDate)
             tvBoardRecoCount = itemView.findViewById(R.id.tvBoardRecoCount)
+            tvBoardMntName = itemView.findViewById(R.id.tvBoardMntName)
 
             itemView.setOnClickListener {
                 val position = adapterPosition
@@ -58,8 +59,10 @@ class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardVO>)
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             holder.tvBoardTitle.text = BoardList[position].board_title
-            holder.tvBoardWriter.text = BoardList[position].user_id
+            holder.tvBoardWriter.text = BoardList[position].user_nick
             holder.tvBoardDate.text = BoardList[position].board_dt
+            holder.tvBoardRecoCount.text = BoardList[position].board_reco_cnt.toString()
+            holder.tvBoardMntName.text = BoardList[position].mnt_name
         }
 
         override fun getItemCount(): Int {
