@@ -18,7 +18,7 @@ import com.example.echo.myPage.MyPageFragment
 
 
 class MapSaveActivity : AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_save)
