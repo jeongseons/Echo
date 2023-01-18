@@ -138,9 +138,7 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
 
             return
         }else{
-           Log.d("스낵바", "여기")
-           Snackbar.make(View(requireContext()), "이 앱을 실행하려면 위치 접근 권한이 필요합니다." , Snackbar.LENGTH_LONG).show()
-        }
+                 }
 
 
     }
