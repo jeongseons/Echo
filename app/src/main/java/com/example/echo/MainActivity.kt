@@ -15,8 +15,9 @@ import com.example.echo.board.BoardFragment
 import com.example.echo.board.BoardPostFragment
 import com.example.echo.group.GroupFragment
 import com.example.echo.myPage.MyPageFragment
-//import com.example.echo.path.MapFragment
+import com.example.echo.path.MapFragment
 import com.example.echo.path.MapFragment2
+//import com.example.echo.path.MapFragment2
 import com.example.echo.path.PathFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.ktx.Firebase
