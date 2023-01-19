@@ -32,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"
         android:text="2023-01-09 21:27"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,6 +49,15 @@
         android:text="댓글삭제"
         android:textColor="#AA1B1B"
         android:textSize="12sp"
+        android:visibility="visible"
         app:layout_constraintStart_toEndOf="@+id/tvCommentDate"
         app:layout_constraintTop_toBottomOf="@+id/tvCommentContent" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="450dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,14 +1,17 @@
 package com.example.echo.board
 
+import android.app.FragmentTransaction
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.echo.MainActivity
 import com.example.echo.RetrofitBuilder
 import com.example.echo.databinding.ActivityBoardWriteBinding
@@ -25,6 +28,8 @@ import java.lang.System.currentTimeMillis
 private lateinit var binding: ActivityBoardWriteBinding
 class BoardWriteActivity : AppCompatActivity() {
     var user_id = ""
+    var modifyCk = ""
+    var board_seq = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBoardWriteBinding.inflate(layoutInflater)
@@ -42,7 +47,28 @@ class BoardWriteActivity : AppCompatActivity() {
             launcher.launch(intent)
         }
 
+        // 글 수정 경우
+        modifyCk = intent.getStringExtra("modifyCk").toString()
+        if(modifyCk=="true"){
+            board_seq = intent.getIntExtra("board_seq", 0)
+            val board_title = intent.getStringExtra("board_title")
+            val board_content = intent.getStringExtra("board_content")
+            val board_file = intent.getStringExtra("board_file")
+            val user_nick = intent.getStringExtra("user_nick")
+            var board_dt = intent.getStringExtra("board_dt")
+            var user_id = intent.getStringExtra("user_id")
+            var mnt_name = intent.getStringExtra("mnt_name")
+
+            binding.etBoardWriteTitle.setText(board_title)
+            binding.etBoardWrtieContent.setText(board_content)
+            binding.etBoardWriteMnt.setText(mnt_name)
+            Glide.with(this)
+                .load(board_file)
+                .into(binding.imgBoardWritePic) //지역변수
+        }
+
         binding.btnBoardWrtePost.setOnClickListener {
+            var emptyCk = true
 
             var board_title = binding.etBoardWriteTitle.text.toString()
             var board_content = binding.etBoardWrtieContent.text.toString()
@@ -51,9 +77,52 @@ class BoardWriteActivity : AppCompatActivity() {
             imgUpload(key)
             var board_file = "https://firebasestorage.googleapis.com/v0/b/echo-73cf6.appspot.com/o/${key}.png?alt=media"
 
-            var board = BoardVO(null,board_title,board_content,board_file,null,user_id,mnt_name)
-            Log.d("test-글작성시", board.toString())
-            addBoard(board)
+            if(board_title.isEmpty()){
+                emptyCk = false
+                Toast.makeText(this,"제목을 입력해주세요",Toast.LENGTH_SHORT).show()
+
+            }
+            if(board_content.isEmpty()){
+                emptyCk = false
+                Toast.makeText(this,"내용을 입력해주세요",Toast.LENGTH_SHORT).show()
+            }
+            if(mnt_name.isEmpty()){
+                emptyCk = false
+                Toast.makeText(this,"산 이름을 입력해주세요",Toast.LENGTH_SHORT).show()
+            }
+            if(mnt_name.substring(mnt_name.length-1)!="산"){
+                emptyCk = false
+                Toast.makeText(this,"산 이름을 'OO산'형식으로 정확히 입력해주세요",Toast.LENGTH_SHORT).show()
+            }
+
+            // 글 수정 경우
+            if(emptyCk) {
+                if (modifyCk == "true") {
+                    var board = BoardVO(
+                        board_seq,
+                        board_title,
+                        board_content,
+                        board_file,
+                        null,
+                        user_id,
+                        mnt_name
+                    )
+                    Log.d("test-글수정시", board.toString())
+                    modifyBoard(board)
+                } else {
+                    var board = BoardVO(
+                        null,
+                        board_title,
+                        board_content,
+                        board_file,
+                        null,
+                        user_id,
+                        mnt_name
+                    )
+                    Log.d("test-글작성시", board.toString())
+                    addBoard(board)
+                }
+            }
 
         }
 
@@ -102,13 +171,29 @@ class BoardWriteActivity : AppCompatActivity() {
 
                 finish()
 
+
             }
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Log.d("test-가입실패", t.localizedMessage)
+                Log.d("test-글등록실패", t.localizedMessage)
             }
         })
     }
 
-
+    fun modifyBoard(board: BoardVO){
+        val call = RetrofitBuilder.boardApi.modifyBoard(board)
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>
+            ) {
+                Toast.makeText(
+                    this@BoardWriteActivity, "수정되었습니다",
+                    Toast.LENGTH_SHORT
+                ).show()
+                finish()
+            }
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.d("test-글수정실패", t.localizedMessage)
+            }
+        })
+    }
 
 }
