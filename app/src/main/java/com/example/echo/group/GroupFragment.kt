@@ -80,7 +80,7 @@ class GroupFragment : Fragment() {
                 if (response.isSuccessful) {//성공
                     Log.d("rty",response.body().toString())
                     if(response.body()?.size!=0) {//가입한 그룹이 있을 때
-                        for (i: Int in 0 until response.body()!!.size) {
+                         for (i: Int in 0 until response.body()!!.size) {
                             //그룹리스트 정보 담아줌.
                             groupList.add(
                                 GroupVO(

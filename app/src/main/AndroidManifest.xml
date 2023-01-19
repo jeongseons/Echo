@@ -38,21 +38,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".StorageBoxActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ReviseAdapter"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ReviseActivity"
+            android:name=".myPage.ReviseActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
