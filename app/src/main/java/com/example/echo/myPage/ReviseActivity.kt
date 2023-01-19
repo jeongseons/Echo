@@ -47,6 +47,7 @@ class ReviseActivity : AppCompatActivity() {
             intent.setType("Profile image/")
 
         }
+
         UserApiClient.instance.me { user, error ->
             if (error != null) {
                 Log.e(ContentValues.TAG, "사용자 정보 요청 실패", error)
@@ -64,25 +65,20 @@ class ReviseActivity : AppCompatActivity() {
                 user_id = user.id.toString()
                 Log.d("test", "$user_id")
                 getImageData(user_id)
-
             }
         }
     }
 
     fun getImageData(key: String) {
         val storageReference = Firebase.storage.reference.child("$key.png")
-
         storageReference.downloadUrl.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 //Gilde: 웹에 있는 이미지 적용하는 라이브러리
                 Glide.with(this)
                     .load(task.result)
                     .into(imgPhoto) //지역변수
-
             }
-
         }
-
     }
 }
 
