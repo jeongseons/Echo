@@ -17,7 +17,7 @@
         app:srcCompat="@drawable/kakao_login_medium_wide" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/tvMyPageCourseCnt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="250dp"
@@ -33,8 +33,8 @@
         android:layout_height="wrap_content"
         android:text="메아리"
         android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView6"
-        app:layout_constraintStart_toStartOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintEnd_toEndOf="@+id/tvMyPageCourseCnt"
+        app:layout_constraintStart_toStartOf="@+id/tvMyPageCourseCnt"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyPageCourseCnt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

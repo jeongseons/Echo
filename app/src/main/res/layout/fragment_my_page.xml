@@ -8,7 +8,7 @@
     tools:context=".myPage.MyPageFragment">
 
     <ImageView
-        android:id="@+id/imgProfile"
+        android:id="@+id/imgMyPagePic"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginStart="16dp"
@@ -26,43 +26,54 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvProfile" />
+        app:layout_constraintTop_toBottomOf="@+id/tvMyPageModify" />
 
     <TextView
-        android:id="@+id/tvNick"
+        android:id="@+id/tvMyPageNick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="TextView"
+        android:text="닉네임"
         android:textColor="#000000"
         android:textSize="17sp"
-        app:layout_constraintStart_toEndOf="@+id/imgProfile"
-        app:layout_constraintTop_toTopOf="@+id/imgProfile" />
+        app:layout_constraintStart_toEndOf="@+id/imgMyPagePic"
+        app:layout_constraintTop_toTopOf="@+id/imgMyPagePic" />
 
     <TextView
-        android:id="@+id/tvProfile"
+        android:id="@+id/tvMyPageBirth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="생일"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvMyPageNick"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvMyPageNick"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyPageNick" />
+
+    <TextView
+        android:id="@+id/tvMyPageModify"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="프로필 수정 >"
         android:textColor="#009688"
-        app:layout_constraintStart_toStartOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintStart_toStartOf="@+id/tvMyPageBirth"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyPageBirth" />
 
     <TextView
         android:id="@+id/tvLetter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
         android:text="작성한글 >"
         android:textColor="#000000"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/View" />
+        app:layout_constraintBottom_toBottomOf="@+id/tvChannel"
+        app:layout_constraintStart_toEndOf="@+id/tvMyPageCourseCnt"
+        app:layout_constraintTop_toTopOf="@+id/tvChannel" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tvMyPageBoardCnt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -78,15 +89,17 @@
         android:id="@+id/tvChannel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="112dp"
+        android:layout_marginStart="32dp"
         android:text="나의 경로 >"
         android:textColor="#000000"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvLetter" />
+        app:layout_constraintBottom_toBottomOf="@+id/View"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/View"
+        app:layout_constraintVertical_bias="0.523" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/tvMyPageCourseCnt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -99,7 +112,7 @@
         app:layout_constraintTop_toTopOf="@+id/tvChannel" />
 
     <TextView
-        android:id="@+id/tvBox1"
+        android:id="@+id/tvMyPageCourseStrg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -112,7 +125,7 @@
         app:layout_constraintTop_toBottomOf="@+id/View" />
 
     <TextView
-        android:id="@+id/tvBox2"
+        android:id="@+id/tvMyPageBoardStrg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -120,11 +133,11 @@
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tvBox1"
-        app:layout_constraintTop_toBottomOf="@+id/tvBox1" />
+        app:layout_constraintStart_toStartOf="@+id/tvMyPageCourseStrg"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyPageCourseStrg" />
 
     <TextView
-        android:id="@+id/tvSet"
+        android:id="@+id/tvMyPageSetting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -132,11 +145,11 @@
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tvBox2"
-        app:layout_constraintTop_toBottomOf="@+id/tvBox2" />
+        app:layout_constraintStart_toStartOf="@+id/tvMyPageBoardStrg"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyPageBoardStrg" />
 
     <TextView
-        android:id="@+id/tvMember"
+        android:id="@+id/tvDeleteUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
@@ -147,17 +160,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/tvNick"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tvNick"
-        app:layout_constraintTop_toBottomOf="@+id/tvNick" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

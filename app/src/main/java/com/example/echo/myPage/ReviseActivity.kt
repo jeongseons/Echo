@@ -1,85 +1,86 @@
 package com.example.echo.myPage
 
-import android.content.ContentValues
-import android.content.Entity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Button
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import com.bumptech.glide.Glide
-import com.example.echo.R
-import com.google.firebase.firestore.FirebaseFirestore
+import com.example.echo.databinding.ActivityReviseBinding
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
-import com.kakao.sdk.user.UserApiClient
-import de.hdodenhof.circleimageview.CircleImageView
+import java.io.ByteArrayOutputStream
 
 class ReviseActivity : AppCompatActivity() {
-
-    lateinit var imgPhoto: ImageView
-    var user_id = ""
-    var storage: FirebaseStorage = Firebase.storage
+    private lateinit var binding: ActivityReviseBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_revise)
 
-        imgPhoto = findViewById(R.id.imgPhoto)
-        val tvPro = findViewById<TextView>(R.id.tvPro)
-        val etEdNick = findViewById<EditText>(R.id.etEdNick)
-        val btnCheck = findViewById<Button>(R.id.btnCheck)
-        val btnCancel = findViewById<Button>(R.id.btnCancel)
+        binding = ActivityReviseBinding.inflate(layoutInflater)
+//        setContentView(R.layout.activity_revise)
+        setContentView(binding.root)
 
-        btnCancel.setOnClickListener {
-            finish()
+        val user_id = intent.getStringExtra("user_id")
+        val user_nick = intent.getStringExtra("user_nick")
+        val user_profile_img = intent.getStringExtra("user_profile_img")
+
+        binding.etReviseUserNick.setText(user_nick)
+        Glide.with(this)
+            .load(user_profile_img)
+            .into(binding.imgReviseProfile) //지역변수
+
+        // 프로필 사진 변경
+        binding.tvReviseProfile.setOnClickListener {
+            val intent = Intent(
+                Intent.ACTION_PICK,
+                MediaStore.Images.Media.INTERNAL_CONTENT_URI
+            )
+            launcher.launch(intent)
         }
-        // 1. db에 있는 사진 불러와서
-        // 프로필 사진을 설정(set)
 
-        tvPro.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            intent.setType("Profile image/")
-
+        binding.btnRevise.setOnClickListener {
+            imgUpload(user_id!!)
+            var revisedNick = binding.etReviseUserNick.text
         }
 
-        UserApiClient.instance.me { user, error ->
-            if (error != null) {
-                Log.e(ContentValues.TAG, "사용자 정보 요청 실패", error)
-            } else if (user != null) {
-                Log.i(ContentValues.TAG, "사용자 정보 요청 성공" +
-                        "\n회원번호: ${user.id}" +
-                        "\n이메일: ${user.kakaoAccount?.email}" +
-                        "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
-                        "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}"
-                        +
-                        "\n연령대: ${user.kakaoAccount?.ageRange}"
-                        +
-                        "\n성별: ${user.kakaoAccount?.gender}")
 
-                user_id = user.id.toString()
-                Log.d("test", "$user_id")
-                getImageData(user_id)
-            }
+    }
+
+    // 프로필 이미지 업로드
+    fun imgUpload(key:String){
+        val storage = Firebase.storage
+        val storageRef = storage.reference
+        val mountainsRef = storageRef.child("$user_id.png")
+
+        binding.imgReviseProfile.isDrawingCacheEnabled = true
+        binding.imgReviseProfile.buildDrawingCache()
+        val bitmap = (binding.imgReviseProfile.drawable as BitmapDrawable).bitmap
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos)
+        val data = baos.toByteArray()
+
+        var uploadTask = mountainsRef.putBytes(data)
+        uploadTask.addOnFailureListener {
+            // Handle unsuccessful uploads
+        }.addOnSuccessListener { taskSnapshot ->
+            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+            // ...
         }
     }
 
-    fun getImageData(key: String) {
-        val storageReference = Firebase.storage.reference.child("$key.png")
-        storageReference.downloadUrl.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                //Gilde: 웹에 있는 이미지 적용하는 라이브러리
-                Glide.with(this)
-                    .load(task.result)
-                    .into(imgPhoto) //지역변수
-            }
+    // 선택한 프로필 사진 보여주기
+    val launcher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (it.resultCode == RESULT_OK) {
+            binding.imgReviseProfile.setImageURI(it.data?.data)
         }
     }
+
 }
 
 

@@ -7,7 +7,7 @@
     tools:context=".myPage.ReviseActivity">
 
     <ImageView
-        android:id="@+id/imgPhoto"
+        android:id="@+id/imgReviseProfile"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="30dp"
@@ -17,17 +17,17 @@
         app:srcCompat="@drawable/profile" />
 
     <TextView
-        android:id="@+id/tvPro"
+        android:id="@+id/tvReviseProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="프로필 사진 등록"
         android:textColor="#009688"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imgPhoto"
+        app:layout_constraintEnd_toEndOf="@+id/imgReviseProfile"
         app:layout_constraintHorizontal_bias="0.456"
-        app:layout_constraintStart_toStartOf="@+id/imgPhoto"
-        app:layout_constraintTop_toBottomOf="@+id/imgPhoto" />
+        app:layout_constraintStart_toStartOf="@+id/imgReviseProfile"
+        app:layout_constraintTop_toBottomOf="@+id/imgReviseProfile" />
 
     <TextView
         android:id="@+id/TextView"
@@ -40,23 +40,23 @@
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPro" />
+        app:layout_constraintTop_toBottomOf="@+id/tvReviseProfile" />
 
     <EditText
-        android:id="@+id/etEdNick"
+        android:id="@+id/etReviseUserNick"
         android:layout_width="257dp"
         android:layout_height="43dp"
         android:layout_marginTop="28dp"
         android:backgroundTint="#FFFFFF"
         android:ems="10"
-        android:hint="변경 할 닉네임"
+        android:hint="내용을 입력해주세요"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/imgPhoto"
-        app:layout_constraintStart_toStartOf="@+id/imgPhoto"
+        app:layout_constraintEnd_toEndOf="@+id/imgReviseProfile"
+        app:layout_constraintStart_toStartOf="@+id/imgReviseProfile"
         app:layout_constraintTop_toBottomOf="@+id/TextView" />
 
     <Button
-        android:id="@+id/btnCheck"
+        android:id="@+id/btnRevise"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:backgroundTint="#009688"
@@ -65,25 +65,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.247"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEdNick"
-        app:layout_constraintVertical_bias="0.48" />
-
-    <Button
-        android:id="@+id/btnCancel"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:backgroundTint="#009688"
-        android:text="취소"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/btnCheck"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.425"
-        app:layout_constraintStart_toEndOf="@+id/btnCheck"
-        app:layout_constraintTop_toTopOf="@+id/btnCheck"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/etReviseUserNick"
+        app:layout_constraintVertical_bias="0.427" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tvMyPageBoardCnt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2023년 nn월 nn일 nn:nn "
@@ -36,9 +36,9 @@
         android:layout_marginEnd="16dp"
         android:text="기록 시작하기"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView5"
+        app:layout_constraintBottom_toBottomOf="@+id/tvMyPageBoardCnt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView5" />
+        app:layout_constraintTop_toTopOf="@+id/tvMyPageBoardCnt" />
 
     <net.daum.mf.map.api.MapView
         android:id="@+id/mapView"

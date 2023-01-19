@@ -3,6 +3,7 @@ package com.example.echo
 import com.example.echo.auth.userApi
 import com.example.echo.board.BoardApi
 import com.example.echo.board.social.SocialApi
+import com.example.echo.myPage.MyPageApi
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,6 +14,7 @@ object RetrofitBuilder {
     var userAPI : userApi
     var boardApi : BoardApi
     var socialApi : SocialApi
+    var myPageApi : MyPageApi
     var gson = GsonBuilder().setLenient().create()
     init {
         var retrofit = Retrofit.Builder()
@@ -25,6 +27,7 @@ object RetrofitBuilder {
         userAPI = retrofit.create(userApi::class.java)
         boardApi = retrofit.create(BoardApi::class.java)
         socialApi = retrofit.create()
+        myPageApi = retrofit.create()
     }
 
 
