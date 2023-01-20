@@ -16,6 +16,8 @@ import com.example.echo.board.BoardPostFragment
 import com.example.echo.group.GroupFragment
 import com.example.echo.myPage.MyPageFragment
 import com.example.echo.path.MapFragment
+import com.example.echo.path.MapFragment2
+//import com.example.echo.path.MapFragment2
 import com.example.echo.path.PathFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.ktx.Firebase
@@ -24,6 +26,7 @@ import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.user.model.User
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.activity_map_save.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -35,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var tvHello: TextView
     lateinit var imgMainUserProfile:ImageView
     var user_id = ""
+    var moveCk = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -74,13 +78,21 @@ class MainActivity : AppCompatActivity() {
             HomeFragment()
         ).commit()
 
+        moveCk = intent.getStringExtra("tvMapSaveAlt").toString()
+        if(moveCk.isNotEmpty()) {
+                         supportFragmentManager.beginTransaction().replace(
+                             R.id.flMain,
+                             MyPageFragment()
+                         ).commit()
+        }
+
         bnvMain.setOnItemSelectedListener { item ->
             when (item.itemId) {
 
                 R.id.tab1 -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.flMain,
-                        MapFragment()
+                        MapFragment2()
                     ).commit()
                 }
 

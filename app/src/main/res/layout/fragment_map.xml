@@ -12,26 +12,27 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView20"
+            android:id="@+id/tvMapCurrentTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
             android:text="현재시간"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/textView21"
-            app:layout_constraintHorizontal_bias="0.091"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/tvMApCurrentLocation" />
 
         <TextView
-            android:id="@+id/textView21"
+            android:id="@+id/tvMApCurrentLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:text="기록시작하기"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="무등산"
             android:textSize="20sp"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="226dp" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/map"
@@ -42,20 +43,40 @@
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView21"
-            app:layout_constraintVertical_bias="0.149" />
+            app:layout_constraintTop_toBottomOf="@+id/tvMapCurrentTime"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
-            android:id="@+id/imgMapRecordStart"
+            android:id="@+id/btnMapRecordStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="Button"
+            android:layout_marginBottom="60dp"
+            android:text="기록시작하기"
+            app:layout_constraintBottom_toBottomOf="@+id/map"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@+id/map" />
+
+        <Button
+            android:id="@+id/btnMapRecordEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:text="기록중지하기"
+            app:layout_constraintBottom_toBottomOf="@+id/map"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/map" />
+
+        <TextView
+            android:id="@+id/tvMapTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="hello world"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvMapCurrentTime" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
