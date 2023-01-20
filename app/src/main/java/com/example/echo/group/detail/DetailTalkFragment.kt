@@ -25,7 +25,6 @@ class DetailTalkFragment : Fragment() {
 
     lateinit var adapter: TalkAdapter
     var talkList = ArrayList<Message>()
-    var id: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +51,7 @@ class DetailTalkFragment : Fragment() {
         )
 
 
-        adapter = TalkAdapter(requireContext(), talkList, id)
+        adapter = TalkAdapter(requireContext(), talkList)
         //어댑터 리스트로 띄워졌을때 해당 액티비티로 이동해야함.
         rvtalk.adapter = adapter
         rvtalk.layoutManager = LinearLayoutManager(requireContext())

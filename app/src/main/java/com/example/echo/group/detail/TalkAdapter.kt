@@ -15,8 +15,9 @@ import com.example.echo.group.GroupActivity
 import com.example.echo.group.Message
 import com.kakao.sdk.user.UserApiClient
 
-class TalkAdapter(val context: Context, val talkList: ArrayList<Message>, val id: String,
-): RecyclerView.Adapter<TalkAdapter.ViewHolder>() {
+class TalkAdapter(
+    val context: Context, val talkList: ArrayList<Message>
+) : RecyclerView.Adapter<TalkAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //다른 유저
@@ -43,7 +44,9 @@ class TalkAdapter(val context: Context, val talkList: ArrayList<Message>, val id
             tvTalkNick = itemView.findViewById(R.id.tvTalkNick)
             imgTalkL = itemView.findViewById(R.id.imgTalkR)
 
+            // 해당 다른 유저의 현재 위치를 실시간으로 보여주는 화면으로 전환
             imgTalkPro.setOnClickListener { activity.changeFragment(DetailLocationFragment()) }
+
             //나
             imgTalkR = itemView.findViewById(R.id.imgTalkR)
             tvRTalkTime = itemView.findViewById(R.id.tvRTalkTime)
@@ -62,28 +65,29 @@ class TalkAdapter(val context: Context, val talkList: ArrayList<Message>, val id
         UserApiClient.instance.me { user, error ->
             if (error != null) {
                 Log.e(ContentValues.TAG, "사용자 정보 요청 실패", error)
-            }
-            else if (user != null) {
-               val id = user.id.toString()
+            } else if (user != null) {
+                val id = user.id.toString()
 
-                if(id == talkList[position].sender){//내가 친 채팅
-                    holder.imgTalkL.visibility =View.GONE
-                    holder.imgTalkPro.visibility =View.GONE
-                    holder.tvLTalkContent.visibility =View.GONE
-                    holder.tvLTalkTime.visibility =View.GONE
+                if (id == talkList[position].sender) {//내가 친 채팅
+                    holder.imgTalkL.visibility = View.GONE
+                    holder.imgTalkPro.visibility = View.GONE
+                    holder.tvLTalkContent.visibility = View.GONE
+                    holder.tvLTalkTime.visibility = View.GONE
+                    holder.tvTalkNick.visibility = View.GONE
 
                     holder.imgTalkR.visibility = View.VISIBLE
                     holder.tvRTalkTime.visibility = View.VISIBLE
                     holder.tvRTalkContent.visibility = View.VISIBLE
 
-                    holder.tvRTalkContent.text = talkList[position].content
+                    holder.tvRTalkContent.setText(talkList[position].content)
                     holder.tvRTalkTime.text = talkList[position].date
 
-                }else{//남이 친 채팅
-                    holder.imgTalkL.visibility =View.VISIBLE
-                    holder.imgTalkPro.visibility =View.VISIBLE
-                    holder.tvLTalkContent.visibility =View.VISIBLE
-                    holder.tvLTalkTime.visibility =View.VISIBLE
+                } else {//남이 친 채팅
+                    holder.imgTalkL.visibility = View.VISIBLE
+                    holder.imgTalkPro.visibility = View.VISIBLE
+                    holder.tvLTalkContent.visibility = View.VISIBLE
+                    holder.tvLTalkTime.visibility = View.VISIBLE
+                    holder.tvTalkNick.visibility = View.VISIBLE
 
                     holder.imgTalkR.visibility = View.GONE
                     holder.tvRTalkTime.visibility = View.GONE
@@ -91,7 +95,7 @@ class TalkAdapter(val context: Context, val talkList: ArrayList<Message>, val id
 
                     //프로필 사진
 //            holder.imgTalkPro =
-                    holder.tvLTalkContent.text = talkList[position].content
+                    holder.tvLTalkContent.setText(talkList[position].content)
                     holder.tvLTalkTime.text = talkList[position].date
                 }
             }

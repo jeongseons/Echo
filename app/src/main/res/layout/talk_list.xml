@@ -9,7 +9,6 @@
         android:id="@+id/tvRTalkContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="@+id/imgTalkR"
         app:layout_constraintEnd_toEndOf="@+id/imgTalkR"
         app:layout_constraintStart_toStartOf="@+id/imgTalkR"
@@ -39,7 +38,9 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -67,7 +68,6 @@
         android:id="@+id/tvLTalkContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="기다려주세요!"
         android:textAlignment="gravity"
         app:layout_constraintBottom_toBottomOf="@+id/imgTalkL"
         app:layout_constraintEnd_toEndOf="@+id/imgTalkL"
@@ -82,4 +82,12 @@
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgTalkL"
         app:layout_constraintStart_toEndOf="@+id/imgTalkL" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="420dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
