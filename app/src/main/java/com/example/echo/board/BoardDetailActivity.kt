@@ -1,6 +1,8 @@
 package com.example.echo.board
 
+import android.app.Activity
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.echo.MainActivity
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
 import com.example.echo.board.social.CmtListVO
@@ -71,7 +74,17 @@ class BoardDetailActivity : AppCompatActivity() {
 
         // 글 수정
         binding.tvBoardDetailModify.setOnClickListener {
-
+            val intent = Intent(this, BoardWriteActivity::class.java)
+            intent.putExtra("modifyCk","true")
+            intent.putExtra("board_seq", board_seq)
+            intent.putExtra("board_title", board_title)
+            intent.putExtra("board_content", board_content)
+            intent.putExtra("board_file", board_file)
+            intent.putExtra("user_nick", user_nick)
+            intent.putExtra("board_dt", board_dt)
+            intent.putExtra("user_id", user_id)
+            intent.putExtra("mnt_name", mnt_name)
+            startActivity(intent)
         }
 
         // 글 삭제
@@ -142,7 +155,6 @@ class BoardDetailActivity : AppCompatActivity() {
             }
         }
 
-
     }
 
     fun deleteBoard(board_seq:Int){
@@ -157,7 +169,6 @@ class BoardDetailActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     finish()
-
                 }else{
                     Toast.makeText(
                         this@BoardDetailActivity, "다시 시도해주세요",
@@ -202,7 +213,7 @@ class BoardDetailActivity : AppCompatActivity() {
                     this@BoardDetailActivity, "등록되었습니다",
                     Toast.LENGTH_SHORT
                 ).show()
-
+                refresh()
             }
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Log.d("test-가입실패", t.localizedMessage)
@@ -255,6 +266,14 @@ class BoardDetailActivity : AppCompatActivity() {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
             }
         })
+    }
+
+    fun refresh(){
+        finish() //인텐트 종료
+        overridePendingTransition(0, 0) //인텐트 효과 없애기
+        val intent = intent //인텐트
+        startActivity(intent) //액티비티 열기
+        overridePendingTransition(0, 0) //인텐트 효과 없애기
     }
 
 }

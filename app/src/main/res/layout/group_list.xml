@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
 
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -22,11 +23,9 @@
         android:id="@+id/imgKingCk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-16dp"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/imgGroupPro"
         app:layout_constraintEnd_toEndOf="@+id/imgGroupPro"
-        app:layout_constraintStart_toStartOf="@+id/imgGroupPro"
-        app:layout_constraintTop_toTopOf="@+id/imgGroupPro"
         app:srcCompat="@android:drawable/btn_star_big_on" />
 
     <TextView
@@ -45,7 +44,7 @@
         android:id="@+id/tvGroupPer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:text="인원 수"
         android:textColor="#000000"
         android:textSize="16sp"

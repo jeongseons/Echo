@@ -46,6 +46,10 @@ class GroupActivity : AppCompatActivity() {
         //그룹번호 정보(소켓서버 오픈용)
         val num = intent.getIntExtra("num", 0)
 
+        //그룹에 속한 사람이 아닐 경우 모임 정보 페이지
+
+
+
 
         if (num != null) {
             runstomp(num)

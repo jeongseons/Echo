@@ -39,12 +39,18 @@ class AddNewGroupDateActivity : AppCompatActivity() {
 
         //사용자가 달력에서 선택한 날짜
         val getDate = intent.getStringExtra("date")
+
         Log.d("값확인-가져온날짜", getDate.toString())
 
 
         val toDate = LocalDateTime.now()
         if (getDate != null) {
-            tvNewGroupDateDate.text = "${getDate} 00:00"
+            val date = LocalDateTime.now()
+            var hour = date.hour.toString()
+            var min = date.minute.toString()
+            if (hour.toInt() < 10) hour = "0$hour"
+            if (min.toInt() < 10) min = "0$min"
+            tvNewGroupDateDate.text = "${getDate} ${hour}:${min}"
         } else {
             tvNewGroupDateDate.text = toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
         }
@@ -109,7 +115,8 @@ class AddNewGroupDateActivity : AppCompatActivity() {
                 val year = intent.getStringExtra("year")!!.toInt()
                 val month = intent.getStringExtra("month")!!.toInt()
                 val day = intent.getStringExtra("day")!!.toInt()
-                DatePickerDialog(this, dateSetListener, year, month,day).show()
+                Log.d("값확인-가져온날짜(합)","${year}-${month}-${day}")
+                DatePickerDialog(this, dateSetListener, year, month-1,day).show()
             }else {
                 DatePickerDialog(this, dateSetListener, year, month, day).show()
             }
