@@ -5,6 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <TextView
+        android:id="@+id/tvRTalkContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/imgTalkR"
+        app:layout_constraintEnd_toEndOf="@+id/imgTalkR"
+        app:layout_constraintStart_toStartOf="@+id/imgTalkR"
+        app:layout_constraintTop_toTopOf="@+id/imgTalkR" />
+
+    <ImageView
+        android:id="@+id/imgTalkR"
+        android:layout_width="150dp"
+        android:layout_height="54dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/chat_right" />
+
+    <TextView
+        android:id="@+id/tvRTalkTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="04:00"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgTalkR"
+        app:layout_constraintEnd_toStartOf="@+id/imgTalkR" />
+
     <ImageView
         android:id="@+id/imgTalkPro"
         android:layout_width="80dp"
@@ -27,7 +56,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/imgTalkL"
         android:layout_width="150dp"
         android:layout_height="54dp"
         app:layout_constraintBottom_toBottomOf="@+id/imgTalkPro"
@@ -40,17 +69,17 @@
         android:layout_height="wrap_content"
         android:text="기다려주세요!"
         android:textAlignment="gravity"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
-        app:layout_constraintEnd_toEndOf="@+id/imageView6"
-        app:layout_constraintStart_toStartOf="@+id/imageView6"
-        app:layout_constraintTop_toTopOf="@+id/imageView6" />
+        app:layout_constraintBottom_toBottomOf="@+id/imgTalkL"
+        app:layout_constraintEnd_toEndOf="@+id/imgTalkL"
+        app:layout_constraintStart_toStartOf="@+id/imgTalkL"
+        app:layout_constraintTop_toTopOf="@+id/imgTalkL" />
 
     <TextView
-        android:id="@+id/tvTalkTime"
+        android:id="@+id/tvLTalkTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="04:00"
         android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
-        app:layout_constraintStart_toEndOf="@+id/imageView6" />
+        app:layout_constraintBottom_toBottomOf="@+id/imgTalkL"
+        app:layout_constraintStart_toEndOf="@+id/imgTalkL" />
 </androidx.constraintlayout.widget.ConstraintLayout>

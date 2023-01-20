@@ -44,7 +44,8 @@ class GroupActivity : AppCompatActivity() {
         tvGroupTitle2.setText(title)
 
         //그룹번호 정보(소켓서버 오픈용)
-        val num = intent.getIntExtra("num",0)
+        val num = intent.getIntExtra("num", 0)
+
 
         if (num != null) {
             runstomp(num)
@@ -89,8 +90,9 @@ class GroupActivity : AppCompatActivity() {
         }
 
     }
-    fun runstomp(num: Int){
-        Log.d("소켓","dd")
+
+    fun runstomp(num: Int) {
+        Log.d("소켓", "dd")
         val url = "ws://172.30.1.87:8099/echo/ws/websocket"
         val intervalMillis = 1000L
         val client = OkHttpClient
@@ -104,27 +106,26 @@ class GroupActivity : AppCompatActivity() {
 
 // connect
         stompConnection = stomp.connect().subscribe {
-            Log.d("i","1231321")
+
             when (it.type) {
                 Event.Type.OPENED -> {
+                    Log.d("소켓 it", it.toString())
 //                    // subscribe
 //                    topic = stomp.join("/destination").subscribe { Log.i(TAG, it) }
-                        Log.d("소켓 it", "test")
-
                     topic = stomp.join("/topic/{$num}").subscribe { it ->
-//                        val responseData = JSONObject(it).getString("message")
-//
-//                        val modelList = Gson().fromJson<ArrayList<Message>>(
-//                            responseData, TypeToken.getParameterized(
-//                                MutableList::class.java,
-//                                Message::class.java
-//                            ).type)
-                    }
+                        val responseData = JSONObject(it).getString("message")
 
+                        val modelList = Gson().fromJson<ArrayList<Message>>(
+                            responseData, TypeToken.getParameterized(
+                                MutableList::class.java,
+                                Message::class.java
+                            ).type
+                        )
+                    }
                 }
                 Event.Type.CLOSED -> {
+                    Log.d("소켓", "닫음")
 //                     unsubscribe
-                    Log.d("소켓","닫음")
                     topic.dispose()
                 }
                 Event.Type.ERROR -> {
@@ -133,19 +134,20 @@ class GroupActivity : AppCompatActivity() {
                 else -> {}
             }
         }
-        // send
-        stomp.send("/app/{$num}", "dummy message").subscribe {
-            if (it) {
-            }
-        }
-        Log.d("소켓","열림")
 
+//        // send
+//        stomp.send("/app/{$num}", "dummy message").subscribe {
+//            if (it) {
+//            }
+//        }
+//        Log.d("소켓", "열림")
+//
 
 //// disconnect
 //        stompConnection.dispose()
     }
 
-    fun changeFragment(fragment: Fragment){
+    fun changeFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(
             R.id.flGroup,
             fragment

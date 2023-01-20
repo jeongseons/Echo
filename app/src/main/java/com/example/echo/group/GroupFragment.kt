@@ -51,6 +51,7 @@ class GroupFragment : Fragment() {
             else if (user != null) {
                 id = user.id.toString()
                 Log.d("id",id )
+
                 GetGroup(id)
             }
         }
