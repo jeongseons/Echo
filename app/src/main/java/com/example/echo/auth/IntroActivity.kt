@@ -88,29 +88,13 @@ class IntroActivity : AppCompatActivity() {
 
                         UserApiClient.instance.me { user, error ->
                             user_id = user?.id.toString()
-                            userLogin(user_id)
+                            loginUser(user_id)
                         }
-
-
-//                        if (joinCk) {
-//                            Toast.makeText(
-//                                this, "로그인 성공",
-//                                Toast.LENGTH_SHORT
-//                            ).show()
-//                            val intent = Intent(this, MainActivity::class.java)
-//                            startActivity(intent)
-//                        }else{
-//                            val intent = Intent(this, JoinActivity::class.java)
-//                            startActivity(intent)
-//                        }
-
                     }
                 }
             } else {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = mCallback) // 카카오 이메일 로그인
             }
-
-
         }
 
     }
@@ -119,12 +103,16 @@ class IntroActivity : AppCompatActivity() {
     val mCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             Log.e(TAG, "로그인 실패 $error")
+            Toast.makeText(
+                this@IntroActivity, "다시 시도해주세요",
+                Toast.LENGTH_SHORT
+            ).show()
         } else if (token != null) {
             Log.e(TAG, "로그인 성공 ${token.accessToken}")
 
             UserApiClient.instance.me { user, error ->
                 user_id = user?.id.toString()
-                userLogin(user_id)
+                loginUser(user_id)
             }
 
 
@@ -132,10 +120,9 @@ class IntroActivity : AppCompatActivity() {
     }
 
     // 기 회원가입 체크
-    fun userLogin(user_id : String) {
-        val call = RetrofitBuilder.api.userLogin(user_id)
-        val call2 = RetrofitBuilder.userAPI.userLogin(user_id)
-        call2.enqueue(object : Callback<ResponseBody> {
+    fun loginUser(user_id : String) {
+        val call = RetrofitBuilder.userApi.loginUser(user_id)
+        call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 Log.d("스프링login리스폰스", response.body().toString())
                 var body = response.body()?.string()

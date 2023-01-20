@@ -9,14 +9,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.echo.R
 
 class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardListVO>)
     :RecyclerView.Adapter<BoardListAdapter.ViewHolder>(), Filterable {
 
     var initCk = true
+    var initCn = 0
     var filteredBoard = ArrayList<BoardListVO>()
     var unfilteredBoard = BoardList
     var itemFilter = ItemFilter()
@@ -40,11 +43,13 @@ class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardListVO
         val tvBoardWriter: TextView
         val tvBoardRecoCount: TextView
         val tvBoardMntName : TextView
-        init {
-            Log.d("test-필터","언제 실행되냐")
-            filteredBoard.addAll(BoardList)
-            Log.d("test-필터",BoardList.toString())
-        }
+        val imgBoardPic : ImageView
+
+//        init {
+//            Log.d("test-필터","언제 실행되냐")
+//            filteredBoard.addAll(BoardList)
+//            Log.d("test-필터",BoardList.toString())
+//        }
 
         init {
             tvBoardTitle = itemView.findViewById(R.id.tvBoardTitle)
@@ -52,6 +57,7 @@ class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardListVO
             tvBoardDate = itemView.findViewById(R.id.tvBoardDate)
             tvBoardRecoCount = itemView.findViewById(R.id.tvBoardRecoCount)
             tvBoardMntName = itemView.findViewById(R.id.tvBoardMntName)
+            imgBoardPic = itemView.findViewById(R.id.imgBoardPic)
 
             // 각 게시글 클릭 이벤트 - 게시글 내부로 이동
             itemView.setOnClickListener {
@@ -93,6 +99,7 @@ class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardListVO
             Log.d("test-필터","언제 실행됨?")
             val filteredList: BoardListVO = filteredBoard[position]
             Log.d("test-필터",filteredList.toString())
+            initCk = false
 
 //            holder.tvBoardTitle.text = filteredList.board_title
 //            holder.tvBoardWriter.text = filteredList.user_nick
@@ -100,27 +107,30 @@ class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardListVO
 //            holder.tvBoardRecoCount.text = filteredList.board_reco_cnt.toString()
 //            holder.tvBoardMntName.text = filteredList.mnt_name
 
-            if(filteredBoard.isNotEmpty()) {
+//            if(filteredBoard.isNotEmpty()) {
                 holder.tvBoardTitle.text = filteredList.board_title
                 holder.tvBoardWriter.text = filteredList.user_nick
                 holder.tvBoardDate.text = filteredList.board_dt
                 holder.tvBoardRecoCount.text = filteredList.board_reco_cnt.toString()
                 holder.tvBoardMntName.text = filteredList.mnt_name
-            }else{
-                holder.tvBoardTitle.text = BoardList[position].board_title
-                holder.tvBoardWriter.text = BoardList[position].user_nick
-                holder.tvBoardDate.text = BoardList[position].board_dt
-                holder.tvBoardRecoCount.text = BoardList[position].board_reco_cnt.toString()
-                holder.tvBoardMntName.text = BoardList[position].mnt_name
-            }
+                Glide.with(context)
+                    .load(filteredList.board_file)
+                    .into(holder.imgBoardPic) //지역변수
+//            }else{
+//                holder.tvBoardTitle.text = BoardList[position].board_title
+//                holder.tvBoardWriter.text = BoardList[position].user_nick
+//                holder.tvBoardDate.text = BoardList[position].board_dt
+//                holder.tvBoardRecoCount.text = BoardList[position].board_reco_cnt.toString()
+//                holder.tvBoardMntName.text = BoardList[position].mnt_name
+//            }
 
         }
 
         override fun getItemCount(): Int {
             Log.d("test-필터","순서가 궁금해")
-            if(initCk) filteredBoard.addAll(BoardList)
+            if(initCk&&initCn==3){ filteredBoard.addAll(BoardList)}
             Log.d("test-필터",filteredBoard.size.toString())
-
+            initCn++
             return filteredBoard.size
         }
 

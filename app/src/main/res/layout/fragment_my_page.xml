@@ -1,14 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".myPage.MyPageFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="마이페이지" />
+    <ImageView
+        android:id="@+id/imgMyPagePic"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/profile" />
 
-</FrameLayout>
+    <View
+        android:id="@+id/View"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:background="#D1CDCD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyPageModify" />
+
+    <TextView
+        android:id="@+id/tvMyPageNick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="닉네임"
+        android:textColor="#000000"
+        android:textSize="17sp"
+        app:layout_constraintStart_toEndOf="@+id/imgMyPagePic"
+        app:layout_constraintTop_toTopOf="@+id/imgMyPagePic" />
+
+    <TextView
+        android:id="@+id/tvMyPageBirth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="생일"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvMyPageNick"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvMyPageNick"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyPageNick" />
+
+    <TextView
+        android:id="@+id/tvMyPageModify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="프로필 수정 >"
+        android:textColor="#009688"
+        app:layout_constraintStart_toStartOf="@+id/tvMyPageBirth"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyPageBirth" />
+
+    <TextView
+        android:id="@+id/tvLetter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="작성한글 >"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tvChannel"
+        app:layout_constraintStart_toEndOf="@+id/tvMyPageCourseCnt"
+        app:layout_constraintTop_toTopOf="@+id/tvChannel" />
+
+    <TextView
+        android:id="@+id/tvMyPageBoardCnt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="0"
+        android:textColor="#009688"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLetter"
+        app:layout_constraintStart_toEndOf="@+id/tvLetter"
+        app:layout_constraintTop_toTopOf="@+id/tvLetter" />
+
+    <TextView
+        android:id="@+id/tvChannel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="나의 경로 >"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/View"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/View"
+        app:layout_constraintVertical_bias="0.523" />
+
+    <TextView
+        android:id="@+id/tvMyPageCourseCnt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="0"
+        android:textColor="#009688"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tvChannel"
+        app:layout_constraintStart_toEndOf="@+id/tvChannel"
+        app:layout_constraintTop_toTopOf="@+id/tvChannel" />
+
+    <TextView
+        android:id="@+id/tvMyPageCourseStrg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="40dp"
+        android:text="나의 경로 보관함"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/View" />
+
+    <TextView
+        android:id="@+id/tvMyPageBoardStrg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="작성한 글 보관함"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tvMyPageCourseStrg"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyPageCourseStrg" />
+
+    <TextView
+        android:id="@+id/tvMyPageSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="환경설정"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tvMyPageBoardStrg"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyPageBoardStrg" />
+
+    <TextView
+        android:id="@+id/tvDeleteUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:text="회원탈퇴"
+        android:textColor="#EC2E2E"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

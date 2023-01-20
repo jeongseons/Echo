@@ -1,12 +1,10 @@
 package com.example.echo.board.social
 
-import com.example.echo.board.BoardListVO
-import com.example.echo.board.BoardVO
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
-interface SocialApi {
+interface SocialAPI {
     //모든 댓글 정보 조회
     @GET("api/comment/{board_seq}")
     fun getComment(

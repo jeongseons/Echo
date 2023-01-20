@@ -1,14 +1,14 @@
 package com.example.echo.board
 
-import com.example.echo.auth.UserVO
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
-interface BoardApi {
-    //모든 게시글 정보 조회
+interface BoardAPI {
+    //게시글 정보 조회
     @GET("api/board")
     fun getBoard(
+        @Query("id") user_id: String? = null
     ): Call<List<BoardListVO>>
 
     //게시글 등록
