@@ -36,17 +36,6 @@ class MyPageFragment : Fragment() {
 
         binding = FragmentMyPageBinding.inflate(layoutInflater, container, false)
 
-//        val view = inflater.inflate(R.layout.fragment_my_page, container, false)
-//
-//        val imgProfile = view.findViewById<ImageView>(R.id.imgMyPagePic)
-//        val tvProfile = view.findViewById<TextView>(R.id.tvMyPageModify)
-//        val tvBox1 = view.findViewById<TextView>(R.id.tvMyPageCourseStrg)
-//        val tvBox2 = view.findViewById<TextView>(R.id.tvMyPageBoardStrg)
-//        tvProfile.setOnClickListener {
-//            val intent = Intent(context, ReviseActivity::class.java)
-//            intent.putExtra("rvItemList", tvProfile.tag.toString())
-//            startActivity(intent)
-//        }
         UserApiClient.instance.me { user, error ->
                 user_id = user?.id.toString()
                 getMyPage(user_id)
@@ -65,7 +54,9 @@ class MyPageFragment : Fragment() {
         }
 
         binding.tvMyPageBoardStrg.setOnClickListener {
-
+            val intent = Intent(context, MyBoardActivity::class.java)
+            intent.putExtra("user_id", user_id)
+            startActivity(intent)
         }
 
         //회원탈퇴
@@ -91,7 +82,7 @@ class MyPageFragment : Fragment() {
     }
 
     fun getMyPage(user_id:String){
-        val call = RetrofitBuilder.myPageApi.getMyPage(user_id)
+        val call = RetrofitBuilder.userApi.getMyPage(user_id)
         call.enqueue(object : Callback<MyPageVO> {
             override fun onResponse(call: Call<MyPageVO>, response: Response<MyPageVO>
             ) {
@@ -115,7 +106,7 @@ class MyPageFragment : Fragment() {
     }
 
     fun deleteUser(user_id:String) {
-        val call = RetrofitBuilder.userAPI.deleteUser(user_id)
+        val call = RetrofitBuilder.userApi.deleteUser(user_id)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>
             ) {

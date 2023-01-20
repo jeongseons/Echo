@@ -6,12 +6,23 @@ import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toUri
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.bumptech.glide.Glide
+import com.example.echo.RetrofitBuilder
+import com.example.echo.auth.IntroActivity
+import com.example.echo.auth.UserVO
 import com.example.echo.databinding.ActivityReviseBinding
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.kakao.sdk.user.UserApiClient
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.ByteArrayOutputStream
 
 class ReviseActivity : AppCompatActivity() {
@@ -21,7 +32,6 @@ class ReviseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityReviseBinding.inflate(layoutInflater)
-//        setContentView(R.layout.activity_revise)
         setContentView(binding.root)
 
         val user_id = intent.getStringExtra("user_id")
@@ -44,7 +54,8 @@ class ReviseActivity : AppCompatActivity() {
 
         binding.btnRevise.setOnClickListener {
             imgUpload(user_id!!)
-            var revisedNick = binding.etReviseUserNick.text
+            var revisedNick = binding.etReviseUserNick.text.toString()
+            modifyUser(user_id, revisedNick)
         }
 
 
@@ -79,6 +90,30 @@ class ReviseActivity : AppCompatActivity() {
         if (it.resultCode == RESULT_OK) {
             binding.imgReviseProfile.setImageURI(it.data?.data)
         }
+    }
+
+    fun modifyUser(user_id: String, revisedNick: String){
+        val revisedUser = UserVO(user_id,revisedNick,"","","")
+        val call = RetrofitBuilder.userApi.modifyUser(revisedUser)
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>
+            ) {
+                if (response.isSuccessful) {
+                    Log.d("test-수정후", response.body().toString())
+                    Toast.makeText(
+                        this@ReviseActivity, "정상적으로 수정되었습니다",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }else{
+                    Toast.makeText(
+                        this@ReviseActivity, "다시 시도해주세요",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+            }
+        })
     }
 
 }

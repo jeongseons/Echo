@@ -100,7 +100,7 @@ class JoinActivity : AppCompatActivity() {
             if(isJoin) {
                 var user = UserVO(user_id, user_nick, user_birthdate, user_profile_img, user_gender)
 
-                    val call = RetrofitBuilder.api.userJoin(user)
+                    val call = RetrofitBuilder.userApi.joinUser(user)
                     call.enqueue(object : Callback<ResponseBody> {
                         override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>
                         ) {

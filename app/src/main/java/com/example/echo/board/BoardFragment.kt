@@ -42,7 +42,7 @@ class BoardFragment : Fragment() {
         var rvBoardList = view.findViewById<RecyclerView>(R.id.rvBoardList)
 
         //모든 게시글 정보
-        getBoard()
+        getBoard(null)
         Log.d("text-create안게시글전부조회", boardList.toString())
 
         // 검색 기능
@@ -93,8 +93,9 @@ class BoardFragment : Fragment() {
 
     }
 
-    fun getBoard(){
-        val call = RetrofitBuilder.boardApi.getBoard()
+    fun getBoard(user_id:String?) {
+        boardList.clear()
+        val call = RetrofitBuilder.boardApi.getBoard(null)
         call.enqueue(object : Callback<List<BoardListVO>> {
             override fun onResponse(call: Call<List<BoardListVO>>, response: Response<List<BoardListVO>>) {
 //                Log.d("test-게시글전부조회", response.body().toString())

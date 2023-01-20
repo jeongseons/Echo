@@ -6,63 +6,63 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/tvBoardTitle"
+        android:id="@+id/tvMyBoardTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:text="타이틀"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBoardMntName" />
+        app:layout_constraintStart_toEndOf="@+id/ckMyBoard"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyBoardMntName" />
 
     <TextView
-        android:id="@+id/tvBoardDate"
+        android:id="@+id/tvMyBoardDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="작성일자"
-        app:layout_constraintStart_toStartOf="@+id/tvBoardTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvBoardTitle" />
+        app:layout_constraintStart_toStartOf="@+id/tvMyBoardTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyBoardTitle" />
 
     <TextView
         android:id="@+id/tvMyBoardWriterLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="글쓴이 :"
-        app:layout_constraintStart_toStartOf="@+id/tvBoardDate"
-        app:layout_constraintTop_toBottomOf="@+id/tvBoardDate" />
+        app:layout_constraintStart_toStartOf="@+id/tvMyBoardDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyBoardDate" />
 
     <TextView
-        android:id="@+id/tvBoardWriter"
+        android:id="@+id/tvMyBoardWriter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="누리"
         app:layout_constraintStart_toEndOf="@+id/tvMyBoardWriterLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tvBoardDate" />
+        app:layout_constraintTop_toBottomOf="@+id/tvMyBoardDate" />
 
     <TextView
-        android:id="@+id/tvBoardRecoCount"
+        android:id="@+id/tvMyBoardRecoCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="좋아요수"
         app:layout_constraintBottom_toTopOf="@+id/tvMyBoardWriterLabel"
         app:layout_constraintStart_toEndOf="@+id/imgMyBoardReco"
-        app:layout_constraintTop_toTopOf="@+id/tvBoardDate" />
+        app:layout_constraintTop_toTopOf="@+id/tvMyBoardDate" />
 
     <TextView
-        android:id="@+id/tvBoardMntName"
+        android:id="@+id/tvMyBoardMntName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="산이름"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ckMyBoard"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imgBoardPic"
+        android:id="@+id/imgMyBoardWritePic"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="16dp"
@@ -86,8 +86,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         app:layout_constraintBottom_toTopOf="@+id/tvMyBoardWriterLabel"
-        app:layout_constraintStart_toEndOf="@+id/tvBoardDate"
-        app:layout_constraintTop_toBottomOf="@+id/tvBoardTitle"
+        app:layout_constraintStart_toEndOf="@+id/tvMyBoardDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyBoardTitle"
         app:srcCompat="@drawable/ic_baseline_recommend_24" />
+
+    <CheckBox
+        android:id="@+id/ckMyBoard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
