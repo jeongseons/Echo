@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="type">
-        <item>무관</item>
+        <item>등산/등반</item>
         <item>등산</item>
         <item>등반</item>
     </string-array>

@@ -48,7 +48,7 @@
         android:layout_marginStart="8dp"
         android:text="좋아요수"
         app:layout_constraintBottom_toTopOf="@+id/textView14"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/imgJoinGroupMoveBack"
         app:layout_constraintTop_toTopOf="@+id/tvBoardDate" />
 
     <TextView
@@ -81,7 +81,7 @@
         tools:layout_editor_absoluteY="-3dp" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imgJoinGroupMoveBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
