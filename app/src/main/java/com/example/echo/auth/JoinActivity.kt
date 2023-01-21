@@ -47,7 +47,6 @@ class JoinActivity : AppCompatActivity() {
 
         // 성별 선택 이벤트 핸들러
         rdoUserGender.setOnCheckedChangeListener { _, checkedId ->
-            Log.d(" ", "RadioButton is Clicked")
             when (checkedId) {
                 R.id.rdoJoinFemale -> {
                     user_gender = "여"
@@ -56,11 +55,11 @@ class JoinActivity : AppCompatActivity() {
                     user_gender = "남"
                 }
             }
-            Log.d("외않되", user_gender)
+            Log.d("test-성별선택", user_gender)
 
         }
 
-        // 프로필 사진 이벤트
+        // 프로필 사진 선택 이벤트
         imgJoinUserProfile.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_PICK,
@@ -77,7 +76,7 @@ class JoinActivity : AppCompatActivity() {
             var user_nick = etJoinUserNick.text.toString()
             var user_birthdate = etJoinUserBirth.text.toString()
             var user_profile_img = "https://firebasestorage.googleapis.com/v0/b/echo-73cf6.appspot.com/o/${user_id}.png?alt=media"
-            Log.d("프로필",user_profile_img)
+            Log.d("test-프로필사진",user_profile_img)
 
             if(user_nick.isEmpty()){
                 isJoin = false
