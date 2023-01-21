@@ -1,5 +1,6 @@
 package com.example.echo.group
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -31,6 +32,14 @@ RecyclerView.Adapter<GroupListAdapter.ViewHolder>(){
                 val intent = Intent(context, GroupActivity :: class.java)
                 intent.putExtra("title", grouplist[adapterPosition].group_name)
                 intent.putExtra("num", grouplist[adapterPosition].group_seq)
+                intent.putExtra("auth",grouplist[adapterPosition].group_auth)
+
+                var sharedPreferences = context.getSharedPreferences("group_seq",0)
+                var editor = sharedPreferences.edit()
+
+                editor.putInt("group_seq", grouplist[adapterPosition].group_seq)
+                editor.commit()
+
                 context.startActivity(intent)
             }
         }
@@ -46,7 +55,7 @@ RecyclerView.Adapter<GroupListAdapter.ViewHolder>(){
         holder.tvGroupTitle.setText(grouplist[position].group_name)
         holder.tvGroupPer.setText("(${grouplist[position].group_current}/${grouplist[position].user_max})")
         holder.imgGroupPro.setImageResource(R.drawable.p1)//
-        if(grouplist[position].group_auth!="n"){
+        if(grouplist[position].group_auth!="y"){
             holder.imgKingCk.isVisible = false
         }
     }

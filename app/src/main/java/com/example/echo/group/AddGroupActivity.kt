@@ -1,12 +1,17 @@
 package com.example.echo.group
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
+import android.icu.text.SimpleDateFormat
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
@@ -15,14 +20,21 @@ import org.apache.commons.lang3.math.NumberUtils.toInt
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 
 class AddGroupActivity : AppCompatActivity() {
 
     lateinit var datePickerDialog: DatePickerDialog
 
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_group)
@@ -51,6 +63,12 @@ class AddGroupActivity : AppCompatActivity() {
         val spAddGroupLevel = findViewById<Spinner>(R.id.spAddGroupLevel)
         //산행일자
         val tvAddGroupDate = findViewById<TextView>(R.id.tvAddGroupDate)
+        //일자 기본값 설정
+        val toDate = LocalDateTime.now()
+        tvAddGroupDate.text =toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+        Log.d("값날짜 확인","${toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))}")
+        //tvAddGroupDate.text="${dateFormat.format(toDate)}"
+
         val imgAddGroupCalendar = findViewById<ImageView>(R.id.imgAddGroupCalendar)
         //일정 조정 여부
         val swAddGroupYn = findViewById<Switch>(R.id.swAddGroupYn)
@@ -133,29 +151,22 @@ class AddGroupActivity : AppCompatActivity() {
             //시간 선택창 띄우는 부분
             val timeSetListener = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
 
-                //AM / PM 구분하는 부분
-                if(hourOfDay < 12) {
-                    if(hourOfDay < 10){
-                        amPm = "AM";
-                        timeString = "0${hourOfDay}시 ${minute}분"
-                    }else{
-                        amPm = "AM";
-                        timeString = "${hourOfDay}시 ${minute}분"
+                if(hourOfDay < 10){
+                    timeString = "0${hourOfDay}:${minute}"
+                    if(minute < 10){
+                        timeString = "0${hourOfDay}:0${minute}"
                     }
-
-                } else {
-                    amPm = "PM";
-                    if(hourOfDay == 12){
-                        timeString = "${hourOfDay}시 ${minute}분"
-                    }else{
-                        timeString = "${hourOfDay-12}시 ${minute}분"
+                }else{
+                    timeString = "${hourOfDay}:${minute}"
+                    if(minute < 10){
+                        timeString = "${hourOfDay}:0${minute}"
                     }
-
-
                 }
 
+
+
                 //사용자가 선택한 시간 텍스트 뷰에 적용
-                tvAddGroupDate.text = "${dateString} ${amPm}${timeString}"
+                tvAddGroupDate.text = "${dateString}${timeString}"
             }
 
             TimePickerDialog(this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY),
@@ -166,8 +177,14 @@ class AddGroupActivity : AppCompatActivity() {
             val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                 if(month>10){
                     dateString = "${year}-${month+1}-${dayOfMonth} "
+                    if(dayOfMonth<10){
+                        dateString = "${year}-${month+1}-0${dayOfMonth} "
+                    }
                 }else{
                     dateString = "${year}-0${month+1}-${dayOfMonth} "
+                    if(dayOfMonth<10){
+                        dateString = "${year}-0${month+1}-0${dayOfMonth} "
+                    }
                 }
 
             }
@@ -203,7 +220,7 @@ class AddGroupActivity : AppCompatActivity() {
         btnAddGroupAdd.setOnClickListener{
             //사용자 입력값 저장
             name = etAddGroupName.text.toString()
-            date = tvAddGroupDate.text.toString()
+            date = tvAddGroupDate.text.substring(0,16)
             detail = mtAddGroupDetailDate.text.toString()
             //스피너 값 변수에 저장
             age = spAddGroupAge.selectedItem.toString()
@@ -255,6 +272,20 @@ class AddGroupActivity : AppCompatActivity() {
 
                 Log.d("값확인VO",newGroup.toString())
                 addGroup(newGroup)
+
+
+                // 여기서 통신하는거임
+                // add를 해서 -> db에
+                // 성공, 실패
+                // 성공 -> add -> finish()
+                // 실패 ->
+
+//                System.exit(0)
+                finish()
+
+
+
+
             }
 
 

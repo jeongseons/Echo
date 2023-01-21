@@ -12,9 +12,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.echo.auth.IntroActivity
 import com.example.echo.board.BoardFragment
+import com.example.echo.board.BoardPostFragment
 import com.example.echo.group.GroupFragment
 import com.example.echo.myPage.MyPageFragment
 import com.example.echo.path.MapFragment
+import com.example.echo.path.MapFragment2
+//import com.example.echo.path.MapFragment2
 import com.example.echo.path.PathFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.ktx.Firebase
@@ -23,6 +26,7 @@ import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.user.model.User
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.activity_map_save.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -34,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var tvHello: TextView
     lateinit var imgMainUserProfile:ImageView
     var user_id = ""
+    var moveCk = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -54,24 +59,10 @@ class MainActivity : AppCompatActivity() {
 
 
         UserApiClient.instance.me { user, error ->
-            if (error != null) {
-                Log.e(TAG, "사용자 정보 요청 실패", error)
-            }
-            else if (user != null) {
-                Log.i(TAG, "사용자 정보 요청 성공" +
-                        "\n회원번호: ${user.id}" +
-                        "\n이메일: ${user.kakaoAccount?.email}" +
-                        "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
-                        "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}"
-                +
-                "\n연령대: ${user.kakaoAccount?.ageRange}"
-                +
-                    "\n성별: ${user.kakaoAccount?.gender}")
-
+            if (user != null) {
                 user_id = user.id.toString()
                 Log.d("test","$user_id")
                 getImageData(user_id)
-
             }
         }
 
@@ -87,13 +78,21 @@ class MainActivity : AppCompatActivity() {
             HomeFragment()
         ).commit()
 
+        moveCk = intent.getStringExtra("tvMapSaveAlt").toString()
+        if(moveCk.isNotEmpty()) {
+                         supportFragmentManager.beginTransaction().replace(
+                             R.id.flMain,
+                             MyPageFragment()
+                         ).commit()
+        }
+
         bnvMain.setOnItemSelectedListener { item ->
             when (item.itemId) {
 
                 R.id.tab1 -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.flMain,
-                        MapFragment()
+                        MapFragment2()
                     ).commit()
                 }
 
@@ -181,6 +180,17 @@ class MainActivity : AppCompatActivity() {
                     .load(task.result)
                     .into(imgMainUserProfile) //지역변수
 
+            }
+        }
+    }
+
+    fun changeFragment(index: Int){
+        when(index){
+            1 -> {
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.flMain,
+                    BoardPostFragment()
+                ).commit()
             }
         }
     }

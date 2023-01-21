@@ -12,7 +12,7 @@ import com.example.echo.R
 
 
 
-class BoardPost : Fragment() {
+class BoardPostFragment : Fragment() {
 
 
 

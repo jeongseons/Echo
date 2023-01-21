@@ -10,12 +10,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="타이틀"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvBoardMntName" />
 
     <TextView
         android:id="@+id/tvBoardDate"
@@ -26,7 +25,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvBoardTitle" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/tvMyBoardWriterLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="글쓴이 :"
@@ -34,26 +33,36 @@
         app:layout_constraintTop_toBottomOf="@+id/tvBoardDate" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/tvBoardWriter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="누리"
-        app:layout_constraintStart_toEndOf="@+id/textView14"
+        app:layout_constraintStart_toEndOf="@+id/tvMyBoardWriterLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvBoardDate" />
 
     <TextView
-        android:id="@+id/textView16"
+        android:id="@+id/tvBoardRecoCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="8dp"
         android:text="좋아요수"
-        app:layout_constraintBottom_toTopOf="@+id/textView14"
-        app:layout_constraintStart_toEndOf="@+id/tvBoardDate"
-        app:layout_constraintTop_toBottomOf="@+id/tvBoardTitle" />
+        app:layout_constraintBottom_toTopOf="@+id/tvMyBoardWriterLabel"
+        app:layout_constraintStart_toEndOf="@+id/imgMyBoardReco"
+        app:layout_constraintTop_toTopOf="@+id/tvBoardDate" />
+
+    <TextView
+        android:id="@+id/tvBoardMntName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="산이름"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imgBoardPic"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="16dp"
@@ -65,9 +74,20 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/tvMyBoardLine"
         android:layout_width="600dp"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="-35dp"
         tools:layout_editor_absoluteY="-3dp" />
+
+    <ImageView
+        android:id="@+id/imgMyBoardReco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvMyBoardWriterLabel"
+        app:layout_constraintStart_toEndOf="@+id/tvBoardDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvBoardTitle"
+        app:srcCompat="@drawable/ic_baseline_recommend_24" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

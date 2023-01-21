@@ -20,8 +20,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class PersonAdapter(val context: Context, val personlist: ArrayList<PersonVO>, val title: String):
-    RecyclerView.Adapter<PersonAdapter.ViewHolder>() {
+class PersonAdapter(val context: Context, val personlist: ArrayList<PersonVO>, val title: String,
+val auth: String): RecyclerView.Adapter<PersonAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvPersonNick: TextView
@@ -34,12 +34,14 @@ class PersonAdapter(val context: Context, val personlist: ArrayList<PersonVO>, v
             tvPersonAuth = itemView.findViewById(R.id.tvPersonAuth)
             imgPersonKing = itemView.findViewById(R.id.imgPersonKing)
             imgPersonPro = itemView.findViewById(R.id.imgPersonPro)
-        tvPersonAuth.setOnClickListener { //강퇴하기
-            if(personlist[adapterPosition].group_auth!="y") {
-                onClickAlert(personlist[adapterPosition].user_nick)
-            }
-        }
 
+            tvPersonAuth.setOnClickListener { //강퇴하기
+                if (auth != "n") {
+                    if (personlist[adapterPosition].group_auth != "y") {
+                        onClickAlert(personlist[adapterPosition].user_nick)
+                    }
+                }
+            }
         }
     }
 
@@ -52,11 +54,16 @@ class PersonAdapter(val context: Context, val personlist: ArrayList<PersonVO>, v
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvPersonNick.setText(personlist[position].user_nick)
         holder.imgPersonPro.setImageResource(R.drawable.p1)//
-        if(personlist[position].group_auth!="y"){
-            holder.imgPersonKing.isVisible = false
-        }else{
-            holder.tvPersonAuth.text = "그룹장"
-        }
+
+            if (personlist[position].group_auth != "y") {
+                if(auth!="y") {
+                    holder.tvPersonAuth.text = "그룹원"
+                }
+                holder.imgPersonKing.isVisible = false
+            } else {
+                holder.tvPersonAuth.text = "그룹장"
+            }
+
     }
 
     override fun getItemCount(): Int {

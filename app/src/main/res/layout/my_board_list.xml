@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvMyBoardTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="타이틀"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/ckMyBoard"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyBoardMntName" />
+
+    <TextView
+        android:id="@+id/tvMyBoardDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="작성일자"
+        app:layout_constraintStart_toStartOf="@+id/tvMyBoardTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyBoardTitle" />
+
+    <TextView
+        android:id="@+id/tvMyBoardWriterLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="글쓴이 :"
+        app:layout_constraintStart_toStartOf="@+id/tvMyBoardDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyBoardDate" />
+
+    <TextView
+        android:id="@+id/tvMyBoardWriter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="누리"
+        app:layout_constraintStart_toEndOf="@+id/tvMyBoardWriterLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyBoardDate" />
+
+    <TextView
+        android:id="@+id/tvMyBoardRecoCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="좋아요수"
+        app:layout_constraintBottom_toTopOf="@+id/tvMyBoardWriterLabel"
+        app:layout_constraintStart_toEndOf="@+id/imgMyBoardReco"
+        app:layout_constraintTop_toTopOf="@+id/tvMyBoardDate" />
+
+    <TextView
+        android:id="@+id/tvMyBoardMntName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="산이름"
+        app:layout_constraintStart_toEndOf="@+id/ckMyBoard"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgMyBoardWritePic"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvMyBoardLine"
+        android:layout_width="600dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="-35dp"
+        tools:layout_editor_absoluteY="-3dp" />
+
+    <ImageView
+        android:id="@+id/imgMyBoardReco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvMyBoardWriterLabel"
+        app:layout_constraintStart_toEndOf="@+id/tvMyBoardDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyBoardTitle"
+        app:srcCompat="@drawable/ic_baseline_recommend_24" />
+
+    <CheckBox
+        android:id="@+id/ckMyBoard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

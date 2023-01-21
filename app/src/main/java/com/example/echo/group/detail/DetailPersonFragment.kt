@@ -1,21 +1,17 @@
 package com.example.echo.group.detail
 
-import android.app.Person
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
-import com.example.echo.group.GroupActivity
-import com.example.echo.group.GroupListAdapter
-import com.example.echo.group.GroupVO
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,13 +23,21 @@ class DetailPersonFragment : Fragment() {
     lateinit var id: String
     var personList = ArrayList<PersonVO>()
 
+    override fun onResume() {
+        super.onResume()
+        refresh()
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view = inflater.inflate(R.layout.fragment_detail_person, container, false)
         val title = requireActivity().intent.getStringExtra("title")
         val seq = requireActivity().intent.getIntExtra("num", 0)
+        val auth = requireActivity().intent.getStringExtra("auth")
         val rvPersonList = view.findViewById<RecyclerView>(R.id.rvPersonList)
 
         Log.d("title확인", title.toString())
@@ -41,7 +45,7 @@ class DetailPersonFragment : Fragment() {
 
         GetPerson(seq)
 
-        adapter = PersonAdapter(requireContext(), personList, title!!)
+        adapter = PersonAdapter(requireContext(), personList, title!!, auth!!)
         //어댑터 리스트로 띄워졌을때 해당 액티비티로 이동해야함.
         rvPersonList.adapter = adapter
         rvPersonList.layoutManager = GridLayoutManager(requireContext(),3)
@@ -65,9 +69,11 @@ class DetailPersonFragment : Fragment() {
                                     response.body()!!.get(i).user_nick,
                                 )
                             )
+
                         }
                         //리스트 추가후 어댑터 새로고침 필수!
                         adapter.notifyDataSetChanged()
+
                     }
                     else{// 가입한 그룹이 없을 때
                         Toast.makeText(context,"가입한 모임이 없습니다!", Toast.LENGTH_LONG)
@@ -81,6 +87,13 @@ class DetailPersonFragment : Fragment() {
             }
 
         })
+
+
+    }
+
+    private fun refresh() {
+        val ft: FragmentTransaction = requireFragmentManager().beginTransaction()
+        ft.detach(this).attach(this).commit()
     }
 
 }
