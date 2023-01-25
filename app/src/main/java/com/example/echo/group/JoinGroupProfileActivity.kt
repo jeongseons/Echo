@@ -1,5 +1,6 @@
 package com.example.echo.group
 
+import android.content.Context
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContentProviderCompat.requireContext
+import com.bumptech.glide.Glide
 import com.example.echo.R
 import com.example.echo.myPage.user_id
 
@@ -48,8 +50,6 @@ class JoinGroupProfileActivity : AppCompatActivity() {
 
 
         //가져온 정보 띄워주기
-        imgJoinGroupProfile.setImageResource(R.drawable.p1)
-
         tvJoinGroupProfileTitle.setText(groupInfo.group_name)
         tvJoinGroupProfileMaster.setText(groupInfo.group_owner_id)
         tvJoinGroupProfileMax.setText("${groupInfo.group_current}/${groupInfo.user_max}")
@@ -58,6 +58,14 @@ class JoinGroupProfileActivity : AppCompatActivity() {
         tvJoinGroupProfileGender.setText(groupInfo.group_gender)
         tvJoinGroupProfileAge.setText(groupInfo.group_age)
         tvJoinGroupProfileLevel.setText(groupInfo.group_level)
+
+        if(groupInfo.group_profile_img.length <5) {
+            imgJoinGroupProfile.setImageResource(R.drawable.p1)
+        }else {
+            Glide.with(this)
+                .load(groupInfo.group_profile_img)
+                .into(imgJoinGroupProfile)
+        }
 
         //가입 신청 눌렀을 때 해당 모임에 가입 신청 하기
         btnJoinGroupProfileJoin.setOnClickListener {

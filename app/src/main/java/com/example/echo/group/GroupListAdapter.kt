@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.echo.R
 
 class GroupListAdapter(val context: Context, var grouplist: ArrayList<GroupVO>):
@@ -54,7 +55,16 @@ RecyclerView.Adapter<GroupListAdapter.ViewHolder>(){
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvGroupTitle.setText(grouplist[position].group_name)
         holder.tvGroupPer.setText("(${grouplist[position].group_current}/${grouplist[position].user_max})")
-        holder.imgGroupPro.setImageResource(R.drawable.p1)//
+
+        //프로필이미지 임시 가데이터 들어간 경우 기본 이미지 설정
+        if(grouplist[position].group_profile_img.length <5) {
+           holder.imgGroupPro.setImageResource(R.drawable.p1)
+        }else {
+           Glide.with(context)
+               .load(grouplist[position].group_profile_img)
+               .into(holder.imgGroupPro)
+        }
+
         if(grouplist[position].group_auth!="y"){
             holder.imgKingCk.isVisible = false
         }

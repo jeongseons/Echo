@@ -188,6 +188,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvBoardDetailDate" />
 
+            <ImageView
+                android:id="@+id/imgBoardDetailShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toEndOf="@+id/imgBoardDetailReco"
+                app:layout_constraintTop_toTopOf="@+id/imgBoardDetailReco"
+                app:srcCompat="@drawable/ic_input" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

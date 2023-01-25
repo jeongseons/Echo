@@ -40,6 +40,36 @@ class JoinActivity : AppCompatActivity() {
 
         var btnUserJoin = findViewById<Button>(R.id.btnUserJoin)
 
+        var dpSpinner = findViewById<DatePicker>(R.id.dpSpinner)
+
+        var yearList = (1950..2020).toList()
+        var monthList = (1..12).toList()
+        var dateList = (1..31).toList()
+
+        var yearStrConvertList = yearList.map { it.toString() }
+        var monthStrConvertList = monthList.map { it.toString() }
+        var dateStrConvertList = dateList.map { it.toString() }
+//
+//        npYear.run {
+//            minValue = 0
+//            maxValue = yearStrConvertList.size - 1
+//            wrapSelectorWheel = false
+//            displayedValues = yearStrConvertList.toTypedArray()
+//        }
+//
+//        npMonth.run {
+//            minValue = 0
+//            maxValue = monthStrConvertList.size - 1
+//            wrapSelectorWheel = false
+//            displayedValues = monthStrConvertList.toTypedArray()
+//        }
+//
+//        npDay.run {
+//            minValue = 0
+//            maxValue = dateStrConvertList.size - 1
+//            wrapSelectorWheel = false
+//            displayedValues = dateStrConvertList.toTypedArray()
+//        }
 
         UserApiClient.instance.me { user, error ->
             user_id = user?.id.toString()
