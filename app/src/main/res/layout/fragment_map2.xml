@@ -102,7 +102,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView23" />
 
         <TextView
-            android:id="@+id/textView36"
+            android:id="@+id/tvGroupSettingName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -112,7 +112,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvMapTimer2" />
 
         <TextView
-            android:id="@+id/textView38"
+            android:id="@+id/tvGroupSetting1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -122,7 +122,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
         <TextView
-            android:id="@+id/textView39"
+            android:id="@+id/tvGroupSetting2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

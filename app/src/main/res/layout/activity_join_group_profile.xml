@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".group.JoinGroupProfileActivity">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+
+        android:id="@+id/imgJoinGroupProfile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/profile" />
+
+    <TextView
+        android:id="@+id/tvJoinGroupProfile2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-50dp"
+        android:layout_marginTop="32dp"
+        android:text="인원"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tvJoinGroupProfileTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvJoinGroupProfileMaster" />
+
+    <TextView
+        android:id="@+id/tvJoinGroupProfile3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="분류"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tvJoinGroupProfile2"
+        app:layout_constraintTop_toBottomOf="@+id/tvJoinGroupProfile2" />
+
+    <TextView
+        android:id="@+id/tvJoinGroupProfile4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="지역"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tvJoinGroupProfile3"
+        app:layout_constraintTop_toBottomOf="@+id/tvJoinGroupProfile3" />
+
+    <TextView
+        android:id="@+id/tvJoinGroupProfile5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="성별"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tvJoinGroupProfile4"
+        app:layout_constraintTop_toBottomOf="@+id/tvJoinGroupProfile4" />
+
+    <TextView
+        android:id="@+id/tvJoinGroupProfile6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="연령"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tvJoinGroupProfile5"
+        app:layout_constraintTop_toBottomOf="@+id/tvJoinGroupProfile5" />
+
+    <TextView
+        android:id="@+id/tvJoinGroupProfile7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="난이도"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tvJoinGroupProfile6"
+        app:layout_constraintTop_toBottomOf="@+id/tvJoinGroupProfile6" />
+
+    <TextView
+        android:id="@+id/tvJoinGroupProfileTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="모임명"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imgJoinGroupProfile"
+        app:layout_constraintStart_toStartOf="@+id/imgJoinGroupProfile"
+        app:layout_constraintTop_toBottomOf="@+id/imgJoinGroupProfile" />
+
+    <TextView
+        android:id="@+id/tvJoinGroupProfileMaster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="모임장 이름"
+        app:layout_constraintEnd_toEndOf="@+id/tvJoinGroupProfileTitle"
+        app:layout_constraintStart_toStartOf="@+id/tvJoinGroupProfileTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvJoinGroupProfileTitle" />
+
+    <TextView
+        android:id="@+id/tvJoinGroupProfileMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="-50dp"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvJoinGroupProfile2"
+        app:layout_constraintEnd_toEndOf="@+id/tvJoinGroupProfileTitle"
+        app:layout_constraintTop_toTopOf="@+id/tvJoinGroupProfile2" />
+
+    <TextView
+        android:id="@+id/tvJoinGroupProfileType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvJoinGroupProfile3"
+        app:layout_constraintEnd_toEndOf="@+id/tvJoinGroupProfileMax"
+        app:layout_constraintTop_toTopOf="@+id/tvJoinGroupProfile3" />
+
+    <TextView
+        android:id="@+id/tvJoinGroupProfileArea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvJoinGroupProfile4"
+        app:layout_constraintEnd_toEndOf="@+id/tvJoinGroupProfileType"
+        app:layout_constraintTop_toTopOf="@+id/tvJoinGroupProfile4" />
+
+    <TextView
+        android:id="@+id/tvJoinGroupProfileGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvJoinGroupProfile5"
+        app:layout_constraintEnd_toEndOf="@+id/tvJoinGroupProfileArea"
+        app:layout_constraintTop_toTopOf="@+id/tvJoinGroupProfile5" />
+
+    <TextView
+        android:id="@+id/tvJoinGroupProfileAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvJoinGroupProfile6"
+        app:layout_constraintEnd_toEndOf="@+id/tvJoinGroupProfileGender"
+        app:layout_constraintTop_toTopOf="@+id/tvJoinGroupProfile6" />
+
+    <TextView
+        android:id="@+id/tvJoinGroupProfileLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvJoinGroupProfile7"
+        app:layout_constraintEnd_toEndOf="@+id/tvJoinGroupProfileAge"
+        app:layout_constraintTop_toTopOf="@+id/tvJoinGroupProfile7" />
+
+    <Button
+        android:id="@+id/btnJoinGroupProfileJoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="가입 신청"
+        app:layout_constraintEnd_toEndOf="@+id/tvJoinGroupProfileLevel"
+        app:layout_constraintStart_toStartOf="@+id/tvJoinGroupProfile7"
+        app:layout_constraintTop_toBottomOf="@+id/tvJoinGroupProfileLevel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
