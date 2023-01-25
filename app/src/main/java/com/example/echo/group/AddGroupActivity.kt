@@ -41,9 +41,14 @@ class AddGroupActivity : AppCompatActivity() {
 
 
         //------뷰 초기화--------
-        val btnMoveBack = findViewById<Button>(R.id.btnAddGroupBack)
+        val tvAddGroupBack = findViewById<TextView>(R.id.tvAddGroupBack)
+        val imgAddGroupBack = findViewById<ImageView>(R.id.imgAddGroupBack)
         //그룹 프로필사진
         val imgGroupProfile = findViewById<ImageView>(R.id.imgAddGroup)
+        //기본 프로필 설정
+        imgGroupProfile.setImageResource(R.drawable.profile)
+        val imgAddGroupProfileEdit = findViewById<ImageView>(R.id.imgAddGroupProfileEdit)
+        
         //그룹명
         val etAddGroupName = findViewById<EditText>(R.id.etAddGroupName)
         //인원
@@ -104,7 +109,11 @@ class AddGroupActivity : AppCompatActivity() {
 
 
         //뒤로가기 클릭 시 이전 페이지
-        btnMoveBack.setOnClickListener{
+        tvAddGroupBack.setOnClickListener{
+            finish()
+        }
+
+        imgAddGroupBack.setOnClickListener{
             finish()
         }
 
