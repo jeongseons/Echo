@@ -12,11 +12,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.echo.R
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.echo.RetrofitBuilder
 import com.example.echo.auth.IntroActivity
-import com.example.echo.board.BoardWriteActivity
 import com.example.echo.databinding.FragmentMyPageBinding
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
