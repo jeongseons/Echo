@@ -15,8 +15,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <Button
+                android:id="@+id/btnGroupSettingInfoEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="정보 수정"
+                app:layout_constraintEnd_toEndOf="@+id/spGroupSettingLevel"
+                app:layout_constraintStart_toStartOf="@+id/tvGroupSetting4"
+                app:layout_constraintTop_toBottomOf="@+id/spGroupSettingLevel" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgGroupSetting"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/avatars" />
+
             <ImageView
-                android:id="@+id/imageView9"
+                android:id="@+id/imgGroupProfileEdit"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="-8dp"
@@ -25,50 +45,30 @@
                 android:elevation="5dp"
                 android:padding="5dp"
                 android:src="@drawable/ic_edit"
-                app:layout_constraintBottom_toBottomOf="@+id/imgGroupSettion"
-                app:layout_constraintEnd_toEndOf="@+id/imgGroupSettion" />
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:text="정보 수정"
-                app:layout_constraintEnd_toEndOf="@+id/spinner4"
-                app:layout_constraintStart_toStartOf="@+id/textView41"
-                app:layout_constraintTop_toBottomOf="@+id/spinner4" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgGroupSettion"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
+                app:layout_constraintBottom_toBottomOf="@+id/imgGroupSetting"
+                app:layout_constraintEnd_toEndOf="@+id/imgGroupSetting" />
 
             <TextView
-                android:id="@+id/textView41"
+                android:id="@+id/tvGroupSetting4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="난이도"
                 android:textColor="#000000"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/textView40"
-                app:layout_constraintTop_toBottomOf="@+id/textView40" />
+                app:layout_constraintStart_toStartOf="@+id/tvGroupSetting3"
+                app:layout_constraintTop_toBottomOf="@+id/tvGroupSetting3" />
 
             <Spinner
-                android:id="@+id/spinner4"
+                android:id="@+id/spGroupSettingLevel"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/textView41"
-                app:layout_constraintEnd_toEndOf="@+id/spinner2"
-                app:layout_constraintTop_toTopOf="@+id/textView41" />
+                app:layout_constraintBottom_toBottomOf="@+id/tvGroupSetting4"
+                app:layout_constraintEnd_toEndOf="@+id/spGroupSettingArea"
+                app:layout_constraintTop_toTopOf="@+id/tvGroupSetting4" />
 
             <TextView
-                android:id="@+id/textView36"
+                android:id="@+id/tvGroupSettingName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -76,12 +76,12 @@
                 android:textColor="#000000"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/imgGroupSettion"
-                app:layout_constraintStart_toStartOf="@+id/imgGroupSettion"
-                app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+                app:layout_constraintEnd_toEndOf="@+id/imgGroupSetting"
+                app:layout_constraintStart_toStartOf="@+id/imgGroupSetting"
+                app:layout_constraintTop_toBottomOf="@+id/imgGroupProfileEdit" />
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/tvGroupSettingDel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="70dp"
@@ -90,31 +90,31 @@
                 android:textColor="#FD0000"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/button"
-                app:layout_constraintStart_toStartOf="@+id/button"
-                app:layout_constraintTop_toBottomOf="@+id/button" />
+                app:layout_constraintEnd_toEndOf="@+id/btnGroupSettingInfoEdit"
+                app:layout_constraintStart_toStartOf="@+id/btnGroupSettingInfoEdit"
+                app:layout_constraintTop_toBottomOf="@+id/btnGroupSettingInfoEdit" />
 
             <TextView
-                android:id="@+id/textView40"
+                android:id="@+id/tvGroupSetting3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="지역"
                 android:textColor="#000000"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/textView39"
-                app:layout_constraintTop_toBottomOf="@+id/textView39" />
+                app:layout_constraintStart_toStartOf="@+id/tvGroupSetting2"
+                app:layout_constraintTop_toBottomOf="@+id/tvGroupSetting2" />
 
             <Spinner
-                android:id="@+id/spinner3"
+                android:id="@+id/spGroupSettingType"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/textView39"
-                app:layout_constraintEnd_toEndOf="@+id/spinner"
-                app:layout_constraintTop_toTopOf="@+id/textView39" />
+                app:layout_constraintBottom_toBottomOf="@+id/tvGroupSetting2"
+                app:layout_constraintEnd_toEndOf="@+id/spGroupSettingMax"
+                app:layout_constraintTop_toTopOf="@+id/tvGroupSetting2" />
 
             <TextView
-                android:id="@+id/textView38"
+                android:id="@+id/tvGroupSetting1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="100dp"
@@ -123,35 +123,72 @@
                 android:textColor="#000000"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView36" />
+                app:layout_constraintTop_toBottomOf="@+id/tvGroupSettingName" />
 
             <Spinner
-                android:id="@+id/spinner2"
+                android:id="@+id/spGroupSettingArea"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/textView40"
-                app:layout_constraintEnd_toEndOf="@+id/spinner3"
-                app:layout_constraintTop_toTopOf="@+id/textView40" />
+                app:layout_constraintBottom_toBottomOf="@+id/tvGroupSetting3"
+                app:layout_constraintEnd_toEndOf="@+id/spGroupSettingType"
+                app:layout_constraintTop_toTopOf="@+id/tvGroupSetting3" />
 
             <TextView
-                android:id="@+id/textView39"
+                android:id="@+id/tvGroupSetting2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="분류"
                 android:textColor="#000000"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/textView38"
-                app:layout_constraintTop_toBottomOf="@+id/textView38" />
+                app:layout_constraintStart_toStartOf="@+id/tvGroupSetting1"
+                app:layout_constraintTop_toBottomOf="@+id/tvGroupSetting1" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/spGroupSettingMax"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView38"
-                app:layout_constraintStart_toEndOf="@+id/textView38"
-                app:layout_constraintTop_toTopOf="@+id/textView38" />
+                app:layout_constraintBottom_toBottomOf="@+id/tvGroupSetting1"
+                app:layout_constraintStart_toEndOf="@+id/tvGroupSetting1"
+                app:layout_constraintTop_toTopOf="@+id/tvGroupSetting1" />
+
+            <TextView
+                android:id="@+id/tvGroupSettingMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/tvGroupSetting1"
+                app:layout_constraintStart_toEndOf="@+id/tvGroupSetting1"
+                app:layout_constraintTop_toTopOf="@+id/tvGroupSetting1" />
+
+            <TextView
+                android:id="@+id/tvGroupSettingType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/tvGroupSetting2"
+                app:layout_constraintEnd_toEndOf="@+id/tvGroupSettingMax"
+                app:layout_constraintTop_toTopOf="@+id/tvGroupSetting2" />
+
+            <TextView
+                android:id="@+id/tvGroupSettingArea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/tvGroupSetting3"
+                app:layout_constraintEnd_toEndOf="@+id/tvGroupSettingType"
+                app:layout_constraintTop_toTopOf="@+id/tvGroupSetting3" />
+
+            <TextView
+                android:id="@+id/tvGroupSettingLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/tvGroupSetting4"
+                app:layout_constraintEnd_toEndOf="@+id/tvGroupSettingArea"
+                app:layout_constraintTop_toTopOf="@+id/tvGroupSetting4" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
