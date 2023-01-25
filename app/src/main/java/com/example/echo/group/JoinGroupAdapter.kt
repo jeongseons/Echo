@@ -29,7 +29,6 @@ class JoinGroupAdapter (val context: Context, var grouplist: ArrayList<GroupVO>)
                 val intent = Intent(context, JoinGroupProfileActivity :: class.java)
                 intent.putExtra("title", grouplist[adapterPosition].group_name)
                 intent.putExtra("num", grouplist[adapterPosition].group_seq)
-                intent.putExtra("auth",grouplist[adapterPosition].group_auth)
 
                 var sharedPreferences = context.getSharedPreferences("group_seq",0)
                 var editor = sharedPreferences.edit()

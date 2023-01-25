@@ -1,9 +1,7 @@
 package com.example.echo
 
 import com.example.echo.auth.UserVO
-import com.example.echo.group.GroupVO
-import com.example.echo.group.NewDateVO
-import com.example.echo.group.NewGroupVO
+import com.example.echo.group.*
 import com.example.echo.group.detail.PersonVO
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -36,6 +34,16 @@ interface API {
     fun addGroup(
         @Body addgroup : NewGroupVO
     ): Call<ResponseBody>
+
+    @POST("api/joingroupcon") // 조건을 주어 그룹 검색한다.
+    fun joinGroupCon(
+        @Body findGroupVO: FindGroupVO
+    ): Call<List<GroupVO>>
+
+    @GET("api/joingroupnick") // 닉네임으로 그룹 검색한다.
+    fun joinGroupNick(
+        @Query("user_nick") Nick : String
+    ): Call<List<GroupVO>>
 
     @GET("api/grouplist") //가입한 그룹의 정보들을 가져온다.
     fun getGroup(
