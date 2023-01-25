@@ -6,15 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".group.AddGroupActivity">
 
-    <Button
-        android:id="@+id/btnAddGroupBack"
+    <ImageView
+        android:id="@+id/imgAddGroupBack"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back" />
+
+    <TextView
+        android:id="@+id/tvAddGroupBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="뒤로가기"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/imgAddGroupBack"
+        app:layout_constraintStart_toEndOf="@+id/imgAddGroupBack"
+        app:layout_constraintTop_toTopOf="@+id/imgAddGroupBack" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -23,14 +31,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgAddGroupBack"
         app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgAddGroup"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -289,6 +297,19 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textView26"
                 app:layout_constraintEnd_toEndOf="@+id/spAddGroupAge"
                 app:layout_constraintTop_toTopOf="@+id/textView26" />
+
+            <ImageView
+                android:id="@+id/imgAddGroupProfileEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="-8dp"
+                android:layout_marginBottom="-8dp"
+                android:background="@drawable/border"
+                android:elevation="5dp"
+                android:padding="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imgAddGroup"
+                app:layout_constraintEnd_toEndOf="@+id/imgAddGroup"
+                app:srcCompat="@drawable/ic_edit" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

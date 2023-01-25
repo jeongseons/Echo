@@ -72,7 +72,8 @@ class MyBoardAdapter(var context: Context, var myBoardList:ArrayList<BoardListVO
         holder.tvMyBoardRecoCount.text = myBoardList[position].board_reco_cnt.toString()
         holder.tvMyBoardMntName.text = myBoardList[position].mnt_name
         holder.ckMyBoard.setOnClickListener(View.OnClickListener {
-            holder.ckMyBoard.isChecked = true
+            var pos = position
+            !holder.ckMyBoard.isChecked
         })
 
     }

@@ -51,10 +51,8 @@ class MyBoardActivity : AppCompatActivity() {
         binding.tvMyBoardSelect.setOnClickListener {
 //            var cnt = adapter.itemCount
 //            for(i in 0 until cnt){
-//                binding.rvMyBoard
 //            }
-//            adapter.setAllChecked()
-            adapter.notifyDataSetChanged()
+//            adapter.notifyDataSetChanged()
         }
 
     }

@@ -1,22 +1,18 @@
 package com.example.echo.group
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.echo.R
 
-class GroupListAdapter(val context: Context, var grouplist: ArrayList<GroupVO>):
-RecyclerView.Adapter<GroupListAdapter.ViewHolder>(){
+class JoinGroupAdapter (val context: Context, var grouplist: ArrayList<GroupVO>):
+    RecyclerView.Adapter<JoinGroupAdapter.ViewHolder>(){
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvGroupTitle: TextView
         val tvGroupPer: TextView
@@ -30,7 +26,7 @@ RecyclerView.Adapter<GroupListAdapter.ViewHolder>(){
             imgGroupPro = itemView.findViewById(R.id.imgGroupPro)
             imgKingCk = itemView.findViewById(R.id.imgKingCk)
             itemView.setOnClickListener{
-                val intent = Intent(context, GroupActivity :: class.java)
+                val intent = Intent(context, JoinGroupProfileActivity :: class.java)
                 intent.putExtra("title", grouplist[adapterPosition].group_name)
                 intent.putExtra("num", grouplist[adapterPosition].group_seq)
                 intent.putExtra("auth",grouplist[adapterPosition].group_auth)
@@ -53,21 +49,11 @@ RecyclerView.Adapter<GroupListAdapter.ViewHolder>(){
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.imgKingCk.visibility=View.GONE
         holder.tvGroupTitle.setText(grouplist[position].group_name)
         holder.tvGroupPer.setText("(${grouplist[position].group_current}/${grouplist[position].user_max})")
+        holder.imgGroupPro.setImageResource(R.drawable.p1)//
 
-        //프로필이미지 임시 가데이터 들어간 경우 기본 이미지 설정
-        if(grouplist[position].group_profile_img.length <5) {
-           holder.imgGroupPro.setImageResource(R.drawable.p1)
-        }else {
-           Glide.with(context)
-               .load(grouplist[position].group_profile_img)
-               .into(holder.imgGroupPro)
-        }
-
-        if(grouplist[position].group_auth!="y"){
-            holder.imgKingCk.isVisible = false
-        }
     }
 
     override fun getItemCount(): Int {

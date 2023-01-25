@@ -4,22 +4,29 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.icu.text.SimpleDateFormat
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import okhttp3.ResponseBody
 import org.apache.commons.lang3.math.NumberUtils.toInt
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -31,8 +38,8 @@ import java.util.Locale
 class AddGroupActivity : AppCompatActivity() {
 
     lateinit var datePickerDialog: DatePickerDialog
-
-
+    lateinit var imgGroupProfile : ImageView
+    var profile = ""
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,9 +48,14 @@ class AddGroupActivity : AppCompatActivity() {
 
 
         //------뷰 초기화--------
-        val btnMoveBack = findViewById<Button>(R.id.btnAddGroupBack)
+        val tvAddGroupBack = findViewById<TextView>(R.id.tvAddGroupBack)
+        val imgAddGroupBack = findViewById<ImageView>(R.id.imgAddGroupBack)
         //그룹 프로필사진
-        val imgGroupProfile = findViewById<ImageView>(R.id.imgAddGroup)
+        imgGroupProfile = findViewById<ImageView>(R.id.imgAddGroup)
+        //기본 프로필 설정
+        imgGroupProfile.setImageResource(R.drawable.profile)
+        val imgAddGroupProfileEdit = findViewById<ImageView>(R.id.imgAddGroupProfileEdit)
+        
         //그룹명
         val etAddGroupName = findViewById<EditText>(R.id.etAddGroupName)
         //인원
@@ -104,7 +116,11 @@ class AddGroupActivity : AppCompatActivity() {
 
 
         //뒤로가기 클릭 시 이전 페이지
-        btnMoveBack.setOnClickListener{
+        tvAddGroupBack.setOnClickListener{
+            finish()
+        }
+
+        imgAddGroupBack.setOnClickListener{
             finish()
         }
 
@@ -211,9 +227,14 @@ class AddGroupActivity : AppCompatActivity() {
             }
         }
 
-
-
-
+        // 그룹 프로필 사진
+        imgAddGroupProfileEdit.setOnClickListener {
+            val intent = Intent(
+            Intent.ACTION_PICK,
+            MediaStore.Images.Media.INTERNAL_CONTENT_URI
+        )
+            launcher.launch(intent)
+        }
 
 
         //모임 생성 버튼을 클릭했을 때
@@ -230,7 +251,9 @@ class AddGroupActivity : AppCompatActivity() {
             lev = spAddGroupLevel.selectedItem.toString()
             //산행 분류 선택
             var type = ""
-
+            // 그룹 프로필 이미지 설정
+            var key = "${name}${System.currentTimeMillis()}"
+            profile = "https://firebasestorage.googleapis.com/v0/b/echo-73cf6.appspot.com/o/${key}.png?alt=media"
 
             if(ckAddGroupType1.isChecked){
                 type="등산"
@@ -267,12 +290,12 @@ class AddGroupActivity : AppCompatActivity() {
             if(agree==true&&nameCk==true&&detailCk==true){
                 //New 그룹 VO에 값 담기
                 val newGroup = NewGroupVO(intent.getStringExtra("user")!!,
-                    "1234",name,area,max,age,lev,date,
+                    profile,name,area,max,age,lev,date,
                     swAddGroupYn.isChecked,gender,type,detail)
 
                 Log.d("값확인VO",newGroup.toString())
                 addGroup(newGroup)
-
+                imgUpload(key)
 
                 // 여기서 통신하는거임
                 // add를 해서 -> db에
@@ -282,10 +305,6 @@ class AddGroupActivity : AppCompatActivity() {
 
 //                System.exit(0)
                 finish()
-
-
-
-
             }
 
 
@@ -295,6 +314,10 @@ class AddGroupActivity : AppCompatActivity() {
 
 
     }//onCreate 바깥
+    val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        //받아올 결과값이 맞는지 확인 과정
+        if (it.resultCode == RESULT_OK) imgGroupProfile.setImageURI(it.data?.data)
+    }
 
     //그룹 추가 - 스프링 통신
     fun addGroup(group:NewGroupVO){
@@ -309,6 +332,31 @@ class AddGroupActivity : AppCompatActivity() {
                 Log.d("저장실패", t.localizedMessage)
             }
         })
+    }
+
+    // 그룹 프로필 이미지 추가
+    fun imgUpload(key : String) {
+
+        val storage = Firebase.storage
+        val storageRef = storage.reference
+        val mountainsRef = storageRef.child("$key.png")
+
+        imgGroupProfile.isDrawingCacheEnabled = true
+        imgGroupProfile.buildDrawingCache()
+        val bitmap = (imgGroupProfile.drawable as BitmapDrawable).bitmap
+        val baos = ByteArrayOutputStream()
+        //quality:압축 퀄리티 1~100.
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos)
+        val data = baos.toByteArray()
+
+        //mountainsRef : 스토리지 경로 지정하는 키워드.
+        var uploadTask = mountainsRef.putBytes(data)
+        uploadTask.addOnFailureListener {
+            // Handle unsuccessful uploads
+        }.addOnSuccessListener { taskSnapshot ->
+            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+            // ...
+        }
     }
 
 

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.echo.R
 
 class JoinGroupSearchTypeFragment : Fragment() {
-    lateinit var adapter: GroupListAdapter
+    lateinit var adapter: JoinGroupAdapter
     var groupList = ArrayList<GroupVO>()
 
     override fun onCreateView(
@@ -58,7 +58,7 @@ class JoinGroupSearchTypeFragment : Fragment() {
 
         groupList.add(GroupVO(1,"1","n","테스트",1,1))
 
-        adapter = GroupListAdapter(requireContext(), groupList)
+        adapter = JoinGroupAdapter(requireContext(), groupList)
         //어댑터 리스트로 띄워졌을때 해당 액티비티로 이동해야함.
         rvJoinGroupType.adapter = adapter
         rvJoinGroupType.layoutManager = LinearLayoutManager(requireContext())
