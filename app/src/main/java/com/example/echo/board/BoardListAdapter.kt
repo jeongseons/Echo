@@ -113,9 +113,12 @@ class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardListVO
                 holder.tvBoardDate.text = filteredList.board_dt
                 holder.tvBoardRecoCount.text = filteredList.board_reco_cnt.toString()
                 holder.tvBoardMntName.text = filteredList.mnt_name
+                if(filteredList.board_file.isEmpty()) {
+                    holder.imgBoardPic.visibility = View.INVISIBLE
+                } else{
                 Glide.with(context)
                     .load(filteredList.board_file)
-                    .into(holder.imgBoardPic) //지역변수
+                    .into(holder.imgBoardPic)} //지역변수
 //            }else{
 //                holder.tvBoardTitle.text = BoardList[position].board_title
 //                holder.tvBoardWriter.text = BoardList[position].user_nick

@@ -104,6 +104,9 @@ class ReviseActivity : AppCompatActivity() {
                         this@ReviseActivity, "정상적으로 수정되었습니다",
                         Toast.LENGTH_SHORT
                     ).show()
+
+                    finish() //인텐트 종료
+
                 }else{
                     Toast.makeText(
                         this@ReviseActivity, "다시 시도해주세요",

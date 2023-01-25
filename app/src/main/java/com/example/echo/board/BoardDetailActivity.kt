@@ -65,9 +65,14 @@ class BoardDetailActivity : AppCompatActivity() {
         binding.tvBoardDetailDate.text = board_dt
         binding.tvBoardDetailMntName.text = mnt_name
         binding.tvBoardDetailRecoCnt.text = board_reco_cnt
-        Glide.with(this)
-            .load(board_file)
-            .into(binding.imgBoardDetailPic) //지역변수
+
+        if(board_file!!.isEmpty()) {
+            binding.imgBoardDetailPic.visibility = View.GONE
+        } else {
+            Glide.with(this)
+                .load(board_file)
+                .into(binding.imgBoardDetailPic) //지역변수
+        }
 
         // 작성자 확인
         UserApiClient.instance.me { user, error ->
@@ -346,10 +351,10 @@ class BoardDetailActivity : AppCompatActivity() {
 
     fun refresh(){
         finish() //인텐트 종료
-        overridePendingTransition(0, 0) //인텐트 효과 없애기
+        overridePendingTransition(0, 0)
         val intent = intent //인텐트
         startActivity(intent) //액티비티 열기
-        overridePendingTransition(0, 0) //인텐트 효과 없애기
+        overridePendingTransition(0, 0)
     }
 
 }

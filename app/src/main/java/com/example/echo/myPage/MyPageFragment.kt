@@ -12,10 +12,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.echo.R
 import com.example.echo.RetrofitBuilder
 import com.example.echo.auth.IntroActivity
 import com.example.echo.board.BoardWriteActivity
 import com.example.echo.databinding.FragmentMyPageBinding
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.kakao.sdk.user.UserApiClient
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -35,11 +39,21 @@ class MyPageFragment : Fragment() {
     ? {
 
         binding = FragmentMyPageBinding.inflate(layoutInflater, container, false)
-
+        binding.imgMyPagePic.setImageResource(R.drawable.p1)
         UserApiClient.instance.me { user, error ->
                 user_id = user?.id.toString()
                 getMyPage(user_id)
         }
+
+        val storageReference = Firebase.storage.reference.child("$user_id.png")
+
+//        storageReference.downloadUrl.addOnCompleteListener { task ->
+//            if (task.isSuccessful) {
+//                Glide.with(this)
+//                    .load(task.result)
+//                    .into(binding.imgMyPagePic)
+//            }
+//        }
 
         binding.tvMyPageModify.setOnClickListener {
             val intent = Intent(context, ReviseActivity::class.java)
@@ -92,10 +106,14 @@ class MyPageFragment : Fragment() {
                     user_profile_img = body.user_profile_img
                     Log.d("text-마이페이지",body.toString())
                     binding.tvMyPageNick.text = body.user_nick
-                    binding.tvMyPageBirth.text = body.user_birthdate
+                    binding.tvMyPageBirth.text =
+                        "${body.user_birthdate.substring(0,4)}년 ${body.user_birthdate.substring(4,6)}월 " +
+                                "${body.user_birthdate.substring(6,8)}일"
                     Glide.with(requireContext())
                         .load(user_profile_img)
-                        .into(binding.imgMyPagePic) //지역변수
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
+                        .into(binding.imgMyPagePic)
                     binding.tvMyPageBoardCnt.text = body.user_board_cnt
                     binding.tvMyPageCourseCnt.text = body.user_course_cnt
                 }
