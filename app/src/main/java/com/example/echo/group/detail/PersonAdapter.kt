@@ -12,8 +12,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
+import com.example.echo.myPage.binding
+import com.example.echo.myPage.user_profile_img
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -53,7 +57,6 @@ val auth: String): RecyclerView.Adapter<PersonAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvPersonNick.setText(personlist[position].user_nick)
-        holder.imgPersonPro.setImageResource(R.drawable.p1)//
 
             if (personlist[position].group_auth != "y") {
                 if(auth!="y") {
@@ -63,6 +66,12 @@ val auth: String): RecyclerView.Adapter<PersonAdapter.ViewHolder>() {
             } else {
                 holder.tvPersonAuth.text = "그룹장"
             }
+
+        Glide.with(this.context)
+            .load(personlist[position].user_profile_img)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+            .into(holder.imgPersonPro)
 
     }
 
