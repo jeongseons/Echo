@@ -45,11 +45,17 @@ interface API {
         @Query("user_nick") Nick : String
     ): Call<List<GroupVO>>
 
-    @GET("api/joingrouppro/{num}/{id}") // 그룹 가입신청
+    @GET("api/joingrouppro/{num}/{id}") // 그룹 프로필 조회
     fun joinGroupPro(
         @Path("num") num: Int,
         @Path("id") id : String
     ): Call<JoinGroupVO>
+
+    @POST("api/groupsignup/{num}") // 그룹 가입신청.
+    fun groupSignUp(
+        @Path("num") num: Int,
+        @Query("id") id : String
+    ): Call<ResponseBody>
 
     @GET("api/grouplist") //가입한 그룹의 정보들을 가져온다.
     fun getGroup(

@@ -1,10 +1,9 @@
 package com.example.echo.myPage
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.echo.RetrofitBuilder
 import com.example.echo.board.BoardDetailActivity
@@ -55,9 +54,21 @@ class MyBoardActivity : AppCompatActivity() {
 //            adapter.notifyDataSetChanged()
         }
 
+        binding.tvMyBoardSelect.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                val cnt: Int = adapter.itemCount //리스트 개수 구하기
+                for (i in 0 until cnt) {
+
+                }
+                adapter.notifyDataSetChanged()
+            }
+        })
+
+
     }
 
     fun getMyBoard(user_id:String){
+        myBoardList.clear()
         val call = RetrofitBuilder.boardApi.getBoard(user_id)
         call.enqueue(object : Callback<List<BoardListVO>> {
             override fun onResponse(call: Call<List<BoardListVO>>, response: Response<List<BoardListVO>>) {

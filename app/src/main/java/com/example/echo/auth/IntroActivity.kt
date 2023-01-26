@@ -133,7 +133,7 @@ class IntroActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 Log.d("스프링login리스폰스", response.body().toString())
                 var body = response.body()?.string()
-                if(body!!.length >2){
+                if(response.isSuccessful&& body!!.length >2){
                     joinCk = true
                     Log.d("스프링login리스폰스", "${response.body()}")
                     Log.d("스프링login리스폰스", "$body")

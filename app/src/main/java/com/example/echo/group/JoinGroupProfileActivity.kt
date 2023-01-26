@@ -17,6 +17,7 @@ import com.example.echo.R
 import com.example.echo.RetrofitBuilder
 import com.example.echo.myPage.user_id
 import com.kakao.sdk.user.UserApiClient
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,6 +29,7 @@ class JoinGroupProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_join_group_profile)
+
         val tvJoinGroupProfileTitle = findViewById<TextView>(R.id.tvJoinGroupProfileTitle)
         val tvJoinGroupProfileMaster = findViewById<TextView>(R.id.tvJoinGroupProfileMaster)
         val tvJoinGroupProfileMax = findViewById<TextView>(R.id.tvJoinGroupProfileMax)
@@ -48,13 +50,13 @@ class JoinGroupProfileActivity : AppCompatActivity() {
             }
             else if (user != null) {
                 id = user.id.toString()
-                Log.d("id",id )
+                Log.d("id",id)
 
                 JoinGroupPro(seq, id)
             }
         }
 
-        //가져온 정보 띄워주기
+
         tvJoinGroupProfileTitle.setText(groupInfo.group_name)
         tvJoinGroupProfileMaster.setText(groupInfo.group_owner_id)
         tvJoinGroupProfileMax.setText("${groupInfo.group_current}/${groupInfo.user_max}")
@@ -74,6 +76,7 @@ class JoinGroupProfileActivity : AppCompatActivity() {
 
 
         //groupInfo.group_auth => 0이 아니면 버튼 비활성화 하는 로직 추가해주세요! (디자인이나 버튼위치, toast를 할건지 선택)
+        //groupInfo.group_auth가 0이어야 미가입 상태임.
 
 
 
@@ -89,15 +92,31 @@ class JoinGroupProfileActivity : AppCompatActivity() {
                 .setPositiveButton("아니오", DialogInterface.OnClickListener { dialog, which ->
                     Log.i("Dialog", "취소")
                 })
-                .setNeutralButton("예",
+                .setNeutralButton("예", //다이얼로그 현재 안되는듯합니다.
                     DialogInterface.OnClickListener { dialog, which ->
-
+                        GroupSignUp(seq, id)
                     })
                 .show()
         }
 
 
     }//액티비티 뷰 끝
+
+    fun GroupSignUp(num:Int, id: String) {//그룹 가입신청
+        val call = RetrofitBuilder.api.groupSignUp(num, id)
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {//성공
+                    Log.d("성공", response.body().toString())
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.d("반환값 에러", "?")
+            }
+        })
+    }
+
 
     fun JoinGroupPro(num: Int , id: String) {//그룹 조건검색 리스트 - 스프링 통신
         val call = RetrofitBuilder.api.joinGroupPro(num, id)
@@ -118,6 +137,7 @@ class JoinGroupProfileActivity : AppCompatActivity() {
                         response.body()!!.group_gender,
                         response.body()!!.group_type,
                         response.body()!!.group_detail)
+                    Log.d("그룹조회2" ,groupInfo.toString())
                 }
             }
             override fun onFailure(call: Call<JoinGroupVO>, t: Throwable) {
