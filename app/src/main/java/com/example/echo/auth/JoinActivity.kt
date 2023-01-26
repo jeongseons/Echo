@@ -36,6 +36,7 @@ class JoinActivity : AppCompatActivity() {
         var etJoinUserNick = findViewById<EditText>(R.id.etJoinUserNick)
         var etJoinUserBirth =  findViewById<EditText>(R.id.etJoinUserBirth)
         imgJoinUserProfile = findViewById<ImageView>(R.id.imgJoinUserProfile)
+        imgJoinUserProfile.setImageResource(R.drawable.profile)
         var rdoUserGender = findViewById<RadioGroup>(R.id.rdoUserGender)
 
         var btnUserJoin = findViewById<Button>(R.id.btnUserJoin)
