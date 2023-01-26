@@ -55,7 +55,9 @@ data class JoinGroupVO(var group_seq:Int,
                        val group_age : String,
                        val group_level : String,
                        val group_gender : String,
-                       val group_type : String)
+                       val group_type : String,
+                        val group_detail: String)
+
 
 
 
