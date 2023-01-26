@@ -45,12 +45,6 @@ class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardListVO
         val tvBoardMntName : TextView
         val imgBoardPic : ImageView
 
-//        init {
-//            Log.d("test-필터","언제 실행되냐")
-//            filteredBoard.addAll(BoardList)
-//            Log.d("test-필터",BoardList.toString())
-//        }
-
         init {
             tvBoardTitle = itemView.findViewById(R.id.tvBoardTitle)
             tvBoardWriter = itemView.findViewById(R.id.tvBoardWriter)
@@ -81,18 +75,15 @@ class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardListVO
 
                 context.startActivity(intent)
             }
-
         }
-
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         Log.d("test-필터","언제 실행되니")
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.board_list, null)
 
-        return ViewHolder(view) //ViewHolder로 View를 보내줌
+        return ViewHolder(view)
     }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -101,13 +92,6 @@ class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardListVO
             Log.d("test-필터",filteredList.toString())
             initCk = false
 
-//            holder.tvBoardTitle.text = filteredList.board_title
-//            holder.tvBoardWriter.text = filteredList.user_nick
-//            holder.tvBoardDate.text = filteredList.board_dt
-//            holder.tvBoardRecoCount.text = filteredList.board_reco_cnt.toString()
-//            holder.tvBoardMntName.text = filteredList.mnt_name
-
-//            if(filteredBoard.isNotEmpty()) {
                 holder.tvBoardTitle.text = filteredList.board_title
                 holder.tvBoardWriter.text = filteredList.user_nick
                 holder.tvBoardDate.text = filteredList.board_dt
@@ -119,13 +103,6 @@ class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardListVO
                 Glide.with(context)
                     .load(filteredList.board_file)
                     .into(holder.imgBoardPic)} //지역변수
-//            }else{
-//                holder.tvBoardTitle.text = BoardList[position].board_title
-//                holder.tvBoardWriter.text = BoardList[position].user_nick
-//                holder.tvBoardDate.text = BoardList[position].board_dt
-//                holder.tvBoardRecoCount.text = BoardList[position].board_reco_cnt.toString()
-//                holder.tvBoardMntName.text = BoardList[position].mnt_name
-//            }
 
         }
 

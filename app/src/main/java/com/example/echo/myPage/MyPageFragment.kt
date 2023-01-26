@@ -44,16 +44,6 @@ class MyPageFragment : Fragment() {
                 getMyPage(user_id)
         }
 
-        val storageReference = Firebase.storage.reference.child("$user_id.png")
-
-//        storageReference.downloadUrl.addOnCompleteListener { task ->
-//            if (task.isSuccessful) {
-//                Glide.with(this)
-//                    .load(task.result)
-//                    .into(binding.imgMyPagePic)
-//            }
-//        }
-
         binding.tvMyPageModify.setOnClickListener {
             val intent = Intent(context, ReviseActivity::class.java)
             intent.putExtra("user_id", user_id)
@@ -89,6 +79,22 @@ class MyPageFragment : Fragment() {
                         deleteUser(user_id)
                     })
                 .show()
+        }
+
+        binding.tvMyPageLogout.setOnClickListener {
+            UserApiClient.instance.unlink { error ->
+                if (error != null) {
+                    Log.e("Hello", "로그아웃 실패. SDK에서 토큰 삭제됨", error)
+                } else {
+                    Log.i("Hello", "로그아웃 성공. SDK에서 토큰 삭제됨")
+                    Toast.makeText(
+                        requireContext(), "로그아웃 성공",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val intent = Intent(requireContext(), IntroActivity::class.java)
+                    startActivity(intent)
+                }
+            }
         }
 
         return binding.root

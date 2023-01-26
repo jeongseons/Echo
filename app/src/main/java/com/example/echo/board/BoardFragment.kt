@@ -28,7 +28,6 @@ class BoardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_board, container, false)
         val btnBoardPost = view.findViewById<Button>(R.id.btnBoardPost)
         val svBoardSearch = view.findViewById<SearchView>(R.id.svBoardSearch)
@@ -98,7 +97,6 @@ class BoardFragment : Fragment() {
         val call = RetrofitBuilder.boardApi.getBoard(null)
         call.enqueue(object : Callback<List<BoardListVO>> {
             override fun onResponse(call: Call<List<BoardListVO>>, response: Response<List<BoardListVO>>) {
-//                Log.d("test-게시글전부조회", response.body().toString())
                 if(response.isSuccessful&& response.body()?.size!!>0){
                     for(i in 0 until response.body()!!.size){
                         boardList.add(response.body()!!.get(i))

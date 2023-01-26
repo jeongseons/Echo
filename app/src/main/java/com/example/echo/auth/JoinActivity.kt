@@ -5,7 +5,9 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.InputType
 import android.util.Log
+import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -41,36 +43,39 @@ class JoinActivity : AppCompatActivity() {
 
         var btnUserJoin = findViewById<Button>(R.id.btnUserJoin)
 
-        var dpSpinner = findViewById<DatePicker>(R.id.dpSpinner)
+        var npYear = findViewById<NumberPicker>(R.id.npYear)
+        var npMonth = findViewById<NumberPicker>(R.id.npMonth)
+        var npDay = findViewById<NumberPicker>(R.id.npDay)
 
-        var yearList = (1950..2020).toList()
+        var yearList = (1950..2023).toList()
         var monthList = (1..12).toList()
         var dateList = (1..31).toList()
 
         var yearStrConvertList = yearList.map { it.toString() }
         var monthStrConvertList = monthList.map { it.toString() }
         var dateStrConvertList = dateList.map { it.toString() }
-//
-//        npYear.run {
-//            minValue = 0
-//            maxValue = yearStrConvertList.size - 1
-//            wrapSelectorWheel = false
-//            displayedValues = yearStrConvertList.toTypedArray()
-//        }
-//
-//        npMonth.run {
-//            minValue = 0
-//            maxValue = monthStrConvertList.size - 1
-//            wrapSelectorWheel = false
-//            displayedValues = monthStrConvertList.toTypedArray()
-//        }
-//
-//        npDay.run {
-//            minValue = 0
-//            maxValue = dateStrConvertList.size - 1
-//            wrapSelectorWheel = false
-//            displayedValues = dateStrConvertList.toTypedArray()
-//        }
+
+        npYear.run {
+            minValue = 1950
+            maxValue = 2023
+            wrapSelectorWheel = true
+            displayedValues = yearStrConvertList.toTypedArray()
+            findInput(this)?.inputType = InputType.TYPE_CLASS_NUMBER
+        }
+
+        npMonth.run {
+            minValue = 0
+            maxValue = monthStrConvertList.size - 1
+            wrapSelectorWheel = true
+            displayedValues = monthStrConvertList.toTypedArray()
+        }
+
+        npDay.run {
+            minValue = 0
+            maxValue = dateStrConvertList.size - 1
+            wrapSelectorWheel = true
+            displayedValues = dateStrConvertList.toTypedArray()
+        }
 
         UserApiClient.instance.me { user, error ->
             user_id = user?.id.toString()
@@ -106,7 +111,8 @@ class JoinActivity : AppCompatActivity() {
 
             imgUpload(user_id)
             var user_nick = etJoinUserNick.text.toString()
-            var user_birthdate = etJoinUserBirth.text.toString()
+//            var user_birthdate = etJoinUserBirth.text.toString()
+            var user_birthdate = "${npYear.value}${npMonth.value}${npDay.value}"
             var user_profile_img = "https://firebasestorage.googleapis.com/v0/b/echo-73cf6.appspot.com/o/${user_id}.png?alt=media"
             Log.d("프로필",user_profile_img)
 
@@ -115,18 +121,18 @@ class JoinActivity : AppCompatActivity() {
                 Toast.makeText(this,"닉네임을 입력해주세요",Toast.LENGTH_SHORT).show()
 
             }
-            if(user_birthdate.isEmpty()){
-                isJoin = false
-                Toast.makeText(this,"생일을 입력해주세요",Toast.LENGTH_SHORT).show()
-            }
+//            if(user_birthdate.isEmpty()){
+//                isJoin = false
+//                Toast.makeText(this,"생일을 입력해주세요",Toast.LENGTH_SHORT).show()
+//            }
             if(user_gender.isEmpty()){
                 isJoin = false
                 Toast.makeText(this,"성별을 선택해주세요",Toast.LENGTH_SHORT).show()
             }
-            if(user_birthdate.length != 8){
-                isJoin = false
-                Toast.makeText(this,"생일을 20020101 형식으로 입력해주세요",Toast.LENGTH_SHORT).show()
-            }
+//            if(user_birthdate.length != 8){
+//                isJoin = false
+//                Toast.makeText(this,"생일을 20020101 형식으로 입력해주세요",Toast.LENGTH_SHORT).show()
+//            }
 
             if(isJoin) {
                 var user = UserVO(user_id, user_nick, user_birthdate, user_profile_img, user_gender)
@@ -158,45 +164,10 @@ class JoinActivity : AppCompatActivity() {
                             Log.d("test-가입실패", t.localizedMessage)
                         }
                     })
-
-//                if(isJoinSuccess=="success") {
-//                    Toast.makeText(
-//                        this, "${user_nick}님 환영합니다",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                    val intent = Intent(this, MainActivity::class.java)
-//                    startActivity(intent)
-//                    finish()
-//                }else {
-//                    Toast.makeText(
-//                        this, "가입에 실패했습니다 다시 시도해주세요",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-
             }
         }
 
     }
-
-//    fun userJoin(user : UserVO) {
-//        val call = RetrofitBuilder.api.userJoin(user)
-//        call.enqueue(object : Callback<ResponseBody> {
-//            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>
-//            ) {
-//                var joinCk = response.body()!!.string()
-//                if(joinCk=="success"){
-//                    isJoinSuccess = true
-//                }
-//                Log.d("test-가입성공", joinCk)
-//                Log.d("test-isJoin", isJoinSuccess.toString())
-//
-//            }
-//            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-//                Log.d("test-가입실패", t.localizedMessage)
-//            }
-//        })
-//}
 
     // 프로필 이미지 업로드
     fun imgUpload(key:String){
@@ -228,6 +199,19 @@ class JoinActivity : AppCompatActivity() {
         if (it.resultCode == RESULT_OK) {
             imgJoinUserProfile.setImageURI(it.data?.data)
         }
+    }
+
+    fun findInput(viewGroup: ViewGroup): EditText? {
+        var childCount = viewGroup.childCount
+        for (i in 0 until childCount) {
+            var childView = viewGroup.getChildAt(i)
+            if (childView is ViewGroup) {
+                findInput(childView)
+            } else if (childView is EditText) {
+                return childView
+            }
+        }
+        return null
     }
 
 

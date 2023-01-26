@@ -22,11 +22,12 @@
         android:id="@+id/etJoinUserBirth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="date"
         android:text="20230111"
         app:layout_constraintEnd_toEndOf="@+id/etJoinUserNick"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/etJoinUserNick"
         app:layout_constraintTop_toBottomOf="@+id/etJoinUserNick" />
 
@@ -44,10 +45,10 @@
         android:id="@+id/rdoUserGender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/etJoinUserBirth"
-        app:layout_constraintTop_toBottomOf="@+id/dpSpinner">
+        app:layout_constraintTop_toBottomOf="@+id/etJoinUserBirth">
 
         <RadioButton
             android:id="@+id/rdoJoinFemale"
@@ -74,14 +75,65 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/p1" />
 
-    <DatePicker
-        android:id="@+id/dpSpinner"
+    <NumberPicker
+        android:id="@+id/npYear"
+        android:layout_width="64dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnUserJoin" />
+
+    <NumberPicker
+        android:id="@+id/npMonth"
+        android:layout_width="64dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/npYear"
+        app:layout_constraintStart_toEndOf="@+id/tvBirthYear"
+        app:layout_constraintTop_toTopOf="@+id/npYear"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <NumberPicker
+        android:id="@+id/npDay"
+        android:layout_width="64dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/npMonth"
+        app:layout_constraintStart_toEndOf="@+id/tvBirthMonth"
+        app:layout_constraintTop_toTopOf="@+id/npMonth"
+        app:layout_constraintVertical_bias="0.515" />
+
+    <TextView
+        android:id="@+id/tvBirthYear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:calendarViewShown="false"
-        android:datePickerMode="spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etJoinUserBirth" />
+        android:layout_marginStart="8dp"
+        android:text="년"
+        app:layout_constraintBottom_toBottomOf="@+id/npYear"
+        app:layout_constraintStart_toEndOf="@+id/npYear"
+        app:layout_constraintTop_toTopOf="@+id/npYear"
+        app:layout_constraintVertical_bias="0.494" />
+
+    <TextView
+        android:id="@+id/tvBirthMonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="월"
+        app:layout_constraintBottom_toBottomOf="@+id/npMonth"
+        app:layout_constraintStart_toEndOf="@+id/npMonth"
+        app:layout_constraintTop_toTopOf="@+id/npMonth"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <TextView
+        android:id="@+id/tvBirthDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="일"
+        app:layout_constraintBottom_toBottomOf="@+id/npDay"
+        app:layout_constraintStart_toEndOf="@+id/npDay"
+        app:layout_constraintTop_toTopOf="@+id/npDay" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
