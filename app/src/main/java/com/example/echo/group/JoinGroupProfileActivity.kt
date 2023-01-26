@@ -1,5 +1,6 @@
 package com.example.echo.group
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
@@ -8,17 +9,25 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContentProviderCompat.requireContext
 import com.bumptech.glide.Glide
 import com.example.echo.R
+import com.example.echo.RetrofitBuilder
 import com.example.echo.myPage.user_id
+import com.kakao.sdk.user.UserApiClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class JoinGroupProfileActivity : AppCompatActivity() {
+    lateinit var groupInfo: JoinGroupVO
+    var id: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_join_group_profile)
-
         val tvJoinGroupProfileTitle = findViewById<TextView>(R.id.tvJoinGroupProfileTitle)
         val tvJoinGroupProfileMaster = findViewById<TextView>(R.id.tvJoinGroupProfileMaster)
         val tvJoinGroupProfileMax = findViewById<TextView>(R.id.tvJoinGroupProfileMax)
@@ -31,23 +40,19 @@ class JoinGroupProfileActivity : AppCompatActivity() {
         val btnJoinGroupProfileJoin = findViewById<Button>(R.id.btnJoinGroupProfileJoin)
         val imgJoinGroupProfile = findViewById<ImageView>(R.id.imgJoinGroupProfile)
 
+        val seq = intent.getIntExtra("num", 0)
 
+        UserApiClient.instance.me { user, error ->
+            if (error != null) {
+                Log.e(ContentValues.TAG, "사용자 정보 요청 실패", error)
+            }
+            else if (user != null) {
+                id = user.id.toString()
+                Log.d("id",id )
 
-        //그룹 seq 가 일치하는 그룹 정보 JoinGroupVO로 가져오기
-        val groupInfo = JoinGroupVO(1,
-            "1",
-            "n",
-            1,
-            "테스트 가데이터",
-            "테스트",
-            "광주",
-            5,
-            "20대이상",
-            "하",
-            "무관",
-            "등산/등반")
-
-
+                JoinGroupPro(seq, id)
+            }
+        }
 
         //가져온 정보 띄워주기
         tvJoinGroupProfileTitle.setText(groupInfo.group_name)
@@ -66,6 +71,12 @@ class JoinGroupProfileActivity : AppCompatActivity() {
                 .load(groupInfo.group_profile_img)
                 .into(imgJoinGroupProfile)
         }
+
+
+        //groupInfo.group_auth => 0이 아니면 버튼 비활성화 하는 로직 추가해주세요! (디자인이나 버튼위치, toast를 할건지 선택)
+
+
+
 
         //가입 신청 눌렀을 때 해당 모임에 가입 신청 하기
         btnJoinGroupProfileJoin.setOnClickListener {
@@ -86,10 +97,33 @@ class JoinGroupProfileActivity : AppCompatActivity() {
         }
 
 
+    }//액티비티 뷰 끝
 
-
-
-
-
+    fun JoinGroupPro(num: Int , id: String) {//그룹 조건검색 리스트 - 스프링 통신
+        val call = RetrofitBuilder.api.joinGroupPro(num, id)
+        call.enqueue(object : Callback<JoinGroupVO> {
+            override fun onResponse(call: Call<JoinGroupVO>, response: Response<JoinGroupVO>) {
+                if (response.isSuccessful) {//성공
+                    Log.d("그룹조회", response.body().toString())
+                    groupInfo = JoinGroupVO(response.body()!!.group_seq,
+                        response.body()!!.group_profile_img,
+                        response.body()!!.group_auth,
+                        response.body()!!.group_current,
+                        response.body()!!.group_name,
+                        response.body()!!.group_owner_id,
+                        response.body()!!.group_area,
+                        response.body()!!.user_max,
+                        response.body()!!.group_age,
+                        response.body()!!.group_level,
+                        response.body()!!.group_gender,
+                        response.body()!!.group_type,
+                        response.body()!!.group_detail)
+                }
+            }
+            override fun onFailure(call: Call<JoinGroupVO>, t: Throwable) {
+                Log.d("반환값 에러", "?")
+            }
+        })
     }
+
 }

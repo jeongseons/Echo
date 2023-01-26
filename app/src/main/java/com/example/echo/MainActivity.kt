@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         if(moveCk.isNotEmpty()) {
                          supportFragmentManager.beginTransaction().replace(
                              R.id.flMain,
-                             MyPageFragment()
+                             MapFragment2()
                          ).commit()
         }
 
