@@ -81,4 +81,12 @@ interface API {
     fun getCalList(
         @Query("group_seq") seq : Int
     ): Call<List<NewDateVO>>
+
+    @GET("api/groupagree") // 그룹 가입 허가
+    fun groupAgree(
+        @Query("user_id") id : String
+    )
+
+
 }
+

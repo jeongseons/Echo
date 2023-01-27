@@ -128,21 +128,21 @@ class GroupActivity : AppCompatActivity() {
 //                    // subscribe
 //                    topic = stomp.join("/destination").subscribe { Log.i(TAG, it) }
                         topic = stomp.join("/topic/{$num}").subscribe { it ->
-                            val responseData = JSONObject(it).getString("message")
-
-                            val modelList = Gson().fromJson<ArrayList<Message>>(
-                                responseData, TypeToken.getParameterized(
-                                    MutableList::class.java,
-                                    Message::class.java
-                                ).type
-                            )
-                            Log.d("메시지",modelList.toString())
+//                            val responseData = JSONObject(it).getString("message")
+//
+//                            val modelList = Gson().fromJson<ArrayList<Message>>(
+//                                responseData, TypeToken.getParameterized(
+//                                    MutableList::class.java,
+//                                    Message::class.java
+//                                ).type
+//                            )
+//                            Log.d("메시지",modelList.toString())
                         }
                     }
                     Event.Type.CLOSED -> {
                         Log.d("소켓", "닫음")
 //                     unsubscribe
-//                        topic.dispose()
+                        topic.dispose()
                     }
                     Event.Type.ERROR -> {
 
