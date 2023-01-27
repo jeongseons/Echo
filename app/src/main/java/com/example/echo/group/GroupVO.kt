@@ -43,7 +43,6 @@ data class FindGroupVO(val group_type : String,
                        val group_area : String)
 
 //가입용 모임 모델
-
 data class JoinGroupVO(val group_seq:Int,
                        val group_profile_img:String,
                        val group_auth:String,
