@@ -10,6 +10,8 @@
         android:id="@+id/imgAddGroupBack"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back" />
@@ -78,7 +80,8 @@
                 android:layout_height="0dp"
                 android:entries="@array/max"
                 app:layout_constraintBottom_toBottomOf="@+id/textView13"
-                app:layout_constraintEnd_toEndOf="@+id/etAddGroupName" />
+                app:layout_constraintEnd_toEndOf="@+id/etAddGroupName"
+                app:layout_constraintTop_toTopOf="@+id/textView13" />
 
             <TextView
                 android:id="@+id/textView20"
