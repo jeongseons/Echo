@@ -7,12 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.echo.R
 
 class DetailSettingFragment : Fragment() {
+
+    lateinit var adapter: JoinListAdapter
+    var joinList = ArrayList<PersonVO>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,72 +28,66 @@ class DetailSettingFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_detail_setting, container, false)
 
         //모임장확인
-        val GroupAuth = requireActivity().intent.getStringExtra("auth")
-        val GroupTitle = requireActivity().intent.getStringExtra("title")
-        val GroupSeq = requireActivity().intent.getIntExtra("num",0)
-
-        //모임명 출력
-        val tvGroupSettingName = view.findViewById<TextView>(R.id.tvGroupSettingName)
-        tvGroupSettingName.text = GroupTitle
-
-        Log.d("값확인-GroupSeq",GroupSeq.toString())
-        Log.d("값확인-GroupTitle",GroupTitle.toString())
-        Log.d("값확인-GroupAuth",GroupAuth.toString())
+        val groupAuth = requireActivity().intent.getStringExtra("auth")
+        val groupTitle = requireActivity().intent.getStringExtra("title")
+        val groupSeq = requireActivity().intent.getIntExtra("num", 0)
 
 
-        //권한에 따라 출력 변경
+        val tvGroupSettingTitle = view.findViewById<TextView>(R.id.tvGroupSettingTitle)
+        val imgGroupSettingProfile = view.findViewById<ImageView>(R.id.imgGroupSettingProfile)
+        val tvGroupSettingEdit = view.findViewById<TextView>(R.id.tvGroupSettingEdit)
         val tvGroupSettingMax = view.findViewById<TextView>(R.id.tvGroupSettingMax)
-
         val tvGroupSettingType = view.findViewById<TextView>(R.id.tvGroupSettingType)
-
         val tvGroupSettingArea = view.findViewById<TextView>(R.id.tvGroupSettingArea)
-
         val tvGroupSettingLevel = view.findViewById<TextView>(R.id.tvGroupSettingLevel)
-
-        val spGroupSettingMax = view.findViewById<Spinner>(R.id.spGroupSettingMax)
-        val spGroupSettingType = view.findViewById<Spinner>(R.id.spGroupSettingType)
-        val spGroupSettingArea = view.findViewById<Spinner>(R.id.spGroupSettingArea)
-        val spGroupSettingLevel = view.findViewById<Spinner>(R.id.spGroupSettingLevel)
-
-        val btnGroupSettingInfoEdit =view.findViewById<Button>(R.id.btnGroupSettingInfoEdit)
+        val tvGroupSettingGender = view.findViewById<TextView>(R.id.tvGroupSettingGender)
+        val tvGroupSettingAge = view.findViewById<TextView>(R.id.tvGroupSettingAge)
+        val tvGroupSettingDetail = view.findViewById<TextView>(R.id.tvGroupSettingDetail)
+        val rvGroupSettingJoinList = view.findViewById<RecyclerView>(R.id.rvGroupSettingJoinList)
         val tvGroupSettingDel = view.findViewById<TextView>(R.id.tvGroupSettingDel)
-        val imgGroupProfileEdit = view.findViewById<ImageView>(R.id.imgGroupProfileEdit)
+        val tvGroupSettingOut = view.findViewById<TextView>(R.id.tvGroupSettingOut)
 
 
-        if(GroupAuth.equals("y")){
-            tvGroupSettingMax.visibility=View.GONE
-            tvGroupSettingType.visibility=View.GONE
-            tvGroupSettingArea.visibility=View.GONE
-            tvGroupSettingLevel.visibility=View.GONE
+        //모임명 셋팅
+        tvGroupSettingTitle.setText(groupTitle)
 
-            spGroupSettingMax.visibility=View.VISIBLE
-            spGroupSettingType.visibility=View.VISIBLE
-            spGroupSettingArea.visibility=View.VISIBLE
-            spGroupSettingLevel.visibility=View.VISIBLE
-            btnGroupSettingInfoEdit.visibility=View.VISIBLE
+        val textViewGroupSetting7 = view.findViewById<TextView>(R.id.textViewGroupSetting7)
+        if(groupAuth=="y"){ //모임장만 출력
+            textViewGroupSetting7.visibility=View.VISIBLE
             tvGroupSettingDel.visibility=View.VISIBLE
-            imgGroupProfileEdit.visibility=View.VISIBLE
-        }else{
-            tvGroupSettingMax.visibility=View.VISIBLE
-            tvGroupSettingType.visibility=View.VISIBLE
-            tvGroupSettingArea.visibility=View.VISIBLE
-            tvGroupSettingLevel.visibility=View.VISIBLE
 
-            spGroupSettingMax.visibility=View.GONE
-            spGroupSettingType.visibility=View.GONE
-            spGroupSettingArea.visibility=View.GONE
-            spGroupSettingLevel.visibility=View.GONE
-            btnGroupSettingInfoEdit.visibility=View.GONE
+            tvGroupSettingOut.visibility=View.GONE
+        }else{
+            textViewGroupSetting7.visibility=View.GONE
             tvGroupSettingDel.visibility=View.GONE
-            imgGroupProfileEdit.visibility=View.GONE
+
+            tvGroupSettingOut.visibility=View.VISIBLE
+        }
+        
+
+
+        joinList.add(PersonVO("https://firebasestorage.googleapis.com/v0/b/echo-73cf6.appspot.com/o/2615613938.png?alt=media", "n", "test1"))
+        joinList.add(PersonVO("https://firebasestorage.googleapis.com/v0/b/echo-73cf6.appspot.com/o/2615613938.png?alt=media", "n", "test2"))
+        joinList.add(PersonVO("https://firebasestorage.googleapis.com/v0/b/echo-73cf6.appspot.com/o/2615613938.png?alt=media", "n", "test3"))
+
+
+        //가입 신청 리스트 출력
+        adapter = JoinListAdapter(requireContext(), joinList, groupAuth!!)
+        rvGroupSettingJoinList.adapter = adapter
+        rvGroupSettingJoinList.layoutManager = GridLayoutManager(requireContext(), 3)
+
+        if(groupAuth.equals("y")){
+            tvGroupSettingEdit.visibility=View.VISIBLE
+            tvGroupSettingEdit.setOnClickListener{
+                //정보 수정 클릭시 정보 수정 페이지로 이동
+            }
+        }else{
+            tvGroupSettingEdit.visibility=View.GONE
         }
 
 
 
-        val imgGroupSetting = view.findViewById<ImageView>(R.id.imgGroupSetting)
 
-
-        imgGroupSetting.setImageResource(R.drawable.profile)
 
 
 

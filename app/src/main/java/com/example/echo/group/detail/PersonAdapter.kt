@@ -24,8 +24,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class PersonAdapter(val context: Context, val personlist: ArrayList<PersonVO>, val title: String,
-val auth: String): RecyclerView.Adapter<PersonAdapter.ViewHolder>() {
+class PersonAdapter(
+    val context: Context, val personlist: ArrayList<PersonVO>, val title: String,
+    val auth: String
+) : RecyclerView.Adapter<PersonAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvPersonNick: TextView
@@ -58,14 +60,14 @@ val auth: String): RecyclerView.Adapter<PersonAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvPersonNick.setText(personlist[position].user_nick)
 
-            if (personlist[position].group_auth != "y") {
-                if(auth!="y") {
-                    holder.tvPersonAuth.text = "그룹원"
-                }
-                holder.imgPersonKing.isVisible = false
-            } else {
-                holder.tvPersonAuth.text = "그룹장"
+        if (personlist[position].group_auth != "y") {
+            if (auth != "y") {
+                holder.tvPersonAuth.text = "그룹원"
             }
+            holder.imgPersonKing.isVisible = false
+        } else {
+            holder.tvPersonAuth.text = "그룹장"
+        }
 
         Glide.with(this.context)
             .load(personlist[position].user_profile_img)
@@ -95,11 +97,11 @@ val auth: String): RecyclerView.Adapter<PersonAdapter.ViewHolder>() {
         msgDlg.show()
     }
 
-    fun dropUser(nick:String){
+    fun dropUser(nick: String) {
         val call = RetrofitBuilder.api.dropUser(nick)
-        call.enqueue(object : Callback<ResponseBody>{
+        call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if(response.isSuccessful){
+                if (response.isSuccessful) {
                     Log.d("드랍 실행", response.body().toString())
                     val intent = (context as Activity).intent
                     context.finish() //현재 액티비티 종료 실시

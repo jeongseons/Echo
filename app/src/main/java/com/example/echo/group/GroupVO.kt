@@ -3,12 +3,12 @@ package com.example.echo.group
 import java.util.Date
 
 //가입한 그룹리스트 띄우기용 모델
-data class GroupVO(var group_seq:Int,
-                   var group_profile_img:String,
-                   var group_auth:String,
-                   var group_name:String,
-                   var user_max:Int,
-                   var group_current:Int
+data class GroupVO(val group_seq:Int,
+                   val group_profile_img:String,
+                   val group_auth:String,
+                   val group_name:String,
+                   val user_max:Int,
+                   val group_current:Int
                    )
 
 
@@ -44,10 +44,10 @@ data class FindGroupVO(val group_type : String,
 
 //가입용 모임 모델
 
-data class JoinGroupVO(var group_seq:Int,
-                       var group_profile_img:String,
-                       var group_auth:String,
-                       var group_current:Int,
+data class JoinGroupVO(val group_seq:Int,
+                       val group_profile_img:String,
+                       val group_auth:String,
+                       val group_current:Int,
                        val group_name : String,
                        val group_owner_id : String,
                        val group_area : String,
@@ -56,7 +56,18 @@ data class JoinGroupVO(var group_seq:Int,
                        val group_level : String,
                        val group_gender : String,
                        val group_type : String,
-                        val group_detail: String)
+                       val group_detail: String)
+
+//모임 설정 변경용 모델
+data class SettingGroupVO(val group_profile_img:String,
+                          val group_name : String,
+                          val group_area : String,
+                          val user_max : Int,
+                          val group_age : String,
+                          val group_level : String,
+                          val group_gender : String,
+                          val group_type : String,
+                          val group_detail : String)
 
 
 
