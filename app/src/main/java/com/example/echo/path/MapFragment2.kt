@@ -18,19 +18,10 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ComponentActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentContainerView
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.example.echo.R
-import com.example.echo.myPage.binding
-import com.example.echo.service.Constants.ACTION_SERVICE_START
 import com.example.echo.service.TrackerService
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
@@ -38,8 +29,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
-import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.WithFragmentBindings
 import kotlinx.android.synthetic.main.fragment_map2.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -66,6 +55,8 @@ class MapFragment2 : OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListen
     lateinit var tvMapCurrentTime2: TextView
     lateinit var currentlocation: LatLng
     lateinit var tvMapTimer: TextView
+    private var timeThread: Thread? = null
+    private val isRunning = true
 
 
     @SuppressLint("MissingPermission")
@@ -98,11 +89,8 @@ class MapFragment2 : OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListen
             btnMapRecordStart2.visibility = View.INVISIBLE
             btnMapRecordEnd2.visibility = View.VISIBLE
 //            sendActionCommandToService(ACTION_SERVICE_START)
-            googleMap?.snapshot {
-                it?.let{
-                    saveMediaStorage(it)
-                }
-            }
+            timeThread = Thread(timeThread)
+            timeThread!!.start()
 
         }
 
