@@ -136,10 +136,8 @@ class MapFragment2 : OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListen
 
     //현재시간 구하기
     fun currentTime() {
-
         val currentTime = System.currentTimeMillis()
         convertTimestampToDate(currentTime)
-
     }
 
     fun convertTimestampToDate(timestamp: Long) {
@@ -149,25 +147,12 @@ class MapFragment2 : OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListen
         //2021년06월10일02시37분
     }
 
-    //위도, 경도로 주소 구하기
+    //위도, 경도로 주소 구하기 -> 역지오코더
+
+
 
 
     override fun onMapReady(googleMap: GoogleMap) {
-        googleMap.isMyLocationEnabled = true
-        googleMap.setOnMyLocationButtonClickListener(this)
-//        googleMap.uiSettings.apply{
-//            isZoomControlsEnabled = false
-//            isZoomGesturesEnabled = false
-//            isRotateGesturesEnabled = false
-//            isTiltGesturesEnabled = false
-//            isCompassEnabled = false
-//            isScrollGesturesEnabled = false
-//        }
-
-
-
-
-        Log.d("도착했니", "퍼미션허가")
 
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
@@ -179,6 +164,8 @@ class MapFragment2 : OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListen
                 arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION),
                 0
             )
+
+
 
 
         } else {
@@ -196,6 +183,16 @@ class MapFragment2 : OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListen
                         "여기는 onMapReady Test",
                         "GPS Location Latitude: $latitude" + ", Longitude: $longitude"
                     )
+                    googleMap.isMyLocationEnabled = true
+                    googleMap.setOnMyLocationButtonClickListener(this)
+//        googleMap.uiSettings.apply{
+//            isZoomControlsEnabled = false
+//            isZoomGesturesEnabled = false
+//            isRotateGesturesEnabled = false
+//            isTiltGesturesEnabled = false
+//            isCompassEnabled = false
+//            isScrollGesturesEnabled = false
+//        }
 
                     googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(currentlocation, 19F))
                     googleMap?.moveCamera(CameraUpdateFactory.newLatLng(currentlocation))
@@ -205,8 +202,11 @@ class MapFragment2 : OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListen
                             .title("현재 위치")
                     )
 
+                    getCurrentAddress(currentlocation)
                     googleMap.uiSettings.isMyLocationButtonEnabled = true
                     googleMap.uiSettings.isCompassEnabled = true
+
+
 
 
                 } else {
@@ -231,36 +231,36 @@ class MapFragment2 : OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListen
         }
     }
 
+        fun getCurrentAddress(currentlocation: LatLng): String? {
+            Log.d("gps-지오코더", "실행중")
+            Log.d("gps-지오코더", currentlocation.latitude.toString())
+            //지오코더... GPS를 주소로 변환
+            val geocoder = Geocoder(requireContext(), Locale.getDefault())
+            val addresses: List<Address>?
+            try {
+                addresses = geocoder.getFromLocation(
+                    currentlocation.latitude,
+                    currentlocation.longitude,
+                    1
+                )
+            } catch (ioException: IOException) {
+                //네트워크 문제
+                Toast.makeText(requireContext(), "지오코더 서비스 사용불가", Toast.LENGTH_LONG).show()
+                return "지오코더 서비스 사용불가"
+            } catch (illegalArgumentException: IllegalArgumentException) {
+                Toast.makeText(requireContext(), "잘못된 GPS 좌표", Toast.LENGTH_LONG).show()
+                return "잘못된 GPS 좌표"
+            }
+            return if (addresses == null || addresses.size == 0) {
+                Toast.makeText(requireContext(), "주소 미발견", Toast.LENGTH_LONG).show()
+                "주소 미발견"
+            } else {
+                val address = addresses[0]
+                address.getAddressLine(0).toString()
+            }
 
-    fun getCurrentAddress(currentlocation: LatLng): String? {
-        Log.d("gps-지오코더", "실행중")
-        Log.d("gps-지오코더", currentlocation.latitude.toString())
-        //지오코더... GPS를 주소로 변환
-        val geocoder = Geocoder(requireContext(), Locale.getDefault())
-        val addresses: List<Address>?
-        try {
-            addresses = geocoder.getFromLocation(
-                currentlocation.latitude,
-                currentlocation.longitude,
-                1
-            )
-        } catch (ioException: IOException) {
-            //네트워크 문제
-            Toast.makeText(requireContext(), "지오코더 서비스 사용불가", Toast.LENGTH_LONG).show()
-            return "지오코더 서비스 사용불가"
-        } catch (illegalArgumentException: IllegalArgumentException) {
-            Toast.makeText(requireContext(), "잘못된 GPS 좌표", Toast.LENGTH_LONG).show()
-            return "잘못된 GPS 좌표"
-        }
-        return if (addresses == null || addresses.size == 0) {
-            Toast.makeText(requireContext(), "주소 미발견", Toast.LENGTH_LONG).show()
-            "주소 미발견"
-        } else {
-            val address = addresses[0]
-            address.getAddressLine(0).toString()
         }
 
-    }
 
     override fun onStart() {
         super.onStart()
