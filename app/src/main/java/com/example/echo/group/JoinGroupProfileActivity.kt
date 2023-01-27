@@ -34,6 +34,7 @@ class JoinGroupProfileActivity : AppCompatActivity() {
     lateinit var tvJoinGroupProfileDate : TextView
     lateinit var tvJoinGroupProfileDetail : TextView
 
+
     var id: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -129,6 +130,7 @@ class JoinGroupProfileActivity : AppCompatActivity() {
                         response.body()!!.group_owner_id,
                         response.body()!!.group_area,
                         response.body()!!.user_max,
+                        response.body()!!.group_dt,
                         response.body()!!.group_age,
                         response.body()!!.group_level,
                         response.body()!!.group_gender,
@@ -144,6 +146,8 @@ class JoinGroupProfileActivity : AppCompatActivity() {
                     tvJoinGroupProfileAge.setText(groupInfo.group_age)
                     tvJoinGroupProfileLevel.setText(groupInfo.group_level)
                     tvJoinGroupProfileDetail.setText(groupInfo.group_detail)
+                    tvJoinGroupProfileDate.setText(groupInfo.group_dt)
+
 
                     if(groupInfo.group_auth != ("0")){
                         btnJoinGroupProfileJoin.setText("이미 가입 중인 모임입니다")
