@@ -50,7 +50,6 @@ class JoinGroupProfileActivity : AppCompatActivity() {
         tvJoinGroupProfileAge = findViewById(R.id.tvJoinGroupProfileAge)
         tvJoinGroupProfileLevel = findViewById(R.id.tvJoinGroupProfileLevel)
         imgJoinGroupProfile = findViewById(R.id.imgJoinGroupProfile)
-        tvJoinGroupProfileDate = findViewById(R.id.tvJoinGroupProfileDate)
         tvJoinGroupProfileDetail = findViewById(R.id.tvJoinGroupProfileDetail)
 
         btnJoinGroupProfileJoin = findViewById<Button>(R.id.btnJoinGroupProfileJoin)
@@ -146,7 +145,6 @@ class JoinGroupProfileActivity : AppCompatActivity() {
                     tvJoinGroupProfileAge.setText(groupInfo.group_age)
                     tvJoinGroupProfileLevel.setText(groupInfo.group_level)
                     tvJoinGroupProfileDetail.setText(groupInfo.group_detail)
-                    tvJoinGroupProfileDate.setText(groupInfo.group_dt)
 
 
                     if(groupInfo.group_auth != ("0")){
