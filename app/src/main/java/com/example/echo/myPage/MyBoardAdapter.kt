@@ -1,6 +1,7 @@
 package com.example.echo.myPage
 
 import android.content.Context
+import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,9 @@ import com.example.echo.board.BoardListVO
 
 class MyBoardAdapter(var context: Context, var myBoardList:ArrayList<BoardListVO>)
     : RecyclerView.Adapter<MyBoardAdapter.ViewHolder>() {
+
+    private val checkboxStatus = SparseBooleanArray()
+
 
     // 리스너 커스텀
     interface OnItemClickListener {
@@ -47,7 +51,6 @@ class MyBoardAdapter(var context: Context, var myBoardList:ArrayList<BoardListVO
             itemView.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    // 버그로 인해 -1이 아닐경우에
                     mOnItemClickListener.onItemClick(itemView, position)
                 }
             }
@@ -71,9 +74,14 @@ class MyBoardAdapter(var context: Context, var myBoardList:ArrayList<BoardListVO
         holder.tvMyBoardDate.text = myBoardList[position].board_dt
         holder.tvMyBoardRecoCount.text = myBoardList[position].board_reco_cnt.toString()
         holder.tvMyBoardMntName.text = myBoardList[position].mnt_name
-        holder.ckMyBoard.setOnClickListener(View.OnClickListener {
-            holder.ckMyBoard.isChecked = true
-        })
+        holder.ckMyBoard.isChecked = checkboxStatus[position]
+        holder.ckMyBoard.setOnClickListener {
+            if (!holder.ckMyBoard.isChecked)
+                checkboxStatus.put(position, false)
+            else
+                checkboxStatus.put(position, true)
+            notifyItemChanged(position)
+        }
 
     }
 

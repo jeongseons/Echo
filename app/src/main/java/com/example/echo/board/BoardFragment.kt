@@ -62,28 +62,7 @@ class BoardFragment : Fragment() {
         svBoardSearch.setOnQueryTextListener(searchViewTextListener)
 
         adapter = BoardListAdapter(requireContext(), boardList)
-
-        // 각 게시글 클릭 이벤트 - 게시글 내부로 이동
-//        adapter.setOnItemClickListener(object : BoardListAdapter.OnItemClickListener {
-//            override fun onItemClick(view: View, position: Int) {
-//
-//                val intent = Intent(requireActivity(), BoardDetailActivity::class.java)
-//
-//                intent.putExtra("board_seq", boardList[position].board_seq.toString())
-//                intent.putExtra("board_title", boardList[position].board_title)
-//                intent.putExtra("board_content", boardList[position].board_content)
-//                intent.putExtra("board_file",boardList[position].board_file)
-//                intent.putExtra("user_nick", boardList[position].user_nick)
-//                intent.putExtra("board_dt", boardList[position].board_dt)
-//                intent.putExtra("user_id", boardList[position].user_id)
-//                intent.putExtra("mnt_name", boardList[position].mnt_name)
-//                intent.putExtra("board_reco_cnt", boardList[position].board_reco_cnt.toString())
-//
-//                startActivity(intent)
-//
-//            }
-//        })
-
+        
         rvBoardList.adapter = adapter
         rvBoardList.layoutManager = LinearLayoutManager(requireContext())
 
@@ -98,7 +77,6 @@ class BoardFragment : Fragment() {
         val call = RetrofitBuilder.boardApi.getBoard(null)
         call.enqueue(object : Callback<List<BoardListVO>> {
             override fun onResponse(call: Call<List<BoardListVO>>, response: Response<List<BoardListVO>>) {
-//                Log.d("test-게시글전부조회", response.body().toString())
                 if(response.isSuccessful&& response.body()?.size!!>0){
                     for(i in 0 until response.body()!!.size){
                         boardList.add(response.body()!!.get(i))
@@ -123,6 +101,7 @@ class BoardFragment : Fragment() {
         (context as Activity).startActivity(intent) //현재 액티비티 재실행 실시
         (context as Activity).overridePendingTransition(0, 0) //효과 없애기
     }
+
 
 }
 

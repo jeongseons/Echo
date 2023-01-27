@@ -19,7 +19,7 @@ import retrofit2.Response
 
 class DetailPersonFragment : Fragment() {
 
-    lateinit var adapter : PersonAdapter
+    lateinit var adapter: PersonAdapter
     lateinit var id: String
     var personList = ArrayList<PersonVO>()
 
@@ -48,7 +48,7 @@ class DetailPersonFragment : Fragment() {
         adapter = PersonAdapter(requireContext(), personList, title!!, auth!!)
         //어댑터 리스트로 띄워졌을때 해당 액티비티로 이동해야함.
         rvPersonList.adapter = adapter
-        rvPersonList.layoutManager = GridLayoutManager(requireContext(),3)
+        rvPersonList.layoutManager = GridLayoutManager(requireContext(), 3)
 
         return view
     }
@@ -56,10 +56,13 @@ class DetailPersonFragment : Fragment() {
     fun GetPerson(seq: Int) {//그룹 리스트 - 스프링 통신
         val call = RetrofitBuilder.api.getPerson(seq)
         call.enqueue(object : Callback<List<PersonVO>> {
-            override fun onResponse(call: Call<List<PersonVO>>, response: Response<List<PersonVO>>) {
+            override fun onResponse(
+                call: Call<List<PersonVO>>,
+                response: Response<List<PersonVO>>
+            ) {
                 if (response.isSuccessful) {//성공
-                    Log.d("zxc",response.body().toString())
-                    if(response.body()?.size!=0) {//가입한 회원이 있을 때
+                    Log.d("zxc", response.body().toString())
+                    if (response.body()?.size != 0) {//가입한 회원이 있을 때
                         for (i: Int in 0 until response.body()!!.size) {
                             //회원리스트 정보 담아줌.
                             personList.add(
@@ -74,9 +77,8 @@ class DetailPersonFragment : Fragment() {
                         //리스트 추가후 어댑터 새로고침 필수!
                         adapter.notifyDataSetChanged()
 
-                    }
-                    else{// 가입한 그룹이 없을 때
-                        Toast.makeText(context,"가입한 모임이 없습니다!", Toast.LENGTH_LONG)
+                    } else {// 가입한 그룹이 없을 때
+                        Toast.makeText(context, "가입한 모임이 없습니다!", Toast.LENGTH_LONG)
                     }
 
                 }

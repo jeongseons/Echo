@@ -35,42 +35,32 @@ import retrofit2.http.Tag
 
 
 class MainActivity : AppCompatActivity() {
-    lateinit var tvHello: TextView
-    lateinit var imgMainUserProfile:ImageView
     var user_id = ""
     var moveCk = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        tvHello = findViewById<TextView>(R.id.tvHello)
-        hel() //스프링 데이터 확인
 
         val flMain = findViewById<FrameLayout>(R.id.flMain)
         val bnvMain = findViewById<BottomNavigationView>(R.id.bnvMain)
-        val tvLogout = findViewById<TextView>(R.id.tvLogout)
+
 
         //하단 메뉴바 아이콘 색상 틴트 빼기
         bnvMain.setItemIconTintList(null);
-        imgMainUserProfile = findViewById<CircleImageView>(R.id.imgMainUserProfile)
+
 
         var keyHash = Utility.getKeyHash(this)
         Log.d("key", keyHash)
 
 
-        UserApiClient.instance.me { user, error ->
-            if (user != null) {
-                user_id = user.id.toString()
-                Log.d("test","$user_id")
-                getImageData(user_id)
-            }
-        }
 
-        tvLogout.setOnClickListener {
-            kakaoLogout()
-            val intent = Intent(this, IntroActivity::class.java)
-            startActivity(intent)
-        }
+//        로그아웃 주석
+//        tvLoout.setOnClickListener {
+//            kakaoLogout()
+//            val intent = Intent(this, IntroActivity::class.java)
+//            startActivity(intent)
+//        }
 
 
         supportFragmentManager.beginTransaction().replace(
@@ -82,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         if(moveCk.isNotEmpty()) {
                          supportFragmentManager.beginTransaction().replace(
                              R.id.flMain,
-                             MyPageFragment()
+                             MapFragment2()
                          ).commit()
         }
 
@@ -126,73 +116,30 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-        fun hel() {
-            val call = RetrofitBuilder.api.getHello()
-            call.enqueue(object : Callback<ResponseBody> {
-                override fun onResponse(
-                    call: Call<ResponseBody>,
-                    response: Response<ResponseBody>
-                ) {
-                    if (response.isSuccessful) {
-                        tvHello.text = response.body()?.string()
-                    }
-                }
 
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    tvHello.text = "응답실패"
-                    Log.d("외않되", t.localizedMessage)
-                }
-
-//            override fun onResponse(call: Call<String>, response: Response<String>) {
-//                if (response.isSuccessful){
-//                    tvHello.text = response.body().toString()
-//                }
+//    fun kakaoLogout() {
+//        // 로그아웃
+//        UserApiClient.instance.unlink { error ->
+//            if (error != null) {
+//                Log.e("Hello", "로그아웃 실패. SDK에서 토큰 삭제됨", error)
+//            } else {
+//                Log.i("Hello", "로그아웃 성공. SDK에서 토큰 삭제됨")
+//                Toast.makeText(this, "로그아웃 성공",
+//                    Toast.LENGTH_SHORT).show()
 //            }
-//
-//            override fun onFailure(call: Call<String>, t: Throwable) {
-//                tvHello.text = "응답실패"
-//                Log.d("외않되", t.localizedMessage)
+//        }
+//    }
+
+
+//    fun changeFragment(index: Int){
+//        when(index){
+//            1 -> {
+//                supportFragmentManager.beginTransaction().replace(
+//                    R.id.flMain,
+//                    BoardPostFragment()
+//                ).commit()
 //            }
-
-            })
-        }
-
-    fun kakaoLogout() {
-        // 로그아웃
-        UserApiClient.instance.unlink { error ->
-            if (error != null) {
-                Log.e("Hello", "로그아웃 실패. SDK에서 토큰 삭제됨", error)
-            } else {
-                Log.i("Hello", "로그아웃 성공. SDK에서 토큰 삭제됨")
-                Toast.makeText(this, "로그아웃 성공",
-                    Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    fun getImageData(key: String) {
-        val storageReference = Firebase.storage.reference.child("$key.png")
-
-        storageReference.downloadUrl.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                //Gilde: 웹에 있는 이미지 적용하는 라이브러리
-                Glide.with(this)
-                    .load(task.result)
-                    .into(imgMainUserProfile) //지역변수
-
-            }
-        }
-    }
-
-    fun changeFragment(index: Int){
-        when(index){
-            1 -> {
-                supportFragmentManager.beginTransaction().replace(
-                    R.id.flMain,
-                    BoardPostFragment()
-                ).commit()
-            }
-        }
-    }
+//        }
+//    }
 
 }

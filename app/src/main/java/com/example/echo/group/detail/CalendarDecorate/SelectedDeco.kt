@@ -22,6 +22,6 @@ class SelectedDeco(context: Activity?):DayViewDecorator {
     }
 
     init {
-        drawable = context!!.getResources().getDrawable(R.drawable.selected_day)
+        drawable = context!!.getResources().getDrawable(R.drawable.calendar_select)
     }
 }

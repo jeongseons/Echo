@@ -1,6 +1,8 @@
 package com.example.echo.board.social
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
 import com.kakao.sdk.user.UserApiClient
@@ -58,7 +59,22 @@ class CommentAdapter(var context: Context, var commentList:ArrayList<CmtListVO>)
         }
 
         holder.tvCommentDelete.setOnClickListener {
-            deleteComment(commentList.get(position).cmt_seq, commentList.get(position).board_seq)
+            val dialog: AlertDialog.Builder = AlertDialog.Builder(context,
+                android.R.style.Theme_DeviceDefault_Dialog
+            )
+            dialog.setMessage("댓글을 삭제하시겠습니까?")
+                .setTitle("댓글 삭제")
+                .setPositiveButton("아니오", DialogInterface.OnClickListener { dialog, which ->
+                    Log.i("Dialog", "취소")
+                })
+                .setNeutralButton("예",
+                    DialogInterface.OnClickListener { dialog, which ->
+                        deleteComment(
+                            commentList.get(position).cmt_seq,
+                            commentList.get(position).board_seq
+                        )
+                    })
+                .show()
         }
 
     }

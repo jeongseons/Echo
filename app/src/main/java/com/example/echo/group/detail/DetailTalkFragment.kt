@@ -15,10 +15,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.echo.R
 import com.example.echo.group.GroupActivity
+import com.example.echo.group.GroupActivity.Companion.runstomp
+import com.example.echo.group.GroupActivity.Companion.stomp
+import com.example.echo.group.GroupActivity.Companion.topic
 import com.example.echo.group.GroupListAdapter
 import com.example.echo.group.GroupVO
 import com.example.echo.group.Message
+import com.gmail.bishoybasily.stomp.lib.StompClient
 import com.kakao.sdk.user.UserApiClient
+import java.security.acl.Group
 
 
 class DetailTalkFragment : Fragment() {
@@ -32,21 +37,44 @@ class DetailTalkFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_detail_talk, container, false)
 
-        val btn1 = view.findViewById<Button>(R.id.btnTalkchat1)
-        val btn2 = view.findViewById<Button>(R.id.btnTalkchat2)
-        val btn3 = view.findViewById<Button>(R.id.btnTalkchat3)
+        val btnTalkchat1 = view.findViewById<Button>(R.id.btnTalkchat1)
+        val btnTalkchat2 = view.findViewById<Button>(R.id.btnTalkchat2)
+        val btnTalkchat3 = view.findViewById<Button>(R.id.btnTalkchat3)
         val rvtalk = view.findViewById<RecyclerView>(R.id.rvtalk)
 
+        //그룹번호 정보(소켓서버 오픈용)
+        val seq = requireActivity().intent.getIntExtra("num", 0)
+
+        btnTalkchat1.setOnClickListener {//확인했습니다
+            stomp.send("/app/{$seq}", "확인했습니다.").subscribe {
+                if (it) {
+                }
+            }
+        }
+        btnTalkchat2.setOnClickListener {//기다려주세요
+            stomp.send("/app/{$seq}", "기다려주세요.").subscribe {
+                if (it) {
+                }
+            }
+        }
+        btnTalkchat3.setOnClickListener {//다쳤습니다
+            stomp.send("/app/{$seq}", "다쳤습니다.").subscribe {
+                if (it) {
+                }
+            }
+        }
+
+        //더미 데이터
         talkList.add(
             Message(
                 "good",
-                "2617009803","04:00"
+                "2617009803", "04:00"
             )
         )
         talkList.add(
             Message(
                 "U",
-                "2617123456","05:00"
+                "2617123456", "05:00"
             )
         )
 
