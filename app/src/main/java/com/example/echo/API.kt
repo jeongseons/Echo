@@ -82,11 +82,22 @@ interface API {
         @Query("group_seq") seq : Int
     ): Call<List<NewDateVO>>
 
-    @GET("api/groupagree") // 그룹 가입 허가
+    @POST("api/groupagree/{num}") // 그룹 가입 허가
     fun groupAgree(
-        @Query("user_id") id : String
-    )
+        @Path("num") num : Int,
+        @Query("user_nick") nick : String
+    ): Call<ResponseBody>
 
+    @POST("api/groupdegree/{num}") // 그룹 가입 거절, 탈퇴
+    fun groupDegree(
+        @Path("num") num : Int,
+        @Query("user_nick") nick : String
+    ): Call<ResponseBody>
+
+    @GET("api/getsignuplist/{num}") //그룹 가입대기 회원들을 가져온다.
+    fun getSignUpList(
+        @Path("num") num : Int
+    ): Call<List<PersonVO>>
 
 }
 
