@@ -57,7 +57,7 @@ class JoinGroupSearchTypeFragment : Fragment() {
             android.R.layout.simple_spinner_dropdown_item)
 
         spJoinGroupTypeLevel.adapter = ArrayAdapter.createFromResource(requireContext(),
-            R.array.level,
+            R.array.level_filter,
             android.R.layout.simple_spinner_dropdown_item)
 
 

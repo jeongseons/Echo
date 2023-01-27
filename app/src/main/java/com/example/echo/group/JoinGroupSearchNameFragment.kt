@@ -50,6 +50,7 @@ class JoinGroupSearchNameFragment : Fragment() {
                 val searchName = etJoinGroupNameSearch.text.toString()
                 //엔터키 입력시 이벤트 처리 구간
                 Log.d("값확인-검색 모임 이름",searchName)
+                JoinGroupNick(searchName)
             }
 
             true
