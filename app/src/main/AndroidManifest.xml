@@ -43,6 +43,20 @@
             android:foregroundServiceType="location" />
 
         <activity
+            android:name=".EditGroupInfoActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".group.JoinGroupProfileActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".group.JoinGroupActivity"
             android:exported="false">
             <meta-data

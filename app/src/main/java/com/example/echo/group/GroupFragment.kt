@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
+import com.example.echo.group.GroupActivity.Companion.stomp
+import com.example.echo.group.GroupActivity.Companion.stompConnection
 import com.kakao.sdk.user.UserApiClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,6 +57,14 @@ class GroupFragment : Fragment() {
                 GetGroup(id)
             }
         }
+
+//        if(::stompConnection.isInitialized){
+//            Log.d("소켓연결", stompConnection.isDisposed.toString())
+//        }
+        //리스트로 왔을때 소켓 끊어주기(소켓 연결중일때)
+//        if(stompConnection.isDisposed) {
+//            stompConnection.dispose()
+//        }
 
         btnAddGroup.setOnClickListener {
             val intent = Intent(context, AddGroupActivity::class.java)

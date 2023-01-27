@@ -26,9 +26,6 @@ import java.util.concurrent.TimeUnit
 
 class GroupActivity : AppCompatActivity() {
 
-    lateinit var stompConnection: Disposable
-    lateinit var topic: Disposable
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group)
@@ -49,11 +46,10 @@ class GroupActivity : AppCompatActivity() {
         //그룹에 속한 사람이 아닐 경우 모임 정보 페이지
 
 
-
-
         if (num != null) {
             runstomp(num)
         }
+
 
 
         supportFragmentManager.beginTransaction().replace(
@@ -95,51 +91,23 @@ class GroupActivity : AppCompatActivity() {
 
     }
 
-    fun runstomp(num: Int) {
-        Log.d("소켓", "dd")
-        val url = "ws://172.30.1.87:8099/echo/ws/websocket"
+    companion object{
+        //전역 객체 설정.
+        lateinit var stompConnection: Disposable
+        lateinit var topic: Disposable
+
+        val stompurl = "ws://172.30.1.87:8099/echo/ws/websocket"
         val intervalMillis = 1000L
-        val client = OkHttpClient
+        val stompclient = OkHttpClient
             .Builder()
             .readTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
             .connectTimeout(10, TimeUnit.SECONDS)
             .build()
 
-        val stomp = StompClient(client, intervalMillis).apply { this@apply.url = url }
+        val stomp = StompClient(stompclient, intervalMillis).apply { this@apply.url = stompurl }
 
-// connect
-        stompConnection = stomp.connect().subscribe {
-
-            when (it.type) {
-                Event.Type.OPENED -> {
-                    Log.d("소켓 it", it.toString())
-//                    // subscribe
-//                    topic = stomp.join("/destination").subscribe { Log.i(TAG, it) }
-                    topic = stomp.join("/topic/{$num}").subscribe { it ->
-                        val responseData = JSONObject(it).getString("message")
-
-                        val modelList = Gson().fromJson<ArrayList<Message>>(
-                            responseData, TypeToken.getParameterized(
-                                MutableList::class.java,
-                                Message::class.java
-                            ).type
-                        )
-                    }
-                }
-                Event.Type.CLOSED -> {
-                    Log.d("소켓", "닫음")
-//                     unsubscribe
-                    topic.dispose()
-                }
-                Event.Type.ERROR -> {
-
-                }
-                else -> {}
-            }
-        }
-
-//        // send
+        // send
 //        stomp.send("/app/{$num}", "dummy message").subscribe {
 //            if (it) {
 //            }
@@ -147,8 +115,42 @@ class GroupActivity : AppCompatActivity() {
 //        Log.d("소켓", "열림")
 //
 
-//// disconnect
+        // disconnect
 //        stompConnection.dispose()
+
+        fun runstomp(num: Int) {
+            // connect
+            stompConnection = stomp.connect().subscribe {
+
+                when (it.type) {
+                    Event.Type.OPENED -> {
+                        Log.d("소켓 it", it.toString())
+//                    // subscribe
+//                    topic = stomp.join("/destination").subscribe { Log.i(TAG, it) }
+                        topic = stomp.join("/topic/{$num}").subscribe { it ->
+//                            val responseData = JSONObject(it).getString("message")
+//
+//                            val modelList = Gson().fromJson<ArrayList<Message>>(
+//                                responseData, TypeToken.getParameterized(
+//                                    MutableList::class.java,
+//                                    Message::class.java
+//                                ).type
+//                            )
+//                            Log.d("메시지",modelList.toString())
+                        }
+                    }
+                    Event.Type.CLOSED -> {
+                        Log.d("소켓", "닫음")
+//                     unsubscribe
+                        topic.dispose()
+                    }
+                    Event.Type.ERROR -> {
+
+                    }
+                    else -> {}
+                }
+            }
+        }
     }
 
     fun changeFragment(fragment: Fragment) {

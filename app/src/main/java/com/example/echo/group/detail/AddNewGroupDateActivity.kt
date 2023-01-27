@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
+import com.example.echo.group.DateVO
 import com.example.echo.group.NewDateVO
 import com.example.echo.group.NewGroupVO
 import okhttp3.ResponseBody
@@ -29,6 +30,10 @@ class AddNewGroupDateActivity : AppCompatActivity() {
 
 
     lateinit var addNewDateDate:NewDateVO
+
+    var cal_seq = 0
+    var group_seq = 0
+    var modifyCk = ""
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +62,21 @@ class AddNewGroupDateActivity : AppCompatActivity() {
         val imgNewGroupDate = findViewById<ImageView>(R.id.imgNewGroupDate)
         val mtNewGroupDateDetail = findViewById<EditText>(R.id.mtNewGroupDateDetail)
         val btnNewGroupDateAdd = findViewById<Button>(R.id.btnNewGroupDateAdd)
+        val tvNewGroupDateTitle = findViewById<TextView>(R.id.tvNewGroupDateTitle)
 
+        // 일정 수정시 초기화
+        modifyCk = intent.getStringExtra("modifyCk").toString()
+        if(modifyCk=="true") {
+            cal_seq = intent.getIntExtra("cal_seq", 0)
+            group_seq = intent.getIntExtra("group_seq", 0)
+            var cal_content = intent.getStringExtra("cal_content").toString()
+            var cal_dt = intent.getStringExtra("cal_dt").toString()
+
+            tvNewGroupDateTitle.text = "일정 수정"
+            btnNewGroupDateAdd.text = "일정 수정"
+            mtNewGroupDateDetail.setText(cal_content)
+            tvNewGroupDateDate.text = cal_dt
+        }
 
         imgNewGroupDate.setOnClickListener {
             val calendar = Calendar.getInstance()
@@ -141,7 +160,13 @@ class AddNewGroupDateActivity : AppCompatActivity() {
 
             if (addNewDetail != "") {
                 Log.d("값확인", addNewDateDate.toString())
-                addCal(addNewDateDate)
+                Log.d("test-일정수정", modifyCk)
+                if(modifyCk=="true"){
+                    modifyCal(DateVO(cal_seq,getDate,addNewDetail,group_seq))
+                    Log.d("test-일정수정", DateVO(cal_seq,getDate,addNewDetail,group_seq).toString())
+                }else {
+                    addCal(addNewDateDate)
+                }
                 finish()
 
             } else {
@@ -162,6 +187,19 @@ class AddNewGroupDateActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 Log.d("확인",response.body().toString())
                 Toast.makeText(applicationContext,"일정이 생성되었습니다.",Toast.LENGTH_LONG)
+            }
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.d("저장실패", t.localizedMessage)
+            }
+        })
+    }
+
+    fun modifyCal(cal: DateVO){
+        val call = RetrofitBuilder.api.modifyCal(cal)
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                Log.d("확인",response.body().toString())
+                Toast.makeText(applicationContext,"일정이 수정되었습니다.",Toast.LENGTH_LONG)
             }
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Log.d("저장실패", t.localizedMessage)

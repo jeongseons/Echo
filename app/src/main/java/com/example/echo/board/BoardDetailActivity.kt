@@ -1,6 +1,7 @@
 package com.example.echo.board
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -20,6 +21,13 @@ import com.example.echo.board.social.CommentAdapter
 import com.example.echo.board.social.CommentVO
 import com.example.echo.board.social.RecoVO
 import com.example.echo.databinding.ActivityBoardDetailBinding
+import com.kakao.sdk.common.util.KakaoCustomTabsClient
+import com.kakao.sdk.share.ShareClient
+import com.kakao.sdk.share.WebSharerClient
+import com.kakao.sdk.template.model.Button
+import com.kakao.sdk.template.model.Content
+import com.kakao.sdk.template.model.FeedTemplate
+import com.kakao.sdk.template.model.Link
 import com.kakao.sdk.user.UserApiClient
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -54,12 +62,17 @@ class BoardDetailActivity : AppCompatActivity() {
         binding.tvBoardDetailTitle.text = board_title
         binding.tvBoardDetailContent.text = board_content
         binding.tvBoardDetailUserNick.text = user_nick
-        binding.tvBoardDetailDate.text = board_dt
+        binding.tvBoardDetailDate.text = board_dt!!.substring(0,board_dt.length-3)
         binding.tvBoardDetailMntName.text = mnt_name
         binding.tvBoardDetailRecoCnt.text = board_reco_cnt
-        Glide.with(this)
-            .load(board_file)
-            .into(binding.imgBoardDetailPic) //지역변수
+
+        if(board_file!!.isEmpty()) {
+            binding.imgBoardDetailPic.visibility = View.GONE
+        } else {
+            Glide.with(this)
+                .load(board_file)
+                .into(binding.imgBoardDetailPic) //지역변수
+        }
 
         // 작성자 확인
         UserApiClient.instance.me { user, error ->
@@ -85,6 +98,74 @@ class BoardDetailActivity : AppCompatActivity() {
             intent.putExtra("user_id", user_id)
             intent.putExtra("mnt_name", mnt_name)
             startActivity(intent)
+        }
+
+        binding.imgBoardDetailShare.setOnClickListener {
+            val defaultFeed = FeedTemplate(
+                content = Content(
+                    title = board_title!!,
+                    description = board_content,
+                    imageUrl = board_file!!,
+                    link = Link(
+                        webUrl = "https://developers.kakao.com",
+                        mobileWebUrl = "https://developers.kakao.com"
+                    )
+                ),
+                buttons = listOf(
+                    Button(
+                        "웹으로 보기",
+                        Link(
+                            webUrl = "https://developers.kakao.com",
+                            mobileWebUrl = "https://developers.kakao.com"
+                        )
+                    ),
+                    Button(
+                        "앱으로 보기",
+                        Link(
+                            androidExecutionParams = mapOf("key1" to "value1", "key2" to "value2"),
+                            iosExecutionParams = mapOf("key1" to "value1", "key2" to "value2")
+                        )
+                    )
+                )
+            )
+
+            if (ShareClient.instance.isKakaoTalkSharingAvailable(this)) {
+                // 카카오톡으로 카카오톡 공유 가능
+                ShareClient.instance.shareDefault(this, defaultFeed) { sharingResult, error ->
+                    if (error != null) {
+                        Log.d("test-카카오톡공유", "카카오톡 공유 실패", error)
+                    }
+                    else if (sharingResult != null) {
+                        Log.d("test-카카오톡공유", "카카오톡 공유 성공 ${sharingResult.intent}")
+                        startActivity(sharingResult.intent)
+                        // 카카오톡 공유에 성공했지만 아래 경고 메시지가 존재할 경우 일부 컨텐츠가 정상 동작하지 않을 수 있습니다.
+                        Log.d("test-카카오톡공유", "Warning Msg: ${sharingResult.warningMsg}")
+                        Log.d("test-카카오톡공유", "Argument Msg: ${sharingResult.argumentMsg}")
+                    }
+                }
+            } else {
+                // 카카오톡 미설치: 웹 공유 사용 권장
+                // 웹 공유 예시 코드
+                val sharerUrl = WebSharerClient.instance.makeDefaultUrl(defaultFeed)
+
+                // CustomTabs으로 웹 브라우저 열기
+
+                // 1. CustomTabsServiceConnection 지원 브라우저 열기
+                // ex) Chrome, 삼성 인터넷, FireFox, 웨일 등
+                try {
+                    KakaoCustomTabsClient.openWithDefault(this, sharerUrl)
+                } catch(e: UnsupportedOperationException) {
+                    // CustomTabsServiceConnection 지원 브라우저가 없을 때 예외처리
+                }
+
+                // 2. CustomTabsServiceConnection 미지원 브라우저 열기
+                // ex) 다음, 네이버 등
+                try {
+                    KakaoCustomTabsClient.open(this, sharerUrl)
+                } catch (e: ActivityNotFoundException) {
+                    // 디바이스에 설치된 인터넷 브라우저가 없을 때 예외처리
+                }
+            }
         }
 
         // 글 삭제
@@ -270,10 +351,10 @@ class BoardDetailActivity : AppCompatActivity() {
 
     fun refresh(){
         finish() //인텐트 종료
-        overridePendingTransition(0, 0) //인텐트 효과 없애기
+        overridePendingTransition(0, 0)
         val intent = intent //인텐트
         startActivity(intent) //액티비티 열기
-        overridePendingTransition(0, 0) //인텐트 효과 없애기
+        overridePendingTransition(0, 0)
     }
 
 }

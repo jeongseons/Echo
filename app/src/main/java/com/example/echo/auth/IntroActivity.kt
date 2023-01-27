@@ -4,6 +4,7 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +27,7 @@ import retrofit2.Response
 
 class IntroActivity : AppCompatActivity() {
     var user_id = ""
-    var joinCk = false
+    var isJoin = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +36,12 @@ class IntroActivity : AppCompatActivity() {
         KakaoSdk.init(this, "f5b248e1f5c7496e71b711e2650daf28")
 
         var imgKakaoLogin = findViewById<ImageView>(R.id.imgKakaoLogin)
+        var btnIntroTest = findViewById<Button>(R.id.btnIntroTest)
+
+        btnIntroTest.setOnClickListener{
+            val intent = Intent(this, JoinActivity::class.java)
+            startActivity(intent)
+        }
 
         var keyHash = Utility.getKeyHash(this)
         Log.d("key", keyHash)
@@ -126,13 +133,13 @@ class IntroActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 Log.d("스프링login리스폰스", response.body().toString())
                 var body = response.body()?.string()
-                if(body!!.length >2){
-                    joinCk = true
+                if(response.isSuccessful&& body!!.length >2){
+                    isJoin = true
                     Log.d("스프링login리스폰스", "${response.body()}")
                     Log.d("스프링login리스폰스", "$body")
                 }
 
-                if (joinCk) {
+                if (isJoin) {
                     Toast.makeText(
                         this@IntroActivity, "로그인 성공",
                         Toast.LENGTH_SHORT
@@ -147,9 +154,7 @@ class IntroActivity : AppCompatActivity() {
             }
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Log.d("외않되", t.localizedMessage)
-
             }
-
 
         })
     }

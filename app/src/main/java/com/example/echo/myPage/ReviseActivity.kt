@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContentProviderCompat.requireContext
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.echo.RetrofitBuilder
 import com.example.echo.auth.IntroActivity
 import com.example.echo.auth.UserVO
@@ -41,6 +42,8 @@ class ReviseActivity : AppCompatActivity() {
         binding.etReviseUserNick.setText(user_nick)
         Glide.with(this)
             .load(user_profile_img)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
             .into(binding.imgReviseProfile) //지역변수
 
         // 프로필 사진 변경
@@ -104,6 +107,9 @@ class ReviseActivity : AppCompatActivity() {
                         this@ReviseActivity, "정상적으로 수정되었습니다",
                         Toast.LENGTH_SHORT
                     ).show()
+
+                    finish() //인텐트 종료
+
                 }else{
                     Toast.makeText(
                         this@ReviseActivity, "다시 시도해주세요",
