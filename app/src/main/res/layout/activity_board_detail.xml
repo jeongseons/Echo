@@ -12,11 +12,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:hint="댓글 내용을 입력하세요"
         android:inputType="textMultiLine"
+        android:textColor="#000000"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,12 +40,15 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tvBoardDetail"
+                android:id="@+id/tvBoardDetailTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="164dp"
                 android:layout_marginTop="16dp"
-                android:text="글 상세보기"
+                android:text="글제목"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,31 +56,22 @@
                 android:id="@+id/tvBoardDetailMntName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="산 이름"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvBoardDetail" />
+                android:textColor="#000000"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imageView7"
+                app:layout_constraintTop_toBottomOf="@+id/tvBoardDetailTitle" />
 
             <TextView
                 android:id="@+id/tvBoardDetailUserNick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
                 android:text="작성자 닉네임"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvBoardDetailTitle" />
-
-            <TextView
-                android:id="@+id/tvBoardDetailTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="글 제목"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvBoardDetailMntName" />
+                android:textColor="#000000"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+                app:layout_constraintStart_toEndOf="@+id/imageView10"
+                app:layout_constraintTop_toTopOf="@+id/imageView10" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCmt"
@@ -91,22 +87,24 @@
 
             <ImageView
                 android:id="@+id/imgBoardDetailPic"
-                android:layout_width="350dp"
-                android:layout_height="250dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvBoardDetailUserNick"
+                app:layout_constraintTop_toBottomOf="@+id/tvBoardDetailDelete"
                 app:srcCompat="@drawable/echo" />
 
             <TextView
                 android:id="@+id/tvBoardDetailReco"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="추천"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="#000000"
+                app:layout_constraintStart_toStartOf="@+id/imgBoardDetailReco"
                 app:layout_constraintTop_toBottomOf="@+id/imgBoardDetailReco" />
 
             <TextView
@@ -115,6 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="0"
+                android:textColor="#000000"
                 app:layout_constraintBottom_toBottomOf="@+id/tvBoardDetailReco"
                 app:layout_constraintStart_toEndOf="@+id/tvBoardDetailReco"
                 app:layout_constraintTop_toTopOf="@+id/tvBoardDetailReco" />
@@ -125,6 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:text="댓글"
+                android:textColor="#000000"
                 app:layout_constraintStart_toEndOf="@+id/tvBoardDetailRecoCnt"
                 app:layout_constraintTop_toTopOf="@+id/tvBoardDetailReco" />
 
@@ -134,6 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="0"
+                android:textColor="#000000"
                 app:layout_constraintBottom_toBottomOf="@+id/tvBoardDetailCmt"
                 app:layout_constraintStart_toEndOf="@+id/tvBoardDetailCmt"
                 app:layout_constraintTop_toTopOf="@+id/tvBoardDetailCmt" />
@@ -142,29 +143,38 @@
                 android:id="@+id/tvBoardDetailDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:text="작성일자"
-                app:layout_constraintStart_toEndOf="@+id/tvBoardDetailUserNick"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvBoardDetailUserNick" />
 
             <ImageView
                 android:id="@+id/imgBoardDetailReco"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="50dp"
                 android:tag="n"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvBoardDetailContent"
                 app:layout_constraintTop_toBottomOf="@+id/tvBoardDetailContent"
                 app:srcCompat="@drawable/unbookmarkheart" />
 
             <TextView
                 android:id="@+id/tvBoardDetailContent"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="#FFFFFF"
+                android:paddingLeft="10dp"
+                android:paddingTop="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="30dp"
                 android:text="글내용"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imgBoardDetailPic" />
 
@@ -174,6 +184,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:text="수정"
+                android:textColor="#000000"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@+id/tvBoardDetailDelete"
                 app:layout_constraintTop_toTopOf="@+id/tvBoardDetailDelete" />
@@ -182,20 +193,50 @@
                 android:id="@+id/tvBoardDetailDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="삭제"
+                android:textColor="#950202"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvBoardDetailDate" />
+                app:layout_constraintTop_toBottomOf="@+id/tvBoardDetailDate" />
 
             <ImageView
                 android:id="@+id/imgBoardDetailShare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                app:layout_constraintStart_toEndOf="@+id/imgBoardDetailReco"
+                app:layout_constraintEnd_toEndOf="@+id/tvBoardDetailContent"
                 app:layout_constraintTop_toTopOf="@+id/imgBoardDetailReco"
-                app:srcCompat="@drawable/ic_input" />
+                app:srcCompat="@drawable/ic_baseline_share_24" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvBoardDetailMntName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvBoardDetailMntName"
+                app:srcCompat="@drawable/echo" />
+
+            <ImageView
+                android:id="@+id/imgBoardDetailMoveBack"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_back" />
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@+id/imageView7"
+                app:layout_constraintTop_toBottomOf="@+id/imageView7"
+                app:srcCompat="@drawable/ic_baseline_person_24" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -213,6 +254,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="등록"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/etCmtWrite" />

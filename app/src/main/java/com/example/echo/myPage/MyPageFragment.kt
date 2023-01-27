@@ -111,9 +111,9 @@ class MyPageFragment : Fragment() {
                     user_profile_img = body.user_profile_img
                     Log.d("text-마이페이지",body.toString())
                     binding.tvMyPageNick.text = body.user_nick
-//                    binding.tvMyPageBirth.text =
-//                        "${body.user_birthdate.substring(0,4)}년 ${body.user_birthdate.substring(4,6)}월 " +
-//                                "${body.user_birthdate.substring(6,8)}일"
+                    binding.tvMyPageBirth.text =
+                        "${body.user_birthdate.substring(0,4)}년 ${body.user_birthdate.substring(4,6)}월 " +
+                                "${body.user_birthdate.substring(6,8)}일"
                     Glide.with(requireContext())
                         .load(user_profile_img)
                         .diskCacheStrategy(DiskCacheStrategy.NONE)

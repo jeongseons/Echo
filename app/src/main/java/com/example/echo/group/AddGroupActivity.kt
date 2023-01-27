@@ -75,16 +75,11 @@ class AddGroupActivity : AppCompatActivity() {
         val spAddGroupLevel = findViewById<Spinner>(R.id.spAddGroupLevel)
         //산행일자
         val tvAddGroupDate = findViewById<TextView>(R.id.tvAddGroupDate)
-        //일자 기본값 설정
+        //모임 생성일
         val toDate = LocalDateTime.now()
-        tvAddGroupDate.text =toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
-        Log.d("값날짜 확인","${toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))}")
-        //tvAddGroupDate.text="${dateFormat.format(toDate)}"
+        tvAddGroupDate.text =toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
 
-        val imgAddGroupCalendar = findViewById<ImageView>(R.id.imgAddGroupCalendar)
-        //일정 조정 여부
-        val swAddGroupYn = findViewById<Switch>(R.id.swAddGroupYn)
-        //세부일정
+        //모임설명
         val mtAddGroupDetailDate = findViewById<EditText>(R.id.mtAddGroupDetailDate)
         //동의
         val ckAddGroupAgreement1 = findViewById<CheckBox>(R.id.ckAddGroupAgreement1)
@@ -153,62 +148,62 @@ class AddGroupActivity : AppCompatActivity() {
 
 
 
-        //클릭 시 달력 띄우기
-        imgAddGroupCalendar.setOnClickListener{
-            val calendar = Calendar.getInstance()
-            val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH)
-            val day = calendar.get(Calendar.DAY_OF_MONTH)
-            var dateString = ""
-            var timeString = ""
-            var amPm = ""
+//        //일정 등록 부분 삭제
+//        imgAddGroupCalendar.setOnClickListener{
+//            val calendar = Calendar.getInstance()
+//            val year = calendar.get(Calendar.YEAR)
+//            val month = calendar.get(Calendar.MONTH)
+//            val day = calendar.get(Calendar.DAY_OF_MONTH)
+//            var dateString = ""
+//            var timeString = ""
+//            var amPm = ""
+//
+//
+//            //시간 선택창 띄우는 부분
+//            val timeSetListener = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+//
+//                if(hourOfDay < 10){
+//                    timeString = "0${hourOfDay}:${minute}"
+//                    if(minute < 10){
+//                        timeString = "0${hourOfDay}:0${minute}"
+//                    }
+//                }else{
+//                    timeString = "${hourOfDay}:${minute}"
+//                    if(minute < 10){
+//                        timeString = "${hourOfDay}:0${minute}"
+//                    }
+//                }
+//
+//
+//
+//                //사용자가 선택한 시간 텍스트 뷰에 적용
+//                tvAddGroupDate.text = "${dateString}${timeString}"
+//            }
+//
+//            TimePickerDialog(this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY),
+//                calendar.get(Calendar.MINUTE),false).show()
+//
+//
+//            //날짜 선택창 띄우는 부분
+//            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+//                if(month>10){
+//                    dateString = "${year}-${month+1}-${dayOfMonth} "
+//                    if(dayOfMonth<10){
+//                        dateString = "${year}-${month+1}-0${dayOfMonth} "
+//                    }
+//                }else{
+//                    dateString = "${year}-0${month+1}-${dayOfMonth} "
+//                    if(dayOfMonth<10){
+//                        dateString = "${year}-0${month+1}-0${dayOfMonth} "
+//                    }
+//                }
+//
+//            }
+//            DatePickerDialog(this, dateSetListener, year, month, day).show()
 
 
-            //시간 선택창 띄우는 부분
-            val timeSetListener = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
 
-                if(hourOfDay < 10){
-                    timeString = "0${hourOfDay}:${minute}"
-                    if(minute < 10){
-                        timeString = "0${hourOfDay}:0${minute}"
-                    }
-                }else{
-                    timeString = "${hourOfDay}:${minute}"
-                    if(minute < 10){
-                        timeString = "${hourOfDay}:0${minute}"
-                    }
-                }
-
-
-
-                //사용자가 선택한 시간 텍스트 뷰에 적용
-                tvAddGroupDate.text = "${dateString}${timeString}"
-            }
-
-            TimePickerDialog(this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE),false).show()
-
-
-            //날짜 선택창 띄우는 부분
-            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                if(month>10){
-                    dateString = "${year}-${month+1}-${dayOfMonth} "
-                    if(dayOfMonth<10){
-                        dateString = "${year}-${month+1}-0${dayOfMonth} "
-                    }
-                }else{
-                    dateString = "${year}-0${month+1}-${dayOfMonth} "
-                    if(dayOfMonth<10){
-                        dateString = "${year}-0${month+1}-0${dayOfMonth} "
-                    }
-                }
-
-            }
-            DatePickerDialog(this, dateSetListener, year, month, day).show()
-
-
-
-        }
+//        }
 
         //동의 체크박스 한 쪽만 선택 가능
         ckAddGroupAgreement1.setOnClickListener(){
@@ -241,7 +236,7 @@ class AddGroupActivity : AppCompatActivity() {
         btnAddGroupAdd.setOnClickListener{
             //사용자 입력값 저장
             name = etAddGroupName.text.toString()
-            date = tvAddGroupDate.text.substring(0,16)
+            date = tvAddGroupDate.text.toString()
             detail = mtAddGroupDetailDate.text.toString()
             //스피너 값 변수에 저장
             age = spAddGroupAge.selectedItem.toString()
@@ -278,9 +273,9 @@ class AddGroupActivity : AppCompatActivity() {
                 agree = false
             }
 
-            //세부일정 Null체크
+            //모임설명 Null체크
             if(detail == ""){
-                Toast.makeText(this,"세부 일정을 입력하세요",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"모임 설명을 입력하세요",Toast.LENGTH_SHORT).show()
                 detailCk = false
             }else{
                 detailCk = true
@@ -291,7 +286,7 @@ class AddGroupActivity : AppCompatActivity() {
                 //New 그룹 VO에 값 담기
                 val newGroup = NewGroupVO(intent.getStringExtra("user")!!,
                     profile,name,area,max,age,lev,date,
-                    swAddGroupYn.isChecked,gender,type,detail)
+                    true,gender,type,detail)
 
                 Log.d("값확인VO",newGroup.toString())
                 addGroup(newGroup)

@@ -80,7 +80,7 @@ interface API {
     @GET("api/callist") //한 그룹에 대해 추가되어 있는 일정들을 가져온다.
     fun getCalList(
         @Query("group_seq") seq : Int
-    ): Call<List<NewDateVO>>
+    ): Call<List<DateVO>>
 
     @POST("api/groupagree/{num}") // 그룹 가입 허가
     fun groupAgree(
@@ -99,5 +99,14 @@ interface API {
         @Path("num") num : Int
     ): Call<List<PersonVO>>
 
-}
 
+    @DELETE("api/cal/{cal_seq}")
+    fun deleteCal(
+        @Path("cal_seq") cal_seq: Int
+    ): Call<ResponseBody>
+
+    @PUT("api/cal")
+    fun modifyCal(
+        @Body cal : DateVO
+    ): Call<ResponseBody>
+}

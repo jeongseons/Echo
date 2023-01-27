@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
+import com.example.echo.group.DateVO
 import com.example.echo.group.GroupVO
 import com.example.echo.group.NewDateVO
 import com.example.echo.group.detail.CalendarDecorate.*
@@ -40,7 +41,7 @@ import kotlin.collections.ArrayList
 
 class DetailDateFragment : Fragment() {
 
-    var dateList = ArrayList<NewDateVO>()
+    var dateList = ArrayList<DateVO>()
     lateinit var adapter : DetailDateAdapter
     lateinit var cvGroupCalendar:MaterialCalendarView
     lateinit var adapterDate:String
@@ -189,9 +190,9 @@ class DetailDateFragment : Fragment() {
 
     fun GetCalList(seq: Int) {//그룹 리스트 - 스프링 통신
         val call = RetrofitBuilder.api.getCalList(seq)
-        call.enqueue(object : Callback<List<NewDateVO>> {
+        call.enqueue(object : Callback<List<DateVO>> {
 
-            override fun onResponse(call: Call<List<NewDateVO>>, response: Response<List<NewDateVO>>) {
+            override fun onResponse(call: Call<List<DateVO>>, response: Response<List<DateVO>>) {
 
                 if (response.isSuccessful) {//성공
                     Log.d("rty",response.body().toString())
@@ -200,7 +201,8 @@ class DetailDateFragment : Fragment() {
                         for (i: Int in 0 until response.body()!!.size) {
                             //그룹리스트 정보 담아줌.
                             dateList.add(
-                                NewDateVO(
+                                DateVO(
+                                    response.body()!!.get(i).cal_seq,
                                     response.body()!!.get(i).cal_dt,
                                     response.body()!!.get(i).cal_content,
                                     seq
@@ -231,7 +233,7 @@ class DetailDateFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<List<NewDateVO>>, t: Throwable) {
+            override fun onFailure(call: Call<List<DateVO>>, t: Throwable) {
                 Log.d("불러오기실패", t.localizedMessage)
             }
 

@@ -62,7 +62,7 @@ class BoardDetailActivity : AppCompatActivity() {
         binding.tvBoardDetailTitle.text = board_title
         binding.tvBoardDetailContent.text = board_content
         binding.tvBoardDetailUserNick.text = user_nick
-        binding.tvBoardDetailDate.text = board_dt
+        binding.tvBoardDetailDate.text = board_dt!!.substring(0,board_dt.length-3)
         binding.tvBoardDetailMntName.text = mnt_name
         binding.tvBoardDetailRecoCnt.text = board_reco_cnt
 

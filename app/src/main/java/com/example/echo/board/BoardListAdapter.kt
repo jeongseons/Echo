@@ -94,7 +94,7 @@ class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardListVO
 
                 holder.tvBoardTitle.text = filteredList.board_title
                 holder.tvBoardWriter.text = filteredList.user_nick
-                holder.tvBoardDate.text = filteredList.board_dt
+                holder.tvBoardDate.text = filteredList.board_dt.substring(0,filteredList.board_dt.length-3)
                 holder.tvBoardRecoCount.text = filteredList.board_reco_cnt.toString()
                 holder.tvBoardMntName.text = filteredList.mnt_name
                 if(filteredList.board_file.isEmpty()) {

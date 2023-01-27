@@ -6,8 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".group.detail.AddNewGroupDateActivity">
 
+    <ImageView
+        android:id="@+id/imgtvAddNewDate"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back" />
+
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/tvAddNewDateBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="뒤로가기"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/imgtvAddNewDate"
+        app:layout_constraintStart_toEndOf="@+id/imgtvAddNewDate"
+        app:layout_constraintTop_toTopOf="@+id/imgtvAddNewDate" />
+
+    <TextView
+        android:id="@+id/tvNewGroupDateTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
@@ -27,9 +47,9 @@
         android:text="2023-01-16 04:15"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView15"
-        app:layout_constraintStart_toStartOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintEnd_toEndOf="@+id/tvNewGroupDateTitle"
+        app:layout_constraintStart_toStartOf="@+id/tvNewGroupDateTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvNewGroupDateTitle" />
 
     <ImageView
         android:id="@+id/imgNewGroupDate"
