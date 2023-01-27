@@ -72,26 +72,6 @@
                 app:layout_constraintTop_toTopOf="@+id/imageViewJoinGroupProfile1" />
 
             <TextView
-                android:id="@+id/textViewJoinGroupProfile1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="모임개설일"
-                android:textColor="#000000"
-                app:layout_constraintBottom_toBottomOf="@+id/imgJoinGroupProfile"
-                app:layout_constraintStart_toStartOf="@+id/imageViewJoinGroupProfile1" />
-
-            <TextView
-                android:id="@+id/tvJoinGroupProfileDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="2023.01.27"
-                android:textColor="#000000"
-                app:layout_constraintBottom_toBottomOf="@+id/textViewJoinGroupProfile1"
-                app:layout_constraintStart_toEndOf="@+id/textViewJoinGroupProfile1"
-                app:layout_constraintTop_toTopOf="@+id/textViewJoinGroupProfile1" />
-
-            <TextView
                 android:id="@+id/tvJoinGroupProfile3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
