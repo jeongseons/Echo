@@ -25,6 +25,7 @@ import com.google.firebase.storage.ktx.storage
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.user.model.User
+import dagger.hilt.android.AndroidEntryPoint
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_map_save.*
 import okhttp3.ResponseBody
@@ -73,10 +74,10 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        supportFragmentManager.beginTransaction().replace(
-            R.id.flMain,
-            HomeFragment()
-        ).commit()
+//        supportFragmentManager.beginTransaction().replace(
+//            R.id.flMain,
+//            HomeFragment()
+//        ).commit()
 
         moveCk = intent.getStringExtra("tvMapSaveAlt").toString()
         if(moveCk.isNotEmpty()) {
