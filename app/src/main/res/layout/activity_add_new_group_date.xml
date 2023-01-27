@@ -7,7 +7,7 @@
     tools:context=".group.detail.AddNewGroupDateActivity">
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/tvNewGroupDateTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
@@ -27,9 +27,9 @@
         android:text="2023-01-16 04:15"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView15"
-        app:layout_constraintStart_toStartOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintEnd_toEndOf="@+id/tvNewGroupDateTitle"
+        app:layout_constraintStart_toStartOf="@+id/tvNewGroupDateTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvNewGroupDateTitle" />
 
     <ImageView
         android:id="@+id/imgNewGroupDate"

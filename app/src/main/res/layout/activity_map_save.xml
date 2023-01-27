@@ -71,7 +71,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvGroupSettingDel" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/tvNewGroupDateTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -100,7 +100,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15"
+        app:layout_constraintTop_toBottomOf="@+id/tvNewGroupDateTitle"
         app:srcCompat="@android:drawable/screen_background_dark_transparent" />
 
     <TextView

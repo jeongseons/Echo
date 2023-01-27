@@ -27,7 +27,7 @@ import retrofit2.Response
 
 class IntroActivity : AppCompatActivity() {
     var user_id = ""
-    var joinCk = false
+    var isJoin = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -134,12 +134,12 @@ class IntroActivity : AppCompatActivity() {
                 Log.d("스프링login리스폰스", response.body().toString())
                 var body = response.body()?.string()
                 if(response.isSuccessful&& body!!.length >2){
-                    joinCk = true
+                    isJoin = true
                     Log.d("스프링login리스폰스", "${response.body()}")
                     Log.d("스프링login리스폰스", "$body")
                 }
 
-                if (joinCk) {
+                if (isJoin) {
                     Toast.makeText(
                         this@IntroActivity, "로그인 성공",
                         Toast.LENGTH_SHORT
@@ -154,9 +154,7 @@ class IntroActivity : AppCompatActivity() {
             }
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Log.d("외않되", t.localizedMessage)
-
             }
-
 
         })
     }
