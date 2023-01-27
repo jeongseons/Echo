@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.echo.MainActivity
 import com.example.echo.RetrofitBuilder
 import com.example.echo.databinding.ActivityBoardWriteBinding
@@ -71,6 +72,8 @@ class BoardWriteActivity : AppCompatActivity() {
             if (board_file!!.isNotEmpty()) {
                 Glide.with(this)
                     .load(board_file)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
                     .into(binding.imgBoardWritePic)
             }
         }
@@ -106,9 +109,8 @@ class BoardWriteActivity : AppCompatActivity() {
                 Toast.makeText(this,"산 이름을 'OO산'형식으로 정확히 입력해주세요",Toast.LENGTH_SHORT).show()
             }
 
-            // 글 수정 경우
-            if(emptyCk) {
-                if (modifyCk == "true") {
+                // 글 수정 경우
+                if (emptyCk && modifyCk == "true") {
                     var board = BoardVO(
                         board_seq,
                         board_title,
@@ -120,7 +122,7 @@ class BoardWriteActivity : AppCompatActivity() {
                     )
                     Log.d("test-글수정시", board.toString())
                     modifyBoard(board)
-                } else {
+                } else if (emptyCk && modifyCk != "true"){
                     var board = BoardVO(
                         null,
                         board_title,
@@ -134,8 +136,6 @@ class BoardWriteActivity : AppCompatActivity() {
                     addBoard(board)
                 }
             }
-
-        }
 
     }
     val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -182,8 +182,6 @@ class BoardWriteActivity : AppCompatActivity() {
                 ).show()
 
                 finish()
-
-
             }
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Log.d("test-글등록실패", t.localizedMessage)

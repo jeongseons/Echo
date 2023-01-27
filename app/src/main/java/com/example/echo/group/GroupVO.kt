@@ -69,7 +69,13 @@ data class SettingGroupVO(val group_profile_img:String,
                           val group_type : String,
                           val group_detail : String)
 
+//일정 조회, 수정, 삭제용 모델
+data class DateVO(val cal_seq : Int,
+                  val cal_dt : String,
+                     val cal_content : String,
+                     val group_seq : Int){
 
+}
 
 
 
