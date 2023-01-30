@@ -60,7 +60,7 @@ class CommentAdapter(var context: Context, var commentList:ArrayList<CmtListVO>)
 
         holder.tvCommentDelete.setOnClickListener {
             val dialog: AlertDialog.Builder = AlertDialog.Builder(context,
-                android.R.style.Theme_DeviceDefault_Dialog
+                android.R.style.ThemeOverlay_Material_Dialog_Alert
             )
             dialog.setMessage("댓글을 삭제하시겠습니까?")
                 .setTitle("댓글 삭제")

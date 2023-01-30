@@ -11,15 +11,22 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.echo.MainActivity
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
+import com.example.echo.databinding.FragmentDetailSettingBinding
 import com.example.echo.group.AddGroupActivity
+import com.example.echo.group.JoinGroupVO
+import com.kakao.sdk.user.UserApiClient
+import kotlinx.android.synthetic.main.fragment_detail_setting.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+lateinit var binding: FragmentDetailSettingBinding
 class DetailSettingFragment : Fragment() {
 
     lateinit var adapter: JoinListAdapter
@@ -30,6 +37,8 @@ class DetailSettingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        binding = FragmentDetailSettingBinding.inflate(layoutInflater, container, false)
+
         val view = inflater.inflate(R.layout.fragment_detail_setting, container, false)
 
         //모임장확인
@@ -91,7 +100,12 @@ class DetailSettingFragment : Fragment() {
             tvGroupSettingEdit.visibility=View.GONE
         }
 
-        return view
+        UserApiClient.instance.me { user, error ->
+            var user_id = user?.id.toString()
+            joinGroupPro(groupSeq, user_id)
+        }
+
+        return binding.root
     }
 
     fun GetSignUpList(num: Int) {//가입 대기중인 인원 리스트 - 스프링 통신
@@ -143,6 +157,35 @@ class DetailSettingFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.d("실패", t.localizedMessage)
+            }
+
+        })
+    }
+
+    fun joinGroupPro(num:Int, id:String){
+        val call = RetrofitBuilder.api.joinGroupPro(num, id)
+        call.enqueue(object : Callback<JoinGroupVO> {
+            override fun onResponse(call: Call<JoinGroupVO>, response: Response<JoinGroupVO>) {
+                if (response.isSuccessful) {
+                    var body = response.body()!!
+                    Glide.with(this@DetailSettingFragment)
+                        .load(body.group_profile_img)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
+                        .into(binding.imgGroupSettingProfile)
+                    binding.tvGroupSettingMax.text = "(${body.group_current}/${body.user_max})"
+                    binding.tvGroupSettingType.text = body.group_type
+                    binding.tvGroupSettingTitle.text = body.group_name
+                    binding.tvGroupSettingArea.text = body.group_area
+                    binding.tvGroupSettingAge.text = body.group_age
+                    binding.tvGroupSettingLevel.text = body.group_level
+                    binding.tvGroupSettingGender.text = body.group_gender
+                    binding.tvGroupSettingDetail.text = body.group_detail
+
+                }
+            }
+            override fun onFailure(call: Call<JoinGroupVO>, t: Throwable) {
                 Log.d("실패", t.localizedMessage)
             }
 

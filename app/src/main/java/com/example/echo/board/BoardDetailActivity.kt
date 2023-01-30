@@ -173,7 +173,7 @@ class BoardDetailActivity : AppCompatActivity() {
             Log.d("test-삭제전", board_seq.toString())
             val dialog: AlertDialog.Builder = AlertDialog.Builder(
                 this,
-                android.R.style.Theme_DeviceDefault_Light_Dialog
+                android.R.style.ThemeOverlay_Material_Dialog_Alert
             )
             dialog.setMessage("글을 삭제하시겠습니까?")
                 .setTitle("글 삭제")
