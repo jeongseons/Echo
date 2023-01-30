@@ -65,10 +65,10 @@
             android:text="기록중지하기"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/btnMapRecordPause" />
 
         <TextView
-            android:id="@+id/tvMapTimer2"
+            android:id="@+id/textView999"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
@@ -84,10 +84,10 @@
             android:layout_height="wrap_content"
             android:text="총 거리"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tvMapTimer2"
+            app:layout_constraintBottom_toBottomOf="@+id/textView999"
             app:layout_constraintEnd_toStartOf="@+id/textView34"
-            app:layout_constraintStart_toEndOf="@+id/tvMapTimer2"
-            app:layout_constraintTop_toTopOf="@+id/tvMapTimer2"
+            app:layout_constraintStart_toEndOf="@+id/textView999"
+            app:layout_constraintTop_toTopOf="@+id/textView999"
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
@@ -102,17 +102,17 @@
             app:layout_constraintTop_toTopOf="@+id/textView23" />
 
         <TextView
-            android:id="@+id/tvGroupSettingName"
+            android:id="@+id/tvMapTimer2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="00:00:00"
-            app:layout_constraintEnd_toEndOf="@+id/tvMapTimer2"
-            app:layout_constraintStart_toStartOf="@+id/tvMapTimer2"
-            app:layout_constraintTop_toBottomOf="@+id/tvMapTimer2" />
+            app:layout_constraintEnd_toEndOf="@+id/textView999"
+            app:layout_constraintStart_toStartOf="@+id/textView999"
+            app:layout_constraintTop_toBottomOf="@+id/textView999" />
 
         <TextView
-            android:id="@+id/tvGroupSetting1"
+            android:id="@+id/tvMapTakenDistance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -131,6 +131,15 @@
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="@+id/textView34"
             app:layout_constraintTop_toBottomOf="@+id/textView34" />
+
+        <Button
+            android:id="@+id/btnMapRecordPause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:text="일시정지"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnMapRecordStart2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
