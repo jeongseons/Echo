@@ -60,9 +60,6 @@ class JoinGroupSearchTypeFragment : Fragment() {
             R.array.level_filter,
             android.R.layout.simple_spinner_dropdown_item)
 
-
-        groupList.add(GroupVO(1,"1","n","테스트",1,1))
-
         adapter = JoinGroupAdapter(requireContext(), groupList)
         //어댑터 리스트로 띄워졌을때 해당 액티비티로 이동해야함.
         rvJoinGroupType.adapter = adapter

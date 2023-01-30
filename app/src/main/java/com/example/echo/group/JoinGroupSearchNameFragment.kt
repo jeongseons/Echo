@@ -36,9 +36,6 @@ class JoinGroupSearchNameFragment : Fragment() {
         val etJoinGroupNameSearch = view.findViewById<EditText>(R.id.etJoinGroupNameSearch)
         val imgJoinGroupNameSearch = view.findViewById<ImageView>(R.id.imgJoinGroupNameSearch)
 
-
-        groupList.add(GroupVO(1,"1","n","테스트",1,1))
-
         adapter = JoinGroupAdapter(requireContext(), groupList)
         //어댑터 리스트로 띄워졌을때 해당 액티비티로 이동해야함.
         rvJoinGroupName.adapter = adapter

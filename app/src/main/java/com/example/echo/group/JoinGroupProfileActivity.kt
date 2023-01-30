@@ -129,7 +129,6 @@ class JoinGroupProfileActivity : AppCompatActivity() {
                         response.body()!!.group_owner_id,
                         response.body()!!.group_area,
                         response.body()!!.user_max,
-                        response.body()!!.group_dt,
                         response.body()!!.group_age,
                         response.body()!!.group_level,
                         response.body()!!.group_gender,
