@@ -1,5 +1,6 @@
 package com.example.echo.path
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
@@ -8,6 +9,7 @@ import android.graphics.Color
 import android.location.*
 import android.location.LocationListener
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +18,11 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import com.example.echo.R
 import com.google.android.gms.location.*
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
@@ -56,7 +59,7 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
         mView.onCreate(savedInstanceState)
         mView.getMapAsync(this)
 //        moveCamera(googleMap, latitude, longitude)
-        var currentlocation = LatLng(latitude, longitude)
+        currentlocation = LatLng(latitude, longitude)
         val geocoder = Geocoder(this.context)
         val address: List<Address>? = null
 
@@ -77,6 +80,8 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
             btnMapRecordStart2.visibility = View.INVISIBLE
             btnMapRecordEnd2.visibility = View.VISIBLE
 
+            createLocationRequest()
+
         }
 
         btnMapRecordEnd2.setOnClickListener {
@@ -88,8 +93,7 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
         currentTime()
         tvMApCurrentLocation2.text = getCurrentAddress(currentlocation).toString()
 
-        googleMap?.uiSettings?.isMyLocationButtonEnabled ?: true
-        googleMap?.uiSettings?.isCompassEnabled ?: true
+
 
 
 
@@ -141,7 +145,7 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
                 if (location != null) {
                     latitude = location.latitude
                     longitude = location.longitude
-                    var currentlocation = LatLng(latitude, longitude)
+                    currentlocation = LatLng(latitude, longitude)
                     Log.d("여기는 onMapReady Test", "GPS Location Latitude: $latitude" +", Longitude: $longitude")
 
                     googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(currentlocation, 19F))
@@ -155,8 +159,10 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
                             .title("현재 위치")
                     )
 
-                    googleMap.uiSettings.isMyLocationButtonEnabled = true
-                    googleMap.uiSettings.isCompassEnabled = true
+                    googleMap.isMyLocationEnabled = true
+                    googleMap.uiSettings.apply{
+                        isCompassEnabled = true
+                    }
 
 
                 }else{
@@ -167,6 +173,15 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
         }
 
 
+    }
+
+    fun createLocationRequest() {
+        LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000).apply {
+            setMinUpdateDistanceMeters(1000F)
+            setGranularity(Granularity.GRANULARITY_PERMISSION_LEVEL)
+            setWaitForAccurateLocation(true)
+        }.build()
+        Log.d("업데이트 Test", "${currentlocation.latitude}, ${currentlocation.longitude}")
     }
 
 
@@ -230,33 +245,7 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
         super.onDestroy()
     }
 
-//    @SuppressLint("MissingPermission")
-//    fun setDefaultLocation(currentlocation : LatLng) {
-//
-//        fusedLocationProviderClient =
-//            LocationServices.getFusedLocationProviderClient(requireContext())
-//        val fusedLocationClient: FusedLocationProviderClient =
-//            LocationServices.getFusedLocationProviderClient(requireContext())
-//
-//        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-//            if (location != null) {
-//                latitude = location.latitude
-//                longitude = location.longitude
-//
-//                Log.d("Test setDefault", "GPS Location Latitude: $latitude" + ", Longitude: $longitude")
-//                val currentlocation = LatLng(latitude, longitude)
-//                val cameraUpdate: CameraUpdate =
-//                    CameraUpdateFactory.newLatLngZoom(currentlocation, 20F)
-//                googleMap?.moveCamera(cameraUpdate)
-//                moveCamera(googleMap, latitude, longitude)
-//                googleMap?.setMyLocationEnabled(true);
-//
-//
-//            }
-//        }
-//
-//
-//    }
+
 
 
 }
