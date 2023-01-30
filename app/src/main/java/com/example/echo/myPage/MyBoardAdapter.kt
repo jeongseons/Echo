@@ -1,6 +1,7 @@
 package com.example.echo.myPage
 
 import android.content.Context
+import android.os.Handler
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
@@ -75,6 +76,8 @@ class MyBoardAdapter(var context: Context, var myBoardList:ArrayList<BoardListVO
         holder.tvMyBoardRecoCount.text = myBoardList[position].board_reco_cnt.toString()
         holder.tvMyBoardMntName.text = myBoardList[position].mnt_name
         holder.ckMyBoard.isChecked = checkboxStatus[position]
+
+        holder.ckMyBoard.isChecked = checkboxStatus[position]
         holder.ckMyBoard.setOnClickListener {
             if (!holder.ckMyBoard.isChecked)
                 checkboxStatus.put(position, false)
@@ -89,5 +92,11 @@ class MyBoardAdapter(var context: Context, var myBoardList:ArrayList<BoardListVO
         return myBoardList.size
     }
 
+    fun setCheckAll() {
+        for(i in 0..myBoardList.size){
+                checkboxStatus.put(i, true)
+        }
+        notifyDataSetChanged()
+    }
 
 }
