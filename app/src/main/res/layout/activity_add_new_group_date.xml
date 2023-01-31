@@ -2,72 +2,81 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="350dp"
+    android:layout_height="550dp"
     tools:context=".group.detail.AddNewGroupDateActivity">
 
-    <ImageView
-        android:id="@+id/imgtvAddNewDate"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+    <View
+        android:id="@+id/view3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/border_boxcolor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvAddNewDateBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="뒤로가기"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/imgtvAddNewDate"
-        app:layout_constraintStart_toEndOf="@+id/imgtvAddNewDate"
-        app:layout_constraintTop_toTopOf="@+id/imgtvAddNewDate" />
+    <View
+        android:id="@+id/view4"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@color/mainColor"
+        app:layout_constraintEnd_toEndOf="@+id/view3"
+        app:layout_constraintStart_toStartOf="@+id/view3"
+        app:layout_constraintTop_toTopOf="@+id/view3" />
 
     <TextView
         android:id="@+id/tvNewGroupDateTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginStart="8dp"
+        android:elevation="10dp"
         android:text="새로운 일정 추가"
-        android:textColor="#000000"
-        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/view4"
+        app:layout_constraintStart_toEndOf="@+id/imgAddNewDate2"
+        app:layout_constraintTop_toTopOf="@+id/view3"
+        app:layout_constraintVertical_bias="0.565" />
 
     <TextView
         android:id="@+id/tvNewGroupDateDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_width="230dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border_white"
+        android:elevation="10dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="10dp"
         android:text="2023-01-16 04:15"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/tvNewGroupDateTitle"
-        app:layout_constraintStart_toStartOf="@+id/tvNewGroupDateTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvNewGroupDateTitle" />
+        app:layout_constraintEnd_toEndOf="@+id/view3"
+        app:layout_constraintStart_toStartOf="@+id/view3"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <ImageView
         android:id="@+id/imgNewGroupDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:elevation="10dp"
         android:src="@drawable/ic_calendar"
         app:layout_constraintBottom_toBottomOf="@+id/tvNewGroupDateDate"
-        app:layout_constraintStart_toEndOf="@+id/tvNewGroupDateDate"
+        app:layout_constraintEnd_toEndOf="@+id/tvNewGroupDateDate"
         app:layout_constraintTop_toTopOf="@+id/tvNewGroupDateDate" />
 
     <TextView
         android:id="@+id/textView27"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="56dp"
+        android:elevation="10dp"
         android:text="상세 일정"
         android:textColor="#000000"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/tvNewGroupDateDate"
         app:layout_constraintStart_toStartOf="@+id/tvNewGroupDateDate"
         app:layout_constraintTop_toBottomOf="@+id/tvNewGroupDateDate" />
@@ -76,27 +85,66 @@
         android:id="@+id/mtNewGroupDateDetail"
         android:layout_width="300dp"
         android:layout_height="200dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/border"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border_white"
         android:elevation="10dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         android:overScrollMode="ifContentScrolls"
-        android:padding="5dp"
+        android:padding="10dp"
         android:scrollbarAlwaysDrawHorizontalTrack="true"
-        app:layout_constraintEnd_toEndOf="@+id/textView27"
-        app:layout_constraintStart_toStartOf="@+id/textView27"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="@+id/tvNewGroupDateDate"
+        app:layout_constraintStart_toStartOf="@+id/tvNewGroupDateDate"
         app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:elevation="10dp"
+        android:text="일자 선택"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/view3"
+        app:layout_constraintStart_toStartOf="@+id/view3"
+        app:layout_constraintTop_toBottomOf="@+id/view4" />
 
     <Button
         android:id="@+id/btnNewGroupDateAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="일정 추가"
+        android:layout_marginTop="24dp"
+        android:elevation="10dp"
+        android:text="일정추가"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/mtNewGroupDateDetail"
         app:layout_constraintStart_toStartOf="@+id/mtNewGroupDateDetail"
-        app:layout_constraintTop_toBottomOf="@+id/mtNewGroupDateDetail" />
+        app:layout_constraintTop_toBottomOf="@+id/mtNewGroupDateDetail"/>
+
+    <ImageView
+        android:id="@+id/imgAddNewDate2"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="16dp"
+        android:elevation="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNewGroupDateTitle"
+        app:layout_constraintStart_toStartOf="@+id/view4"
+        app:layout_constraintTop_toTopOf="@+id/tvNewGroupDateTitle"
+        android:src="@drawable/border_red" />
+
+    <ImageView
+        android:id="@+id/imgAddNewDateMoveBack"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="16dp"
+        android:elevation="15dp"
+        android:src="@drawable/ic_baseline_close_24"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNewGroupDateTitle"
+        app:layout_constraintEnd_toEndOf="@+id/view4"
+        app:layout_constraintTop_toTopOf="@+id/tvNewGroupDateTitle"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,35 +2,22 @@ package com.example.echo.group.detail
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat.startActivityForResult
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.view.isGone
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.example.echo.MainActivity
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
-import com.example.echo.board.BoardWriteActivity
 import com.example.echo.group.DateVO
-import com.example.echo.group.GroupListAdapter
-import com.example.echo.group.NewDateVO
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.Date
+
 
 class DetailDateAdapter(val context: Context, val dateList:ArrayList<DateVO>, val selected:String, val auth:String):RecyclerView.Adapter<DetailDateAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -41,6 +28,8 @@ class DetailDateAdapter(val context: Context, val dateList:ArrayList<DateVO>, va
         val tvGroupDateEdit : TextView
         val tvGroupDateDel : TextView
         val textView21 : TextView
+        val view11 : View
+
         init {
             tvGroupDateDate = itemView.findViewById(R.id.tvGroupDateDate)
             tvGroupDateDetail = itemView.findViewById(R.id.tvGroupDateDetail)
@@ -48,6 +37,7 @@ class DetailDateAdapter(val context: Context, val dateList:ArrayList<DateVO>, va
             tvGroupDateEdit = itemView.findViewById(R.id.tvGroupDateEdit)
             tvGroupDateDel = itemView.findViewById(R.id.tvGroupDateDel)
             textView21 = itemView.findViewById(R.id.textView21)
+            view11 = itemView.findViewById(R.id.view11)
 
         }
 
@@ -67,7 +57,7 @@ class DetailDateAdapter(val context: Context, val dateList:ArrayList<DateVO>, va
         val sumDate = "${year}-${month}-${day}"
 
         if(selected.equals(sumDate)){
-            holder.tvGroupDateDate.text=dateList[position].cal_dt
+            holder.tvGroupDateDate.text=dateList[position].cal_dt.substring(0,16)
             holder.tvGroupDateDetail.text=dateList[position].cal_content
             holder.tvGroupDateDate.visibility=View.VISIBLE
             holder.tvGroupDateText.visibility=View.VISIBLE
@@ -80,14 +70,16 @@ class DetailDateAdapter(val context: Context, val dateList:ArrayList<DateVO>, va
                 holder.tvGroupDateDel.visibility=View.GONE
             }
 
-            holder.textView21.visibility=View.VISIBLE
+
         }else{
             holder.tvGroupDateDate.visibility=View.GONE
             holder.tvGroupDateText.visibility=View.GONE
             holder.tvGroupDateDetail.visibility=View.GONE
             holder.tvGroupDateEdit.visibility=View.GONE
             holder.tvGroupDateDel.visibility=View.GONE
+            holder.view11.visibility=View.GONE
             holder.textView21.visibility=View.GONE
+
         }
 
         holder.tvGroupDateEdit.setOnClickListener {
@@ -110,10 +102,12 @@ class DetailDateAdapter(val context: Context, val dateList:ArrayList<DateVO>, va
                 .setTitle("일정 삭제")
                 .setPositiveButton("아니오") { dialog, which ->
                     Log.i("Dialog", "취소")
+
                 }
                 .setNeutralButton("예"
                 ) { dialog, which ->
                     deleteCal(dateList[position].cal_seq)
+                    android.R.style.ThemeOverlay_Material_Dialog_Alert
                 }
                 .show()
         }

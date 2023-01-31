@@ -4,8 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
     android:elevation="10dp">
+
+    <View
+        android:id="@+id/view11"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="-16dp"
+        android:background="@drawable/border_boxcolor"
+        app:layout_constraintBottom_toBottomOf="@+id/tvGroupDateDetail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvGroupDateDate" />
 
     <TextView
         android:id="@+id/textView21"
@@ -17,24 +29,27 @@
 
     <TextView
         android:id="@+id/tvGroupDateDate"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/half_border"
         android:text="2023-01-13 02:32M"
-        android:textColor="#000000"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/view11"
+        app:layout_constraintStart_toStartOf="@+id/view11"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvGroupDateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="상세 일정"
         android:textColor="#000000"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/tvGroupDateDate"
         app:layout_constraintStart_toStartOf="@+id/tvGroupDateDate"
         app:layout_constraintTop_toBottomOf="@+id/tvGroupDateDate" />
