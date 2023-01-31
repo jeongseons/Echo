@@ -1,5 +1,6 @@
 package com.example.echo.path
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentValues
@@ -14,6 +15,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,9 +25,11 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.echo.MainActivity
 import com.example.echo.R
+import com.example.echo.databinding.ActivityMainBinding
 import com.google.android.gms.location.*
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.maps.*
@@ -52,25 +56,24 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
         mainActivity = context as MainActivity
     }
 
+    val MY_PERMISSION_ACCESS_ALL = 100
+    lateinit var binding: ActivityMainBinding
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var googleMap: GoogleMap? = null
     private lateinit var mView: MapView
     private var currentMarker: Marker? = null
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
-    lateinit var manager : LocationManager
-    lateinit var locationListener : LocationListener
-    lateinit var tvMapCurrentTime2 : TextView
-    lateinit var currentlocation : LatLng
+    lateinit var manager: LocationManager
+    lateinit var locationListener: LocationListener
+    lateinit var tvMapCurrentTime2: TextView
+    lateinit var currentlocation: LatLng
     var total = 0
     var started = false
     var TimeTaken = null
     var total_distance: Double = 0.0
-    lateinit var startPoint : LatLng
+    lateinit var startPoint: LatLng
     lateinit var endPoint: LatLng
-
-
-
 
 
     @SuppressLint("MissingPermission", "MissingInflatedId")
@@ -79,7 +82,7 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
         savedInstanceState: Bundle?
     ): View? {
 
-        val view =  inflater.inflate(R.layout.fragment_map2, container, false)
+        val view = inflater.inflate(R.layout.fragment_map2, container, false)
         mView = view.findViewById(R.id.map2) as MapView
         mView.onCreate(savedInstanceState)
         mView.getMapAsync(this)
@@ -96,12 +99,34 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
         val btnMapRecordPause = view.findViewById<Button>(R.id.btnMapRecordPause)
 
 
-
-
-
 //        tvMapTimer.visibility = View.INVISIBLE
         btnMapRecordEnd2.visibility = View.INVISIBLE
         btnMapRecordPause.visibility = View.INVISIBLE
+
+
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+            || ActivityCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            var permissions = arrayOf(
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            ActivityCompat.requestPermissions(
+                requireContext() as Activity,
+                permissions,
+                MY_PERMISSION_ACCESS_ALL
+            )
+        } else {
+
+        }
+
+
 
 
         btnMapRecordStart2.setOnClickListener {
@@ -114,7 +139,7 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
             btnMapRecordPause.visibility = View.VISIBLE
             startTimer()
 
-//            createLocationRequest()
+
 
         }
 
@@ -142,6 +167,12 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
 
         return view
     }
+
+     fun finish() {
+        finish()
+
+    }
+
 
     //Media저장 메소드
     private fun saveMediaToStorage(bitmap: Bitmap) {
@@ -245,6 +276,7 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
     }
 
 
+
     override fun onMapReady(googleMap: GoogleMap) {
 
         Log.d("도착했니", "퍼미션허가")
@@ -260,15 +292,20 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
             )
 
         } else {
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
-            val fusedLocationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+            fusedLocationProviderClient =
+                LocationServices.getFusedLocationProviderClient(requireContext())
+            val fusedLocationClient: FusedLocationProviderClient =
+                LocationServices.getFusedLocationProviderClient(requireContext())
 
-            fusedLocationClient.lastLocation.addOnSuccessListener { location : Location? ->
+            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 if (location != null) {
                     latitude = location.latitude
                     longitude = location.longitude
                     currentlocation = LatLng(latitude, longitude)
-                    Log.d("여기는 onMapReady Test", "GPS Location Latitude: $latitude" +", Longitude: $longitude")
+                    Log.d(
+                        "여기는 onMapReady Test",
+                        "GPS Location Latitude: $latitude" + ", Longitude: $longitude"
+                    )
 
                     googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(currentlocation, 19F))
 
@@ -282,38 +319,56 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
                     )
 
                     googleMap.isMyLocationEnabled = true
-                    googleMap.uiSettings.apply{
+                    googleMap.uiSettings.apply {
                         isCompassEnabled = true
                     }
 
-                    btnMapRecordEnd2.setOnClickListener {
-                        stop()
-                        googleMap?.snapshot {
-                            it?.let {
-                                saveMediaToStorage(it)
+                    val locationCallback = object : LocationCallback() {
+                        override fun onLocationResult(locationResult: LocationResult) {
+                            if (locationResult == null) {
+                                return
+                            }
+
+                            for (location in locationResult.locations) {
+                                if (location != null) {
+                                    val latitude = location.latitude
+                                    val longitude = location.longitude
+                                    Log.d(
+                                        "Test",
+                                        "GPS Location changed, Latitude: $latitude, Longitude: $longitude"
+                                    )
+
+                                }
                             }
                         }
-
-
                     }
-                }else{
+                                    btnMapRecordEnd2.setOnClickListener {
+                                        stop()
+                                        googleMap?.snapshot {
+                                            it?.let {
+                                                saveMediaToStorage(it)
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    Log.d("null Test2", "null값")
+                                }
+                            }
+                        }
+                    }
 
-                    Log.d("null Test2", "null값")
-                }
-            }
-        }
 
-
-    }
-
-    fun createLocationRequest() {
-        LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000).apply {
-            setMinUpdateDistanceMeters(1000F)
-            setGranularity(Granularity.GRANULARITY_PERMISSION_LEVEL)
-            setWaitForAccurateLocation(true)
-        }.build()
-        Log.d("업데이트 Test", "${currentlocation.latitude}, ${currentlocation.longitude}")
-    }
+//    fun createLocationRequest() {
+//        val locationRequest = LocationRequest.create()
+//        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+//        locationRequest.interval = 5 * 1000
+//
+//        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext());
+//        fusedLocationProviderClient.requestLocationUpdates(locationRequest,
+//            locationCallback,
+//            Looper.getMainLooper());
+//\
+//    }
 
 
 
