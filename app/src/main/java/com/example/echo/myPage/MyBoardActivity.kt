@@ -2,13 +2,16 @@ package com.example.echo.myPage
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.echo.RetrofitBuilder
 import com.example.echo.board.BoardDetailActivity
 import com.example.echo.board.BoardListVO
 import com.example.echo.databinding.ActivityMyBoardBinding
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -47,19 +50,12 @@ class MyBoardActivity : AppCompatActivity() {
             }
         })
 
-        binding.tvMyBoardSelect.setOnClickListener {
-//            var cnt = adapter.itemCount
-//            for(i in 0 until cnt){
-//            }
-//            adapter.notifyDataSetChanged()
+        binding.tvMyBoardDelete.setOnClickListener {
+            deleteSelectedBoard(adapter.selectDelete())
         }
 
         binding.tvMyBoardSelect.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-//                val cnt: Int = adapter.itemCount //리스트 개수 구하기
-//                for (i in 0 until cnt) {
-//
-//                }
                 adapter.setCheckAll()
                 adapter.notifyDataSetChanged()
             }
@@ -83,6 +79,30 @@ class MyBoardActivity : AppCompatActivity() {
             }
             override fun onFailure(call: Call<List<BoardListVO>>, t: Throwable) {
 
+            }
+        })
+    }
+
+    fun deleteSelectedBoard(boardSeqList: ArrayList<Int>) {
+        val call = RetrofitBuilder.boardApi.deleteSelectedBoard(boardSeqList)
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>
+            ) {
+                Log.d("test-삭제후", response.body().toString())
+                if(response.isSuccessful) {
+                    Toast.makeText(
+                        applicationContext, "정상적으로 삭제되었습니다",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    finish()
+                }else{
+                    Toast.makeText(
+                        applicationContext, "다시 시도해주세요",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
             }
         })
     }
