@@ -104,7 +104,7 @@ class DetailDateAdapter(val context: Context, val dateList:ArrayList<DateVO>, va
             Log.d("test-일정삭제", dateList[position].cal_seq.toString())
             val dialog: AlertDialog.Builder = AlertDialog.Builder(
                 context,
-                android.R.style.Theme_DeviceDefault_Dialog
+                android.R.style.ThemeOverlay_Material_Dialog_Alert
             )
             dialog.setMessage("일정을 삭제하시겠습니까?")
                 .setTitle("일정 삭제")

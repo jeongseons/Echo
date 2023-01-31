@@ -109,4 +109,14 @@ interface API {
     fun modifyCal(
         @Body cal : DateVO
     ): Call<ResponseBody>
+
+    @DELETE("api/group/{group_seq}")
+    fun deleteGroup(
+        @Path("group_seq") group_seq: Int
+    ): Call<ResponseBody>
+
+    @PUT("api/group")
+    fun modifyGroup(
+        @Body group : GroupVO
+    ): Call<ResponseBody>
 }

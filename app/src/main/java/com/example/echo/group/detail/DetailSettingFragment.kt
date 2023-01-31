@@ -1,6 +1,7 @@
 package com.example.echo.group.detail
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,7 @@ import com.example.echo.R
 import com.example.echo.RetrofitBuilder
 import com.example.echo.databinding.FragmentDetailSettingBinding
 import com.example.echo.group.AddGroupActivity
+import com.example.echo.group.EditGroupInfoActivity
 import com.example.echo.group.JoinGroupVO
 import com.kakao.sdk.user.UserApiClient
 import kotlinx.android.synthetic.main.fragment_detail_setting.*
@@ -26,18 +28,29 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-lateinit var binding: FragmentDetailSettingBinding
+//lateinit var binding: FragmentDetailSettingBinding
 class DetailSettingFragment : Fragment() {
 
     lateinit var adapter: JoinListAdapter
     var joinList = ArrayList<PersonVO>()
+    var user_id : String = ""
+
+    lateinit var tvGroupSettingMax : TextView
+    lateinit var tvGroupSettingType : TextView
+    lateinit var tvGroupSettingTitle : TextView
+    lateinit var tvGroupSettingArea : TextView
+    lateinit var tvGroupSettingAge : TextView
+    lateinit var tvGroupSettingLevel : TextView
+    lateinit var tvGroupSettingGender : TextView
+    lateinit var tvGroupSettingDetail : TextView
+    lateinit var imgGroupSettingProfile : ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentDetailSettingBinding.inflate(layoutInflater, container, false)
+//        binding = FragmentDetailSettingBinding.inflate(layoutInflater, container, false)
 
         val view = inflater.inflate(R.layout.fragment_detail_setting, container, false)
 
@@ -48,16 +61,16 @@ class DetailSettingFragment : Fragment() {
 
         GetSignUpList(groupSeq)
 
-        val tvGroupSettingTitle = view.findViewById<TextView>(R.id.tvGroupSettingTitle)
-        val imgGroupSettingProfile = view.findViewById<ImageView>(R.id.imgGroupSettingProfile)
+        tvGroupSettingTitle = view.findViewById<TextView>(R.id.tvGroupSettingTitle)
+        imgGroupSettingProfile = view.findViewById(R.id.imgGroupSettingProfile)
         val tvGroupSettingEdit = view.findViewById<TextView>(R.id.tvGroupSettingEdit)
-        val tvGroupSettingMax = view.findViewById<TextView>(R.id.tvGroupSettingMax)
-        val tvGroupSettingType = view.findViewById<TextView>(R.id.tvGroupSettingType)
-        val tvGroupSettingArea = view.findViewById<TextView>(R.id.tvGroupSettingArea)
-        val tvGroupSettingLevel = view.findViewById<TextView>(R.id.tvGroupSettingLevel)
-        val tvGroupSettingGender = view.findViewById<TextView>(R.id.tvGroupSettingGender)
-        val tvGroupSettingAge = view.findViewById<TextView>(R.id.tvGroupSettingAge)
-        val tvGroupSettingDetail = view.findViewById<TextView>(R.id.tvGroupSettingDetail)
+        tvGroupSettingMax = view.findViewById(R.id.tvGroupSettingMax)
+        tvGroupSettingType = view.findViewById(R.id.tvGroupSettingType)
+        tvGroupSettingArea = view.findViewById(R.id.tvGroupSettingArea)
+        tvGroupSettingLevel = view.findViewById(R.id.tvGroupSettingLevel)
+        tvGroupSettingGender = view.findViewById(R.id.tvGroupSettingGender)
+        tvGroupSettingAge = view.findViewById(R.id.tvGroupSettingAge)
+        tvGroupSettingDetail = view.findViewById(R.id.tvGroupSettingDetail)
         val rvGroupSettingJoinList = view.findViewById<RecyclerView>(R.id.rvGroupSettingJoinList)
         val tvGroupSettingDel = view.findViewById<TextView>(R.id.tvGroupSettingDel)
         val tvGroupSettingOut = view.findViewById<TextView>(R.id.tvGroupSettingOut)
@@ -69,17 +82,59 @@ class DetailSettingFragment : Fragment() {
         val textViewGroupSetting7 = view.findViewById<TextView>(R.id.textViewGroupSetting7)
         if(groupAuth=="y"){ //모임장만 출력
             textViewGroupSetting7.visibility=View.VISIBLE
-            tvGroupSettingDel.visibility=View.VISIBLE
+            tvGroupSettingDel.visibility=View.VISIBLE // 모임 삭제
+            tvGroupSettingOut.visibility=View.GONE // 모임 탈퇴
+            tvGroupSettingEdit.visibility=View.VISIBLE
 
-            tvGroupSettingOut.visibility=View.GONE
         }else{
             textViewGroupSetting7.visibility=View.GONE
             tvGroupSettingDel.visibility=View.GONE
-
             tvGroupSettingOut.visibility=View.VISIBLE
-        }
-        
+            tvGroupSettingEdit.visibility=View.GONE
 
+        }
+
+        tvGroupSettingOut.setOnClickListener {
+            Log.d("test-탈퇴", groupSeq.toString())
+            Log.d("test-탈퇴", user_id)
+            val dialog: AlertDialog.Builder = AlertDialog.Builder(
+                context,
+                android.R.style.ThemeOverlay_Material_Dialog_Alert
+            )
+            dialog.setMessage("정말 탈퇴하시겠습니까?")
+                .setTitle("모임 탈퇴 ")
+                .setPositiveButton("아니오") { dialog, which ->
+                    Log.i("Dialog", "취소")
+                }
+                .setNeutralButton("예"
+                ) { dialog, which ->
+                    GroupDegree(groupSeq, user_id)
+                }
+                .show()
+        }
+
+        tvGroupSettingDel.setOnClickListener {
+            val dialog: AlertDialog.Builder = AlertDialog.Builder(
+                context,
+                android.R.style.ThemeOverlay_Material_Dialog_Alert
+            )
+            dialog.setMessage("정말 삭제하시겠습니까?")
+                .setTitle("모임 삭제 ")
+                .setPositiveButton("아니오") { dialog, which ->
+                    Log.i("Dialog", "취소")
+                }
+                .setNeutralButton("예"
+                ) { dialog, which ->
+                    deleteGroup(groupSeq)
+                }
+                .show()
+        }
+
+        tvGroupSettingEdit.setOnClickListener{
+            //정보 수정 클릭시 정보 수정 페이지로 이동
+            val intent = Intent(context, EditGroupInfoActivity::class.java)
+            startActivity(intent)
+        }
 
 //        joinList.add(PersonVO("https://firebasestorage.googleapis.com/v0/b/echo-73cf6.appspot.com/o/2615613938.png?alt=media", "n", "test1"))
 //        joinList.add(PersonVO("https://firebasestorage.googleapis.com/v0/b/echo-73cf6.appspot.com/o/2615613938.png?alt=media", "n", "test2"))
@@ -91,21 +146,13 @@ class DetailSettingFragment : Fragment() {
         rvGroupSettingJoinList.adapter = adapter
         rvGroupSettingJoinList.layoutManager = GridLayoutManager(requireContext(), 3)
 
-        if(groupAuth.equals("y")){
-            tvGroupSettingEdit.visibility=View.VISIBLE
-            tvGroupSettingEdit.setOnClickListener{
-                //정보 수정 클릭시 정보 수정 페이지로 이동
-            }
-        }else{
-            tvGroupSettingEdit.visibility=View.GONE
-        }
 
         UserApiClient.instance.me { user, error ->
-            var user_id = user?.id.toString()
+            user_id = user?.id.toString()
             joinGroupPro(groupSeq, user_id)
         }
 
-        return binding.root
+        return view
     }
 
     fun GetSignUpList(num: Int) {//가입 대기중인 인원 리스트 - 스프링 통신
@@ -151,8 +198,14 @@ class DetailSettingFragment : Fragment() {
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
+                    Toast.makeText(context, "정상적으로 탈퇴되었습니다",Toast.LENGTH_SHORT).show()
                     val intent = Intent(context, MainActivity::class.java)
                     startActivity(intent)
+                }else{
+                Toast.makeText(
+                    context, "다시 시도해주세요",
+                    Toast.LENGTH_SHORT
+                ).show()
                 }
             }
 
@@ -163,7 +216,7 @@ class DetailSettingFragment : Fragment() {
         })
     }
 
-    fun joinGroupPro(num:Int, id:String){
+    fun joinGroupPro(num:Int, id:String){ // 모임 정보 조회
         val call = RetrofitBuilder.api.joinGroupPro(num, id)
         call.enqueue(object : Callback<JoinGroupVO> {
             override fun onResponse(call: Call<JoinGroupVO>, response: Response<JoinGroupVO>) {
@@ -173,15 +226,15 @@ class DetailSettingFragment : Fragment() {
                         .load(body.group_profile_img)
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .skipMemoryCache(true)
-                        .into(binding.imgGroupSettingProfile)
-                    binding.tvGroupSettingMax.text = "(${body.group_current}/${body.user_max})"
-                    binding.tvGroupSettingType.text = body.group_type
-                    binding.tvGroupSettingTitle.text = body.group_name
-                    binding.tvGroupSettingArea.text = body.group_area
-                    binding.tvGroupSettingAge.text = body.group_age
-                    binding.tvGroupSettingLevel.text = body.group_level
-                    binding.tvGroupSettingGender.text = body.group_gender
-                    binding.tvGroupSettingDetail.text = body.group_detail
+                        .into(imgGroupSettingProfile)
+                    tvGroupSettingMax.text = "(${body.group_current}/${body.user_max})"
+                    tvGroupSettingType.text = body.group_type
+                    tvGroupSettingTitle.text = body.group_name
+                    tvGroupSettingArea.text = body.group_area
+                    tvGroupSettingAge.text = body.group_age
+                    tvGroupSettingLevel.text = body.group_level
+                    tvGroupSettingGender.text = body.group_gender
+                    tvGroupSettingDetail.text = body.group_detail
 
                 }
             }
@@ -191,5 +244,29 @@ class DetailSettingFragment : Fragment() {
 
         })
     }
+
+    fun deleteGroup(groupSeq:Int){
+        val call = RetrofitBuilder.api.deleteGroup(groupSeq)
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(context, "정상적으로 삭제되었습니다",Toast.LENGTH_SHORT).show()
+                    val intent = Intent(context, MainActivity::class.java)
+                    startActivity(intent)
+                }else{
+                    Toast.makeText(
+                        context, "다시 시도해주세요",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.d("실패", t.localizedMessage)
+            }
+
+        })
+    }
+
 
 }
