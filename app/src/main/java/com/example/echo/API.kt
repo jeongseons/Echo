@@ -35,6 +35,10 @@ interface API {
         @Body addgroup : NewGroupVO
     ): Call<ResponseBody>
 
+    @GET("api/joingrouplist") // 그룹 리스트 최신순 top10
+    fun joinGroupList(
+    ): Call<List<GroupVO>>
+
     @POST("api/joingroupcon") // 조건을 주어 그룹 검색한다.
     fun joinGroupCon(
         @Body findGroupVO: FindGroupVO
