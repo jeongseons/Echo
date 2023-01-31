@@ -81,12 +81,8 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+       val view = inflater.inflate(R.layout.fragment_map2, container, false)
 
-        val view = inflater.inflate(R.layout.fragment_map2, container, false)
-        mView = view.findViewById(R.id.map2) as MapView
-        mView.onCreate(savedInstanceState)
-        mView.getMapAsync(this)
-//        moveCamera(googleMap, latitude, longitude)
         currentlocation = LatLng(latitude, longitude)
         val geocoder = Geocoder(this.context)
         val address: List<Address>? = null
@@ -99,48 +95,24 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
         val btnMapRecordPause = view.findViewById<Button>(R.id.btnMapRecordPause)
 
 
-//        tvMapTimer.visibility = View.INVISIBLE
+        mView = view.findViewById(R.id.map2) as MapView
+        mView.onCreate(savedInstanceState)
+        mView.getMapAsync(this)
+
+
+
         btnMapRecordEnd2.visibility = View.INVISIBLE
         btnMapRecordPause.visibility = View.INVISIBLE
-
-
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-            || ActivityCompat.checkSelfPermission(
-                requireContext(),
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            var permissions = arrayOf(
-                android.Manifest.permission.ACCESS_FINE_LOCATION,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-            ActivityCompat.requestPermissions(
-                requireContext() as Activity,
-                permissions,
-                MY_PERMISSION_ACCESS_ALL
-            )
-        } else {
-
-        }
-
-
 
 
         btnMapRecordStart2.setOnClickListener {
             Log.d("산행중gps값받아오기","${latitude},${longitude}")
             val polyLineOptions = PolylineOptions().width(5f).color(Color.BLUE)
             /*polyLineOptions.add(myLocation)*/
-//            tvMapTimer.visibility = View.VISIBLE
             btnMapRecordStart2.visibility = View.INVISIBLE
             btnMapRecordEnd2.visibility = View.VISIBLE
             btnMapRecordPause.visibility = View.VISIBLE
             startTimer()
-
-
-
         }
 
         btnMapRecordPause.setOnClickListener {
@@ -155,9 +127,7 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
                 }
             }
 
-
-
-            //           val intent = Intent(requireContext(), MapSaveActivity::class.java)
+ //           val intent = Intent(requireContext(), MapSaveActivity::class.java)
 //            intent.putExtra("minute", "$hour`")
 //            startActivity(intent)
         }
@@ -275,8 +245,6 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
         //2021년06월10일02시37분
     }
 
-
-
     override fun onMapReady(googleMap: GoogleMap) {
 
         Log.d("도착했니", "퍼미션허가")
@@ -310,38 +278,17 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
                     googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(currentlocation, 19F))
 
                     googleMap?.moveCamera(CameraUpdateFactory.newLatLng(currentlocation))
-//                    val cameraUpdate = CameraUpdateFactory.newLatLngZoom(currentlocation, 20F)
-//                    googleMap?.moveCamera(cameraUpdate)
                     googleMap.addMarker(
                         MarkerOptions()
                             .position(currentlocation)
                             .title("현재 위치")
                     )
-
+                    getCurrentAddress(currentlocation)
                     googleMap.isMyLocationEnabled = true
                     googleMap.uiSettings.apply {
                         isCompassEnabled = true
                     }
 
-                    val locationCallback = object : LocationCallback() {
-                        override fun onLocationResult(locationResult: LocationResult) {
-                            if (locationResult == null) {
-                                return
-                            }
-
-                            for (location in locationResult.locations) {
-                                if (location != null) {
-                                    val latitude = location.latitude
-                                    val longitude = location.longitude
-                                    Log.d(
-                                        "Test",
-                                        "GPS Location changed, Latitude: $latitude, Longitude: $longitude"
-                                    )
-
-                                }
-                            }
-                        }
-                    }
                                     btnMapRecordEnd2.setOnClickListener {
                                         stop()
                                         googleMap?.snapshot {
@@ -356,21 +303,6 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
                             }
                         }
                     }
-
-
-//    fun createLocationRequest() {
-//        val locationRequest = LocationRequest.create()
-//        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-//        locationRequest.interval = 5 * 1000
-//
-//        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext());
-//        fusedLocationProviderClient.requestLocationUpdates(locationRequest,
-//            locationCallback,
-//            Looper.getMainLooper());
-//\
-//    }
-
-
 
 
 
