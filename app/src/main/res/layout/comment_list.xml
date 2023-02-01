@@ -5,6 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <View
+        android:id="@+id/view17"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="-10dp"
+        android:layout_marginTop="-8dp"
+        android:layout_marginEnd="-10dp"
+        android:layout_marginBottom="-8dp"
+        android:background="@drawable/border_boxcolor"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCommentDate"
+        app:layout_constraintEnd_toEndOf="@+id/tvCommentContent"
+        app:layout_constraintStart_toStartOf="@+id/tvCommentUserNick"
+        app:layout_constraintTop_toTopOf="@+id/tvCommentUserNick" />
+
     <TextView
         android:id="@+id/tvCommentUserNick"
         android:layout_width="wrap_content"
@@ -12,6 +26,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="김눌(댓글작성자)"
+        android:textColor="#000000"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,9 +35,10 @@
         android:id="@+id/tvCommentContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:text="멋진 산행이었습니다!(댓글내용)"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvCommentUserNick"
         app:layout_constraintTop_toBottomOf="@+id/tvCommentUserNick" />
@@ -34,30 +50,32 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="16dp"
         android:text="2023-01-09 21:27"
+        android:textColor="#000000"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvCommentContent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCommentContent"
-        app:layout_constraintVertical_bias="0.001" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCommentContent" />
 
     <TextView
         android:id="@+id/tvCommentDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
         android:text="댓글삭제"
         android:textColor="#AA1B1B"
         android:textSize="12sp"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCommentDate"
         app:layout_constraintStart_toEndOf="@+id/tvCommentDate"
-        app:layout_constraintTop_toBottomOf="@+id/tvCommentContent" />
+        app:layout_constraintTop_toTopOf="@+id/tvCommentDate" />
 
     <TextView
         android:id="@+id/tvMyPageBirth"
         android:layout_width="450dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

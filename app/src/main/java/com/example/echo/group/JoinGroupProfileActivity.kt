@@ -1,5 +1,6 @@
 package com.example.echo.group
 
+import android.app.Activity
 import android.content.ContentValues
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +20,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class JoinGroupProfileActivity : AppCompatActivity() {
+class JoinGroupProfileActivity : Activity() {
     lateinit var groupInfo : JoinGroupVO
     lateinit var tvJoinGroupProfileTitle : TextView
     lateinit var tvJoinGroupProfileMaster : TextView
@@ -31,7 +32,6 @@ class JoinGroupProfileActivity : AppCompatActivity() {
     lateinit var tvJoinGroupProfileLevel : TextView
     lateinit var imgJoinGroupProfile : ImageView
     lateinit var btnJoinGroupProfileJoin : Button
-    lateinit var tvJoinGroupProfileDate : TextView
     lateinit var tvJoinGroupProfileDetail : TextView
 
 
@@ -51,8 +51,12 @@ class JoinGroupProfileActivity : AppCompatActivity() {
         tvJoinGroupProfileLevel = findViewById(R.id.tvJoinGroupProfileLevel)
         imgJoinGroupProfile = findViewById(R.id.imgJoinGroupProfile)
         tvJoinGroupProfileDetail = findViewById(R.id.tvJoinGroupProfileDetail)
-
         btnJoinGroupProfileJoin = findViewById<Button>(R.id.btnJoinGroupProfileJoin)
+
+        val imgJoinGroupProfileMoveBack = findViewById<ImageView>(R.id.imgJoinGroupProfileMoveBack)
+        imgJoinGroupProfileMoveBack.setOnClickListener {
+            finish()
+        }
 
         val seq = intent.getIntExtra("num", 0)
 

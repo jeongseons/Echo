@@ -11,13 +11,14 @@
         android:id="@+id/etCmtWrite"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:hint="댓글 내용을 입력하세요"
         android:inputType="textMultiLine"
+        android:maxLength="100"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:textColor="#000000"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -43,7 +44,7 @@
                 android:id="@+id/tvBoardDetailTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="글제목"
                 android:textColor="#000000"
                 android:textSize="20sp"
@@ -77,7 +78,9 @@
                 android:id="@+id/rvCmt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -98,35 +101,15 @@
                 app:srcCompat="@drawable/echo" />
 
             <TextView
-                android:id="@+id/tvBoardDetailReco"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="추천"
-                android:textColor="#000000"
-                app:layout_constraintStart_toStartOf="@+id/imgBoardDetailReco"
-                app:layout_constraintTop_toBottomOf="@+id/imgBoardDetailReco" />
-
-            <TextView
                 android:id="@+id/tvBoardDetailRecoCnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="0"
                 android:textColor="#000000"
-                app:layout_constraintBottom_toBottomOf="@+id/tvBoardDetailReco"
-                app:layout_constraintStart_toEndOf="@+id/tvBoardDetailReco"
-                app:layout_constraintTop_toTopOf="@+id/tvBoardDetailReco" />
-
-            <TextView
-                android:id="@+id/tvBoardDetailCmt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="댓글"
-                android:textColor="#000000"
-                app:layout_constraintStart_toEndOf="@+id/tvBoardDetailRecoCnt"
-                app:layout_constraintTop_toTopOf="@+id/tvBoardDetailReco" />
+                app:layout_constraintBottom_toBottomOf="@+id/imgBoardDetailReco"
+                app:layout_constraintStart_toEndOf="@+id/imgBoardDetailReco"
+                app:layout_constraintTop_toTopOf="@+id/imgBoardDetailReco" />
 
             <TextView
                 android:id="@+id/tvBoardDetailCmtCnt"
@@ -135,9 +118,9 @@
                 android:layout_marginStart="8dp"
                 android:text="0"
                 android:textColor="#000000"
-                app:layout_constraintBottom_toBottomOf="@+id/tvBoardDetailCmt"
-                app:layout_constraintStart_toEndOf="@+id/tvBoardDetailCmt"
-                app:layout_constraintTop_toTopOf="@+id/tvBoardDetailCmt" />
+                app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+                app:layout_constraintStart_toEndOf="@+id/imageView8"
+                app:layout_constraintTop_toTopOf="@+id/imageView8" />
 
             <TextView
                 android:id="@+id/tvBoardDetailDate"
@@ -151,9 +134,9 @@
 
             <ImageView
                 android:id="@+id/imgBoardDetailReco"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginTop="50dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="32dp"
                 android:tag="n"
                 app:layout_constraintStart_toStartOf="@+id/tvBoardDetailContent"
                 app:layout_constraintTop_toBottomOf="@+id/tvBoardDetailContent"
@@ -167,6 +150,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="#FFFFFF"
+                android:maxLength="500"
                 android:paddingLeft="10dp"
                 android:paddingTop="20dp"
                 android:paddingRight="20dp"
@@ -224,7 +208,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_back" />
@@ -237,6 +221,16 @@
                 app:layout_constraintStart_toStartOf="@+id/imageView7"
                 app:layout_constraintTop_toBottomOf="@+id/imageView7"
                 app:srcCompat="@drawable/ic_baseline_person_24" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvBoardDetailRecoCnt"
+                app:layout_constraintStart_toEndOf="@+id/tvBoardDetailRecoCnt"
+                app:layout_constraintTop_toTopOf="@+id/tvBoardDetailRecoCnt"
+                app:srcCompat="@drawable/ic_baseline_mode_comment_24" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

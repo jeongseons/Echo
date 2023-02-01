@@ -115,7 +115,7 @@
                 android:paddingRight="10dp"
                 app:layout_constraintEnd_toStartOf="@+id/etBoardWriteMnt"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgBoardWriteMpveBack" />
+                app:layout_constraintTop_toBottomOf="@+id/tvBoardWriteLine" />
 
             <Button
                 android:id="@+id/btnBoardWritePic"
@@ -157,12 +157,14 @@
                 android:id="@+id/tvBoardWriteLine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:text="게시글 작성"
                 android:textColor="#000000"
-                app:layout_constraintBottom_toBottomOf="@+id/imgBoardWriteMpveBack"
-                app:layout_constraintStart_toEndOf="@+id/imgBoardWriteMpveBack"
-                app:layout_constraintTop_toTopOf="@+id/imgBoardWriteMpveBack" />
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
