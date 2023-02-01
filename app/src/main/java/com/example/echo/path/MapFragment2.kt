@@ -1,21 +1,19 @@
 package com.example.echo.path
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.location.*
-import android.location.LocationListener
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,15 +22,17 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.NonNull
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.echo.MainActivity
 import com.example.echo.R
 import com.example.echo.databinding.ActivityMainBinding
 import com.google.android.gms.location.*
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.maps.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -64,8 +64,7 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
     private var currentMarker: Marker? = null
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
-    lateinit var manager: LocationManager
-    lateinit var locationListener: LocationListener
+    private val locationRequest: LocationRequest? = null
     lateinit var tvMapCurrentTime2: TextView
     lateinit var currentlocation: LatLng
     var total = 0
@@ -74,6 +73,9 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
     var total_distance: Double = 0.0
     lateinit var startPoint: LatLng
     lateinit var endPoint: LatLng
+
+    val DEFAULT_LOCATION_REQUEST_INTERVAL = 20000L //20초 사이
+    val DEFAULT_LOCATION_REQUEST_FAST_INTERVAL = 10000L //10초에서
 
 
     @SuppressLint("MissingPermission", "MissingInflatedId")
@@ -138,9 +140,15 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
         return view
     }
 
-     fun finish() {
-        finish()
 
+
+    private val locationCallback: LocationCallback = object : LocationCallback() {
+        override fun onLocationResult(@NonNull locationResult: LocationResult) {
+            super.onLocationResult(locationResult)
+            longitude = locationResult.lastLocation!!.longitude
+            latitude = locationResult.lastLocation!!.latitude
+            fusedLocationProviderClient.removeLocationUpdates(this) //결과 전달 되면 리스너 삭제
+        }
     }
 
 
@@ -245,6 +253,17 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
         //2021년06월10일02시37분
     }
 
+    //
+    fun getcurrentlocation(){
+        fusedLocationProviderClient = context?.let {
+            LocationServices.getFusedLocationProviderClient(
+                it
+            )
+        }!!
+    }
+
+
+
     override fun onMapReady(googleMap: GoogleMap) {
 
         Log.d("도착했니", "퍼미션허가")
@@ -274,6 +293,8 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
                         "여기는 onMapReady Test",
                         "GPS Location Latitude: $latitude" + ", Longitude: $longitude"
                     )
+
+
 
                     googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(currentlocation, 19F))
 
