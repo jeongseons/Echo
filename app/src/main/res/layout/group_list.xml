@@ -13,7 +13,7 @@
         android:layout_height="65dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,21 +21,27 @@
 
     <ImageView
         android:id="@+id/imgKingCk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="-8dp"
+        android:layout_marginBottom="-8dp"
+        android:background="@drawable/circle_border"
+        android:elevation="5dp"
+        android:padding="5dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/imgGroupPro"
         app:layout_constraintEnd_toEndOf="@+id/imgGroupPro"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        app:srcCompat="@drawable/icon_crown" />
 
     <TextView
         android:id="@+id/tvGroupTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:text="그룹명 들어가는 자리"
         android:textColor="#000000"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imgGroupPro"
         app:layout_constraintStart_toEndOf="@+id/imgGroupPro"
         app:layout_constraintTop_toTopOf="@+id/imgGroupPro" />
@@ -44,13 +50,14 @@
         android:id="@+id/tvGroupPer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="4dp"
         android:text="인원 수"
         android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvGroupTitle"
-        app:layout_constraintStart_toEndOf="@+id/tvGroupTitle"
-        app:layout_constraintTop_toTopOf="@+id/tvGroupTitle" />
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView11"
+        app:layout_constraintStart_toEndOf="@+id/imageView11"
+        app:layout_constraintTop_toTopOf="@+id/imageView11"
+        app:layout_constraintVertical_bias="0.73" />
 
     <TextView
         android:id="@+id/textView4"
@@ -64,10 +71,20 @@
         android:id="@+id/imageView4"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/tvGroupPer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvGroupPer"
         app:srcCompat="@drawable/ic_input" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvGroupTitle"
+        app:layout_constraintStart_toEndOf="@+id/tvGroupTitle"
+        app:layout_constraintTop_toTopOf="@+id/tvGroupTitle"
+        app:srcCompat="@drawable/ic_people" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

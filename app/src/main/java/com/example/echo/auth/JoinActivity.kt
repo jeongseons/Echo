@@ -38,7 +38,10 @@ class JoinActivity : AppCompatActivity() {
 
         var etJoinUserNick = findViewById<EditText>(R.id.etJoinUserNick)
         imgJoinUserProfileEdit = findViewById(R.id.imgJoinUserProfileEdit)
-        imgJoinUserProfileEdit.setImageResource(R.drawable.profile)
+
+        val imgJoinUserProfileProfile = findViewById<ImageView>(R.id.imgJoinUserProfileProfile)
+
+        imgJoinUserProfileProfile.setImageResource(R.drawable.profile)
         var rdoUserGender = findViewById<RadioGroup>(R.id.rdoUserGender)
 
         var btnUserJoin = findViewById<Button>(R.id.btnUserJoin)
@@ -100,6 +103,8 @@ class JoinActivity : AppCompatActivity() {
 
         // 프로필 사진 이벤트
         imgJoinUserProfileEdit.setOnClickListener {
+
+           Toast.makeText(this, "클릭",Toast.LENGTH_SHORT).show()
             val intent = Intent(
                 Intent.ACTION_PICK,
                 MediaStore.Images.Media.INTERNAL_CONTENT_URI
@@ -172,7 +177,7 @@ class JoinActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()
     ) {
         if (it.resultCode == RESULT_OK) {
-            imgJoinUserProfileEdit.setImageURI(it.data?.data)
+            imgJoinUserProfileProfile.setImageURI(it.data?.data)
         }
     }
 

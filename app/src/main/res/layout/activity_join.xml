@@ -5,7 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".auth.JoinActivity">
-
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="프로필 생성"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <EditText
         android:id="@+id/etJoinUserNick"
         android:layout_width="wrap_content"
@@ -63,11 +74,11 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/p1"
+        app:layout_constraintEnd_toEndOf="@+id/textView18"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView18"
-        app:srcCompat="@drawable/p1" />
+        app:layout_constraintStart_toStartOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <NumberPicker
         android:id="@+id/npYear"
@@ -132,29 +143,18 @@
 
     <ImageView
         android:id="@+id/imgJoinUserProfileEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginEnd="-8dp"
         android:layout_marginBottom="-8dp"
         android:background="@drawable/circle_border"
         android:elevation="5dp"
         android:padding="5dp"
+        android:src="@drawable/ic_edit"
         app:layout_constraintBottom_toBottomOf="@+id/imgJoinUserProfileProfile"
-        app:layout_constraintEnd_toEndOf="@+id/imgJoinUserProfileProfile"
-        app:srcCompat="@drawable/ic_edit" />
+        app:layout_constraintEnd_toEndOf="@+id/imgJoinUserProfileProfile" />
 
-    <TextView
-        android:id="@+id/textView18"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="프로필 생성"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/textView38"
