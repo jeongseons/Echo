@@ -17,14 +17,21 @@ interface BoardAPI {
         @Body board: BoardVO
     ): Call<ResponseBody>
 
+    //게시글 삭제
     @DELETE("api/board/{board_seq}")
     fun deleteBoard(
         @Path("board_seq") board_seq : Int
     ): Call<ResponseBody>
 
+    //게시글 수정
     @PUT("api/board")
     fun modifyBoard(
         @Body board: BoardVO
     ): Call<ResponseBody>
 
+    //게시글 다수 삭제 - 마이페이지
+    @HTTP(method = "DELETE", path="api/board",hasBody = true)
+    fun deleteSelectedBoard(
+        @Body boardSeqList: List<Int>
+    ): Call<ResponseBody>
 }
