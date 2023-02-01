@@ -3,125 +3,169 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".board.BoardWriteActivity">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/imgBoardWritePic"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+            <View
+                android:id="@+id/view18"
+                android:layout_width="0dp"
+                android:layout_height="75dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
-                android:src="@android:drawable/ic_menu_crop"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/border_boxcolor"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etBoardWrtieContent" />
 
+            <ImageView
+                android:id="@+id/imgBoardWriteRoute"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/border"
+                android:padding="5dp"
+                android:src="@drawable/ic_baseline_my_location_24"
+                app:layout_constraintBottom_toBottomOf="@+id/view18"
+                app:layout_constraintStart_toStartOf="@+id/view18"
+                app:layout_constraintTop_toTopOf="@+id/view18" />
+
+            <ImageView
+                android:id="@+id/imgBoardWritePic"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/border"
+                android:src="@android:drawable/ic_menu_crop"
+                app:layout_constraintBottom_toBottomOf="@+id/view18"
+                app:layout_constraintEnd_toStartOf="@+id/btnBoardWritePic"
+                app:layout_constraintTop_toTopOf="@+id/view18" />
+
             <EditText
                 android:id="@+id/etBoardWriteMnt"
-                android:layout_width="126dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="110dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/border_boxcolor"
                 android:ems="10"
-                android:hint="oo산"
+                android:hint="ex) 무등산"
                 android:inputType="textPersonName"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:maxLength="7"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/etBoardWriteTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/etBoardWriteTitle" />
 
             <EditText
                 android:id="@+id/etBoardWrtieContent"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
+                android:layout_height="400dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/border_boxcolor"
                 android:ems="10"
+                android:gravity="start"
                 android:hint="내용을 입력해주세요"
                 android:inputType="textMultiLine"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView19"
-                app:layout_constraintTop_toBottomOf="@+id/textView19" />
+                android:padding="15dp"
+                app:layout_constraintEnd_toEndOf="@+id/etBoardWriteMnt"
+                app:layout_constraintStart_toStartOf="@+id/etBoardWriteTitle"
+                app:layout_constraintTop_toBottomOf="@+id/etBoardWriteTitle" />
 
             <Button
                 android:id="@+id/btnBoardWriteCourse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/button_style"
                 android:text="경로추가"
-                app:layout_constraintStart_toStartOf="@+id/imgBoardWritePic"
-                app:layout_constraintTop_toBottomOf="@+id/imgBoardWritePic" />
-
-            <TextView
-                android:id="@+id/tvBoardWriteLine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="게시글 작성"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/view18"
+                app:layout_constraintStart_toEndOf="@+id/imgBoardWriteRoute"
+                app:layout_constraintTop_toTopOf="@+id/view18" />
 
             <EditText
                 android:id="@+id/etBoardWriteTitle"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:background="@drawable/border_boxcolor"
                 android:ems="10"
                 android:hint="제목을 입력해주세요"
                 android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView18"
-                app:layout_constraintTop_toBottomOf="@+id/textView18" />
-
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="제목"
-                android:textSize="16sp"
+                android:maxLength="15"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:layout_constraintEnd_toStartOf="@+id/etBoardWriteMnt"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etBoardWriteMnt" />
-
-            <TextView
-                android:id="@+id/textView19"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="내용"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/etBoardWriteTitle"
-                app:layout_constraintTop_toBottomOf="@+id/etBoardWriteTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/tvBoardWriteLine" />
 
             <Button
                 android:id="@+id/btnBoardWritePic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/button_style"
                 android:text="사진추가"
-                app:layout_constraintEnd_toEndOf="@+id/imgBoardWritePic"
-                app:layout_constraintTop_toTopOf="@+id/btnBoardWriteCourse" />
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/view18"
+                app:layout_constraintEnd_toEndOf="@+id/view18"
+                app:layout_constraintTop_toTopOf="@+id/view18" />
 
             <Button
                 android:id="@+id/btnBoardWrtePost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/button_style"
                 android:text="게시글 등록"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/btnBoardWritePic"
-                app:layout_constraintStart_toStartOf="@+id/btnBoardWriteCourse"
-                app:layout_constraintTop_toBottomOf="@+id/btnBoardWriteCourse" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view18" />
+
+            <ImageView
+                android:id="@+id/imgBoardWriteMpveBack"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_back" />
+
+            <TextView
+                android:id="@+id/tvBoardWriteLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="게시글 작성"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

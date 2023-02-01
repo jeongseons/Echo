@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.echo.MainActivity
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
@@ -49,11 +50,16 @@ class BoardDetailActivity : AppCompatActivity() {
         binding = ActivityBoardDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.imgBoardDetailMoveBack.setOnClickListener {
+            finish()
+        }
+
         val board_seq = intent.getStringExtra("board_seq")!!.toInt()
         val board_title = intent.getStringExtra("board_title")
         val board_content = intent.getStringExtra("board_content")
         val board_file = intent.getStringExtra("board_file")
         val user_nick = intent.getStringExtra("user_nick")
+        val user_profile_img = intent.getStringExtra("user_profile_img")
         var board_dt = intent.getStringExtra("board_dt")
         var user_id = intent.getStringExtra("user_id")
         var mnt_name = intent.getStringExtra("mnt_name")
@@ -65,6 +71,12 @@ class BoardDetailActivity : AppCompatActivity() {
         binding.tvBoardDetailDate.text = board_dt!!.substring(0,board_dt.length-3)
         binding.tvBoardDetailMntName.text = mnt_name
         binding.tvBoardDetailRecoCnt.text = board_reco_cnt
+
+        Glide.with(this)
+            .load(user_profile_img)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+            .into(binding.imgBoardDetailPropic)
 
         if(board_file!!.isEmpty()) {
             binding.imgBoardDetailPic.visibility = View.GONE
@@ -173,7 +185,7 @@ class BoardDetailActivity : AppCompatActivity() {
             Log.d("test-삭제전", board_seq.toString())
             val dialog: AlertDialog.Builder = AlertDialog.Builder(
                 this,
-                android.R.style.Theme_DeviceDefault_Light_Dialog
+                android.R.style.ThemeOverlay_Material_Dialog_Alert
             )
             dialog.setMessage("글을 삭제하시겠습니까?")
                 .setTitle("글 삭제")

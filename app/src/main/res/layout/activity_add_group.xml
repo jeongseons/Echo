@@ -20,25 +20,30 @@
         android:id="@+id/tvAddGroupBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="뒤로가기"
+        android:layout_marginTop="8dp"
+        android:text="모임 만들기"
         android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/imgAddGroupBack"
-        app:layout_constraintStart_toEndOf="@+id/imgAddGroupBack"
-        app:layout_constraintTop_toTopOf="@+id/imgAddGroupBack" />
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgAddGroupBack"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@+id/tvAddGroupBack"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgAddGroup"
@@ -50,15 +55,78 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/profile" />
 
+            <View
+                android:id="@+id/view5"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="@drawable/border_boxcolor"
+                app:layout_constraintBottom_toBottomOf="@+id/spAddGroupMax"
+                app:layout_constraintEnd_toEndOf="@+id/etAddGroupName"
+                app:layout_constraintStart_toStartOf="@+id/etAddGroupName"
+                app:layout_constraintTop_toTopOf="@+id/spAddGroupMax" />
+
+            <View
+                android:id="@+id/view6"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="@drawable/border_boxcolor"
+                app:layout_constraintBottom_toBottomOf="@+id/ckAddGroupType1"
+                app:layout_constraintEnd_toEndOf="@+id/etAddGroupName"
+                app:layout_constraintStart_toStartOf="@+id/etAddGroupName"
+                app:layout_constraintTop_toTopOf="@+id/ckAddGroupType1" />
+
+            <View
+                android:id="@+id/view7"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="@drawable/border_boxcolor"
+                app:layout_constraintBottom_toBottomOf="@+id/spAddGroupArea"
+                app:layout_constraintEnd_toEndOf="@+id/etAddGroupName"
+                app:layout_constraintStart_toStartOf="@+id/etAddGroupName"
+                app:layout_constraintTop_toTopOf="@+id/spAddGroupArea" />
+
+            <View
+                android:id="@+id/view8"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="@drawable/border_boxcolor"
+                app:layout_constraintBottom_toBottomOf="@+id/spAddGroupGender"
+                app:layout_constraintEnd_toEndOf="@+id/etAddGroupName"
+                app:layout_constraintStart_toStartOf="@+id/etAddGroupName"
+                app:layout_constraintTop_toTopOf="@+id/spAddGroupGender" />
+
+            <View
+                android:id="@+id/view9"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="@drawable/border_boxcolor"
+                app:layout_constraintBottom_toBottomOf="@+id/spAddGroupAge"
+                app:layout_constraintEnd_toEndOf="@+id/etAddGroupName"
+                app:layout_constraintStart_toStartOf="@+id/etAddGroupName"
+                app:layout_constraintTop_toTopOf="@+id/spAddGroupAge" />
+
+            <View
+                android:id="@+id/view10"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="@drawable/border_boxcolor"
+                app:layout_constraintBottom_toBottomOf="@+id/spAddGroupLevel"
+                app:layout_constraintEnd_toEndOf="@+id/etAddGroupName"
+                app:layout_constraintStart_toStartOf="@+id/etAddGroupName"
+                app:layout_constraintTop_toTopOf="@+id/spAddGroupLevel" />
+
             <EditText
                 android:id="@+id/etAddGroupName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="16dp"
+                android:background="@drawable/border_boxcolor"
                 android:ems="10"
                 android:hint="모임명을 입력하세요"
                 android:inputType="textPersonName"
-                android:paddingLeft="5dp"
+                android:maxLength="15"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 app:layout_constraintEnd_toEndOf="@+id/imgAddGroup"
                 app:layout_constraintStart_toStartOf="@+id/imgAddGroup"
                 app:layout_constraintTop_toBottomOf="@+id/imgAddGroup" />
@@ -67,30 +135,24 @@
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:text="인원"
                 android:textColor="#000000"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/etAddGroupName"
                 app:layout_constraintTop_toBottomOf="@+id/etAddGroupName" />
-
-            <Spinner
-                android:id="@+id/spAddGroupMax"
-                android:layout_width="150dp"
-                android:layout_height="0dp"
-                android:entries="@array/max"
-                app:layout_constraintBottom_toBottomOf="@+id/textView13"
-                app:layout_constraintEnd_toEndOf="@+id/etAddGroupName"
-                app:layout_constraintTop_toTopOf="@+id/textView13" />
 
             <TextView
                 android:id="@+id/textView20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="40dp"
                 android:text="분류"
                 android:textColor="#000000"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/textView13"
                 app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
@@ -118,121 +180,144 @@
                 android:id="@+id/textView19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="40dp"
                 android:text="지역"
                 android:textColor="#000000"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/textView20"
                 app:layout_constraintTop_toBottomOf="@+id/textView20" />
-
-            <Spinner
-                android:id="@+id/spAddGroupArea"
-                android:layout_width="150dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView19"
-                app:layout_constraintEnd_toEndOf="@+id/spAddGroupMax"
-                app:layout_constraintTop_toTopOf="@+id/textView19" />
 
             <TextView
                 android:id="@+id/textView24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="40dp"
                 android:text="성별"
                 android:textColor="#000000"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/textView19"
                 app:layout_constraintTop_toBottomOf="@+id/textView19" />
-
-            <Spinner
-                android:id="@+id/spAddGroupGender"
-                android:layout_width="150dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView24"
-                app:layout_constraintEnd_toEndOf="@+id/spAddGroupArea"
-                app:layout_constraintTop_toTopOf="@+id/textView24" />
 
             <TextView
                 android:id="@+id/textView25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="40dp"
                 android:text="연령"
                 android:textColor="#000000"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/textView24"
                 app:layout_constraintTop_toBottomOf="@+id/textView24" />
-
-            <Spinner
-                android:id="@+id/spAddGroupAge"
-                android:layout_width="150dp"
-                android:layout_height="0dp"
-                android:entries="@array/max"
-                app:layout_constraintBottom_toBottomOf="@+id/textView25"
-                app:layout_constraintEnd_toEndOf="@+id/spAddGroupGender"
-                app:layout_constraintTop_toTopOf="@+id/textView25" />
 
             <TextView
                 android:id="@+id/textView26"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="40dp"
                 android:text="난이도"
                 android:textColor="#000000"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/textView25"
                 app:layout_constraintTop_toBottomOf="@+id/textView25" />
-
-            <TextView
-                android:id="@+id/tvAddGroupDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="2022-01-12"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textViewAddGroup5"
-                app:layout_constraintStart_toEndOf="@+id/textViewAddGroup5"
-                app:layout_constraintTop_toTopOf="@+id/textViewAddGroup5" />
 
             <TextView
                 android:id="@+id/textView33"
                 android:layout_width="wrap_content"
                 android:layout_height="19dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="40dp"
                 android:text="모임 설명"
                 android:textColor="#000000"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/spAddGroupLevel"
                 app:layout_constraintStart_toStartOf="@+id/textView26"
                 app:layout_constraintTop_toBottomOf="@+id/spAddGroupLevel" />
 
             <EditText
                 android:id="@+id/mtAddGroupDetailDate"
-                android:layout_width="230dp"
+                android:layout_width="250dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="8dp"
-                android:background="#ECECEC"
+                android:background="@drawable/border_boxcolor"
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
                 android:overScrollMode="ifContentScrolls"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:scrollbarAlwaysDrawHorizontalTrack="true"
-                app:layout_constraintEnd_toEndOf="@+id/textView33"
-                app:layout_constraintStart_toStartOf="@+id/textView33"
+                app:layout_constraintEnd_toEndOf="@+id/textView30"
+                app:layout_constraintHorizontal_bias="0.489"
+                app:layout_constraintStart_toStartOf="@+id/textView30"
                 app:layout_constraintTop_toBottomOf="@+id/textView33" />
+
+            <Spinner
+                android:id="@+id/spAddGroupMax"
+                android:layout_width="130dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/border_white"
+                android:entries="@array/max"
+                android:paddingLeft="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView13"
+                app:layout_constraintEnd_toEndOf="@+id/etAddGroupName"
+                app:layout_constraintTop_toTopOf="@+id/textView13" />
+
+            <Spinner
+                android:id="@+id/spAddGroupArea"
+                android:layout_width="130dp"
+                android:layout_height="30dp"
+                android:background="@drawable/border_white"
+                android:paddingLeft="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView19"
+                app:layout_constraintEnd_toEndOf="@+id/spAddGroupMax"
+                app:layout_constraintTop_toTopOf="@+id/textView19" />
+
+            <Spinner
+                android:id="@+id/spAddGroupGender"
+                android:layout_width="130dp"
+                android:layout_height="30dp"
+                android:background="@drawable/border_white"
+                android:paddingLeft="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView24"
+                app:layout_constraintEnd_toEndOf="@+id/spAddGroupArea"
+                app:layout_constraintTop_toTopOf="@+id/textView24" />
+
+            <Spinner
+                android:id="@+id/spAddGroupAge"
+                android:layout_width="130dp"
+                android:layout_height="30dp"
+                android:background="@drawable/border_white"
+                android:entries="@array/max"
+                android:paddingLeft="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView25"
+                app:layout_constraintEnd_toEndOf="@+id/spAddGroupGender"
+                app:layout_constraintTop_toTopOf="@+id/textView25" />
+
+            <Spinner
+                android:id="@+id/spAddGroupLevel"
+                android:layout_width="130dp"
+                android:layout_height="30dp"
+                android:background="@drawable/border_white"
+                android:paddingLeft="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView26"
+                app:layout_constraintEnd_toEndOf="@+id/spAddGroupAge"
+                app:layout_constraintTop_toTopOf="@+id/textView26"
+                app:layout_constraintVertical_bias="0.625" />
 
             <TextView
                 android:id="@+id/textView30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="모임 활동에 필요한 개인정보 수집에 동의 하십니까?"
-                app:layout_constraintEnd_toEndOf="@+id/mtAddGroupDetailDate"
-                app:layout_constraintHorizontal_bias="0.507"
-                app:layout_constraintStart_toStartOf="@+id/mtAddGroupDetailDate"
-                app:layout_constraintTop_toBottomOf="@+id/tvAddGroupDate" />
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mtAddGroupDetailDate" />
 
             <CheckBox
                 android:id="@+id/ckAddGroupAgreement1"
@@ -241,6 +326,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="동의합니다"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/textView30"
                 app:layout_constraintTop_toBottomOf="@+id/textView30" />
 
@@ -258,18 +344,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/button_style"
                 android:text="모임 생성"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/ckAddGroupAgreement2"
                 app:layout_constraintStart_toStartOf="@+id/ckAddGroupAgreement1"
                 app:layout_constraintTop_toBottomOf="@+id/ckAddGroupAgreement2" />
-
-            <Spinner
-                android:id="@+id/spAddGroupLevel"
-                android:layout_width="150dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView26"
-                app:layout_constraintEnd_toEndOf="@+id/spAddGroupAge"
-                app:layout_constraintTop_toTopOf="@+id/textView26" />
 
             <ImageView
                 android:id="@+id/imgAddGroupProfileEdit"
@@ -277,23 +359,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@drawable/border"
+                android:background="@drawable/circle_border"
                 android:elevation="5dp"
                 android:padding="5dp"
                 app:layout_constraintBottom_toBottomOf="@+id/imgAddGroup"
                 app:layout_constraintEnd_toEndOf="@+id/imgAddGroup"
                 app:srcCompat="@drawable/ic_edit" />
-
-            <TextView
-                android:id="@+id/textViewAddGroup5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="32dp"
-                android:text="모임개설일"
-                android:textColor="#000000"
-                app:layout_constraintStart_toStartOf="@+id/mtAddGroupDetailDate"
-                app:layout_constraintTop_toBottomOf="@+id/mtAddGroupDetailDate" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

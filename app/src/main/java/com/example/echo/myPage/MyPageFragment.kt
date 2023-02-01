@@ -67,9 +67,10 @@ class MyPageFragment : Fragment() {
             Log.d("test-탈퇴전", user_id.toString())
             val dialog: AlertDialog.Builder = AlertDialog.Builder(
                 requireContext(),
-                android.R.style.Theme_DeviceDefault_Light_Dialog
+                android.R.style.ThemeOverlay_Material_Dialog_Alert
             )
-            dialog.setMessage("정말 탈퇴하시겠습니까?")
+            dialog.setMessage("정말 탈퇴하시겠습니까?\n" +
+            "본인이 그룹장인 그룹이 있으면 탈퇴할 수 없습니다")
                 .setTitle("회원 탈퇴")
                 .setPositiveButton("아니오", DialogInterface.OnClickListener { dialog, which ->
                     Log.i("Dialog", "취소")

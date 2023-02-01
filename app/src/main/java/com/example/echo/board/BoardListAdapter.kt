@@ -43,6 +43,7 @@ class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardListVO
         val tvBoardWriter: TextView
         val tvBoardRecoCount: TextView
         val tvBoardMntName : TextView
+        val tvBoardCommCount : TextView
         val imgBoardPic : ImageView
 
         init {
@@ -51,6 +52,7 @@ class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardListVO
             tvBoardDate = itemView.findViewById(R.id.tvBoardDate)
             tvBoardRecoCount = itemView.findViewById(R.id.tvBoardRecoCount)
             tvBoardMntName = itemView.findViewById(R.id.tvBoardMntName)
+            tvBoardCommCount = itemView.findViewById(R.id.tvBoardCommCount)
             imgBoardPic = itemView.findViewById(R.id.imgBoardPic)
 
             // 각 게시글 클릭 이벤트 - 게시글 내부로 이동
@@ -68,6 +70,7 @@ class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardListVO
                 intent.putExtra("board_content", filteredList.board_content)
                 intent.putExtra("board_file",filteredList.board_file)
                 intent.putExtra("user_nick", filteredList.user_nick)
+                intent.putExtra("user_profile_img", filteredList.user_profile_img)
                 intent.putExtra("board_dt", filteredList.board_dt)
                 intent.putExtra("user_id", filteredList.user_id)
                 intent.putExtra("mnt_name", filteredList.mnt_name)
@@ -97,6 +100,7 @@ class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardListVO
                 holder.tvBoardDate.text = filteredList.board_dt.substring(0,filteredList.board_dt.length-3)
                 holder.tvBoardRecoCount.text = filteredList.board_reco_cnt.toString()
                 holder.tvBoardMntName.text = filteredList.mnt_name
+                holder.tvBoardCommCount.text = filteredList.board_cmt_cnt.toString()
                 if(filteredList.board_file.isEmpty()) {
                     holder.imgBoardPic.visibility = View.INVISIBLE
                 } else{

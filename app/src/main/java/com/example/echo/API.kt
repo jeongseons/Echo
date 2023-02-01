@@ -35,6 +35,10 @@ interface API {
         @Body addgroup : NewGroupVO
     ): Call<ResponseBody>
 
+    @GET("api/joingrouplist") // 그룹 리스트 최신순 top10
+    fun joinGroupList(
+    ): Call<List<GroupVO>>
+
     @POST("api/joingroupcon") // 조건을 주어 그룹 검색한다.
     fun joinGroupCon(
         @Body findGroupVO: FindGroupVO
@@ -109,4 +113,21 @@ interface API {
     fun modifyCal(
         @Body cal : DateVO
     ): Call<ResponseBody>
+
+    @DELETE("api/group/{group_seq}")
+    fun deleteGroup(
+        @Path("group_seq") group_seq: Int
+    ): Call<ResponseBody>
+
+    @PUT("api/group")
+    fun modifyGroup(
+        @Body group : GroupVO
+    ): Call<ResponseBody>
+
+    @DELETE("api/group")
+    fun quitGroup(
+        @Query("group_seq") group_seq: Int,
+        @Query("user_id") user_id : String
+    ): Call<ResponseBody>
+
 }

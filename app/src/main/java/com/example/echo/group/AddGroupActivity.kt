@@ -48,7 +48,6 @@ class AddGroupActivity : AppCompatActivity() {
 
 
         //------뷰 초기화--------
-        val tvAddGroupBack = findViewById<TextView>(R.id.tvAddGroupBack)
         val imgAddGroupBack = findViewById<ImageView>(R.id.imgAddGroupBack)
         //그룹 프로필사진
         imgGroupProfile = findViewById<ImageView>(R.id.imgAddGroup)
@@ -73,12 +72,9 @@ class AddGroupActivity : AppCompatActivity() {
         val spAddGroupAge = findViewById<Spinner>(R.id.spAddGroupAge)
         //난이도
         val spAddGroupLevel = findViewById<Spinner>(R.id.spAddGroupLevel)
-        //산행일자
-        val tvAddGroupDate = findViewById<TextView>(R.id.tvAddGroupDate)
+
         //모임 생성일
         val toDate = LocalDateTime.now()
-        tvAddGroupDate.text =toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-
         //모임설명
         val mtAddGroupDetailDate = findViewById<EditText>(R.id.mtAddGroupDetailDate)
         //동의
@@ -111,10 +107,6 @@ class AddGroupActivity : AppCompatActivity() {
 
 
         //뒤로가기 클릭 시 이전 페이지
-        tvAddGroupBack.setOnClickListener{
-            finish()
-        }
-
         imgAddGroupBack.setOnClickListener{
             finish()
         }
@@ -236,7 +228,7 @@ class AddGroupActivity : AppCompatActivity() {
         btnAddGroupAdd.setOnClickListener{
             //사용자 입력값 저장
             name = etAddGroupName.text.toString()
-            date = tvAddGroupDate.text.toString()
+            date = toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
             detail = mtAddGroupDetailDate.text.toString()
             //스피너 값 변수에 저장
             age = spAddGroupAge.selectedItem.toString()

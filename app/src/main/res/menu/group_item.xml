@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/grouptab1"
-        android:title="메아리톡" />
+        android:title="채팅" />
     <item
         android:id="@+id/grouptab2"
-        android:title="참여인원" />
+        android:title="모임원" />
     <item
         android:id="@+id/grouptab3"
-        android:title="산행일정" />
+        android:title="일정" />
     <item
         android:id="@+id/grouptab4"
         android:title="모임정보" />

@@ -1,6 +1,8 @@
 package com.example.echo.myPage
 
 import android.content.Context
+import android.os.Handler
+import android.util.Log
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +17,8 @@ class MyBoardAdapter(var context: Context, var myBoardList:ArrayList<BoardListVO
     : RecyclerView.Adapter<MyBoardAdapter.ViewHolder>() {
 
     private val checkboxStatus = SparseBooleanArray()
-
+    var allSelectCk = false
+    val boardSeqList: ArrayList<Int> = ArrayList()
 
     // 리스너 커스텀
     interface OnItemClickListener {
@@ -75,11 +78,17 @@ class MyBoardAdapter(var context: Context, var myBoardList:ArrayList<BoardListVO
         holder.tvMyBoardRecoCount.text = myBoardList[position].board_reco_cnt.toString()
         holder.tvMyBoardMntName.text = myBoardList[position].mnt_name
         holder.ckMyBoard.isChecked = checkboxStatus[position]
+
+        holder.ckMyBoard.isChecked = checkboxStatus[position]
         holder.ckMyBoard.setOnClickListener {
-            if (!holder.ckMyBoard.isChecked)
+            if (!holder.ckMyBoard.isChecked) {
                 checkboxStatus.put(position, false)
-            else
+                boardSeqList.remove(myBoardList[position].board_seq)
+            }
+            else{
                 checkboxStatus.put(position, true)
+                boardSeqList.add(myBoardList[position].board_seq)
+            }
             notifyItemChanged(position)
         }
 
@@ -89,5 +98,27 @@ class MyBoardAdapter(var context: Context, var myBoardList:ArrayList<BoardListVO
         return myBoardList.size
     }
 
+    fun setCheckAll() {
+        boardSeqList.clear()
+        if(allSelectCk) {
+        for(i in 0 until myBoardList.size){
+            checkboxStatus.put(i, false)
+        }
+        }else{
+            for(i in 0 until myBoardList.size){
+                checkboxStatus.put(i, true)
+                boardSeqList.add(myBoardList[i].board_seq)
+            }
+        }
+        allSelectCk = !allSelectCk
+        notifyDataSetChanged()
+    }
+
+    fun selectDelete(): ArrayList<Int> {
+            for (i in 0 until boardSeqList.size) {
+                Log.d("test-체크박스", boardSeqList[i].toString())
+            }
+        return boardSeqList
+    }
 
 }
