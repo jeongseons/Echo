@@ -31,7 +31,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgAddGroupBack"
         app:layout_constraintVertical_bias="0.0">
@@ -120,7 +120,9 @@
                 android:ems="10"
                 android:hint="모임명을 입력하세요"
                 android:inputType="textPersonName"
+                android:maxLength="15"
                 android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 app:layout_constraintEnd_toEndOf="@+id/imgAddGroup"
                 app:layout_constraintStart_toStartOf="@+id/imgAddGroup"
                 app:layout_constraintTop_toBottomOf="@+id/imgAddGroup" />
@@ -339,7 +341,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="16dp"
+                android:background="@drawable/button_style"
                 android:text="모임 생성"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/ckAddGroupAgreement2"
                 app:layout_constraintStart_toStartOf="@+id/ckAddGroupAgreement1"

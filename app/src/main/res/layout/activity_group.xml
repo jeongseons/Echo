@@ -14,7 +14,7 @@
         android:text="광주 무등산 모여라"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -25,10 +25,13 @@
         android:id="@+id/bnvGroup"
         android:layout_width="0dp"
         android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+
         android:background="@drawable/border_boxcolor"
         android:isScrollContainer="false"
         android:textAlignment="center"
-
         app:elevation="0dp"
         app:itemIconSize="0dp"
         app:labelVisibilityMode="labeled"

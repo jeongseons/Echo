@@ -15,15 +15,14 @@ import com.example.echo.MainActivity
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import com.kakao.sdk.user.UserApiClient
+import kotlinx.android.synthetic.main.activity_join.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
-import kotlin.math.log
 
 class JoinActivity : AppCompatActivity() {
 
@@ -31,15 +30,15 @@ class JoinActivity : AppCompatActivity() {
     var user_id = ""
     var user_nick = ""
     var isJoinSuccess = ""
-    lateinit var imgJoinUserProfile: ImageView
+    lateinit var imgJoinUserProfileEdit: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_join)
 
         var etJoinUserNick = findViewById<EditText>(R.id.etJoinUserNick)
-        imgJoinUserProfile = findViewById<ImageView>(R.id.imgJoinUserProfile)
-        imgJoinUserProfile.setImageResource(R.drawable.profile)
+        imgJoinUserProfileEdit = findViewById(R.id.imgJoinUserProfileEdit)
+        imgJoinUserProfileEdit.setImageResource(R.drawable.profile)
         var rdoUserGender = findViewById<RadioGroup>(R.id.rdoUserGender)
 
         var btnUserJoin = findViewById<Button>(R.id.btnUserJoin)
@@ -58,6 +57,7 @@ class JoinActivity : AppCompatActivity() {
 
         npYear.run {
             minValue = 1950
+
             maxValue = 2023
             wrapSelectorWheel = true
             displayedValues = yearStrConvertList.toTypedArray()
@@ -98,7 +98,7 @@ class JoinActivity : AppCompatActivity() {
         }
 
         // 프로필 사진 이벤트
-        imgJoinUserProfile.setOnClickListener {
+        imgJoinUserProfileEdit.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_PICK,
                 MediaStore.Images.Media.INTERNAL_CONTENT_URI
@@ -150,9 +150,9 @@ class JoinActivity : AppCompatActivity() {
         val mountainsRef = storageRef.child("$user_id.png")
 
         // Get the data from an ImageView as bytes
-        imgJoinUserProfile.isDrawingCacheEnabled = true
-        imgJoinUserProfile.buildDrawingCache()
-        val bitmap = (imgJoinUserProfile.drawable as BitmapDrawable).bitmap
+        imgJoinUserProfileEdit.isDrawingCacheEnabled = true
+        imgJoinUserProfileEdit.buildDrawingCache()
+        val bitmap = (imgJoinUserProfileEdit.drawable as BitmapDrawable).bitmap
         val baos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos)
         val data = baos.toByteArray()
@@ -171,7 +171,7 @@ class JoinActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()
     ) {
         if (it.resultCode == RESULT_OK) {
-            imgJoinUserProfile.setImageURI(it.data?.data)
+            imgJoinUserProfileEdit.setImageURI(it.data?.data)
         }
     }
 
