@@ -108,7 +108,7 @@ class DetailSettingFragment : Fragment() {
                 }
                 .setNeutralButton("예"
                 ) { dialog, which ->
-                    GroupDegree(groupSeq, user_id)
+                    quitGroup(groupSeq, user_id)
                 }
                 .show()
         }
@@ -193,8 +193,8 @@ class DetailSettingFragment : Fragment() {
 
     }
 
-    fun GroupDegree(num:Int, nick:String) { //회원 탈퇴용
-        val call = RetrofitBuilder.api.groupDegree(num, nick)
+    fun quitGroup(groupSeq: Int, user_id:String) { //회원 탈퇴용
+        val call = RetrofitBuilder.api.quitGroup(groupSeq,user_id)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {

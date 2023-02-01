@@ -36,6 +36,7 @@ class JoinGroupProfileActivity : Activity() {
 
 
     var id: String = ""
+    var group_title = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,14 +82,14 @@ class JoinGroupProfileActivity : Activity() {
         btnJoinGroupProfileJoin.setOnClickListener {
             val dialog: AlertDialog.Builder = AlertDialog.Builder(
                 this@JoinGroupProfileActivity,
-                android.R.style.Theme_DeviceDefault_Light_Dialog
+                android.R.style.ThemeOverlay_Material_Dialog_Alert
             )
-            dialog.setMessage("모임이름 에 가입 신청을 하시겠습니까?")
+            dialog.setMessage("${group_title}에 가입 신청을 하시겠습니까?")
                 .setTitle("가입 신청")
                 .setPositiveButton("아니오", DialogInterface.OnClickListener { dialog, which ->
                     Log.i("Dialog", "취소")
                 })
-                .setNeutralButton("예", //다이얼로그 현재 안되는듯합니다.
+                .setNeutralButton("예",
                     DialogInterface.OnClickListener { dialog, which ->
                         GroupSignUp(seq, id)
                         Toast.makeText(this,"가입 신청이 완료되었습니다",Toast.LENGTH_SHORT).show()
@@ -139,6 +140,7 @@ class JoinGroupProfileActivity : Activity() {
                         response.body()!!.group_type,
                         response.body()!!.group_detail)
 
+                    group_title = groupInfo.group_name
                     tvJoinGroupProfileTitle.setText(groupInfo.group_name)
                     tvJoinGroupProfileMaster.setText(groupInfo.group_owner_id)
                     tvJoinGroupProfileMax.setText("${groupInfo.group_current}/${groupInfo.user_max}")

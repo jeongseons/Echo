@@ -62,6 +62,7 @@ class JoinActivity : AppCompatActivity() {
             minValue = 1950
 
             maxValue = 2023
+            value = 2000
             wrapSelectorWheel = true
             displayedValues = yearStrConvertList.toTypedArray()
             findInput(this)?.inputType = InputType.TYPE_CLASS_NUMBER
