@@ -48,7 +48,6 @@ class AddGroupActivity : AppCompatActivity() {
 
 
         //------뷰 초기화--------
-        val tvAddGroupBack = findViewById<TextView>(R.id.tvAddGroupBack)
         val imgAddGroupBack = findViewById<ImageView>(R.id.imgAddGroupBack)
         //그룹 프로필사진
         imgGroupProfile = findViewById<ImageView>(R.id.imgAddGroup)
@@ -108,10 +107,6 @@ class AddGroupActivity : AppCompatActivity() {
 
 
         //뒤로가기 클릭 시 이전 페이지
-        tvAddGroupBack.setOnClickListener{
-            finish()
-        }
-
         imgAddGroupBack.setOnClickListener{
             finish()
         }

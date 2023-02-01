@@ -8,13 +8,13 @@
 
     <TextView
         android:id="@+id/tvGroupTitle2"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:layout_marginTop="8dp"
         android:text="광주 무등산 모여라"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -25,10 +25,13 @@
         android:id="@+id/bnvGroup"
         android:layout_width="0dp"
         android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+
         android:background="@drawable/border_boxcolor"
         android:isScrollContainer="false"
         android:textAlignment="center"
-
         app:elevation="0dp"
         app:itemIconSize="0dp"
         app:labelVisibilityMode="labeled"
@@ -54,9 +57,9 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvGroupTitle2"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvGroupTitle2"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

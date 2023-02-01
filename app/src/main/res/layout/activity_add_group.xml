@@ -20,20 +20,24 @@
         android:id="@+id/tvAddGroupBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="뒤로가기"
+        android:layout_marginTop="8dp"
+        android:text="모임 만들기"
         android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/imgAddGroupBack"
-        app:layout_constraintStart_toEndOf="@+id/imgAddGroupBack"
-        app:layout_constraintTop_toTopOf="@+id/imgAddGroupBack" />
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgAddGroupBack"
+        app:layout_constraintTop_toBottomOf="@+id/tvAddGroupBack"
         app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -120,7 +124,9 @@
                 android:ems="10"
                 android:hint="모임명을 입력하세요"
                 android:inputType="textPersonName"
+                android:maxLength="15"
                 android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 app:layout_constraintEnd_toEndOf="@+id/imgAddGroup"
                 app:layout_constraintStart_toStartOf="@+id/imgAddGroup"
                 app:layout_constraintTop_toBottomOf="@+id/imgAddGroup" />
@@ -241,7 +247,7 @@
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
                 android:overScrollMode="ifContentScrolls"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:scrollbarAlwaysDrawHorizontalTrack="true"
                 app:layout_constraintEnd_toEndOf="@+id/textView30"
                 app:layout_constraintHorizontal_bias="0.489"
@@ -339,7 +345,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="16dp"
+                android:background="@drawable/button_style"
                 android:text="모임 생성"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/ckAddGroupAgreement2"
                 app:layout_constraintStart_toStartOf="@+id/ckAddGroupAgreement1"

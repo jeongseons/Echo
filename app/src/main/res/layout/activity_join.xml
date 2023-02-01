@@ -9,37 +9,44 @@
     <EditText
         android:id="@+id/etJoinUserNick"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="30dp"
+        android:background="@drawable/border_boxcolor"
         android:ems="10"
-        android:hint="닉네임"
+        android:hint="닉네임을 입력하세요"
         android:inputType="textPersonName"
+        android:maxLength="10"
+        android:paddingLeft="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgJoinUserProfile" />
+        app:layout_constraintTop_toBottomOf="@+id/imgJoinUserProfileProfile" />
 
     <Button
         android:id="@+id/btnUserJoin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/button_style"
         android:text="회원가입"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rdoUserGender" />
 
     <RadioGroup
         android:id="@+id/rdoUserGender"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/npDay"
-        app:layout_constraintTop_toBottomOf="@+id/npMonth">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView39">
 
         <RadioButton
             android:id="@+id/rdoJoinFemale"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="여성" />
 
@@ -52,14 +59,14 @@
     </RadioGroup>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgJoinUserProfile"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="48dp"
+        android:id="@+id/imgJoinUserProfileProfile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18"
         app:srcCompat="@drawable/p1" />
 
     <NumberPicker
@@ -67,9 +74,9 @@
         android:layout_width="64dp"
         android:layout_height="100dp"
         android:layout_marginStart="72dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etJoinUserNick" />
+        app:layout_constraintTop_toBottomOf="@+id/textView38" />
 
     <NumberPicker
         android:id="@+id/npMonth"
@@ -122,5 +129,57 @@
         app:layout_constraintBottom_toBottomOf="@+id/npDay"
         app:layout_constraintStart_toEndOf="@+id/npDay"
         app:layout_constraintTop_toTopOf="@+id/npDay" />
+
+    <ImageView
+        android:id="@+id/imgJoinUserProfileEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="-8dp"
+        android:layout_marginBottom="-8dp"
+        android:background="@drawable/circle_border"
+        android:elevation="5dp"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgJoinUserProfileProfile"
+        app:layout_constraintEnd_toEndOf="@+id/imgJoinUserProfileProfile"
+        app:srcCompat="@drawable/ic_edit" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="프로필 생성"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView38"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="생년월일"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/etJoinUserNick"
+        app:layout_constraintStart_toStartOf="@+id/etJoinUserNick"
+        app:layout_constraintTop_toBottomOf="@+id/etJoinUserNick" />
+
+    <TextView
+        android:id="@+id/textView39"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="성별"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textView38"
+        app:layout_constraintStart_toStartOf="@+id/textView38"
+        app:layout_constraintTop_toBottomOf="@+id/npMonth" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
