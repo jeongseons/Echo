@@ -98,4 +98,25 @@
         app:layout_constraintTop_toTopOf="@+id/tvBoardDate"
         app:srcCompat="@drawable/bookmarkheart" />
 
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvBoardRecoCount"
+        app:layout_constraintStart_toEndOf="@+id/tvBoardRecoCount"
+        app:layout_constraintTop_toTopOf="@+id/tvBoardRecoCount"
+        app:srcCompat="@drawable/ic_baseline_mode_comment_24" />
+
+    <TextView
+        android:id="@+id/tvBoardCommCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="댓글 수"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+        app:layout_constraintStart_toEndOf="@+id/imageView9"
+        app:layout_constraintTop_toTopOf="@+id/imageView9" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
