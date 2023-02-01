@@ -49,6 +49,10 @@ class BoardDetailActivity : AppCompatActivity() {
         binding = ActivityBoardDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.imgBoardDetailMoveBack.setOnClickListener {
+            finish()
+        }
+
         val board_seq = intent.getStringExtra("board_seq")!!.toInt()
         val board_title = intent.getStringExtra("board_title")
         val board_content = intent.getStringExtra("board_content")
