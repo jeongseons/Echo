@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.echo.MainActivity
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
@@ -58,6 +59,7 @@ class BoardDetailActivity : AppCompatActivity() {
         val board_content = intent.getStringExtra("board_content")
         val board_file = intent.getStringExtra("board_file")
         val user_nick = intent.getStringExtra("user_nick")
+        val user_profile_img = intent.getStringExtra("user_profile_img")
         var board_dt = intent.getStringExtra("board_dt")
         var user_id = intent.getStringExtra("user_id")
         var mnt_name = intent.getStringExtra("mnt_name")
@@ -69,6 +71,12 @@ class BoardDetailActivity : AppCompatActivity() {
         binding.tvBoardDetailDate.text = board_dt!!.substring(0,board_dt.length-3)
         binding.tvBoardDetailMntName.text = mnt_name
         binding.tvBoardDetailRecoCnt.text = board_reco_cnt
+
+        Glide.with(this)
+            .load(user_profile_img)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+            .into(binding.imgBoardDetailPropic)
 
         if(board_file!!.isEmpty()) {
             binding.imgBoardDetailPic.visibility = View.GONE

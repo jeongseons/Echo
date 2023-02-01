@@ -70,6 +70,7 @@ class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardListVO
                 intent.putExtra("board_content", filteredList.board_content)
                 intent.putExtra("board_file",filteredList.board_file)
                 intent.putExtra("user_nick", filteredList.user_nick)
+                intent.putExtra("user_profile_img", filteredList.user_profile_img)
                 intent.putExtra("board_dt", filteredList.board_dt)
                 intent.putExtra("user_id", filteredList.user_id)
                 intent.putExtra("mnt_name", filteredList.mnt_name)
