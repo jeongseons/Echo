@@ -7,11 +7,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
+import com.example.echo.myPage.binding
+import com.example.echo.myPage.user_profile_img
 import com.kakao.sdk.user.UserApiClient
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -27,12 +32,14 @@ class CommentAdapter(var context: Context, var commentList:ArrayList<CmtListVO>)
             val tvCommentContent : TextView
             val tvCommentTime : TextView
             val tvCommentDelete : TextView
+            val tvCommentPropic : ImageView
 
             init {
                 tvCommentUserNick = itemView.findViewById(R.id.tvCommentUserNick)
                 tvCommentContent = itemView.findViewById(R.id.tvCommentContent)
                 tvCommentTime = itemView.findViewById(R.id.tvCommentDate)
                 tvCommentDelete = itemView.findViewById(R.id.tvCommentDelete)
+                tvCommentPropic = itemView.findViewById(R.id.tvCommentPropic)
                 itemView.setOnClickListener {
                     val position = adapterPosition
                 }
@@ -50,6 +57,11 @@ class CommentAdapter(var context: Context, var commentList:ArrayList<CmtListVO>)
         holder.tvCommentContent.setText(commentList.get(position).cmt_content)
         holder.tvCommentTime.setText(commentList.get(position).cmt_dt)
         holder.tvCommentDelete.visibility = View.INVISIBLE
+        Glide.with(context)
+            .load(commentList.get(position).user_profile_img)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+            .into(holder.tvCommentPropic)
 
         UserApiClient.instance.me { user, error ->
             loginUser = user?.id.toString()
