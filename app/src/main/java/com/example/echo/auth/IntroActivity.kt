@@ -39,7 +39,7 @@ class IntroActivity : AppCompatActivity() {
         var btnIntroTest = findViewById<Button>(R.id.btnIntroTest)
 
         btnIntroTest.setOnClickListener{
-            val intent = Intent(this, JoinActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 

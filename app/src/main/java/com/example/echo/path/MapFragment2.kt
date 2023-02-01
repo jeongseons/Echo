@@ -80,7 +80,7 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
             btnMapRecordStart2.visibility = View.INVISIBLE
             btnMapRecordEnd2.visibility = View.VISIBLE
 
-            createLocationRequest()
+//            createLocationRequest()
 
         }
 
@@ -175,15 +175,15 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
 
     }
 
-    fun createLocationRequest() {
-        LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000).apply {
-            setMinUpdateDistanceMeters(1000F)
-            setGranularity(Granularity.GRANULARITY_PERMISSION_LEVEL)
-            setWaitForAccurateLocation(true)
-        }.build()
-        Log.d("업데이트 Test", "${currentlocation.latitude}, ${currentlocation.longitude}")
-    }
-
+//    fun createLocationRequest() {
+//        LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000).apply {
+//            setMinUpdateDistanceMeters(1000F)
+//            setGranularity(Granularity.GRANULARITY_PERMISSION_LEVEL)
+//            setWaitForAccurateLocation(true)
+//        }.build()
+//        Log.d("업데이트 Test", "${currentlocation.latitude}, ${currentlocation.longitude}")
+//    }
+//
 
 
 

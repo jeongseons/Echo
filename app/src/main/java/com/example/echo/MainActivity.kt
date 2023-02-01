@@ -8,6 +8,7 @@ import com.example.echo.board.BoardFragment
 import com.example.echo.group.GroupFragment
 import com.example.echo.myPage.MyPageFragment
 import com.example.echo.path.MapFragment2
+import com.example.echo.path.RecordMapFragment
 //import com.example.echo.path.MapFragment2
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kakao.sdk.common.util.Utility
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         if(moveCk.isNotEmpty()) {
                          supportFragmentManager.beginTransaction().replace(
                              R.id.flMain,
-                             MapFragment2()
+                             RecordMapFragment()
                          ).commit()
         }
 
@@ -61,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.tab1 -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.flMain,
-                        MapFragment2()
+                        RecordMapFragment()
                     ).commit()
                 }
 
