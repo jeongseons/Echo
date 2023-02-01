@@ -123,4 +123,11 @@ interface API {
     fun modifyGroup(
         @Body group : GroupVO
     ): Call<ResponseBody>
+
+    @DELETE("api/group")
+    fun quitGroup(
+        @Query("group_seq") group_seq: Int,
+        @Query("user_id") user_id : String
+    ): Call<ResponseBody>
+
 }
