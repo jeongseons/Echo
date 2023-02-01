@@ -19,8 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
-import com.example.echo.group.GroupActivity.Companion.stomp
-import com.example.echo.group.GroupActivity.Companion.stompConnection
+
 import com.kakao.sdk.user.UserApiClient
 import retrofit2.Call
 import retrofit2.Callback

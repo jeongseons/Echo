@@ -21,8 +21,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".EditGroupInfoActivity"
-            android:exported="false">
+            android:name=".group.EditGroupInfoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.Dialog">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -58,6 +59,7 @@
 
         <activity
             android:name=".group.detail.AddNewGroupDateActivity"
+            android:theme="@style/Theme.MaterialComponents.Dialog"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

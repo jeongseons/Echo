@@ -1,32 +1,32 @@
 package com.example.echo.group.detail
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.view.MotionEvent
+import android.view.View
+import android.view.Window
+import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
 import com.example.echo.group.DateVO
 import com.example.echo.group.NewDateVO
-import com.example.echo.group.NewGroupVO
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class AddNewGroupDateActivity : AppCompatActivity() {
+
+class AddNewGroupDateActivity : Activity() {
 
 
     lateinit var addNewDateDate:NewDateVO
@@ -36,9 +36,14 @@ class AddNewGroupDateActivity : AppCompatActivity() {
     var modifyCk = ""
 
     @RequiresApi(Build.VERSION_CODES.O)
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        setContentView(requestWindowFeature(Window.FEATURE_NO_TITLE))
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_group_date)
+
 
         val tvNewGroupDateDate = findViewById<TextView>(R.id.tvNewGroupDateDate)
 
@@ -46,6 +51,12 @@ class AddNewGroupDateActivity : AppCompatActivity() {
         val getDate = intent.getStringExtra("date")
 
         Log.d("값확인-가져온날짜", getDate.toString())
+
+        //X 클릭시 닫기
+        val imgAddNewDateMoveBack = findViewById<ImageView>(R.id.imgAddNewDateMoveBack)
+        imgAddNewDateMoveBack.setOnClickListener{
+            finish()
+        }
 
 
         val toDate = LocalDateTime.now()
@@ -75,7 +86,7 @@ class AddNewGroupDateActivity : AppCompatActivity() {
             tvNewGroupDateTitle.text = "일정 수정"
             btnNewGroupDateAdd.text = "일정 수정"
             mtNewGroupDateDetail.setText(cal_content)
-            tvNewGroupDateDate.text = cal_dt
+            tvNewGroupDateDate.text = cal_dt.substring(0,16)
         }
 
         imgNewGroupDate.setOnClickListener {
@@ -181,6 +192,10 @@ class AddNewGroupDateActivity : AppCompatActivity() {
 
     }
 
+    private fun setContentView(requestWindowFeature:Boolean): Boolean {
+        return true
+    }
+
     fun addCal(cal: NewDateVO){
         val call = RetrofitBuilder.api.addCal(cal)
         call.enqueue(object : Callback<ResponseBody> {
@@ -205,6 +220,18 @@ class AddNewGroupDateActivity : AppCompatActivity() {
                 Log.d("저장실패", t.localizedMessage)
             }
         })
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        //바깥레이어 클릭시 안닫히게
+        return if (event.action == MotionEvent.ACTION_OUTSIDE) {
+            false
+        } else true
+    }
+
+    override fun onBackPressed() {
+        //안드로이드 백버튼 막기
+        return
     }
 
 

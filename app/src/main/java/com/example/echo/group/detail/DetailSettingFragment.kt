@@ -28,7 +28,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-//lateinit var binding: FragmentDetailSettingBinding
 class DetailSettingFragment : Fragment() {
 
     lateinit var adapter: JoinListAdapter
@@ -89,6 +88,7 @@ class DetailSettingFragment : Fragment() {
         }else{
             textViewGroupSetting7.visibility=View.GONE
             tvGroupSettingDel.visibility=View.GONE
+
             tvGroupSettingOut.visibility=View.VISIBLE
             tvGroupSettingEdit.visibility=View.GONE
 
@@ -267,6 +267,5 @@ class DetailSettingFragment : Fragment() {
 
         })
     }
-
 
 }
