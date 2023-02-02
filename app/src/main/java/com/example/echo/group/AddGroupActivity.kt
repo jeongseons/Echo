@@ -263,6 +263,8 @@ class AddGroupActivity : AppCompatActivity() {
             if(ckAddGroupAgreement2.isChecked){
                 Toast.makeText(this,"필수 동의가 필요합니다",Toast.LENGTH_SHORT).show()
                 agree = false
+            }else{
+                agree=true
             }
 
             //모임설명 Null체크

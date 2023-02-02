@@ -200,6 +200,7 @@ class BoardDetailActivity : AppCompatActivity() {
                 .show()
         }
 
+
         // 댓글
         var rvCmt = binding.rvCmt
         getComment(board_seq!!)
@@ -207,6 +208,7 @@ class BoardDetailActivity : AppCompatActivity() {
         rvCmt.adapter = adapter
         rvCmt.layoutManager = LinearLayoutManager(this)
         adapter.notifyDataSetChanged()
+
         Log.d("test-댓글개수", cmtList.toString())
 
         // 작성된 내용이 있을 시에만 등록 버튼 노출
@@ -226,6 +228,7 @@ class BoardDetailActivity : AppCompatActivity() {
             addComment(board_seq,newComment)
             binding.etCmtWrite.setText("")
         }
+
 
         // 추천 조회
         Log.d("test-추천조회", binding.imgBoardDetailReco.tag.toString())
@@ -290,7 +293,28 @@ class BoardDetailActivity : AppCompatActivity() {
                 Log.d("test-댓글개수", cmtList.size.toString())
                 binding.tvBoardDetailCmtCnt.text = cmtList.size.toString()
                 adapter.notifyDataSetChanged()
+
+                //댓글 없는 경우
+
+                if(cmtList.size==0){
+                    binding.noComment1.visibility=View.VISIBLE
+                    binding.noComment2.visibility=View.VISIBLE
+                    binding.noComment3.visibility=View.VISIBLE
+                    binding.noComment4.visibility=View.VISIBLE
+
+                    binding.rvCmt.visibility=View.GONE
+                }else{
+                    binding.noComment1.visibility=View.GONE
+                    binding.noComment2.visibility=View.GONE
+                    binding.noComment3.visibility=View.GONE
+                    binding.noComment4.visibility=View.GONE
+
+                    binding.rvCmt.visibility=View.VISIBLE
+                }
+
             }
+
+
             override fun onFailure(call: Call<List<CmtListVO>>, t: Throwable) {
                 Log.d("test-가입실패", t.localizedMessage)
             }
