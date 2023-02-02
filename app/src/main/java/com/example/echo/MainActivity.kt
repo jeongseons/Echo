@@ -19,6 +19,7 @@ import com.example.echo.path.MapFragment
 import com.example.echo.path.MapFragment2
 //import com.example.echo.path.MapFragment2
 import com.example.echo.path.PathFragment
+import com.example.echo.service.SensorService
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -41,6 +42,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        Intent(this, SensorService::class.java).also { intent ->
+            startService(intent)
+        }
 
         val flMain = findViewById<FrameLayout>(R.id.flMain)
         val bnvMain = findViewById<BottomNavigationView>(R.id.bnvMain)

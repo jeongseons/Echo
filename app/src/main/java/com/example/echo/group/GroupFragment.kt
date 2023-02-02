@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.echo.CountActivity
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
 import com.example.echo.group.GroupActivity.Companion.stomp
@@ -45,6 +46,12 @@ class GroupFragment : Fragment() {
         val rvGroupList = view.findViewById<RecyclerView>(R.id.rvGroupList)
         val btnAddGroup = view.findViewById<Button>(R.id.btnAddGroup)
         val btnEnterGroup = view.findViewById<Button>(R.id.btnEnterGroup)
+        val btntest = view.findViewById<Button>(R.id.btntest)
+
+        btntest.setOnClickListener {
+            val test = Intent(context, CountActivity::class.java)
+            startActivity(test)
+        }
 
         UserApiClient.instance.me { user, error ->
             if (error != null) {
