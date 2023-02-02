@@ -45,8 +45,9 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="-4dp"
-                android:layout_marginTop="-8dp"
-                android:layout_marginBottom="-8dp"
+                android:layout_marginTop="-10dp"
+                android:layout_marginEnd="-4dp"
+                android:layout_marginBottom="-10dp"
                 android:background="@drawable/border_boxcolor"
                 app:layout_constraintBottom_toBottomOf="@+id/tvBoardDetailCmtCnt"
                 app:layout_constraintEnd_toEndOf="@+id/tvBoardDetailContent"
@@ -71,18 +72,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:text="산 이름"
                 android:textColor="#000000"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/imageView7"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvBoardDetailTitle" />
 
             <TextView
                 android:id="@+id/tvBoardDetailUserNick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:text="작성자 닉네임"
                 android:textColor="#000000"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/imgBoardDetailPropic"
                 app:layout_constraintStart_toEndOf="@+id/imgBoardDetailPropic"
                 app:layout_constraintTop_toTopOf="@+id/imgBoardDetailPropic" />
@@ -107,7 +111,7 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvBoardDetailDelete"
+                app:layout_constraintTop_toBottomOf="@+id/tvBoardDetailDate"
                 app:srcCompat="@drawable/echo" />
 
             <TextView
@@ -136,11 +140,11 @@
                 android:id="@+id/tvBoardDetailDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
                 android:text="작성일자"
                 android:textColor="#000000"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvBoardDetailUserNick" />
+                app:layout_constraintStart_toStartOf="@+id/imgBoardDetailPropic"
+                app:layout_constraintTop_toBottomOf="@+id/tvBoardDetailUserNick" />
 
             <ImageView
                 android:id="@+id/imgBoardDetailReco"
@@ -177,7 +181,7 @@
                 android:id="@+id/tvBoardDetailModify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="8dp"
                 android:text="수정"
                 android:textColor="#000000"
                 android:visibility="invisible"
@@ -188,13 +192,12 @@
                 android:id="@+id/tvBoardDetailDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
                 android:text="삭제"
                 android:textColor="#950202"
                 android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvBoardDetailDate" />
+                app:layout_constraintEnd_toEndOf="@+id/tvBoardDetailMntName"
+                app:layout_constraintTop_toBottomOf="@+id/tvBoardDetailMntName" />
 
             <ImageView
                 android:id="@+id/imgBoardDetailShare"
@@ -207,11 +210,11 @@
 
             <ImageView
                 android:id="@+id/imageView7"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tvBoardDetailMntName"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvBoardDetailMntName"
                 app:layout_constraintTop_toTopOf="@+id/tvBoardDetailMntName"
                 app:srcCompat="@drawable/echo" />
 
@@ -225,13 +228,13 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_back" />
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgBoardDetailPropic"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="@+id/imageView7"
-                app:layout_constraintTop_toBottomOf="@+id/imageView7"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView7"
                 app:srcCompat="@drawable/ic_baseline_person_24" />
 
             <ImageView
@@ -243,6 +246,52 @@
                 app:layout_constraintStart_toEndOf="@+id/tvBoardDetailRecoCnt"
                 app:layout_constraintTop_toTopOf="@+id/tvBoardDetailRecoCnt"
                 app:srcCompat="@drawable/ic_baseline_mode_comment_24" />
+
+            <View
+                android:id="@+id/noComment1"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="32dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="@+id/view19"
+                app:layout_constraintStart_toStartOf="@+id/view19"
+                app:layout_constraintTop_toBottomOf="@+id/view19" />
+
+            <TextView
+                android:id="@+id/noComment2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="등록된 댓글이 없습니다"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/noComment1"
+                app:layout_constraintStart_toStartOf="@+id/noComment1"
+                app:layout_constraintTop_toBottomOf="@+id/noComment3" />
+
+            <ImageView
+                android:id="@+id/noComment3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="@+id/noComment1"
+                app:layout_constraintStart_toStartOf="@+id/noComment1"
+                app:layout_constraintTop_toTopOf="@+id/noComment1"
+                app:srcCompat="@drawable/ic_baseline_comments_disabled_24" />
+
+            <TextView
+                android:id="@+id/noComment4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="가장 먼저 댓글을 등록해보세요!"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/noComment2"
+                app:layout_constraintStart_toStartOf="@+id/noComment2"
+                app:layout_constraintTop_toBottomOf="@+id/noComment2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

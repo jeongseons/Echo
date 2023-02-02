@@ -73,6 +73,7 @@ class DetailSettingFragment : Fragment() {
         val rvGroupSettingJoinList = view.findViewById<RecyclerView>(R.id.rvGroupSettingJoinList)
         val tvGroupSettingDel = view.findViewById<TextView>(R.id.tvGroupSettingDel)
         val tvGroupSettingOut = view.findViewById<TextView>(R.id.tvGroupSettingOut)
+        val textView44 = view.findViewById<TextView>(R.id.textView44)
 
 
         //모임명 셋팅
@@ -87,6 +88,7 @@ class DetailSettingFragment : Fragment() {
 
         }else{
             textViewGroupSetting7.visibility=View.GONE
+            textView44.visibility=View.GONE
             tvGroupSettingDel.visibility=View.GONE
 
             tvGroupSettingOut.visibility=View.VISIBLE
@@ -174,6 +176,12 @@ class DetailSettingFragment : Fragment() {
                                     response.body()!!.get(i).user_nick,
                                 )
                             )
+
+                            if(joinList.size==0){
+                                textView44.visibility=View.VISIBLE
+                            }else{
+                                textView44.visibility=View.GONE
+                            }
                         }
                         //리스트 추가후 어댑터 새로고침 필수!
                         adapter.notifyDataSetChanged()

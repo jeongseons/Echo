@@ -90,13 +90,13 @@
 
     <ImageView
         android:id="@+id/imgMyBoardReco"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/tvBoardDate"
         app:layout_constraintStart_toEndOf="@+id/tvBoardDate"
         app:layout_constraintTop_toTopOf="@+id/tvBoardDate"
-        app:srcCompat="@drawable/bookmarkheart" />
+        app:srcCompat="@drawable/unbookmarkheart" />
 
     <ImageView
         android:id="@+id/imageView9"

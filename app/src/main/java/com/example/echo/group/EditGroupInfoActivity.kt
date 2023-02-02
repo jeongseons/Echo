@@ -20,6 +20,11 @@ class EditGroupInfoActivity : Activity() {
         val ckEditGroupInfoType1 = findViewById<CheckBox>(R.id.ckEditGroupInfoType1)
         val ckEditGroupInfoType2 = findViewById<CheckBox>(R.id.ckEditGroupInfoType2)
 
+        val imgEditGroupInfoMoveBack = findViewById<ImageView>(R.id.imgEditGroupInfoMoveBack)
+        imgEditGroupInfoMoveBack.setOnClickListener {
+            finish()
+        }
+
         //스피너 값 적용
         val spEditGroupInfoMax = findViewById<Spinner>(R.id.spEditGroupInfoMax)
         spEditGroupInfoMax.adapter = ArrayAdapter.createFromResource(this,

@@ -295,6 +295,17 @@
                 app:layout_constraintEnd_toEndOf="@+id/view"
                 app:layout_constraintStart_toStartOf="@+id/view" />
 
+            <TextView
+                android:id="@+id/textView44"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="대기 중인 가입 신청이 없습니다."
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/textViewGroupSetting7"
+                app:layout_constraintStart_toStartOf="@+id/textViewGroupSetting7"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGroupSetting7" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

@@ -1,5 +1,6 @@
 package com.example.echo.group.detail
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.util.Log
@@ -57,6 +58,7 @@ class PersonAdapter(
         return ViewHolder(view)
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvPersonNick.setText(personlist[position].user_nick)
 
@@ -67,6 +69,7 @@ class PersonAdapter(
             holder.imgPersonKing.isVisible = false
         } else {
             holder.tvPersonAuth.text = "그룹장"
+            holder.tvPersonAuth.setTextColor(R.color.black)
         }
 
         Glide.with(this.context)

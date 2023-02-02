@@ -35,6 +35,10 @@ class ReviseActivity : AppCompatActivity() {
         binding = ActivityReviseBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.imgReviseMoveBack.setOnClickListener {
+            finish()
+        }
+
         val user_id = intent.getStringExtra("user_id")
         val user_nick = intent.getStringExtra("user_nick")
         val user_profile_img = intent.getStringExtra("user_profile_img")
