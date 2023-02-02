@@ -121,7 +121,7 @@ interface API {
 
     @PUT("api/group")
     fun modifyGroup(
-        @Body group : GroupVO
+        @Body group : SettingGroupVO
     ): Call<ResponseBody>
 
     @DELETE("api/group")
@@ -129,5 +129,6 @@ interface API {
         @Query("group_seq") group_seq: Int,
         @Query("user_id") user_id : String
     ): Call<ResponseBody>
+
 
 }

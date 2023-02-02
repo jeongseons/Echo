@@ -2,7 +2,6 @@ package com.example.echo.path
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Context.*
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -10,36 +9,37 @@ import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
-import android.hardware.SensorManager
 import android.location.Location
+import android.location.Location.distanceBetween
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.example.echo.R
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.PolylineOptions
 import kotlinx.android.synthetic.main.fragment_map.*
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.concurrent.timer
+
 
 private var mMap: GoogleMap? = null
 private var REQUEST_ACCESS_FINE_LOCATION = 1000
@@ -77,6 +77,12 @@ var averSpeed: String? = null
 //만보기
 var pedometer: Int = 0
 
+var startLatLng: LatLng =  LatLng(0.0,0.0)
+
+lateinit var tvMapTotalTime:TextView
+lateinit var tvMapTotalDistance:TextView
+lateinit var tvMapTotalAlt:TextView
+
 class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
     SensorEventListener {
 
@@ -91,7 +97,7 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
                 if ((grantResults.isNotEmpty()) && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     addLocationListener()
                 } else {
-                    Toast.makeText(requireContext(), "Permission Denied.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "권한이 없습니다.", Toast.LENGTH_LONG).show()
                 }
                 return
             }
@@ -110,11 +116,15 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
         val flMap = view.findViewById<FrameLayout>(R.id.flMap)
         val btnMapRecordStart2 = view.findViewById<Button>(R.id.btnMapRecordStart2)
         val btnMapRecordEnd2 = view.findViewById<Button>(R.id.btnMapRecordEnd2)
+        tvMapTotalTime = view.findViewById(R.id.tvMapTotalTime)
+        tvMapTotalDistance = view.findViewById(R.id.tvMapTotalDistance)
+        tvMapTotalAlt = view.findViewById(R.id.tvMapTotalAlt)
 
         childFragmentManager.beginTransaction().replace(
             R.id.flMap,
             MapFragment3()
         ).commit()
+
 
         btnMapRecordEnd2.visibility = View.INVISIBLE
         btnMapRecordStart2.setOnClickListener {
@@ -123,7 +133,7 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
             btnMapRecordEnd2.visibility = View.VISIBLE
             btnMapRecordStart2.visibility = View.INVISIBLE
             Log.d("test-시작버튼클릭", recordStart.toString())
-
+            startTimer()
         }
         btnMapRecordEnd2.setOnClickListener {
             recordStart = false
@@ -131,7 +141,7 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
             btnMapRecordStart2.visibility = View.VISIBLE
             btnMapRecordEnd2.visibility = View.INVISIBLE
             Log.d("test-종료버튼클릭", recordStart.toString())
-
+            pauseTimer()
         }
 
 //        var mapfr: Fragment = MapFragment()
@@ -221,6 +231,7 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
 
 
     //타이머 측정 함수  TODO: period를 10으로 두면 백그라운드에서 엄청 느리게감. 이유찾아보기
+    @SuppressLint("SetTextI18n")
     private fun startTimer() {
         timeTask = timer(period = 1000) {
 
@@ -234,27 +245,34 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
 
             // 밑의 TextView.text 들이 null 을 입력받는 시점이 있음. 이 때 ?을 넣어줘야함.
             // thread에선 view 못 건드리므로 runOnUiThread 사용하여 변경
-//            runOnUiThread {
-//                //UI를 갱신해주는 쓰레드
+//            Activity().runOnUiThread {
+////                //UI를 갱신해주는 쓰레드
+////
+////                secTextView?.text = sec.toString()
+////                minTextView?.text = min.toString()
+////                hourTextView?.text = hour.toString()
+//                tvMapTotalTime.text = "${hour}:${min}:${sec}"
 //
-//                secTextView?.text = sec.toString()
-//                minTextView?.text = min.toString()
-//                hourTextView?.text = hour.toString()
+//            }
 
-            }
+            val handler = Handler(Looper.getMainLooper())
+            handler.postDelayed(Runnable {
+                tvMapTotalTime.text = "${hour}:${min}:${sec}"
+            }, 0)
         }
 
+    }
 
     private fun pauseTimer() {
 
-//        timeTask?.cancel()  //Timer의 객체로써 null일수 있기에 timetask 옆에 ? 붙음.
+        timeTask?.cancel()  //Timer의 객체로써 null일수 있기에 timetask 옆에 ? 붙음.
     }
 
 
     //TODO : start 누르는 순간 기록 시작. upload 누를 시 firestore에 업로드
     inner class MyLocationCallback : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult?) {
-            super.onLocationResult(locationResult)
+            super.onLocationResult(locationResult!!)
 
             val location = locationResult?.lastLocation
             //var circleOptions = CircleOptions()
@@ -274,6 +292,12 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
                 //latitude,longitude를 builder에 넣어 나중에 모든 경로에 대해 알맞게 카메라 조정을 할 수 있음.
                 builder.include(LatLng(latitude, longitude))
 
+                if (recordPressed) {
+                    recordStart = true
+                    // 이전 기록 저장
+                    before_location[0] = location!!.latitude
+                    before_location[1] = location!!.longitude
+                }
 
                 if (recordStart) {
 
@@ -283,12 +307,13 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
                     println("고도: " + max_altitude)
                     //latitude,longitude를 builder에 넣어 나중에 모든 경로에 대해 알맞게 카메라 조정을 할 수 있음.
                     //builder.include(LatLng(latitude, longitude))
+                    tvMapTotalAlt.text = max_altitude.toString()
 
                     // 위도, 경도 저장
                     latlngArray.add(Pair(latitude, longitude))
 
-                    val arrayex = FloatArray(1)
-//                    Location.distanceBetween(
+//                    val arrayex = FloatArray(1)
+//                    distanceBetween(
 //                        latitude,
 //                        longitude,
 //                        before_location[0]!!,
@@ -297,13 +322,14 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
 //                    )
 //
 //                    total_distance += arrayex[0] / 1000
-//
-//                    // 거리 표시
-////                    distanceKm.text = String.format("%.2f", total_distance)
-//                    // 시속 표시
+//                    tvMapTotalDistance.text = total_distance.toString()
+
+                    // 거리 표시
+//                    distanceKm.text = String.format("%.2f", total_distance)
+                    // 시속 표시
 //                    averSpeed = String.format("%.2f", total_distance * (3600 / total_sec))
-////                    averageSpeed.text = averSpeed
-//
+//                    averageSpeed.text = averSpeed
+
 //                    println("거리:" + total_distance)
 //                    println("초:" + total_sec)
 //                    println("시속: " + (total_distance * (3600 / total_sec)) + "km")
@@ -315,18 +341,13 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
                     polylineOptions.visible(true)   // 선이 보여질지/안보여질지 옵션.
 
                     mMap?.addPolyline(polylineOptions)
+                    mMap?.moveCamera(CameraUpdateFactory.newLatLng(latLng))
 
                 }
                 Log.d("test-종료버튼클릭", recordStart.toString())
 
             }
 
-            if (recordPressed) {
-                recordStart = true
-                // 이전 기록 저장
-                before_location[0] = location!!.latitude
-                before_location[1] = location!!.longitude
-            }
         }
     }
 

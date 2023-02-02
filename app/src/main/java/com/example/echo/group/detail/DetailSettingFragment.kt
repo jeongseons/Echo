@@ -33,6 +33,7 @@ class DetailSettingFragment : Fragment() {
     lateinit var adapter: JoinListAdapter
     var joinList = ArrayList<PersonVO>()
     var user_id : String = ""
+    var group_profile_img : String = ""
 
     lateinit var tvGroupSettingMax : TextView
     lateinit var tvGroupSettingType : TextView
@@ -135,6 +136,16 @@ class DetailSettingFragment : Fragment() {
         tvGroupSettingEdit.setOnClickListener{
             //정보 수정 클릭시 정보 수정 페이지로 이동
             val intent = Intent(context, EditGroupInfoActivity::class.java)
+            intent.putExtra("group_profile_img",tvGroupSettingTitle.text)
+            intent.putExtra("group_profile_img", group_profile_img)
+            intent.putExtra("user_max", tvGroupSettingMax.text)
+            intent.putExtra("group_name", tvGroupSettingTitle.text)
+            intent.putExtra("group_area", tvGroupSettingArea.text)
+            intent.putExtra("group_age", tvGroupSettingAge.text)
+            intent.putExtra("group_level", tvGroupSettingLevel.text )
+            intent.putExtra("group_gender", tvGroupSettingGender.text)
+            intent.putExtra("group_detail", tvGroupSettingDetail.text)
+            intent.putExtra("group_seq", groupSeq)
             startActivity(intent)
         }
 
@@ -243,6 +254,7 @@ class DetailSettingFragment : Fragment() {
                     tvGroupSettingLevel.text = body.group_level
                     tvGroupSettingGender.text = body.group_gender
                     tvGroupSettingDetail.text = body.group_detail
+                    group_profile_img = body.group_profile_img
 
                 }
             }

@@ -1,6 +1,5 @@
 package com.example.echo.path
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
@@ -9,7 +8,6 @@ import android.graphics.Color
 import android.location.*
 import android.location.LocationListener
 import android.os.Bundle
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,11 +16,9 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.echo.R
 import com.google.android.gms.location.*
-import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
@@ -66,7 +62,7 @@ class MapFragment2 : Fragment(), OnMapReadyCallback {
         val btnMapRecordStart2 = view.findViewById<Button>(R.id.btnMapRecordStart2)
         val btnMapRecordEnd2 = view.findViewById<Button>(R.id.btnMapRecordEnd2)
         tvMapCurrentTime2 = view.findViewById(R.id.tvMapCurrentTime2)
-        val tvMApCurrentLocation2 = view.findViewById<TextView>(R.id.tvMApCurrentLocation2)
+        val tvMApCurrentLocation2 = view.findViewById<TextView>(R.id.tvMapCurrentLocation2)
         var tvMapTimer = view.findViewById<TextView>(R.id.tvMapTimer2)
 //        tvMapTimer.visibility = View.INVISIBLE
         btnMapRecordEnd2.visibility = View.INVISIBLE
