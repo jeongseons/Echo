@@ -58,7 +58,8 @@ data class JoinGroupVO(val group_seq:Int,
                        val group_detail: String)
 
 //모임 설정 변경용 모델
-data class SettingGroupVO(val group_profile_img:String,
+data class SettingGroupVO(val group_seq:Int,
+                          val group_profile_img:String,
                           val group_name : String,
                           val group_area : String,
                           val user_max : Int,

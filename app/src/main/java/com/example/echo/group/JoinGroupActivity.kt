@@ -11,7 +11,6 @@ import android.widget.Spinner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.echo.HomeFragment
 import com.example.echo.R
-import com.example.echo.path.MapFragment
 
 class JoinGroupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

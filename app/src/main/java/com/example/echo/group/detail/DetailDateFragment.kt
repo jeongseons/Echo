@@ -2,41 +2,32 @@ package com.example.echo.group.detail
 
 import EventDeco
 import android.content.Intent
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ScrollView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
 import com.example.echo.group.DateVO
-import com.example.echo.group.GroupVO
-import com.example.echo.group.NewDateVO
 import com.example.echo.group.detail.CalendarDecorate.*
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
+import kotlinx.android.synthetic.main.fragment_detail_date.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.Closeable
 import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class DetailDateFragment : Fragment() {
@@ -45,6 +36,8 @@ class DetailDateFragment : Fragment() {
     lateinit var adapter : DetailDateAdapter
     lateinit var cvGroupCalendar:MaterialCalendarView
     lateinit var adapterDate:String
+    lateinit var detailDateScrollView:ScrollView
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -58,6 +51,9 @@ class DetailDateFragment : Fragment() {
 
         cvGroupCalendar = view.findViewById(R.id.cvGroupCalendar)
         val rvDetailGroupDate = view.findViewById<RecyclerView>(R.id.rvDetailGroupDate)
+
+        detailDateScrollView = view.findViewById(R.id.detailDateScrollView)
+
 
         //모임장인 경우에만 활성화
         val btnNewDate = view.findViewById<Button>(R.id.btnNewDate)
@@ -91,8 +87,10 @@ class DetailDateFragment : Fragment() {
         cvGroupCalendar.addDecorator(OtherDaysDeco(month.toInt()-1))
 
 
+
         //달력 이동시 데코레이션 적용
         cvGroupCalendar.setOnMonthChangedListener { widget, date ->
+
             var month = (date.month + 1).toString()
 
             if (month.toInt() < 10) month = "0$month"
@@ -116,6 +114,7 @@ class DetailDateFragment : Fragment() {
 
         //선택 일자에 따라 상세 일정 띄워주는 부분 어댑터
         cvGroupCalendar.setOnDateChangedListener(OnDateSelectedListener { widget, date, selected ->
+
             val year = date.year
             val month = date.month+1
             val day = date.day
@@ -139,16 +138,13 @@ class DetailDateFragment : Fragment() {
 
             Log.d("값확인-날짜변경리스너",adapterDate)
 
+            detailDateScrollView.fullScroll(ScrollView.FOCUS_DOWN)
+
         })
         val AdapterDateNow = LocalDate.now().toString()
         adapter = DetailDateAdapter(requireContext(),dateList,AdapterDateNow,auth!!)
         rvDetailGroupDate.adapter = adapter
         rvDetailGroupDate.layoutManager = LinearLayoutManager(requireContext())
-
-
-
-
-
 
 
         btnNewDate.setOnClickListener{
@@ -223,6 +219,8 @@ class DetailDateFragment : Fragment() {
                             cvGroupCalendar.addDecorator(EventDeco
                                 (requireContext(),colorArray,CalendarDay(year,month-1,day)))
                         }
+
+
 
 
                         //리스트 추가후 어댑터 새로고침 필수!

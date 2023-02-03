@@ -9,7 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.echo.R
+import com.example.echo.myPage.binding
+import com.example.echo.myPage.user_profile_img
 
 class JoinGroupAdapter (val context: Context, var grouplist: ArrayList<GroupVO>):
     RecyclerView.Adapter<JoinGroupAdapter.ViewHolder>(){
@@ -51,8 +55,11 @@ class JoinGroupAdapter (val context: Context, var grouplist: ArrayList<GroupVO>)
         holder.imgKingCk.visibility=View.GONE
         holder.tvGroupTitle.setText(grouplist[position].group_name)
         holder.tvGroupPer.setText("(${grouplist[position].group_current}/${grouplist[position].user_max})")
-        holder.imgGroupPro.setImageResource(R.drawable.p1)//
-
+        Glide.with(context)
+            .load(grouplist[position].group_profile_img)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+            .into( holder.imgGroupPro)
     }
 
     override fun getItemCount(): Int {

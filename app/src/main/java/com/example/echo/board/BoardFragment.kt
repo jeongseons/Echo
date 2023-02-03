@@ -67,6 +67,7 @@ class BoardFragment : Fragment() {
         rvBoardList.layoutManager = LinearLayoutManager(requireContext())
 
 
+
         return view
 
     }

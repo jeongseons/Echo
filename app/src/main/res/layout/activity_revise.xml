@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".myPage.ReviseActivity">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgReviseProfile"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView41"
         app:srcCompat="@drawable/profile" />
 
     <TextView
@@ -21,47 +21,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="프로필 사진 등록"
-        android:textColor="#009688"
+        android:text="프로필 사진 변경"
+        android:textColor="@color/lightColor"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/imgReviseProfile"
         app:layout_constraintHorizontal_bias="0.456"
         app:layout_constraintStart_toStartOf="@+id/imgReviseProfile"
         app:layout_constraintTop_toBottomOf="@+id/imgReviseProfile" />
 
-    <TextView
-        android:id="@+id/TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="152dp"
-        android:text="닉네임"
-        android:textColor="#000000"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvReviseProfile" />
-
     <EditText
         android:id="@+id/etReviseUserNick"
         android:layout_width="257dp"
         android:layout_height="43dp"
-        android:layout_marginTop="28dp"
-        android:backgroundTint="#FFFFFF"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/border_boxcolor"
         android:ems="10"
-        android:hint="내용을 입력해주세요"
+        android:hint="닉네임을 입력하세요"
         android:inputType="textPersonName"
+        android:maxLength="10"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         app:layout_constraintEnd_toEndOf="@+id/imgReviseProfile"
         app:layout_constraintStart_toStartOf="@+id/imgReviseProfile"
-        app:layout_constraintTop_toBottomOf="@+id/TextView" />
+        app:layout_constraintTop_toBottomOf="@+id/tvReviseProfile" />
 
     <Button
         android:id="@+id/btnRevise"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:backgroundTint="#009688"
+        android:background="@drawable/button_style"
         android:text="저장"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,6 +59,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etReviseUserNick"
         app:layout_constraintVertical_bias="0.427" />
+
+    <TextView
+        android:id="@+id/textView41"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="프로필 변경"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgReviseMoveBack"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

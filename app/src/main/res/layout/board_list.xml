@@ -9,47 +9,53 @@
         android:id="@+id/tvBoardTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:text="타이틀"
+        android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvBoardMntName"
         app:layout_constraintTop_toBottomOf="@+id/tvBoardMntName" />
 
     <TextView
         android:id="@+id/tvBoardDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:text="작성일자"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvBoardTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvBoardTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvMyBoardWriterLabel" />
 
     <TextView
         android:id="@+id/tvMyBoardWriterLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="글쓴이 :"
+        android:text="작성자 "
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="@+id/tvBoardDate"
-        app:layout_constraintTop_toBottomOf="@+id/tvBoardDate" />
+        app:layout_constraintTop_toBottomOf="@+id/tvBoardTitle" />
 
     <TextView
         android:id="@+id/tvBoardWriter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:text="누리"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/tvMyBoardWriterLabel"
         app:layout_constraintStart_toEndOf="@+id/tvMyBoardWriterLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tvBoardDate" />
+        app:layout_constraintTop_toTopOf="@+id/tvMyBoardWriterLabel" />
 
     <TextView
         android:id="@+id/tvBoardRecoCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="4dp"
         android:text="좋아요수"
-        app:layout_constraintBottom_toTopOf="@+id/tvMyBoardWriterLabel"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/imgMyBoardReco"
         app:layout_constraintStart_toEndOf="@+id/imgMyBoardReco"
-        app:layout_constraintTop_toTopOf="@+id/tvBoardDate" />
+        app:layout_constraintTop_toTopOf="@+id/imgMyBoardReco" />
 
     <TextView
         android:id="@+id/tvBoardMntName"
@@ -58,36 +64,59 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="산이름"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imgBoardPic"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="@+id/tvBoardCommCount"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvBoardTitle"
+        app:layout_constraintVertical_bias="0.50"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/tvMyBoardLine"
         android:layout_width="600dp"
         android:layout_height="wrap_content"
+        android:textColor="#000000"
         tools:layout_editor_absoluteX="-35dp"
         tools:layout_editor_absoluteY="-3dp" />
 
     <ImageView
         android:id="@+id/imgMyBoardReco"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvBoardDate"
+        app:layout_constraintStart_toEndOf="@+id/tvBoardDate"
+        app:layout_constraintTop_toTopOf="@+id/tvBoardDate"
+        app:srcCompat="@drawable/unbookmarkheart" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvBoardRecoCount"
+        app:layout_constraintStart_toEndOf="@+id/tvBoardRecoCount"
+        app:layout_constraintTop_toTopOf="@+id/tvBoardRecoCount"
+        app:srcCompat="@drawable/ic_baseline_mode_comment_24" />
+
+    <TextView
+        android:id="@+id/tvBoardCommCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvMyBoardWriterLabel"
-        app:layout_constraintStart_toEndOf="@+id/tvBoardDate"
-        app:layout_constraintTop_toBottomOf="@+id/tvBoardTitle"
-        app:srcCompat="@drawable/ic_baseline_recommend_24" />
+        android:layout_marginStart="4dp"
+        android:text="댓글 수"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+        app:layout_constraintStart_toEndOf="@+id/imageView9"
+        app:layout_constraintTop_toTopOf="@+id/imageView9" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.echo.group
 
+import android.app.Activity
 import android.content.ContentValues
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +20,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class JoinGroupProfileActivity : AppCompatActivity() {
+class JoinGroupProfileActivity : Activity() {
     lateinit var groupInfo : JoinGroupVO
     lateinit var tvJoinGroupProfileTitle : TextView
     lateinit var tvJoinGroupProfileMaster : TextView
@@ -31,11 +32,11 @@ class JoinGroupProfileActivity : AppCompatActivity() {
     lateinit var tvJoinGroupProfileLevel : TextView
     lateinit var imgJoinGroupProfile : ImageView
     lateinit var btnJoinGroupProfileJoin : Button
-    lateinit var tvJoinGroupProfileDate : TextView
     lateinit var tvJoinGroupProfileDetail : TextView
 
 
     var id: String = ""
+    var group_title = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +52,12 @@ class JoinGroupProfileActivity : AppCompatActivity() {
         tvJoinGroupProfileLevel = findViewById(R.id.tvJoinGroupProfileLevel)
         imgJoinGroupProfile = findViewById(R.id.imgJoinGroupProfile)
         tvJoinGroupProfileDetail = findViewById(R.id.tvJoinGroupProfileDetail)
-
         btnJoinGroupProfileJoin = findViewById<Button>(R.id.btnJoinGroupProfileJoin)
+
+        val imgJoinGroupProfileMoveBack = findViewById<ImageView>(R.id.imgJoinGroupProfileMoveBack)
+        imgJoinGroupProfileMoveBack.setOnClickListener {
+            finish()
+        }
 
         val seq = intent.getIntExtra("num", 0)
 
@@ -77,14 +82,14 @@ class JoinGroupProfileActivity : AppCompatActivity() {
         btnJoinGroupProfileJoin.setOnClickListener {
             val dialog: AlertDialog.Builder = AlertDialog.Builder(
                 this@JoinGroupProfileActivity,
-                android.R.style.Theme_DeviceDefault_Light_Dialog
+                android.R.style.ThemeOverlay_Material_Dialog_Alert
             )
-            dialog.setMessage("모임이름 에 가입 신청을 하시겠습니까?")
+            dialog.setMessage("${group_title}에 가입 신청을 하시겠습니까?")
                 .setTitle("가입 신청")
                 .setPositiveButton("아니오", DialogInterface.OnClickListener { dialog, which ->
                     Log.i("Dialog", "취소")
                 })
-                .setNeutralButton("예", //다이얼로그 현재 안되는듯합니다.
+                .setNeutralButton("예",
                     DialogInterface.OnClickListener { dialog, which ->
                         GroupSignUp(seq, id)
                         Toast.makeText(this,"가입 신청이 완료되었습니다",Toast.LENGTH_SHORT).show()
@@ -135,6 +140,7 @@ class JoinGroupProfileActivity : AppCompatActivity() {
                         response.body()!!.group_type,
                         response.body()!!.group_detail)
 
+                    group_title = groupInfo.group_name
                     tvJoinGroupProfileTitle.setText(groupInfo.group_name)
                     tvJoinGroupProfileMaster.setText(groupInfo.group_owner_id)
                     tvJoinGroupProfileMax.setText("${groupInfo.group_current}/${groupInfo.user_max}")

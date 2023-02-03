@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.echo.HomeFragment
@@ -33,6 +34,10 @@ class GroupActivity : AppCompatActivity() {
         val tvGroupTitle2 = findViewById<TextView>(R.id.tvGroupTitle2)
         val flGroup = findViewById<FrameLayout>(R.id.flGroup)
         val bnvGroup = findViewById<BottomNavigationView>(R.id.bnvGroup)
+        val imgGroupMoveBack = findViewById<ImageView>(R.id.imgGroupMoveBack)
+        imgGroupMoveBack.setOnClickListener {
+            finish()
+        }
 
         val intent = getIntent()
 

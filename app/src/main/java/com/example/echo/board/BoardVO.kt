@@ -20,6 +20,8 @@ data class BoardListVO(
     var user_id: String = "",
     var mnt_name: String = "",
     var user_nick: String = "",
-    var board_reco_cnt: Int
+    var user_profile_img: String ="",
+    var board_reco_cnt: Int,
+    var board_cmt_cnt: Int
 ) {
 }
