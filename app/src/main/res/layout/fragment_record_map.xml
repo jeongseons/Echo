@@ -35,24 +35,38 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/btnMapRecordPause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginBottom="108dp"
+            android:text="일시정지"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
             android:id="@+id/btnMapRecordStart2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="120dp"
-            android:text="기록시작하기"
+            android:layout_marginStart="100dp"
+            android:layout_marginBottom="108dp"
+            android:text="기록시작"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/btnMapRecordEnd2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="120dp"
-            android:text="기록중지하기"
+            android:layout_marginEnd="100dp"
+            android:layout_marginBottom="108dp"
+            android:text="기록중지"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/btnMapRecordStart2"
+            app:layout_constraintTop_toTopOf="@+id/btnMapRecordStart2"
+            app:layout_constraintVertical_bias="0.0" />
 
         <FrameLayout
             android:id="@+id/flMap"
