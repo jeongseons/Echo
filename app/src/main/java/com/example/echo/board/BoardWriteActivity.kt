@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.echo.MainActivity
 import com.example.echo.RetrofitBuilder
 import com.example.echo.databinding.ActivityBoardWriteBinding
@@ -28,7 +29,9 @@ import java.lang.System.currentTimeMillis
 private lateinit var binding: ActivityBoardWriteBinding
 class BoardWriteActivity : AppCompatActivity() {
     var user_id = ""
+    var board_file = ""
     var modifyCk = ""
+    var fileCk = false
     var board_seq = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,48 +42,59 @@ class BoardWriteActivity : AppCompatActivity() {
             user_id = user?.id.toString()
         }
 
-        binding.imgBoardWritePic.setOnClickListener {
+        binding.btnBoardWritePic.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_PICK,
                 MediaStore.Images.Media.INTERNAL_CONTENT_URI
             )
             launcher.launch(intent)
+            Log.d("test-이미지업로드", binding.imgBoardWritePic.drawable.toString())
         }
 
-        // 글 수정 경우
+        // 글 수정시 내용 불러오기
         modifyCk = intent.getStringExtra("modifyCk").toString()
-        if(modifyCk=="true"){
+        if(modifyCk=="true") {
+
             board_seq = intent.getIntExtra("board_seq", 0)
             val board_title = intent.getStringExtra("board_title")
             val board_content = intent.getStringExtra("board_content")
-            val board_file = intent.getStringExtra("board_file")
+            board_file = intent.getStringExtra("board_file").toString()
             val user_nick = intent.getStringExtra("user_nick")
             var board_dt = intent.getStringExtra("board_dt")
             var user_id = intent.getStringExtra("user_id")
             var mnt_name = intent.getStringExtra("mnt_name")
 
+            binding.tvBoardWriteLine.text = "게시글 수정"
+            binding.btnBoardWrtePost.text = "게시글 수정"
             binding.etBoardWriteTitle.setText(board_title)
             binding.etBoardWrtieContent.setText(board_content)
             binding.etBoardWriteMnt.setText(mnt_name)
-            Glide.with(this)
-                .load(board_file)
-                .into(binding.imgBoardWritePic) //지역변수
+            if (board_file!!.isNotEmpty()) {
+                Glide.with(this)
+                    .load(board_file)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(binding.imgBoardWritePic)
+            }
         }
 
+        // 글 등록
         binding.btnBoardWrtePost.setOnClickListener {
             var emptyCk = true
 
             var board_title = binding.etBoardWriteTitle.text.toString()
             var board_content = binding.etBoardWrtieContent.text.toString()
             var mnt_name = binding.etBoardWriteMnt.text.toString()
+
+            if(fileCk||modifyCk == "true" && board_file.isNotEmpty()){
             var key = "${user_id}${mnt_name}${board_title}${currentTimeMillis()}"
             imgUpload(key)
-            var board_file = "https://firebasestorage.googleapis.com/v0/b/echo-73cf6.appspot.com/o/${key}.png?alt=media"
+                board_file = "https://firebasestorage.googleapis.com/v0/b/echo-73cf6.appspot.com/o/${key}.png?alt=media"
+            }
 
             if(board_title.isEmpty()){
                 emptyCk = false
                 Toast.makeText(this,"제목을 입력해주세요",Toast.LENGTH_SHORT).show()
-
             }
             if(board_content.isEmpty()){
                 emptyCk = false
@@ -95,9 +109,8 @@ class BoardWriteActivity : AppCompatActivity() {
                 Toast.makeText(this,"산 이름을 'OO산'형식으로 정확히 입력해주세요",Toast.LENGTH_SHORT).show()
             }
 
-            // 글 수정 경우
-            if(emptyCk) {
-                if (modifyCk == "true") {
+                // 글 수정 경우
+                if (emptyCk && modifyCk == "true") {
                     var board = BoardVO(
                         board_seq,
                         board_title,
@@ -109,7 +122,7 @@ class BoardWriteActivity : AppCompatActivity() {
                     )
                     Log.d("test-글수정시", board.toString())
                     modifyBoard(board)
-                } else {
+                } else if (emptyCk && modifyCk != "true"){
                     var board = BoardVO(
                         null,
                         board_title,
@@ -124,12 +137,11 @@ class BoardWriteActivity : AppCompatActivity() {
                 }
             }
 
-        }
-
     }
     val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         //받아올 결과값이 맞는지 확인 과정
         if (it.resultCode == RESULT_OK) binding.imgBoardWritePic.setImageURI(it.data?.data)
+        if (it.data?.data.toString()!=null) fileCk = true
     }
 
     fun imgUpload(key : String) {
@@ -170,8 +182,6 @@ class BoardWriteActivity : AppCompatActivity() {
                 ).show()
 
                 finish()
-
-
             }
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Log.d("test-글등록실패", t.localizedMessage)

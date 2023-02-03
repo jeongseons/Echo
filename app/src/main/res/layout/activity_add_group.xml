@@ -6,15 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".group.AddGroupActivity">
 
-    <Button
-        android:id="@+id/btnAddGroupBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/imgAddGroupBack"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="뒤로가기"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back" />
+
+    <TextView
+        android:id="@+id/tvAddGroupBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="뒤로가기"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/imgAddGroupBack"
+        app:layout_constraintStart_toEndOf="@+id/imgAddGroupBack"
+        app:layout_constraintTop_toTopOf="@+id/imgAddGroupBack" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -23,14 +33,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgAddGroupBack"
         app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgAddGroup"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -70,7 +80,8 @@
                 android:layout_height="0dp"
                 android:entries="@array/max"
                 app:layout_constraintBottom_toBottomOf="@+id/textView13"
-                app:layout_constraintEnd_toEndOf="@+id/etAddGroupName" />
+                app:layout_constraintEnd_toEndOf="@+id/etAddGroupName"
+                app:layout_constraintTop_toTopOf="@+id/textView13" />
 
             <TextView
                 android:id="@+id/textView20"
@@ -173,50 +184,28 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
             <TextView
-                android:id="@+id/textView31"
-                android:layout_width="wrap_content"
-                android:layout_height="19dp"
-                android:layout_marginTop="16dp"
-                android:text="산행 일자"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/spAddGroupLevel"
-                app:layout_constraintStart_toStartOf="@+id/textView26"
-                app:layout_constraintTop_toBottomOf="@+id/textView26" />
-
-            <TextView
                 android:id="@+id/tvAddGroupDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="2022-01-12 07:00AM"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="@+id/textView31"
-                app:layout_constraintStart_toStartOf="@+id/textView31"
-                app:layout_constraintTop_toBottomOf="@+id/textView31" />
-
-            <ImageView
-                android:id="@+id/imgAddGroupCalendar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvAddGroupDate"
-                app:layout_constraintStart_toEndOf="@+id/tvAddGroupDate"
-                app:layout_constraintTop_toTopOf="@+id/tvAddGroupDate"
-                app:srcCompat="@drawable/ic_calendar" />
+                android:text="2022-01-12"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewAddGroup5"
+                app:layout_constraintStart_toEndOf="@+id/textViewAddGroup5"
+                app:layout_constraintTop_toTopOf="@+id/textViewAddGroup5" />
 
             <TextView
                 android:id="@+id/textView33"
                 android:layout_width="wrap_content"
                 android:layout_height="19dp"
-                android:layout_marginTop="16dp"
-                android:text="세부 일정"
+                android:layout_marginTop="24dp"
+                android:text="모임 설명"
                 android:textColor="#000000"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/tvAddGroupDate"
-                app:layout_constraintStart_toStartOf="@+id/tvAddGroupDate"
-                app:layout_constraintTop_toBottomOf="@+id/swAddGroupYn" />
+                app:layout_constraintEnd_toEndOf="@+id/spAddGroupLevel"
+                app:layout_constraintStart_toStartOf="@+id/textView26"
+                app:layout_constraintTop_toBottomOf="@+id/spAddGroupLevel" />
 
             <EditText
                 android:id="@+id/mtAddGroupDetailDate"
@@ -238,11 +227,12 @@
                 android:id="@+id/textView30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="24dp"
                 android:text="모임 활동에 필요한 개인정보 수집에 동의 하십니까?"
                 app:layout_constraintEnd_toEndOf="@+id/mtAddGroupDetailDate"
+                app:layout_constraintHorizontal_bias="0.507"
                 app:layout_constraintStart_toStartOf="@+id/mtAddGroupDetailDate"
-                app:layout_constraintTop_toBottomOf="@+id/mtAddGroupDetailDate" />
+                app:layout_constraintTop_toBottomOf="@+id/tvAddGroupDate" />
 
             <CheckBox
                 android:id="@+id/ckAddGroupAgreement1"
@@ -273,15 +263,6 @@
                 app:layout_constraintStart_toStartOf="@+id/ckAddGroupAgreement1"
                 app:layout_constraintTop_toBottomOf="@+id/ckAddGroupAgreement2" />
 
-            <Switch
-                android:id="@+id/swAddGroupYn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="일정 조율 가능"
-                app:layout_constraintStart_toStartOf="@+id/tvAddGroupDate"
-                app:layout_constraintTop_toBottomOf="@+id/tvAddGroupDate" />
-
             <Spinner
                 android:id="@+id/spAddGroupLevel"
                 android:layout_width="150dp"
@@ -289,6 +270,30 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textView26"
                 app:layout_constraintEnd_toEndOf="@+id/spAddGroupAge"
                 app:layout_constraintTop_toTopOf="@+id/textView26" />
+
+            <ImageView
+                android:id="@+id/imgAddGroupProfileEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="-8dp"
+                android:layout_marginBottom="-8dp"
+                android:background="@drawable/border"
+                android:elevation="5dp"
+                android:padding="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imgAddGroup"
+                app:layout_constraintEnd_toEndOf="@+id/imgAddGroup"
+                app:srcCompat="@drawable/ic_edit" />
+
+            <TextView
+                android:id="@+id/textViewAddGroup5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:text="모임개설일"
+                android:textColor="#000000"
+                app:layout_constraintStart_toStartOf="@+id/mtAddGroupDetailDate"
+                app:layout_constraintTop_toBottomOf="@+id/mtAddGroupDetailDate" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
