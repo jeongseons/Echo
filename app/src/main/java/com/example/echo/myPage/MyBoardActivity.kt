@@ -56,10 +56,11 @@ class MyBoardActivity : AppCompatActivity() {
 
         binding.tvMyBoardSelect.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                val cnt: Int = adapter.itemCount //리스트 개수 구하기
-                for (i in 0 until cnt) {
-
-                }
+//                val cnt: Int = adapter.itemCount //리스트 개수 구하기
+//                for (i in 0 until cnt) {
+//
+//                }
+                adapter.setCheckAll()
                 adapter.notifyDataSetChanged()
             }
         })
