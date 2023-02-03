@@ -46,12 +46,6 @@ class GroupFragment : Fragment() {
         val rvGroupList = view.findViewById<RecyclerView>(R.id.rvGroupList)
         val btnAddGroup = view.findViewById<Button>(R.id.btnAddGroup)
         val btnEnterGroup = view.findViewById<Button>(R.id.btnEnterGroup)
-        val btntest = view.findViewById<Button>(R.id.btntest)
-
-        btntest.setOnClickListener {
-            val test = Intent(context, CountActivity::class.java)
-            startActivity(test)
-        }
 
         UserApiClient.instance.me { user, error ->
             if (error != null) {
