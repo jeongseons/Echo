@@ -38,6 +38,10 @@ class BoardWriteActivity : AppCompatActivity() {
         binding = ActivityBoardWriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.imgBoardWriteMpveBack.setOnClickListener {
+            finish()
+        }
+
         UserApiClient.instance.me { user, error ->
             user_id = user?.id.toString()
         }
