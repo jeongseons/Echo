@@ -37,18 +37,18 @@ class MyBoardAdapter(var context: Context, var myBoardList:ArrayList<BoardListVO
 
         val tvMyBoardTitle: TextView
         val tvMyBoardDate: TextView
-        val tvMyBoardWriter: TextView
         val tvMyBoardRecoCount: TextView
         val tvMyBoardMntName: TextView
         val ckMyBoard: CheckBox
+        val tvMyBoardCommCount : TextView
 
         init {
             tvMyBoardTitle = itemView.findViewById(R.id.tvMyBoardTitle)
-            tvMyBoardWriter = itemView.findViewById(R.id.tvMyBoardWriter)
             tvMyBoardDate = itemView.findViewById(R.id.tvMyBoardDate)
             tvMyBoardRecoCount = itemView.findViewById(R.id.tvMyBoardRecoCount)
             tvMyBoardMntName = itemView.findViewById(R.id.tvMyBoardMntName)
             ckMyBoard = itemView.findViewById(R.id.ckMyBoard)
+            tvMyBoardCommCount = itemView.findViewById(R.id.tvMyBoardCommCount)
 
             // 각 게시글 클릭 이벤트 - 게시글 내부로 이동
             itemView.setOnClickListener {
@@ -73,11 +73,11 @@ class MyBoardAdapter(var context: Context, var myBoardList:ArrayList<BoardListVO
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.tvMyBoardTitle.text = myBoardList[position].board_title
-        holder.tvMyBoardWriter.text = myBoardList[position].user_nick
         holder.tvMyBoardDate.text = myBoardList[position].board_dt
         holder.tvMyBoardRecoCount.text = myBoardList[position].board_reco_cnt.toString()
         holder.tvMyBoardMntName.text = myBoardList[position].mnt_name
         holder.ckMyBoard.isChecked = checkboxStatus[position]
+        holder.tvMyBoardCommCount.text=myBoardList[position].board_cmt_cnt.toString()
 
         holder.ckMyBoard.isChecked = checkboxStatus[position]
         holder.ckMyBoard.setOnClickListener {
