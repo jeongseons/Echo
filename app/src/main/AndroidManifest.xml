@@ -32,14 +32,6 @@
             android:exported="true" />
 
         <activity
-            android:name=".group.EditGroupInfoActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-
-        <activity
             android:name=".CountActivity"
             android:exported="false">
             <meta-data

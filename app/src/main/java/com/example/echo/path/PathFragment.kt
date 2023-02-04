@@ -1,15 +1,6 @@
 package com.example.echo.path
 
-import android.Manifest
-import android.content.Context
-import android.content.Context.LOCATION_SERVICE
-import android.content.pm.PackageManager
-import android.content.res.Resources.getSystem
-import android.location.Location
-import android.location.LocationManager
-
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +29,7 @@ class PathFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_path, container, false)
 
 
-        mapView = view.findViewById(R.id.mapView)
+        mapView = view.findViewById(R.id.mapView3)
 
 
 
