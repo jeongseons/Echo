@@ -2,7 +2,9 @@ package com.example.echo.path
 
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,13 +16,16 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
+import java.util.ArrayList
 
 class MapFragment4 : Fragment(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var mapView: MapView
     private lateinit var rootview: View
-
+    private val polylineOptions = PolylineOptions().width(7f).color(Color.RED)
+    var latlngArray: ArrayList<Pair<Double, Double>> = ArrayList()
     lateinit var onConnectedListener: OnConnectedListener
 
     override fun onCreateView(
@@ -31,10 +36,6 @@ class MapFragment4 : Fragment(), OnMapReadyCallback {
 
         rootview = inflater.inflate(R.layout.fragment_map4, container, false)
         mapView = rootview.findViewById(R.id.mapView3)
-
-        val bundle = arguments
-        val latlngArray = bundle!!.getSerializable("latlngArray")
-
 
         mapView.onCreate(savedInstanceState)
         mapView.onResume()          //onResume()도 연결시켜야 정상적으로 맵이 보임.
@@ -49,21 +50,22 @@ class MapFragment4 : Fragment(), OnMapReadyCallback {
 
         mMap = googleMap
         mMap.getUiSettings().setZoomControlsEnabled(true);
+        onConnectedListener.onConnect(mMap)
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(37.340201, 126.734721)))  //초기설정.KPU G동
         mMap.animateCamera(CameraUpdateFactory.zoomTo(10f))
         //  RecordMapActivity의 onConnect() 실행하여 맵 객체를 불러와 MapFragment에서 맵을 띄울 수 있게 해줌.
         onConnectedListener.onConnect(mMap)
 
-        mMap?.addMarker(
-            MarkerOptions()
-                .position(LatLng(latlngArray[0].first,latlngArray[0].second))
-                .title("시작지점"))
-
-        mMap?.addMarker(
-            MarkerOptions()
-                .position(LatLng(latlngArray[latlngArray.size-1].first,latlngArray[latlngArray.size-1].second))
-                .title("종료지점"))
+//        mMap?.addMarker(
+//            MarkerOptions()
+//                .position(LatLng(latlngArray[0].first,latlngArray[0].second))
+//                .title("시작지점"))
+//
+//        mMap?.addMarker(
+//            MarkerOptions()
+//                .position(LatLng(latlngArray[latlngArray.size-1].first,latlngArray[latlngArray.size-1].second))
+//                .title("종료지점"))
 
 //        for(i in latlngArray) {
 //            polylineOptions.add(LatLng(i.first,i.second))
@@ -90,5 +92,14 @@ class MapFragment4 : Fragment(), OnMapReadyCallback {
         // context -> RecordMapActivity. 프래그먼트에서 context 호출시 acitivity의 context가 불러짐.
         onConnectedListener = context as OnConnectedListener
     }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+//        latlngArray = arguments?.getSerializable("latlngArray") as ArrayList<Pair<Double, Double>>
+        var latlngArray = arguments?.getSerializable("latlngArray")
+
+        Log.d("test2", latlngArray.toString())
+    }
+
 
 }

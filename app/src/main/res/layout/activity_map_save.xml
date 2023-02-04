@@ -92,7 +92,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imgMapSave"
         android:layout_width="0dp"
         android:layout_height="240dp"
         android:layout_marginStart="8dp"
@@ -123,7 +123,7 @@
         android:text="소요시간"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/imgMapSave" />
 
     <CheckBox
         android:id="@+id/ckMapSaveType1"
@@ -210,6 +210,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="8dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNewGroupDateTitle">

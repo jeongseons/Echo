@@ -1,13 +1,12 @@
 package com.example.echo.path
 
-class MapVO(var course_seq: Int?,
-            var user_id: String = "",
-            var coursedt: String = "",
-            var lat: Double,
-            var lng: Double,
-            var alt: Double,
-            var open_yn: Boolean,
-            var course_type: String = ""
+class MapVO(var map_seq: Int?,
+            var course: String = "",
+            var course_title: String = "",
+            var course_time: String = "",
+            var course_alt: Double,
+            var course_distance: Double,
+            var course_open: Boolean,
              ){
 
 }

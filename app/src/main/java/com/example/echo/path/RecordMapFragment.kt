@@ -159,6 +159,7 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
             recordPressed = false
             Log.d("test-종료버튼클릭", recordStart.toString())
             pauseTimer()
+            fusedLocationProviderClient.removeLocationUpdates(locationCallback)
             if(latlngArray.size == 0){
                 Toast.makeText(context,"아직 이동하지 않으셨습니다", Toast.LENGTH_LONG).show()
             }else {
@@ -366,7 +367,7 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
                     tvMapTotalDistance.text = "${String.format("%.2f", total_distance)}km"
 
                     // 시속 표시
-                    averSpeed = String.format("%.2f", total_distance * (3600 / total_sec))
+//                    averSpeed = String.format("%.2f", total_distance * (3600 / total_sec))
 //                    averageSpeed.text = averSpeed
 
 //                    println("거리:" + total_distance)
