@@ -42,6 +42,7 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import kotlinx.android.synthetic.main.fragment_map.*
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.timer
 
@@ -80,6 +81,9 @@ var averSpeed: String? = null
 var pedometer: Int = 0
 
 var startLatLng =  LatLng(0.0,0.0)
+
+var startTime = ""
+var endTime = ""
 
 lateinit var tvMapTotalTime:TextView
 lateinit var tvMapTotalDistance:TextView
@@ -159,6 +163,7 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
             recordPressed = false
             Log.d("test-종료버튼클릭", recordStart.toString())
             pauseTimer()
+            endTime = getNowTime()
             fusedLocationProviderClient.removeLocationUpdates(locationCallback)
             if(latlngArray.size == 0){
                 Toast.makeText(context,"아직 이동하지 않으셨습니다", Toast.LENGTH_LONG).show()
@@ -168,6 +173,8 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
                 intent.putExtra("totalTime",tvMapTotalTime.text)
                 intent.putExtra("totalAlt",tvMapTotalAlt.text)
                 intent.putExtra("totalDistance",tvMapTotalDistance.text)
+                intent.putExtra("startTime",startTime)
+                intent.putExtra("endTime",endTime)
                 intent.putExtra("speed", "${averSpeed}km/h")
                 startActivity(intent)
             }
@@ -304,6 +311,13 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
         timeTask?.cancel()  //Timer의 객체로써 null일수 있기에 timetask 옆에 ? 붙음.
     }
 
+    fun getNowTime(): String {
+        var now = System.currentTimeMillis();
+        var date = Date(now);
+        var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+
+        return simpleDateFormat.format(date)
+    }
 
     //TODO : start 누르는 순간 기록 시작. upload 누를 시 firestore에 업로드
     inner class MyLocationCallback : LocationCallback() {
@@ -323,6 +337,7 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
                 Log.d("MapActivity", "lan:$latitude, long:$longitude")
 
                 if(startCk){
+                    startTime = getNowTime()
                     startLatLng = LatLng(latitude, longitude)
                     before_location[0] = startLatLng.latitude
                     before_location[1] = startLatLng.longitude
@@ -367,8 +382,8 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
                     tvMapTotalDistance.text = "${String.format("%.2f", total_distance)}km"
 
                     // 시속 표시
-//                    averSpeed = String.format("%.2f", total_distance * (3600 / total_sec))
 //                    averageSpeed.text = averSpeed
+//                    averSpeed = String.format("%.2f", total_distance * (3600 / total_sec))
 
 //                    println("거리:" + total_distance)
 //                    println("초:" + total_sec)

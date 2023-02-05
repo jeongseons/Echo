@@ -46,6 +46,7 @@ class MyBoardActivity : AppCompatActivity() {
                 intent.putExtra("user_id", myBoardList[position].user_id)
                 intent.putExtra("mnt_name", myBoardList[position].mnt_name)
                 intent.putExtra("board_reco_cnt", myBoardList[position].board_reco_cnt.toString())
+                intent.putExtra("user_profile_img", myBoardList[position].user_profile_img)
                 startActivity(intent)
             }
         })

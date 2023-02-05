@@ -45,6 +45,19 @@ class MapFragment4 : Fragment(), OnMapReadyCallback {
         return rootview
     }
 
+    override fun onStop() {
+        super.onStop()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+
 
     override fun onMapReady(googleMap: GoogleMap) {
 
@@ -57,27 +70,14 @@ class MapFragment4 : Fragment(), OnMapReadyCallback {
         //  RecordMapActivity의 onConnect() 실행하여 맵 객체를 불러와 MapFragment에서 맵을 띄울 수 있게 해줌.
         onConnectedListener.onConnect(mMap)
 
-//        mMap?.addMarker(
-//            MarkerOptions()
-//                .position(LatLng(latlngArray[0].first,latlngArray[0].second))
-//                .title("시작지점"))
-//
-//        mMap?.addMarker(
-//            MarkerOptions()
-//                .position(LatLng(latlngArray[latlngArray.size-1].first,latlngArray[latlngArray.size-1].second))
-//                .title("종료지점"))
+        //        latlngArray = arguments?.getSerializable("latlngArray") as ArrayList<Pair<Double, Double>>
+        var latlngArray = arguments?.getSerializable("latlngArray")
 
-//        for(i in latlngArray) {
-//            polylineOptions.add(LatLng(i.first,i.second))
-//            polylineOptions.width(13f)
-//            polylineOptions.visible(true)   // 선이 보여질지/안보여질지 옵션.
-//
-//            mMap?.addPolyline(polylineOptions)
-//        }
+        Log.d("test4", latlngArray.toString())
 
         mMap.setOnMapLoadedCallback {
             try {
-                mMap.isMyLocationEnabled = true   //현재위치표시 및 현재위치로 돌아올 수 있는 버튼 생성.
+//                mMap.isMyLocationEnabled = true   //현재위치표시 및 현재위치로 돌아올 수 있는 버튼 생성.
             } catch (e: SecurityException) {
             }
         }
@@ -89,17 +89,7 @@ class MapFragment4 : Fragment(), OnMapReadyCallback {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        // context -> RecordMapActivity. 프래그먼트에서 context 호출시 acitivity의 context가 불러짐.
         onConnectedListener = context as OnConnectedListener
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        latlngArray = arguments?.getSerializable("latlngArray") as ArrayList<Pair<Double, Double>>
-        var latlngArray = arguments?.getSerializable("latlngArray")
-
-        Log.d("test2", latlngArray.toString())
-    }
-
 
 }
