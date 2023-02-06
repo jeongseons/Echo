@@ -63,7 +63,6 @@ class MapFragment4 : Fragment(), OnMapReadyCallback {
 
         mMap = googleMap
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        onConnectedListener.onConnect(mMap)
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(37.340201, 126.734721)))  //초기설정.KPU G동
         mMap.animateCamera(CameraUpdateFactory.zoomTo(10f))

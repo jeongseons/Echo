@@ -7,6 +7,7 @@ import android.util.Log
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
 import com.example.echo.databinding.ActivityCourseDetailBinding
+import com.example.echo.path.CourseInfo
 import com.example.echo.path.MapFragment4
 import com.example.echo.path.MapSaveActivity
 import com.example.echo.path.MapVO
@@ -15,6 +16,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,11 +24,11 @@ import retrofit2.Response
 private var mMap: GoogleMap? = null
 private var polylineOptions = PolylineOptions().width(7f).color(Color.RED)
 var course_seq = 0
-var mapList = ArrayList<MapVO>()
 
 class CourseDetailActivity : AppCompatActivity(), MapFragment4.OnConnectedListener  {
 
     private lateinit var binding: ActivityCourseDetailBinding
+    var mapList = ArrayList<MapVO>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +63,7 @@ class CourseDetailActivity : AppCompatActivity(), MapFragment4.OnConnectedListen
 
     }
 
-    fun getMap(course_seq:Int): ArrayList<MapVO>{
+    fun getMap(course_seq: Int) {
         mapList.clear()
         val call = RetrofitBuilder.courseApi.getMap(course_seq)
         call.enqueue(object : Callback<List<MapVO>> {
@@ -71,7 +73,6 @@ class CourseDetailActivity : AppCompatActivity(), MapFragment4.OnConnectedListen
                         mapList.add(response.body()!!.get(i))
                     }
                 }
-                mapList.reverse()
                 Log.d("test-전부조회",mapList.toString())
             }
             override fun onFailure(call: Call<List<MapVO>>, t: Throwable) {
@@ -79,21 +80,28 @@ class CourseDetailActivity : AppCompatActivity(), MapFragment4.OnConnectedListen
 
             }
         })
-        return mapList
     }
 
     override fun onConnect(mMap: GoogleMap) {
-        var mapList = getMap(course_seq)
         Log.d("test-맵",mapList.toString())
 
+        if(mapList.isNotEmpty()){
         var startLatLng = LatLng(mapList[0].lat, mapList[0].lng)
         var endLatLng = LatLng(mapList[mapList.size-1].lat, mapList[mapList.size-1].lng)
         var mapSaveActivity = MapSaveActivity()
         var zoomDistance = mapSaveActivity.getDistance(startLatLng, endLatLng)
+            Log.d("test-맵",zoomDistance.toString())
+            Log.d("test-맵시작",startLatLng.toString())
+            Log.d("test-맵종료",endLatLng.toString())
 
-    mMap!!.moveCamera(CameraUpdateFactory.newLatLng(LatLng(mapList[mapList.size/2].lat, mapList[mapList.size/2].lng)))
-        if(zoomDistance>5000) {
+
+            mMap!!.moveCamera(CameraUpdateFactory.newLatLng(LatLng(mapList[mapList.size/2].lat, mapList[mapList.size/2].lng)))
+        if(zoomDistance>=5000) {
             mMap!!.animateCamera(CameraUpdateFactory.zoomTo(11f))
+        }else if(zoomDistance>=3500){
+            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(12f))
+        }else if(zoomDistance>=1500){
+            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(13f))
         }else{
             mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f))
         }
@@ -113,7 +121,7 @@ class CourseDetailActivity : AppCompatActivity(), MapFragment4.OnConnectedListen
             polylineOptions.visible(true)   // 선이 보여질지/안보여질지 옵션.
             mMap?.addPolyline(polylineOptions)
         }
-
+        }
     }
 
 }
