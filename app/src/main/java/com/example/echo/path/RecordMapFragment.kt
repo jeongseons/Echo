@@ -12,6 +12,7 @@ import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
+import android.location.Geocoder
 import android.location.Location
 import android.location.Location.distanceBetween
 import android.os.Bundle
@@ -42,6 +43,7 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import kotlinx.android.synthetic.main.fragment_map.*
+import kotlinx.android.synthetic.main.fragment_record_map.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.timer
@@ -88,6 +90,8 @@ var endTime = ""
 lateinit var tvMapTotalTime:TextView
 lateinit var tvMapTotalDistance:TextView
 lateinit var tvMapTotalAlt:TextView
+lateinit var tvMapCurrentLocation2:TextView
+lateinit var tvMapCurrentTime2:TextView
 
 var startCk = false
 
@@ -126,9 +130,11 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
         val btnMapRecordStart2 = view.findViewById<Button>(R.id.btnMapRecordStart2)
         val btnMapRecordEnd2 = view.findViewById<Button>(R.id.btnMapRecordEnd2)
         val btnMapRecordPause = view.findViewById<Button>(R.id.btnMapRecordPause)
+        tvMapCurrentLocation2 = view.findViewById<TextView>(R.id.tvMapCurrentLocation2)
         tvMapTotalTime = view.findViewById(R.id.tvMapTotalTime)
         tvMapTotalDistance = view.findViewById(R.id.tvMapTotalDistance)
         tvMapTotalAlt = view.findViewById(R.id.tvMapTotalAlt)
+        tvMapCurrentTime2 = view.findViewById(R.id.tvMapCurrentTime2)
 
         childFragmentManager.beginTransaction().replace(
             R.id.flMap,
@@ -338,7 +344,16 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
 
                 if(startCk){
                     startTime = getNowTime()
+                    tvMapCurrentTime2.text = startTime
                     startLatLng = LatLng(latitude, longitude)
+                    val geocoder = Geocoder(context)
+                    //GRPC 오류? try catch 문으로 오류 대처
+                    try {
+                        var addr = geocoder.getFromLocation(latitude.toDouble(), longitude.toDouble(), 1).first().adminArea
+                        tvMapCurrentLocation2.text = addr
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                     before_location[0] = startLatLng.latitude
                     before_location[1] = startLatLng.longitude
                     mMap?.moveCamera(CameraUpdateFactory.newLatLng(startLatLng))

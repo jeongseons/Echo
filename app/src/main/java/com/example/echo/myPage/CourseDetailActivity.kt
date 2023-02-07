@@ -1,22 +1,21 @@
 package com.example.echo.myPage
 
+import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
 import com.example.echo.databinding.ActivityCourseDetailBinding
-import com.example.echo.path.CourseInfo
-import com.example.echo.path.MapFragment4
-import com.example.echo.path.MapSaveActivity
-import com.example.echo.path.MapVO
+import com.example.echo.path.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -55,11 +54,25 @@ class CourseDetailActivity : AppCompatActivity(), MapFragment4.OnConnectedListen
 
         binding.tvCourseDetailTitle.text = course_title
 
+        val geocoder = Geocoder(this)
+        try {
+            var addr = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().adminArea
+            binding.tvCourseDetailStartAddress.text = addr
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         supportFragmentManager.beginTransaction().replace(
             R.id.flCourseDetail,
             MapFragment4()
         ).commit()
+
+
+        binding.imgCourseDetailCloseup.setOnClickListener{
+                val intent = Intent(this, CourseMapActivity::class.java)
+                startActivity(intent)
+            }
+
 
     }
 
@@ -89,13 +102,14 @@ class CourseDetailActivity : AppCompatActivity(), MapFragment4.OnConnectedListen
         var startLatLng = LatLng(mapList[0].lat, mapList[0].lng)
         var endLatLng = LatLng(mapList[mapList.size-1].lat, mapList[mapList.size-1].lng)
         var mapSaveActivity = MapSaveActivity()
+        var centerLatLng = LatLng((startLatLng.latitude+endLatLng.latitude)/2, (startLatLng.longitude+endLatLng.longitude)/2)
         var zoomDistance = mapSaveActivity.getDistance(startLatLng, endLatLng)
             Log.d("test-맵",zoomDistance.toString())
             Log.d("test-맵시작",startLatLng.toString())
             Log.d("test-맵종료",endLatLng.toString())
 
 
-            mMap!!.moveCamera(CameraUpdateFactory.newLatLng(LatLng(mapList[mapList.size/2].lat, mapList[mapList.size/2].lng)))
+            mMap!!.moveCamera(CameraUpdateFactory.newLatLng(centerLatLng))
         if(zoomDistance>=5000) {
             mMap!!.animateCamera(CameraUpdateFactory.zoomTo(11f))
         }else if(zoomDistance>=3500){

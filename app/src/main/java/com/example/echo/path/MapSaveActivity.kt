@@ -147,14 +147,22 @@ class MapSaveActivity : AppCompatActivity(), MapFragment4.OnConnectedListener {
 
         var startLatLng = LatLng(latlngArray[0].first,latlngArray[0].second)
         var endLatLng = LatLng(latlngArray[latlngArray.size-1].first,latlngArray[latlngArray.size-1].second)
+        var centerLatLng = LatLng((startLatLng.latitude+endLatLng.latitude)/2, (startLatLng.longitude+endLatLng.longitude)/2)
+
         var zoomDistance = getDistance(startLatLng, endLatLng)
         mMap = map
-        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latlngArray[latlngArray.size/2].first,latlngArray[latlngArray.size/2].second)))  //초기설정.KPU G동
-        if(zoomDistance>5000) {
+        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(centerLatLng))
+
+        if(zoomDistance>=5000) {
             mMap!!.animateCamera(CameraUpdateFactory.zoomTo(11f))
+        }else if(zoomDistance>=3500){
+            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(12f))
+        }else if(zoomDistance>=1500){
+            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(13f))
         }else{
             mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f))
         }
+
         mMap?.addMarker(
             MarkerOptions()
                 .position(LatLng(latlngArray[0].first,latlngArray[0].second))
