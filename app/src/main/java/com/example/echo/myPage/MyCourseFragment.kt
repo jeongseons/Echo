@@ -58,6 +58,7 @@ class MyCourseFragment : Fragment() {
                 intent.putExtra("course_end_dt", myCourseList[position].course_end_dt)
                 intent.putExtra("course_open", myCourseList[position].course_open)
                 intent.putExtra("course_user_id", myCourseList[position].user_id)
+                intent.putExtra("course_img",myCourseList[position].course_img)
                 startActivity(intent)
             }
         })

@@ -13,8 +13,8 @@
         android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tvMyCourseName"
-        app:layout_constraintTop_toBottomOf="@+id/tvMyCourseName" />
+        app:layout_constraintStart_toStartOf="@+id/tvMyCourseAddress"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyCourseAddress" />
 
     <TextView
         android:id="@+id/tvMyCourseDate"
@@ -36,7 +36,7 @@
         app:layout_constraintTop_toTopOf="@+id/tvMyCourseDate" />
 
     <TextView
-        android:id="@+id/tvMyCourseName"
+        android:id="@+id/tvMyCourseAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -54,7 +54,7 @@
         android:layout_marginEnd="16dp"
         android:scaleType="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvMyCourseName" />
+        app:layout_constraintTop_toTopOf="@+id/tvMyCourseAddress" />
 
     <TextView
         android:id="@+id/tvMyCourseLine"

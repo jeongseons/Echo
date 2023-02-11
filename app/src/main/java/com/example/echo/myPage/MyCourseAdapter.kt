@@ -1,6 +1,7 @@
 package com.example.echo.myPage
 
 import android.content.Context
+import android.location.Geocoder
 import android.util.Log
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.echo.R
 import com.example.echo.path.CourseInfo
+import com.example.echo.path.startLatLng
 
 class MyCourseAdapter(var context: Context, var myCourseList: ArrayList<CourseInfo>)
     :RecyclerView.Adapter<MyCourseAdapter.ViewHolder>(){
@@ -39,7 +41,7 @@ class MyCourseAdapter(var context: Context, var myCourseList: ArrayList<CourseIn
         val tvMyCourseTitle:TextView
         val tvMyCourseDate:TextView
         val tvMyCourseCount:TextView
-        val tvMyCourseName:TextView
+        val tvMyCourseAddress:TextView
         val imgMyCoursePic:ImageView
         val ckMyCourse:CheckBox
 
@@ -47,7 +49,7 @@ class MyCourseAdapter(var context: Context, var myCourseList: ArrayList<CourseIn
             tvMyCourseTitle = itemView.findViewById(R.id.tvMyCourseTitle)
             tvMyCourseDate = itemView.findViewById(R.id.tvMyCourseDate)
             tvMyCourseCount = itemView.findViewById(R.id.tvMyCourseCount)
-            tvMyCourseName = itemView.findViewById(R.id.tvMyCourseName)
+            tvMyCourseAddress = itemView.findViewById(R.id.tvMyCourseAddress)
             imgMyCoursePic = itemView.findViewById(R.id.imgMyCoursePic)
             ckMyCourse = itemView.findViewById(R.id.ckMyCourse)
 
@@ -72,6 +74,26 @@ class MyCourseAdapter(var context: Context, var myCourseList: ArrayList<CourseIn
         holder.tvMyCourseTitle.text = myCourseList[position].course_title
         holder.tvMyCourseDate.text = myCourseList[position].course_start_dt
         holder.tvMyCourseCount.text = myCourseList[position].course_distance
+
+        val geocoder = Geocoder(context)
+
+        var addr:String=""
+        var addr2:String=""
+        var addr3:String=""
+
+//        addr = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().adminArea
+//
+//        if(addr.length<5) {
+//            addr3 = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1)
+//                .first().locality
+//            holder.tvMyCourseAddress.text = "${addr} ${addr3}"
+//        }
+//        else{
+//            addr2 = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().subLocality
+//            holder.tvMyCourseAddress.text = "${addr} ${addr2}"
+//        }
+
+
         holder.ckMyCourse.isChecked = checkboxStatus[position]
 
         Glide.with(context)

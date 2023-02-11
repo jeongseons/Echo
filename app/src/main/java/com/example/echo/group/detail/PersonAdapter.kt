@@ -78,6 +78,10 @@ class PersonAdapter(
             .skipMemoryCache(true)
             .into(holder.imgPersonPro)
 
+        holder.imgPersonPro.setOnClickListener {
+
+        }
+
     }
 
     override fun getItemCount(): Int {

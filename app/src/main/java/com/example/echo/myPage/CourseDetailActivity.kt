@@ -1,5 +1,6 @@
 package com.example.echo.myPage
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Color
 import android.location.Geocoder
@@ -16,6 +17,13 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
+import com.kakao.sdk.common.util.KakaoCustomTabsClient
+import com.kakao.sdk.share.ShareClient
+import com.kakao.sdk.share.WebSharerClient
+import com.kakao.sdk.template.model.Button
+import com.kakao.sdk.template.model.Content
+import com.kakao.sdk.template.model.FeedTemplate
+import com.kakao.sdk.template.model.Link
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -51,16 +59,14 @@ class CourseDetailActivity : AppCompatActivity(), MapFragment4.OnConnectedListen
         var course_end_dt = intent.getStringExtra("course_end_dt")
         var course_open = intent.getStringExtra("course_open")
         var course_user_id = intent.getStringExtra("course_user_id")
+        var course_img = intent.getStringExtra("course_img")
 
         binding.tvCourseDetailTitle.text = course_title
-
-        val geocoder = Geocoder(this)
-        try {
-            var addr = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().adminArea
-            binding.tvCourseDetailStartAddress.text = addr
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        binding.tvCourseDetailStartTime.text = course_start_dt
+        binding.tvCourseDetailEndTime.text = course_end_dt
+        binding.tvCourseDetailTotalTime.text = course_time
+        binding.tvCourseDetailTotalDistance.text = course_distance
+        binding.tvCourseDetailTotalAlt.text = course_alt
 
         supportFragmentManager.beginTransaction().replace(
             R.id.flCourseDetail,
@@ -69,10 +75,69 @@ class CourseDetailActivity : AppCompatActivity(), MapFragment4.OnConnectedListen
 
 
         binding.imgCourseDetailCloseup.setOnClickListener{
-                val intent = Intent(this, CourseMapActivity::class.java)
-                startActivity(intent)
-            }
+            val intent = Intent(this, CourseMapActivity::class.java)
+            intent.putExtra("mapList", mapList)
+            startActivity(intent)
+        }
 
+        //카카오톡 공유
+        binding.imgCourseDetailShare.setOnClickListener{
+            val defaultFeed = FeedTemplate(
+                content = Content(
+                    title = course_title!!,
+                    imageUrl = course_img!!,
+                    link = Link(
+                        webUrl = "https://developers.kakao.com",
+                        mobileWebUrl = "https://developers.kakao.com"
+                    )
+                ),
+                buttons = listOf(
+                    Button(
+                        "웹으로 보기",
+                        Link(
+                            webUrl = "https://developers.kakao.com",
+                            mobileWebUrl = "https://developers.kakao.com"
+                        )
+                    ),
+                    Button(
+                        "앱으로 보기",
+                        Link(
+                            androidExecutionParams = mapOf("key1" to "value1", "key2" to "value2"),
+                            iosExecutionParams = mapOf("key1" to "value1", "key2" to "value2")
+                        )
+                    )
+                )
+            )
+
+            if (ShareClient.instance.isKakaoTalkSharingAvailable(this)) {
+                // 카카오톡으로 카카오톡 공유 가능
+                ShareClient.instance.shareDefault(this, defaultFeed) { sharingResult, error ->
+                    if (error != null) {
+                        Log.d("test-카카오톡공유", "카카오톡 공유 실패", error)
+                    }
+                    else if (sharingResult != null) {
+                        Log.d("test-카카오톡공유", "카카오톡 공유 성공 ${sharingResult.intent}")
+                        startActivity(sharingResult.intent)
+                        // 카카오톡 공유에 성공했지만 아래 경고 메시지가 존재할 경우 일부 컨텐츠가 정상 동작하지 않을 수 있습니다.
+                        Log.d("test-카카오톡공유", "Warning Msg: ${sharingResult.warningMsg}")
+                        Log.d("test-카카오톡공유", "Argument Msg: ${sharingResult.argumentMsg}")
+                    }
+                }
+            } else {
+                // 카카오톡 미설치
+                val sharerUrl = WebSharerClient.instance.makeDefaultUrl(defaultFeed)
+                try {
+                    KakaoCustomTabsClient.openWithDefault(this, sharerUrl)
+                } catch(e: UnsupportedOperationException) {
+                }
+
+                try {
+                    KakaoCustomTabsClient.open(this, sharerUrl)
+                } catch (e: ActivityNotFoundException) {
+
+                }
+            }
+        }
 
     }
 
@@ -135,6 +200,25 @@ class CourseDetailActivity : AppCompatActivity(), MapFragment4.OnConnectedListen
             polylineOptions.visible(true)   // 선이 보여질지/안보여질지 옵션.
             mMap?.addPolyline(polylineOptions)
         }
+
+            val geocoder = Geocoder(this)
+            var addr:String=""
+            var addr2:String=""
+            var addr3:String=""
+
+            addr = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().adminArea
+
+            if(addr.length<5) {
+                addr3 = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1)
+                    .first().locality
+                binding.tvCourseDetailStartAddress.text = "${addr} ${addr3}"
+
+            }
+            else{
+                addr2 = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().subLocality
+                binding.tvCourseDetailStartAddress.text = "${addr} ${addr2}"
+            }
+
         }
     }
 
