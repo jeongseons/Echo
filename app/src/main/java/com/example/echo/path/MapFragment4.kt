@@ -64,22 +64,22 @@ class MapFragment4 : Fragment(), OnMapReadyCallback {
         mMap = googleMap
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
+        mMap.setOnMapLoadedCallback {
+            try {
+                mMap.isMyLocationEnabled = true   //현재위치표시 및 현재위치로 돌아올 수 있는 버튼 생성.
+            } catch (e: SecurityException) {
+            }
+        }
+
         mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(37.340201, 126.734721)))  //초기설정.KPU G동
         mMap.animateCamera(CameraUpdateFactory.zoomTo(10f))
-        //  RecordMapActivity의 onConnect() 실행하여 맵 객체를 불러와 MapFragment에서 맵을 띄울 수 있게 해줌.
         onConnectedListener.onConnect(mMap)
 
-        //        latlngArray = arguments?.getSerializable("latlngArray") as ArrayList<Pair<Double, Double>>
         var latlngArray = arguments?.getSerializable("latlngArray")
 
         Log.d("test4", latlngArray.toString())
 
-        mMap.setOnMapLoadedCallback {
-            try {
-//                mMap.isMyLocationEnabled = true   //현재위치표시 및 현재위치로 돌아올 수 있는 버튼 생성.
-            } catch (e: SecurityException) {
-            }
-        }
+
     }
 
     interface OnConnectedListener {

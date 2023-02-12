@@ -186,9 +186,6 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
             }
         }
 
-
-//        var mapfr: Fragment = MapFragment()
-//        var detailfr: Fragment = RecordFragment() //
         return view
     }
 
@@ -347,10 +344,17 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
                     tvMapCurrentTime2.text = startTime
                     startLatLng = LatLng(latitude, longitude)
                     val geocoder = Geocoder(context)
-                    //GRPC 오류? try catch 문으로 오류 대처
+
                     try {
                         var addr = geocoder.getFromLocation(latitude.toDouble(), longitude.toDouble(), 1).first().adminArea
-                        tvMapCurrentLocation2.text = addr
+                        if(geocoder.getFromLocation(latitude.toDouble(), longitude.toDouble(), 1).first().subLocality==null) {
+                            var addr3 = geocoder.getFromLocation(latitude.toDouble(), longitude.toDouble(), 1).first().locality
+                            tvMapCurrentLocation2.text= "${addr} ${addr3}"
+                        }
+                        else{
+                            var addr2 = geocoder.getFromLocation(latitude.toDouble(), longitude.toDouble(), 1).first().subLocality
+                            tvMapCurrentLocation2.text = "${addr} ${addr2}"
+                        }
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
@@ -367,7 +371,6 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
                 //latitude,longitude를 builder에 넣어 나중에 모든 경로에 대해 알맞게 카메라 조정을 할 수 있음.
                 builder.include(LatLng(latitude, longitude))
 
-
                 Log.d("test-위치좌표", before_location.toString())
 
                 if (recordStart) {
@@ -376,10 +379,8 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
                         max_altitude = altitude
 
                     println("고도: " + max_altitude)
-                    //latitude,longitude를 builder에 넣어 나중에 모든 경로에 대해 알맞게 카메라 조정을 할 수 있음.
-                    //builder.include(LatLng(latitude, longitude))
-                    tvMapTotalAlt.text = "${max_altitude.toString()}km"
 
+                    tvMapTotalAlt.text = "${String.format("%.2f", max_altitude/10)}m"
                     // 위도, 경도 저장
                     latlngArray.add(Pair(latitude, longitude))
 

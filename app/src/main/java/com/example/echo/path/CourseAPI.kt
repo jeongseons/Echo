@@ -22,7 +22,7 @@ interface CourseAPI {
     @GET("api/course")
     fun getCourse(
         @Query("id") user_id: String
-    ): Call<List<CourseInfo>>
+    ): Call<List<CourseList>>
 
     // 경로 지도 조회
     @GET("api/course/{course_seq}")

@@ -14,6 +14,7 @@ import com.example.echo.MainActivity
 import com.example.echo.RetrofitBuilder
 import com.example.echo.databinding.FragmentMyCourseBinding
 import com.example.echo.path.CourseInfo
+import com.example.echo.path.CourseList
 import com.kakao.sdk.user.UserApiClient
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -22,7 +23,7 @@ import retrofit2.Response
 
 class MyCourseFragment : Fragment() {
 
-    var myCourseList = ArrayList<CourseInfo>()
+    var myCourseList = ArrayList<CourseList>()
     lateinit var binding: FragmentMyCourseBinding
     lateinit var adapter: MyCourseAdapter
 
@@ -82,8 +83,8 @@ class MyCourseFragment : Fragment() {
     fun getMyCourse(user_id:String) {
         myCourseList.clear()
         val call = RetrofitBuilder.courseApi.getCourse(user_id)
-        call.enqueue(object : Callback<List<CourseInfo>> {
-            override fun onResponse(call: Call<List<CourseInfo>>, response: Response<List<CourseInfo>>) {
+        call.enqueue(object : Callback<List<CourseList>> {
+            override fun onResponse(call: Call<List<CourseList>>, response: Response<List<CourseList>>) {
                 if(response.isSuccessful&& response.body()?.size!!>0){
                     for(i in 0 until response.body()!!.size){
                         myCourseList.add(response.body()!!.get(i))
@@ -93,7 +94,7 @@ class MyCourseFragment : Fragment() {
                 adapter.notifyDataSetChanged()
                 Log.d("test-전부조회",myCourseList.toString())
             }
-            override fun onFailure(call: Call<List<CourseInfo>>, t: Throwable) {
+            override fun onFailure(call: Call<List<CourseList>>, t: Throwable) {
                 Log.d("test-전부조회", t.localizedMessage)
 
             }

@@ -7,6 +7,7 @@ import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
@@ -32,8 +33,8 @@ private var mMap: GoogleMap? = null
 private var polylineOptions = PolylineOptions().width(7f).color(Color.RED)
 var course_seq = 0
 
-class CourseDetailActivity : AppCompatActivity(), MapFragment4.OnConnectedListener  {
-
+class CourseDetailActivity : AppCompatActivity()  {
+//    class CourseDetailActivity : AppCompatActivity(), MapFragment4.OnConnectedListener  {
     private lateinit var binding: ActivityCourseDetailBinding
     var mapList = ArrayList<MapVO>()
 
@@ -41,15 +42,14 @@ class CourseDetailActivity : AppCompatActivity(), MapFragment4.OnConnectedListen
         super.onCreate(savedInstanceState)
         binding = ActivityCourseDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        setContentView(R.layout.activity_course_detail)
 
-//        binding.mapView.onCreate(savedInstanceState)
+        binding.mvCourseDetail.onCreate(savedInstanceState)
+        binding.mvCourseDetail.onResume()
+
 
         course_seq = intent.getIntExtra("course_seq",0)
         Log.d("test-맵", course_seq.toString())
         getMap(course_seq)
-        Log.d("test-맵2",getMap(course_seq).toString())
-
 
         var course_title = intent.getStringExtra("course_title")
         var course_time = intent.getStringExtra("course_time")
@@ -68,10 +68,10 @@ class CourseDetailActivity : AppCompatActivity(), MapFragment4.OnConnectedListen
         binding.tvCourseDetailTotalDistance.text = course_distance
         binding.tvCourseDetailTotalAlt.text = course_alt
 
-        supportFragmentManager.beginTransaction().replace(
-            R.id.flCourseDetail,
-            MapFragment4()
-        ).commit()
+//        supportFragmentManager.beginTransaction().replace(
+//            R.id.flCourseDetail,
+//            MapFragment4()
+//        ).commit()
 
 
         binding.imgCourseDetailCloseup.setOnClickListener{
@@ -151,75 +151,163 @@ class CourseDetailActivity : AppCompatActivity(), MapFragment4.OnConnectedListen
                         mapList.add(response.body()!!.get(i))
                     }
                 }
-                Log.d("test-전부조회",mapList.toString())
+                initMap(mapList)
+                Log.d("test-getMap",mapList.toString())
             }
             override fun onFailure(call: Call<List<MapVO>>, t: Throwable) {
-                Log.d("test-전부조회", t.localizedMessage)
+                Log.d("test-getMap", t.localizedMessage)
 
             }
         })
     }
 
-    override fun onConnect(mMap: GoogleMap) {
-        Log.d("test-맵",mapList.toString())
+    fun initMap(mapList:ArrayList<MapVO>){
 
-        if(mapList.isNotEmpty()){
+        Log.d("test2-mapList", mapList.toString())
         var startLatLng = LatLng(mapList[0].lat, mapList[0].lng)
-        var endLatLng = LatLng(mapList[mapList.size-1].lat, mapList[mapList.size-1].lng)
-        var mapSaveActivity = MapSaveActivity()
+        Log.d("test3-startLatLng", startLatLng.toString())
+        var endLatLng = LatLng(mapList[mapList.size - 1].lat, mapList[mapList.size - 1].lng)
         var centerLatLng = LatLng((startLatLng.latitude+endLatLng.latitude)/2, (startLatLng.longitude+endLatLng.longitude)/2)
-        var zoomDistance = mapSaveActivity.getDistance(startLatLng, endLatLng)
-            Log.d("test-맵",zoomDistance.toString())
-            Log.d("test-맵시작",startLatLng.toString())
-            Log.d("test-맵종료",endLatLng.toString())
 
+        binding.mvCourseDetail.getMapAsync {
 
+            mMap = it
+            mMap!!.getUiSettings().setZoomControlsEnabled(true);
+
+            mMap!!.setOnMapLoadedCallback {
+                try {
+                    mMap!!.isMyLocationEnabled = true   //현재위치표시 및 현재위치로 돌아올 수 있는 버튼 생성.
+                } catch (e: SecurityException) {
+                }
+            }
+
+            var mapSaveActivity = MapSaveActivity()
+            var zoomDistance = mapSaveActivity.getDistance(startLatLng, endLatLng)
             mMap!!.moveCamera(CameraUpdateFactory.newLatLng(centerLatLng))
-        if(zoomDistance>=5000) {
-            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(11f))
-        }else if(zoomDistance>=3500){
-            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(12f))
-        }else if(zoomDistance>=1500){
-            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(13f))
-        }else{
-            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f))
-        }
-            mMap?.addMarker(
-            MarkerOptions()
-                .position(startLatLng)
-                .title("시작지점"))
-
-     mMap?.addMarker(
-            MarkerOptions()
-                .position(endLatLng)
-                .title("종료지점"))
-
-        for(i in mapList) {
-            polylineOptions.add(LatLng(i.lat, i.lng))
-            polylineOptions.width(13f)
-            polylineOptions.visible(true)   // 선이 보여질지/안보여질지 옵션.
-            mMap?.addPolyline(polylineOptions)
-        }
-
-            val geocoder = Geocoder(this)
-            var addr:String=""
-            var addr2:String=""
-            var addr3:String=""
-
-            addr = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().adminArea
-
-            if(addr.length<5) {
-                addr3 = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1)
-                    .first().locality
-                binding.tvCourseDetailStartAddress.text = "${addr} ${addr3}"
-
+            if (zoomDistance >= 5000) {
+                mMap!!.animateCamera(CameraUpdateFactory.zoomTo(11f))
+            } else if (zoomDistance >= 3500) {
+                mMap!!.animateCamera(CameraUpdateFactory.zoomTo(13f))
+            } else if (zoomDistance >= 1500) {
+                mMap!!.animateCamera(CameraUpdateFactory.zoomTo(13f))
+            } else {
+                mMap!!.animateCamera(CameraUpdateFactory.zoomTo(14f))
             }
-            else if(geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().subLocality!=null){
-                addr2 = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().subLocality
-                binding.tvCourseDetailStartAddress.text = "${addr} ${addr2}"
+
+            mMap!!.addMarker(
+                MarkerOptions()
+                    .position(LatLng(mapList[0].lat, mapList[0].lng))
+                    .title("시작지점")
+            )
+
+            mMap!!.addMarker(
+                MarkerOptions()
+                    .position(LatLng(mapList[mapList.size - 1].lat, mapList[mapList.size - 1].lng))
+                    .title("종료지점")
+            )
+
+            for (i in mapList) {
+                polylineOptions.add(LatLng(i.lat, i.lng))
+                polylineOptions.width(13f)
+                polylineOptions.visible(true)   // 선이 보여질지/안보여질지 옵션.
+
+                mMap!!.addPolyline(polylineOptions)
             }
 
         }
+
+        val geocoder = Geocoder(this)
+        var addr:String=""
+        var addr2:String=""
+        var addr3:String=""
+
+        addr = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().adminArea
+
+        if(geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().subLocality==null) {
+            addr3 = geocoder.getFromLocation(startLatLng.latitude,startLatLng.longitude, 1)
+                .first().locality
+            Log.d("test-맵",addr3.toString())
+            binding.tvCourseDetailStartAddress.text = "${addr} ${addr3}"
+
+        }
+        else{
+            addr2 = geocoder.getFromLocation(startLatLng.latitude,startLatLng.longitude, 1).first().subLocality
+            binding.tvCourseDetailStartAddress.text = "${addr} ${addr2}"
+            Log.d("test-맵",addr2.toString())
+        }
+
     }
+
+
+
+
+//    override fun onConnect(mMap: GoogleMap) {
+//        Log.d("test-맵",mapList.toString())
+//
+//        if(mapList.isNotEmpty()){
+//        var startLatLng = LatLng(mapList[0].lat, mapList[0].lng)
+//        var endLatLng = LatLng(mapList[mapList.size-1].lat, mapList[mapList.size-1].lng)
+//        var mapSaveActivity = MapSaveActivity()
+//        var centerLatLng = LatLng((startLatLng.latitude+endLatLng.latitude)/2, (startLatLng.longitude+endLatLng.longitude)/2)
+//        var zoomDistance = mapSaveActivity.getDistance(startLatLng, endLatLng)
+//            Log.d("test-맵",zoomDistance.toString())
+//            Log.d("test-맵시작",startLatLng.toString())
+//            Log.d("test-맵종료",endLatLng.toString())
+//
+//
+//            mMap!!.moveCamera(CameraUpdateFactory.newLatLng(centerLatLng))
+//        if(zoomDistance>=5000) {
+//            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(11f))
+//        }else if(zoomDistance>=3500){
+//            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(12f))
+//        }else if(zoomDistance>=1500){
+//            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(13f))
+//        }else{
+//            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f))
+//        }
+//            mMap?.addMarker(
+//            MarkerOptions()
+//                .position(startLatLng)
+//                .title("시작지점"))
+//
+//     mMap?.addMarker(
+//            MarkerOptions()
+//                .position(endLatLng)
+//                .title("종료지점"))
+//
+//        for(i in mapList) {
+//            polylineOptions.add(LatLng(i.lat, i.lng))
+//            polylineOptions.width(13f)
+//            polylineOptions.visible(true)   // 선이 보여질지/안보여질지 옵션.
+//            mMap?.addPolyline(polylineOptions)
+//        }
+//
+//            val geocoder = Geocoder(this)
+//            var addr:String=""
+//            var addr2:String=""
+//            var addr3:String=""
+//
+//            addr = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().adminArea
+//
+//            if(geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().subLocality==null) {
+//                addr3 = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1)
+//                    .first().locality
+//                Log.d("test-맵",addr3.toString())
+//                binding.tvCourseDetailStartAddress.text = "${addr} ${addr3}"
+//
+//            }
+//            else{
+//                addr2 = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().subLocality
+//                binding.tvCourseDetailStartAddress.text = "${addr} ${addr2}"
+//                Log.d("test-맵",addr2.toString())
+//            }
+//
+//        }
+//    }
+//
+//
+//    override fun onBackPressed() {
+//        finish()
+//    }
 
 }

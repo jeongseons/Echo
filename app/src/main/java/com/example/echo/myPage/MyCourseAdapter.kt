@@ -14,9 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.echo.R
 import com.example.echo.path.CourseInfo
+import com.example.echo.path.CourseList
 import com.example.echo.path.startLatLng
 
-class MyCourseAdapter(var context: Context, var myCourseList: ArrayList<CourseInfo>)
+class MyCourseAdapter(var context: Context, var myCourseList: ArrayList<CourseList>)
     :RecyclerView.Adapter<MyCourseAdapter.ViewHolder>(){
 
     private val checkboxStatus = SparseBooleanArray()
@@ -76,22 +77,23 @@ class MyCourseAdapter(var context: Context, var myCourseList: ArrayList<CourseIn
         holder.tvMyCourseCount.text = myCourseList[position].course_distance
 
         val geocoder = Geocoder(context)
-
         var addr:String=""
         var addr2:String=""
         var addr3:String=""
 
-//        addr = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().adminArea
-//
-//        if(addr.length<5) {
-//            addr3 = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1)
-//                .first().locality
-//            holder.tvMyCourseAddress.text = "${addr} ${addr3}"
-//        }
-//        else{
-//            addr2 = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().subLocality
-//            holder.tvMyCourseAddress.text = "${addr} ${addr2}"
-//        }
+        addr = geocoder.getFromLocation(myCourseList[position].start_lat, myCourseList[position].start_lng, 1).first().adminArea
+
+        if(geocoder.getFromLocation(myCourseList[position].start_lat, myCourseList[position].start_lng, 1).first().subLocality==null) {
+            addr3 = geocoder.getFromLocation(myCourseList[position].start_lat, myCourseList[position].start_lng, 1)
+                .first().locality
+            Log.d("test-맵",addr3.toString())
+            holder.tvMyCourseAddress.text = "${addr} ${addr3}"
+        }
+        else{
+            addr2 = geocoder.getFromLocation(myCourseList[position].start_lat, myCourseList[position].start_lng, 1).first().subLocality
+            holder.tvMyCourseAddress.text = "${addr} ${addr2}"
+            Log.d("test-맵",addr2.toString())
+        }
 
 
         holder.ckMyCourse.isChecked = checkboxStatus[position]
