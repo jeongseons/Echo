@@ -214,7 +214,7 @@ class CourseDetailActivity : AppCompatActivity(), MapFragment4.OnConnectedListen
                 binding.tvCourseDetailStartAddress.text = "${addr} ${addr3}"
 
             }
-            else{
+            else if(geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().subLocality!=null){
                 addr2 = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().subLocality
                 binding.tvCourseDetailStartAddress.text = "${addr} ${addr2}"
             }

@@ -81,6 +81,13 @@ class CourseMapActivity : AppCompatActivity() {
             map = it
             map.getUiSettings().setZoomControlsEnabled(true);
 
+            map.setOnMapLoadedCallback {
+                try {
+                    map.isMyLocationEnabled = true   //현재위치표시 및 현재위치로 돌아올 수 있는 버튼 생성.
+                } catch (e: SecurityException) {
+                }
+            }
+
             map!!.moveCamera(CameraUpdateFactory.newLatLng(LatLng(mapList[0].lat, mapList[0].lng)))
 
             map.animateCamera(CameraUpdateFactory.zoomTo(15f))
