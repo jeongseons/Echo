@@ -1,5 +1,6 @@
 package com.example.echo.auth
 
+import com.example.echo.group.detail.PersonProfile
 import com.example.echo.myPage.MyPageVO
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -36,5 +37,10 @@ interface UserAPI {
     fun getMyPage(
         @Path("user_id") user_id : String
     ): Call<MyPageVO>
+
+    @GET("api/user/profile/{user_id}")
+    fun getPersonProfile(
+        @Path("user_id") user_id : String
+    ): Call<PersonProfile>
 
 }

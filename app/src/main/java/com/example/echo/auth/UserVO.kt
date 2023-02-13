@@ -8,3 +8,4 @@ data class UserVO(var user_id : String = "",
                   ){
 
 }
+
