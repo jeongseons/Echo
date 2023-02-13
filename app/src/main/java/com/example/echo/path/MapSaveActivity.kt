@@ -152,6 +152,7 @@ class MapSaveActivity : AppCompatActivity(), MapFragment4.OnConnectedListener {
         var zoomDistance = getDistance(startLatLng, endLatLng)
         mMap = map
         mMap!!.moveCamera(CameraUpdateFactory.newLatLng(centerLatLng))
+        Log.d("test", zoomDistance.toString() )
 
         if(zoomDistance>=5000) {
             mMap!!.animateCamera(CameraUpdateFactory.zoomTo(11f))

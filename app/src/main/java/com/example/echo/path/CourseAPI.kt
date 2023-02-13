@@ -6,12 +6,6 @@ import retrofit2.http.*
 
 interface CourseAPI {
 
-    //경로저장
-//    @POST("api/getCourse")
-//    fun getCourse(
-//        @Body Map : MapVO
-//    ): Call<ResponseBody>
-
     // 경로 저장
     @POST("api/course")
     fun addCourse(
@@ -29,5 +23,17 @@ interface CourseAPI {
     fun getMap(
         @Path("course_seq") course_seq: Int
     ): Call<List<MapVO>>
+
+    // 경로 정보 수정
+    @PUT("api/course/{course_seq}")
+    fun modifyCourse(
+        @Path("course_seq") course_seq: Int
+    ): Call<ResponseBody>
+
+    // 경로 삭제
+    @PUT("api/course/{course_seq}")
+    fun deleteCourse(
+        @Path("course_seq") course_seq: Int
+    ): Call<ResponseBody>
 
 }
