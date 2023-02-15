@@ -88,6 +88,9 @@ class DetailPersonProfileActivity : AppCompatActivity() {
                     boardList = (body!!.boardList as ArrayList<BoardListVO>?)!!
                     courseList = (body!!.courseList as ArrayList<CourseList>?)!!
 
+                    boardList.reverse()
+                    courseList.reverse()
+
                     binding.tvDetailPersonProfileGender.text = personInfo.user_gender
                     binding.tvDetailPersonProfileBirth.text = personInfo.user_birthdate
 
