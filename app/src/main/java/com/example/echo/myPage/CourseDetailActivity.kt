@@ -1,13 +1,18 @@
 package com.example.echo.myPage
 
 import android.content.ActivityNotFoundException
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.EditText
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
@@ -25,6 +30,9 @@ import com.kakao.sdk.template.model.Button
 import com.kakao.sdk.template.model.Content
 import com.kakao.sdk.template.model.FeedTemplate
 import com.kakao.sdk.template.model.Link
+import com.kakao.sdk.user.UserApiClient
+import kotlinx.android.synthetic.main.dialog_course_modify.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,7 +42,6 @@ private var polylineOptions = PolylineOptions().width(7f).color(Color.RED)
 var course_seq = 0
 
 class CourseDetailActivity : AppCompatActivity()  {
-//    class CourseDetailActivity : AppCompatActivity(), MapFragment4.OnConnectedListener  {
     private lateinit var binding: ActivityCourseDetailBinding
     var mapList = ArrayList<MapVO>()
 
@@ -68,12 +75,70 @@ class CourseDetailActivity : AppCompatActivity()  {
         binding.tvCourseDetailTotalDistance.text = course_distance
         binding.tvCourseDetailTotalAlt.text = course_alt
 
-//        supportFragmentManager.beginTransaction().replace(
-//            R.id.flCourseDetail,
-//            MapFragment4()
-//        ).commit()
+        binding.tvCourseDetailModify.visibility = View.INVISIBLE
+        binding.tvCourseDetailDelete.visibility = View.INVISIBLE
+
+        UserApiClient.instance.me { user, error ->
+            var loginUserId = user?.id.toString()
+
+            if(course_user_id==loginUserId) {
+                binding.tvCourseDetailModify.visibility = View.VISIBLE
+                binding.tvCourseDetailDelete.visibility = View.VISIBLE
+            }
+        }
+
+        //경로 수정
+        binding.tvCourseDetailModify.setOnClickListener {
+
+            DialogCourseModify(this).show("경로 정보 저장")
+
+//            AlertDialog.Builder(this)
+//                .setMessage("경로 정보 수정")
+//                .setView(R.layout.dialog_course_modify)
+//                .show()
+//                .also { alertDialog ->
+//
+//                    if(alertDialog == null) {
+//                        return@also
+//                    }
+//
+//                    alertDialog.findViewById<EditText>(R.id.etCourseModifyTitle)?.setText(course_title)
+//                    val rdoCourseModifyType = alertDialog.findViewById<RadioGroup>(R.id.rdoCourseModifyType)
+//                    val rdoCourseModifyPublic = alertDialog.findViewById<RadioButton>(R.id.rdoCourseModifyPublic)
+//                    val rdoCourseModifyClosed = alertDialog.findViewById<RadioButton>(R.id.rdoCourseModifyClosed)
+//
+//                    if(course_open=="y") rdoCourseModifyPublic?.isChecked = true
+//                    if(course_open=="n") rdoCourseModifyClosed?.isChecked = true
+////                    val password = alertDialog.findViewById<EditText>(R.id.password)?.text
+////                    val button = alertDialog.findViewById<MaterialButton>(R.id.button)
+////
+////                    button?.setOnClickListener {
+////                        alertDialog.dismiss()
+////                        Log.d("MyTag", "userName : $userName, password : $password")
+////                    }
+//                }
+        }
 
 
+        //경로 삭제
+        binding.tvCourseDetailDelete.setOnClickListener {
+            val dialog: AlertDialog.Builder = AlertDialog.Builder(
+                this,
+                android.R.style.ThemeOverlay_Material_Dialog_Alert
+            )
+            dialog.setMessage("경로를 삭제하시겠습니까?")
+                .setTitle("경로 삭제")
+                .setPositiveButton("아니오", DialogInterface.OnClickListener { dialog, which ->
+                    Log.i("Dialog", "취소")
+                })
+                .setNeutralButton("예",
+                    DialogInterface.OnClickListener { dialog, which ->
+                        deleteCourse(course_seq)
+                    })
+                .show()
+        }
+
+        //경로 확대
         binding.imgCourseDetailCloseup.setOnClickListener{
             val intent = Intent(this, CourseMapActivity::class.java)
             intent.putExtra("mapList", mapList)
@@ -238,76 +303,29 @@ class CourseDetailActivity : AppCompatActivity()  {
 
     }
 
-
-
-
-//    override fun onConnect(mMap: GoogleMap) {
-//        Log.d("test-맵",mapList.toString())
-//
-//        if(mapList.isNotEmpty()){
-//        var startLatLng = LatLng(mapList[0].lat, mapList[0].lng)
-//        var endLatLng = LatLng(mapList[mapList.size-1].lat, mapList[mapList.size-1].lng)
-//        var mapSaveActivity = MapSaveActivity()
-//        var centerLatLng = LatLng((startLatLng.latitude+endLatLng.latitude)/2, (startLatLng.longitude+endLatLng.longitude)/2)
-//        var zoomDistance = mapSaveActivity.getDistance(startLatLng, endLatLng)
-//            Log.d("test-맵",zoomDistance.toString())
-//            Log.d("test-맵시작",startLatLng.toString())
-//            Log.d("test-맵종료",endLatLng.toString())
-//
-//
-//            mMap!!.moveCamera(CameraUpdateFactory.newLatLng(centerLatLng))
-//        if(zoomDistance>=5000) {
-//            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(11f))
-//        }else if(zoomDistance>=3500){
-//            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(12f))
-//        }else if(zoomDistance>=1500){
-//            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(13f))
-//        }else{
-//            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f))
-//        }
-//            mMap?.addMarker(
-//            MarkerOptions()
-//                .position(startLatLng)
-//                .title("시작지점"))
-//
-//     mMap?.addMarker(
-//            MarkerOptions()
-//                .position(endLatLng)
-//                .title("종료지점"))
-//
-//        for(i in mapList) {
-//            polylineOptions.add(LatLng(i.lat, i.lng))
-//            polylineOptions.width(13f)
-//            polylineOptions.visible(true)   // 선이 보여질지/안보여질지 옵션.
-//            mMap?.addPolyline(polylineOptions)
-//        }
-//
-//            val geocoder = Geocoder(this)
-//            var addr:String=""
-//            var addr2:String=""
-//            var addr3:String=""
-//
-//            addr = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().adminArea
-//
-//            if(geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().subLocality==null) {
-//                addr3 = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1)
-//                    .first().locality
-//                Log.d("test-맵",addr3.toString())
-//                binding.tvCourseDetailStartAddress.text = "${addr} ${addr3}"
-//
-//            }
-//            else{
-//                addr2 = geocoder.getFromLocation(startLatLng.latitude, startLatLng.longitude, 1).first().subLocality
-//                binding.tvCourseDetailStartAddress.text = "${addr} ${addr2}"
-//                Log.d("test-맵",addr2.toString())
-//            }
-//
-//        }
-//    }
-//
-//
-//    override fun onBackPressed() {
-//        finish()
-//    }
+    fun deleteCourse(course_seq: Int){
+        val call = RetrofitBuilder.courseApi.deleteCourse(course_seq)
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>
+            ) {
+                Log.d("test-삭제후", response.body().toString())
+                if(response.isSuccessful) {
+                    Toast.makeText(
+                        this@CourseDetailActivity, "정상적으로 삭제되었습니다",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    finish()
+                }else{
+                    Toast.makeText(
+                        this@CourseDetailActivity, "다시 시도해주세요",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.d("test-가입실패", t.localizedMessage)
+            }
+        })
+    }
 
 }

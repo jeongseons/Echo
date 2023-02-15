@@ -3,6 +3,7 @@ package com.example.echo.group.detail
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.echo.R
@@ -11,6 +12,7 @@ import com.example.echo.board.BoardListVO
 import com.example.echo.databinding.ActivityDetailPersonProfileBinding
 import com.example.echo.myPage.MyPageVO
 import com.example.echo.path.CourseList
+import com.kakao.sdk.user.UserApiClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -61,6 +63,20 @@ class DetailPersonProfileActivity : AppCompatActivity() {
                 else -> {
                     var personCourseFragment = PersonCourseFragment()
                     var bundle = Bundle()
+
+                    UserApiClient.instance.me { user, error ->
+                        var loginUserId = user?.id.toString()
+
+                        if(user_id!=loginUserId) {
+                            var filterdCourseList = courseList.filter{
+                                it.course_open == "y"
+                            }
+                            Log.d("test-filter", filterdCourseList.toString())
+                            courseList = filterdCourseList as ArrayList<CourseList>
+                        }
+
+                    }
+
                     bundle.putSerializable("courseList", courseList)
                     personCourseFragment.arguments = bundle //fragment의 arguments에 데이터를 담은 bundle을 넘겨줌
                     Log.d("test-번들보내기전", courseList.toString())
