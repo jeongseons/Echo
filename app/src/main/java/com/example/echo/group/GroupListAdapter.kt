@@ -13,7 +13,10 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.echo.MainActivity
 import com.example.echo.R
+import com.example.echo.WebSocketListener
+import okhttp3.WebSocket
 
 class GroupListAdapter(val context: Context, var grouplist: ArrayList<GroupVO>):
 RecyclerView.Adapter<GroupListAdapter.ViewHolder>(){
@@ -30,6 +33,10 @@ RecyclerView.Adapter<GroupListAdapter.ViewHolder>(){
             imgGroupPro = itemView.findViewById(R.id.imgGroupPro)
             imgKingCk = itemView.findViewById(R.id.imgKingCk)
             itemView.setOnClickListener{
+                if(WebSocketListener.connect) {
+                    Log.d("socket", "소켓 닫아줌/")
+                    GroupActivity.closeSocket()
+                }
                 val intent = Intent(context, GroupActivity :: class.java)
                 intent.putExtra("title", grouplist[adapterPosition].group_name)
                 intent.putExtra("num", grouplist[adapterPosition].group_seq)

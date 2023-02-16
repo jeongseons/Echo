@@ -15,9 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.echo.R
 import com.example.echo.group.GroupActivity
-import com.example.echo.group.GroupActivity.Companion.runstomp
-import com.example.echo.group.GroupActivity.Companion.stomp
-import com.example.echo.group.GroupActivity.Companion.topic
+import com.example.echo.group.GroupActivity.Companion.testSocket
 import com.example.echo.group.GroupListAdapter
 import com.example.echo.group.GroupVO
 import com.example.echo.group.Message
@@ -46,22 +44,13 @@ class DetailTalkFragment : Fragment() {
         val seq = requireActivity().intent.getIntExtra("num", 0)
 
         btnTalkchat1.setOnClickListener {//확인했습니다
-            stomp.send("/app/{$seq}", "확인했습니다.").subscribe {
-                if (it) {
-                }
-            }
+            testSocket.send("확인했습니다/")
         }
         btnTalkchat2.setOnClickListener {//기다려주세요
-            stomp.send("/app/{$seq}", "기다려주세요.").subscribe {
-                if (it) {
-                }
-            }
+            testSocket.send("기다려주세요/")
         }
         btnTalkchat3.setOnClickListener {//다쳤습니다
-            stomp.send("/app/{$seq}", "다쳤습니다.").subscribe {
-                if (it) {
-                }
-            }
+            testSocket.send("다쳤습니다/")
         }
 
         //더미 데이터
@@ -73,11 +62,10 @@ class DetailTalkFragment : Fragment() {
         )
         talkList.add(
             Message(
-                "U",
+                "기다려주세요!",
                 "2617123456", "05:00"
             )
         )
-
 
         adapter = TalkAdapter(requireContext(), talkList)
         //어댑터 리스트로 띄워졌을때 해당 액티비티로 이동해야함.
