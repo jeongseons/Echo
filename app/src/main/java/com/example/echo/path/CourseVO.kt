@@ -42,3 +42,9 @@ data class CourseList (var course_seq: Int,
                        var start_lng: Double = 0.0,
 ){
 }
+
+data class ModifiedCourse (var course_seq:Int,
+                           var course_title: String = "",
+                           var course_open: String = ""
+){
+}

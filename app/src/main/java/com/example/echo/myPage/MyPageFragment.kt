@@ -1,9 +1,13 @@
 package com.example.echo.myPage
 
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.bumptech.glide.Glide
@@ -20,11 +25,16 @@ import com.example.echo.R
 import com.example.echo.RetrofitBuilder
 import com.example.echo.auth.IntroActivity
 import com.example.echo.databinding.FragmentMyPageBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
 import com.kakao.sdk.user.UserApiClient
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.jar.Manifest
 
 
 lateinit var binding: FragmentMyPageBinding
