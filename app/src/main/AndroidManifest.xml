@@ -209,6 +209,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
@@ -228,6 +229,7 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="f5b248e1f5c7496e71b711e2650daf28" />
+
     </application>
 
 </manifest>
