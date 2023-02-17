@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".myPage.CourseDetailActivity">
+
+
+    <ImageView
+        android:id="@+id/imgCourseDetailBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back" />
+
+    <TextView
+        android:id="@+id/tvCourseDetailTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="경로 제목"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgCourseDetailBack"
+        app:layout_constraintStart_toEndOf="@+id/imgCourseDetailBack"
+        app:layout_constraintTop_toTopOf="@+id/imgCourseDetailBack" />
+
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mvCourseDetail"
+        android:layout_width="397dp"
+        android:layout_height="355dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/imgCourseDetailCloseup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCourseDetailEndTimeText" />
+
+    <FrameLayout
+        android:id="@+id/flCourseDetail"
+        android:layout_width="397dp"
+        android:layout_height="355dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCourseDetailEndTimeText">
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvCourseDetailStartPoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="시작지점"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCourseDetailTitle" />
+
+    <TextView
+        android:id="@+id/tvCourseDetailEndTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="종료시간"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCourseDetailStartTimeText" />
+
+    <TextView
+        android:id="@+id/tvCourseDetailStartTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="시작시간"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCourseDetailStartPoint" />
+
+    <TextView
+        android:id="@+id/tvCourseDetailStartTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="00:00:00"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCourseDetailStartTimeText"
+        app:layout_constraintStart_toEndOf="@+id/tvCourseDetailStartTimeText"
+        app:layout_constraintTop_toBottomOf="@+id/tvCourseDetailStartPoint"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/tvCourseDetailTotalDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0.00km"
+        app:layout_constraintEnd_toEndOf="@+id/tvCourseDetailTotalDistanceText"
+        app:layout_constraintStart_toStartOf="@+id/tvCourseDetailTotalDistanceText"
+        app:layout_constraintTop_toBottomOf="@+id/tvCourseDetailTotalDistanceText" />
+
+    <TextView
+        android:id="@+id/tvCourseDetailEndTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="00:00:00"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCourseDetailEndTimeText"
+        app:layout_constraintStart_toEndOf="@+id/tvCourseDetailEndTimeText"
+        app:layout_constraintTop_toTopOf="@+id/tvCourseDetailEndTimeText"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/tvCourseDetailTotalAlt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0.0km"
+        app:layout_constraintEnd_toEndOf="@+id/tvCourseDetailTotalAltText"
+        app:layout_constraintStart_toStartOf="@+id/tvCourseDetailTotalAltText"
+        app:layout_constraintTop_toBottomOf="@+id/tvCourseDetailTotalAltText" />
+
+    <TextView
+        android:id="@+id/tvCourseDetailTotalDistanceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="총 거리"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCourseDetailTotalTimeText"
+        app:layout_constraintEnd_toStartOf="@+id/tvCourseDetailTotalAltText"
+        app:layout_constraintHorizontal_bias="0.452"
+        app:layout_constraintStart_toEndOf="@+id/tvCourseDetailTotalTimeText"
+        app:layout_constraintTop_toTopOf="@+id/tvCourseDetailTotalTimeText"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tvCourseDetailTotalTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00:00"
+        app:layout_constraintEnd_toEndOf="@+id/tvCourseDetailTotalTimeText"
+        app:layout_constraintStart_toStartOf="@+id/tvCourseDetailTotalTimeText"
+        app:layout_constraintTop_toBottomOf="@+id/tvCourseDetailTotalTimeText" />
+
+    <TextView
+        android:id="@+id/tvCourseDetailTotalAltText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:text="총 고도"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCourseDetailTotalDistanceText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvCourseDetailTotalDistanceText" />
+
+    <TextView
+        android:id="@+id/tvCourseDetailTotalTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="16dp"
+        android:text="총 소요시간"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgCourseDetailCloseup" />
+
+    <TextView
+        android:id="@+id/tvCourseDetailStartAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="시작지점 주소"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCourseDetailStartPoint"
+        app:layout_constraintStart_toEndOf="@+id/tvCourseDetailStartPoint"
+        app:layout_constraintTop_toTopOf="@+id/tvCourseDetailStartPoint" />
+
+    <TextView
+        android:id="@+id/tvCourseDetailModify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="수정"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCourseDetailDelete"
+        app:layout_constraintEnd_toStartOf="@+id/tvCourseDetailDelete"
+        app:layout_constraintTop_toTopOf="@+id/tvCourseDetailDelete" />
+
+    <TextView
+        android:id="@+id/tvCourseDetailDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="8dp"
+        android:text="삭제"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgCourseDetailShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flCourseDetail"
+        app:srcCompat="@drawable/ic_baseline_share_24" />
+
+    <ImageView
+        android:id="@+id/imgCourseDetailCloseup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgCourseDetailShare"
+        app:layout_constraintEnd_toStartOf="@+id/imgCourseDetailShare"
+        app:layout_constraintTop_toTopOf="@+id/imgCourseDetailShare"
+        app:srcCompat="@drawable/ic_baseline_open_in_new_24" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

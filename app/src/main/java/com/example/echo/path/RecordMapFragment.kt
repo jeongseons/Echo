@@ -12,6 +12,7 @@ import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
+import android.location.Geocoder
 import android.location.Location
 import android.location.Location.distanceBetween
 import android.os.Bundle
@@ -39,8 +40,11 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import kotlinx.android.synthetic.main.fragment_map.*
+import kotlinx.android.synthetic.main.fragment_record_map.view.*
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.timer
 
@@ -78,11 +82,18 @@ var averSpeed: String? = null
 //만보기
 var pedometer: Int = 0
 
-var startLatLng: LatLng =  LatLng(0.0,0.0)
+var startLatLng =  LatLng(0.0,0.0)
+
+var startTime = ""
+var endTime = ""
 
 lateinit var tvMapTotalTime:TextView
 lateinit var tvMapTotalDistance:TextView
 lateinit var tvMapTotalAlt:TextView
+lateinit var tvMapCurrentLocation2:TextView
+lateinit var tvMapCurrentTime2:TextView
+
+var startCk = false
 
 
 class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
@@ -119,9 +130,11 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
         val btnMapRecordStart2 = view.findViewById<Button>(R.id.btnMapRecordStart2)
         val btnMapRecordEnd2 = view.findViewById<Button>(R.id.btnMapRecordEnd2)
         val btnMapRecordPause = view.findViewById<Button>(R.id.btnMapRecordPause)
+        tvMapCurrentLocation2 = view.findViewById<TextView>(R.id.tvMapCurrentLocation2)
         tvMapTotalTime = view.findViewById(R.id.tvMapTotalTime)
         tvMapTotalDistance = view.findViewById(R.id.tvMapTotalDistance)
         tvMapTotalAlt = view.findViewById(R.id.tvMapTotalAlt)
+        tvMapCurrentTime2 = view.findViewById(R.id.tvMapCurrentTime2)
 
         childFragmentManager.beginTransaction().replace(
             R.id.flMap,
@@ -133,8 +146,7 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
 
         //기록시작
         btnMapRecordStart2.setOnClickListener {
-            before_location[0] = 0.0
-            before_location[1] = 0.0
+            startCk = true
             recordStart = true
             recordPressed = true
             btnMapRecordPause.visibility = View.VISIBLE
@@ -157,17 +169,23 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
             recordPressed = false
             Log.d("test-종료버튼클릭", recordStart.toString())
             pauseTimer()
+            endTime = getNowTime()
+            fusedLocationProviderClient.removeLocationUpdates(locationCallback)
             if(latlngArray.size == 0){
                 Toast.makeText(context,"아직 이동하지 않으셨습니다", Toast.LENGTH_LONG).show()
             }else {
                 val intent = Intent(requireContext(), MapSaveActivity::class.java)
+                intent.putExtra("latlngArray",latlngArray)
+                intent.putExtra("totalTime",tvMapTotalTime.text)
+                intent.putExtra("totalAlt",tvMapTotalAlt.text)
+                intent.putExtra("totalDistance",tvMapTotalDistance.text)
+                intent.putExtra("startTime",startTime)
+                intent.putExtra("endTime",endTime)
+                intent.putExtra("speed", "${averSpeed}km/h")
                 startActivity(intent)
             }
         }
 
-
-//        var mapfr: Fragment = MapFragment()
-//        var detailfr: Fragment = RecordFragment() //
         return view
     }
 
@@ -296,6 +314,13 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
         timeTask?.cancel()  //Timer의 객체로써 null일수 있기에 timetask 옆에 ? 붙음.
     }
 
+    fun getNowTime(): String {
+        var now = System.currentTimeMillis();
+        var date = Date(now);
+        var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+
+        return simpleDateFormat.format(date)
+    }
 
     //TODO : start 누르는 순간 기록 시작. upload 누를 시 firestore에 업로드
     inner class MyLocationCallback : LocationCallback() {
@@ -304,6 +329,7 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
 
             val location = locationResult?.lastLocation
 
+            if(recordPressed){
             location?.run {
 
                 val latLng = LatLng(
@@ -313,10 +339,37 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
 
                 Log.d("MapActivity", "lan:$latitude, long:$longitude")
 
+                if(startCk){
+                    startTime = getNowTime()
+                    tvMapCurrentTime2.text = startTime
+                    startLatLng = LatLng(latitude, longitude)
+                    val geocoder = Geocoder(context)
+
+                    try {
+                        var addr = geocoder.getFromLocation(latitude.toDouble(), longitude.toDouble(), 1).first().adminArea
+                        if(geocoder.getFromLocation(latitude.toDouble(), longitude.toDouble(), 1).first().subLocality==null) {
+                            var addr3 = geocoder.getFromLocation(latitude.toDouble(), longitude.toDouble(), 1).first().locality
+                            tvMapCurrentLocation2.text= "${addr} ${addr3}"
+                        }
+                        else{
+                            var addr2 = geocoder.getFromLocation(latitude.toDouble(), longitude.toDouble(), 1).first().subLocality
+                            tvMapCurrentLocation2.text = "${addr} ${addr2}"
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                    before_location[0] = startLatLng.latitude
+                    before_location[1] = startLatLng.longitude
+                    mMap?.moveCamera(CameraUpdateFactory.newLatLng(startLatLng))
+                    mMap?.addMarker(
+                        MarkerOptions()
+                        .position(startLatLng)
+                        .title("출발지점"))
+                    startCk = false
+                }
 
                 //latitude,longitude를 builder에 넣어 나중에 모든 경로에 대해 알맞게 카메라 조정을 할 수 있음.
                 builder.include(LatLng(latitude, longitude))
-
 
                 Log.d("test-위치좌표", before_location.toString())
 
@@ -326,10 +379,8 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
                         max_altitude = altitude
 
                     println("고도: " + max_altitude)
-                    //latitude,longitude를 builder에 넣어 나중에 모든 경로에 대해 알맞게 카메라 조정을 할 수 있음.
-                    //builder.include(LatLng(latitude, longitude))
-                    tvMapTotalAlt.text = "${max_altitude.toString()}km"
 
+                    tvMapTotalAlt.text = "${String.format("%.2f", max_altitude/10)}m"
                     // 위도, 경도 저장
                     latlngArray.add(Pair(latitude, longitude))
 
@@ -343,13 +394,12 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
                     )
 //
                     total_distance += arrayex[0] / 1000
+                    // 거리 표시
                     tvMapTotalDistance.text = "${String.format("%.2f", total_distance)}km"
 
-                    // 거리 표시
-//                    distanceKm.text = String.format("%.2f", total_distance)
                     // 시속 표시
-//                    averSpeed = String.format("%.2f", total_distance * (3600 / total_sec))
 //                    averageSpeed.text = averSpeed
+//                    averSpeed = String.format("%.2f", total_distance * (3600 / total_sec))
 
 //                    println("거리:" + total_distance)
 //                    println("초:" + total_sec)
@@ -357,16 +407,18 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
 
 
                     // Latlng(latitude,longitude) 을 이용하여 지도에 선 그리기
-                    polylineOptions.add(latLng)
-                    polylineOptions.width(13f)
-                    polylineOptions.visible(true)   // 선이 보여질지/안보여질지 옵션.
+                    if(!startCk) {
+                        polylineOptions.add(latLng)
+                        polylineOptions.width(13f)
+                        polylineOptions.visible(true)   // 선이 보여질지/안보여질지 옵션.
 
-                    mMap?.addPolyline(polylineOptions)
+                        mMap?.addPolyline(polylineOptions)
+                    }
                     mMap?.moveCamera(CameraUpdateFactory.newLatLng(latLng))
 
                 }
-                Log.d("test-종료버튼클릭", recordStart.toString())
-
+                Log.d("test-기록버튼클릭", recordStart.toString())
+                Log.d("test-기록중", latlngArray.toString())
             }
 
             if (recordPressed) {
@@ -377,6 +429,7 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
             }
 
         }
+            }
     }
 
     override fun onConnect(map: GoogleMap) {

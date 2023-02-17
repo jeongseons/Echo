@@ -9,10 +9,15 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
-    <uses-feature android:name="android.hardware.sensor.proximity" android:required="true" />
-    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
+    <uses-feature
+        android:name="android.hardware.sensor.proximity"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
 
     <application
+
         android:name=".utils.GlobalApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -24,12 +29,27 @@
         android:theme="@style/Theme.Echo"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
-        <service
-            android:name=".service.SensorService"
-            android:enabled="true"
-            android:exported="true" />
-
+        <activity
+            android:name=".group.detail.DetailPersonProfileActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".myPage.CourseMapActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".myPage.CourseDetailActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".group.EditGroupInfoActivity"
             android:exported="false">
@@ -37,6 +57,11 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <service
+            android:name=".service.SensorService"
+            android:enabled="true"
+            android:exported="true" />
 
         <activity
             android:name=".CountActivity"

@@ -3,6 +3,7 @@ package com.example.echo.group.detail
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,8 +18,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
-import com.example.echo.myPage.binding
-import com.example.echo.myPage.user_profile_img
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,6 +40,22 @@ class PersonAdapter(
             tvPersonAuth = itemView.findViewById(R.id.tvPersonAuth)
             imgPersonKing = itemView.findViewById(R.id.imgPersonKing)
             imgPersonPro = itemView.findViewById(R.id.imgPersonPro)
+
+            tvPersonNick.setOnClickListener{
+                val intent = Intent(context, DetailPersonProfileActivity::class.java)
+                intent.putExtra("user_nick", personlist[adapterPosition].user_nick)
+                intent.putExtra("user_id", personlist[adapterPosition].user_id)
+                intent.putExtra("user_profile_img",personlist[position].user_profile_img)
+                context.startActivity(intent)
+            }
+
+            imgPersonPro.setOnClickListener {
+                val intent = Intent(context, DetailPersonProfileActivity::class.java)
+                intent.putExtra("user_nick", personlist[adapterPosition].user_nick)
+                intent.putExtra("user_id", personlist[adapterPosition].user_id)
+                intent.putExtra("user_profile_img",personlist[position].user_profile_img)
+                context.startActivity(intent)
+            }
 
             tvPersonAuth.setOnClickListener { //강퇴하기
                 if (auth != "n") {
@@ -77,6 +92,10 @@ class PersonAdapter(
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .skipMemoryCache(true)
             .into(holder.imgPersonPro)
+
+//        holder.imgPersonPro.setOnClickListener {
+//
+//        }
 
     }
 

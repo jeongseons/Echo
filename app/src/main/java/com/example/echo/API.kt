@@ -130,5 +130,4 @@ interface API {
         @Query("user_id") user_id : String
     ): Call<ResponseBody>
 
-
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvMyCourseTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="타이틀"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tvMyCourseAddress"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyCourseAddress" />
+
+    <TextView
+        android:id="@+id/tvMyCourseDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="기록일자"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="@+id/tvMyCourseTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyCourseTitle" />
+
+    <TextView
+        android:id="@+id/tvMyCourseCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:text="총 거리"
+        android:textColor="#000000"
+        app:layout_constraintStart_toEndOf="@+id/tvMyCourseDate"
+        app:layout_constraintTop_toTopOf="@+id/tvMyCourseDate" />
+
+    <TextView
+        android:id="@+id/tvMyCourseAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="산이름"
+        android:textColor="#000000"
+        app:layout_constraintStart_toEndOf="@+id/ckMyCourse"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgMyCoursePic"
+        tools:srcCompat="@tools:sample/avatars"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="16dp"
+        android:scaleType="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvMyCourseAddress" />
+
+    <TextView
+        android:id="@+id/tvMyCourseLine"
+        tools:layout_editor_absoluteX="-35dp"
+        tools:layout_editor_absoluteY="-3dp"
+        android:layout_width="600dp"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:id="@+id/ckMyCourse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

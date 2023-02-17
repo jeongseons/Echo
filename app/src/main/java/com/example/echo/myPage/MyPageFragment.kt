@@ -1,36 +1,53 @@
 package com.example.echo.myPage
 
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 import com.bumptech.glide.Glide
-import com.example.echo.R
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.echo.MainActivity
+import com.example.echo.R
 import com.example.echo.RetrofitBuilder
 import com.example.echo.auth.IntroActivity
 import com.example.echo.databinding.FragmentMyPageBinding
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
 import com.kakao.sdk.user.UserApiClient
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.jar.Manifest
+
 
 lateinit var binding: FragmentMyPageBinding
 var user_id = ""
 var user_profile_img = ""
+var mainActivity: MainActivity = MainActivity()
 
 class MyPageFragment : Fragment() {
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mainActivity = (activity as MainActivity?)!!
+    }
 
     override fun onCreateView(
 
@@ -45,6 +62,10 @@ class MyPageFragment : Fragment() {
             user_id = user?.id.toString()
             getMyPage(user_id)
         }
+
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val id = sharedPreferences.getBoolean("pfPush", false)
+        Log.d("test-shared", id.toString())
 
         binding.tvMyPageModify.setOnClickListener {
             val intent = Intent(context, ReviseActivity::class.java)
@@ -61,6 +82,22 @@ class MyPageFragment : Fragment() {
         }
 
         binding.tvMyPageCourseStrg.setOnClickListener {
+
+            val bundle = Bundle()
+            bundle.putString("user_id", user_id)
+            val myCourseFragment = MyCourseFragment()
+            myCourseFragment.arguments = bundle
+            myCourseFragment.setArguments(bundle)
+//            mainActivity.changeFragment(1)
+            mainActivity.supportFragmentManager.beginTransaction().replace(
+                R.id.flMain,
+                MyCourseFragment()
+                    .apply {
+                        arguments = Bundle().apply {
+                            putString("user_id", user_id)
+                        }
+                    }
+            ).commit()
 
         }
 
@@ -103,7 +140,7 @@ class MyPageFragment : Fragment() {
                     val intent = Intent(requireContext(), IntroActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
-                    // 액티비티 종료시키세요...
+                    requireActivity().finish()
 
                 }
             }
@@ -130,7 +167,7 @@ class MyPageFragment : Fragment() {
                                 6)
                         }월 " +
                                 "${body.user_birthdate.substring(6, 8)}일"
-                    Glide.with(requireContext())
+                    Glide.with(context!!)
                         .load(user_profile_img)
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .skipMemoryCache(true)
