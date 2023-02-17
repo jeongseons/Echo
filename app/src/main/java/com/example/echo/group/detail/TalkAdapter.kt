@@ -45,7 +45,9 @@ class TalkAdapter(
             imgTalkL = itemView.findViewById(R.id.imgTalkR)
 
             // 해당 다른 유저의 현재 위치를 실시간으로 보여주는 화면으로 전환
-            imgTalkPro.setOnClickListener { activity.changeFragment(DetailLocationFragment()) }
+            imgTalkPro.setOnClickListener {
+                activity.changeFragment(DetailLocationFragment(),talkList[adapterPosition].x,talkList[adapterPosition].y)
+            }
 
             //나
             imgTalkR = itemView.findViewById(R.id.imgTalkR)

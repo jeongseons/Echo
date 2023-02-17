@@ -1,36 +1,22 @@
 package com.example.echo.group
 
-import android.content.ContentValues.TAG
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.system.Os.close
 import android.util.Log
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.echo.HomeFragment
 import com.example.echo.R
 import com.example.echo.WebSocketListener
-import com.example.echo.board.BoardFragment
-import com.example.echo.group.detail.*
-import com.example.echo.myPage.MyPageFragment
-import com.example.echo.path.PathFragment
-import com.gmail.bishoybasily.stomp.lib.Event
-import com.gmail.bishoybasily.stomp.lib.StompClient
+import com.example.echo.group.detail.DetailDateFragment
+import com.example.echo.group.detail.DetailPersonFragment
+import com.example.echo.group.detail.DetailSettingFragment
+import com.example.echo.group.detail.DetailTalkFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import io.reactivex.disposables.Disposable
-import io.reactivex.internal.subscriptions.SubscriptionHelper.cancel
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.WebSocket
-import org.json.JSONObject
-import java.net.URISyntaxException
-import java.util.concurrent.TimeUnit
-import kotlin.properties.Delegates
 
 class GroupActivity : AppCompatActivity() {
 
@@ -84,8 +70,6 @@ class GroupActivity : AppCompatActivity() {
 //            runChatSocket()
 //        }
 
-
-
         supportFragmentManager.beginTransaction().replace(
             R.id.flGroup,
             DetailTalkFragment()
@@ -124,8 +108,18 @@ class GroupActivity : AppCompatActivity() {
         }
 
     }
-
     fun changeFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(
+            R.id.flGroup,
+            fragment
+        ).commit()
+    }
+
+    fun changeFragment(fragment: Fragment, x:Double, y:Double) {
+        val bundle = Bundle(2)
+        bundle.putDouble("Lat", x)
+        bundle.putDouble("Lng", y)
+        fragment.setArguments(bundle)
         supportFragmentManager.beginTransaction().replace(
             R.id.flGroup,
             fragment
