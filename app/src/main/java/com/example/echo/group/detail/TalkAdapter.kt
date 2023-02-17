@@ -64,13 +64,8 @@ class TalkAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        UserApiClient.instance.me { user, error ->
-            if (error != null) {
-                Log.e(ContentValues.TAG, "사용자 정보 요청 실패", error)
-            } else if (user != null) {
-                val id = user.id.toString()
 
-                if (id == talkList[position].sender) {//내가 친 채팅
+                if (talkList[position].ui == "me") {//내가 친 채팅
                     holder.imgTalkL.visibility = View.GONE
                     holder.imgTalkPro.visibility = View.GONE
                     holder.tvLTalkContent.visibility = View.GONE
@@ -100,8 +95,7 @@ class TalkAdapter(
                     holder.tvLTalkContent.setText(talkList[position].content)
                     holder.tvLTalkTime.text = talkList[position].date
                 }
-            }
-        }
+
 
     }
 

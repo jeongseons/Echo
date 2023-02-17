@@ -76,6 +76,11 @@ class DetailTalkFragment : Fragment() {
         //그룹번호 정보(소켓서버 오픈용)
         val seq = requireActivity().intent.getIntExtra("num", 0)
 
+        adapter = TalkAdapter(requireContext(), talkList)
+        //어댑터 리스트로 띄워졌을때 해당 액티비티로 이동해야함.
+        rvtalk.adapter = adapter
+        rvtalk.layoutManager = LinearLayoutManager(requireContext())
+
         btnTalkchat1.setOnClickListener {//확인했습니다
             receiveLocation {  }
             testSocket.send("{\"msg\":\"확인했습니다\", \"sender\":\"${nick}\", " +
@@ -99,11 +104,6 @@ class DetailTalkFragment : Fragment() {
 //                "2617009803", "04:00"
 //            )
 //        )
-
-        adapter = TalkAdapter(requireContext(), talkList)
-        //어댑터 리스트로 띄워졌을때 해당 액티비티로 이동해야함.
-        rvtalk.adapter = adapter
-        rvtalk.layoutManager = LinearLayoutManager(requireContext())
 
         return view
 
