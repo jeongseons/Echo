@@ -75,7 +75,7 @@ class GroupActivity : AppCompatActivity() {
         if(grNum != null) {
             Log.d("test", grNum.toString())
             request = Request.Builder()
-                .url("ws://211.223.140.57:8099/echo/chatting/${grNum}")
+                .url("ws://smartin.kbizit.kr:8234/echo/chatting/${grNum}")
                 .build()
             testSocket = client.newWebSocket(request, listener)
         }
