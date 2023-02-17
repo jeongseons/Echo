@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
+import com.example.echo.WebSocketListener
 import com.example.echo.group.GroupActivity
 import com.example.echo.group.GroupActivity.Companion.testSocket
 import com.example.echo.group.GroupListAdapter
@@ -42,12 +43,16 @@ import java.security.acl.Group
 
 class DetailTalkFragment : Fragment() {
 
-    lateinit var adapter: TalkAdapter
-    var talkList = ArrayList<Message>()
+
+
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     var userLat = 0.0
     var userLng = 0.0
     lateinit var nick:String
+
+    companion object{
+        lateinit var adapter: TalkAdapter
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,7 +81,7 @@ class DetailTalkFragment : Fragment() {
         //그룹번호 정보(소켓서버 오픈용)
         val seq = requireActivity().intent.getIntExtra("num", 0)
 
-        adapter = TalkAdapter(requireContext(), talkList)
+        adapter = TalkAdapter(requireContext(), WebSocketListener.talkList)
         //어댑터 리스트로 띄워졌을때 해당 액티비티로 이동해야함.
         rvtalk.adapter = adapter
         rvtalk.layoutManager = LinearLayoutManager(requireContext())

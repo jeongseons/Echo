@@ -1,6 +1,12 @@
 package com.example.echo.group
 
+import android.content.Intent
+import android.hardware.SensorManager
+import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.util.Log
 import android.widget.FrameLayout
 import android.widget.ImageView

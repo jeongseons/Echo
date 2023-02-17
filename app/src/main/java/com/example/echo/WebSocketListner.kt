@@ -1,12 +1,15 @@
 package com.example.echo
 
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.echo.group.GroupActivity
 import com.example.echo.group.Message
 import com.example.echo.group.Msg
 import com.example.echo.group.ReceiveMsg
+import com.example.echo.group.detail.DetailTalkFragment
 import com.example.echo.group.detail.TalkAdapter
 import com.google.gson.Gson
 import okhttp3.Response
@@ -31,6 +34,31 @@ open class WebSocketListener : WebSocketListener() {
     lateinit var mySessionId:String
     lateinit var adapter: TalkAdapter
 
+    val thread = TimerThread()
+
+    val handler = object : Handler(Looper.getMainLooper()) {
+        override fun handleMessage(msg: android.os.Message) {
+            super.handleMessage(msg)
+                val adapter = msg.obj as TalkAdapter
+                adapter.notifyDataSetChanged()
+            threadck = false
+            }
+    }
+
+    inner class TimerThread() : Thread() {
+        // run() 메소드가 존재 : 쓰레드를 동작시키면 실행되는 메서드
+        override fun run() {
+             while(threadck) {
+                 super.run()
+                 val message = android.os.Message()
+                 message.obj = DetailTalkFragment.adapter
+
+                 Log.d("thread", "동작")
+                 handler.sendMessage(message)
+             }
+        }
+    }
+
     // 메시지 보냄
     override fun onOpen(webSocket: WebSocket, response: Response?) {
         webSocket.send("{\"roomNumber\":\"88\", \"type\":\"ticker\", \"symbols\": [\"BTC_KRW\"], \"tickTypes\": [\"30M\"]}")
@@ -48,6 +76,7 @@ open class WebSocketListener : WebSocketListener() {
         Log.d("Socket","세션,메시지 확인 : $receiveMsg")
 
         if(receiveMsg.message!=null) {
+
             Log.d("세션 아이디 확인1","$mySessionId")
             if(mySessionId=="0"){
                 mySessionId = receiveMsg.sessionId
@@ -57,9 +86,11 @@ open class WebSocketListener : WebSocketListener() {
             msg = gson.fromJson(receiveMsg.message, Msg::class.java)
             Log.d("Socket", "메시지 확인 : $msg")
 
-            if(msg.msg!=null){//메시지를 보낼때만
+            if(msg.msg!=null){//메시지를 보내거나 받을때만
             now = toDate.format(DateTimeFormatter.ofPattern("HH:mm"))
+                threadck = true
                 if(mySessionId==receiveMsg.sessionId) {
+
                     talkList.add(
                         Message(
                             msg.msg,
@@ -70,6 +101,8 @@ open class WebSocketListener : WebSocketListener() {
                             "me"
                         )
                     )
+                    thread.start()
+//                    DetailTalkFragment.adapter.notifyDataSetChanged()
                 }
                 else if(mySessionId!=receiveMsg.sessionId){
                     talkList.add(
@@ -82,6 +115,8 @@ open class WebSocketListener : WebSocketListener() {
                             "other"
                         )
                     )
+                    thread.start()
+//                    DetailTalkFragment.adapter.notifyDataSetChanged()
                 }
 
                 Log.d("Socket", "talklist확인: $talkList")
@@ -116,5 +151,6 @@ open class WebSocketListener : WebSocketListener() {
         private const val NORMAL_CLOSURE_STATUS = 1000
         var talkList = ArrayList<Message>()
         var connect:Boolean = false
+        var threadck:Boolean = false
     }
 }
