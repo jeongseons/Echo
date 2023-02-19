@@ -42,6 +42,8 @@ var user_id = ""
 var user_profile_img = ""
 var mainActivity: MainActivity = MainActivity()
 
+private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
 class MyPageFragment : Fragment() {
 
     override fun onAttach(context: Context) {
@@ -62,6 +64,9 @@ class MyPageFragment : Fragment() {
             user_id = user?.id.toString()
             getMyPage(user_id)
         }
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        receiveLocation {  }
 
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         val id = sharedPreferences.getBoolean("pfPush", false)
@@ -211,5 +216,23 @@ class MyPageFragment : Fragment() {
         })
     }
 
+    fun receiveLocation(block: (location: Location) -> Unit) {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
+                requireContext(),
+                ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+        fusedLocationProviderClient.lastLocation
+            .addOnSuccessListener { location ->
+                block(location)
+                Log.d("test-location", location.toString())
+            }
+    }
 
 }

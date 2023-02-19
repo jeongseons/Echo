@@ -1,15 +1,18 @@
 package com.example.echo.myPage
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.example.echo.MainActivity
 
 
 import com.example.echo.R
+import com.example.echo.board.BoardWriteActivity
 
 
 class SettingActivity : AppCompatActivity(),
@@ -20,7 +23,12 @@ class SettingActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
 
+    }
 
+    override fun onBackPressed() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("myPageMove", true)
+        startActivity(intent)
     }
 
 //    private var counter = 0
@@ -53,6 +61,7 @@ class SettingActivity : AppCompatActivity(),
 
         editor.putString("pfPush","value")
         editor.putString("pfLogin","value")
+        editor.putString("pfSos","value")
         editor.commit()
 
 
@@ -63,6 +72,8 @@ class SettingActivity : AppCompatActivity(),
 //    }
 
     }
+
+
 
 
 }

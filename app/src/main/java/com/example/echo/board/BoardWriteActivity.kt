@@ -55,6 +55,11 @@ class BoardWriteActivity : AppCompatActivity() {
             Log.d("test-이미지업로드", binding.imgBoardWritePic.drawable.toString())
         }
 
+        binding.btnBoardWriteCourse.setOnClickListener {
+            val intent = Intent(this, BoardCourseActivity::class.java)
+            startActivity(intent)
+        }
+
         // 글 수정시 내용 불러오기
         modifyCk = intent.getStringExtra("modifyCk").toString()
         if(modifyCk=="true") {
