@@ -30,6 +30,7 @@ private lateinit var binding: ActivityBoardWriteBinding
 class BoardWriteActivity : AppCompatActivity() {
     var user_id = ""
     var board_file = ""
+    var course_img = ""
     var modifyCk = ""
     var fileCk = false
     var board_seq = 0
@@ -75,7 +76,7 @@ class BoardWriteActivity : AppCompatActivity() {
             var user_id = intent.getStringExtra("user_id")
             var mnt_name = intent.getStringExtra("mnt_name")
             course_seq = intent.getIntExtra("course_seq", 0)
-            val course_img = intent.getStringExtra("course_img")
+            course_img = intent.getStringExtra("course_img").toString()
             binding.tvBoardWriteLine.text = "게시글 수정"
             binding.btnBoardWrtePost.text = "게시글 수정"
             binding.etBoardWriteTitle.setText(board_title)

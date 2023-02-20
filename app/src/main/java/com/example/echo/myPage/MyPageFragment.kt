@@ -107,9 +107,24 @@ class MyPageFragment : Fragment() {
         }
 
         binding.tvMyPageBoardStrg.setOnClickListener {
-            val intent = Intent(context, MyBoardActivity::class.java)
-            intent.putExtra("user_id", user_id)
-            startActivity(intent)
+
+            val bundle = Bundle()
+            bundle.putString("user_id", user_id)
+            val myBoardFragment = MyBoardFragment()
+            myBoardFragment.arguments = bundle
+            myBoardFragment.setArguments(bundle)
+            mainActivity.supportFragmentManager.beginTransaction().replace(
+                R.id.flMain,
+                MyBoardFragment()
+                    .apply {
+                        arguments = Bundle().apply {
+                            putString("user_id", user_id)
+                        }
+                    }
+            ).commit()
+//            val intent = Intent(context, MyBoardActivity::class.java)
+//            intent.putExtra("user_id", user_id)
+//            startActivity(intent)
         }
 
         //회원탈퇴
