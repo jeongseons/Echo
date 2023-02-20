@@ -1,9 +1,13 @@
 package com.example.echo.myPage
 
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.bumptech.glide.Glide
@@ -20,17 +25,24 @@ import com.example.echo.R
 import com.example.echo.RetrofitBuilder
 import com.example.echo.auth.IntroActivity
 import com.example.echo.databinding.FragmentMyPageBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
 import com.kakao.sdk.user.UserApiClient
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.jar.Manifest
 
 
 lateinit var binding: FragmentMyPageBinding
 var user_id = ""
 var user_profile_img = ""
 var mainActivity: MainActivity = MainActivity()
+
+private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
 class MyPageFragment : Fragment() {
 
@@ -52,6 +64,9 @@ class MyPageFragment : Fragment() {
             user_id = user?.id.toString()
             getMyPage(user_id)
         }
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        receiveLocation {  }
 
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         val id = sharedPreferences.getBoolean("pfPush", false)
@@ -92,9 +107,24 @@ class MyPageFragment : Fragment() {
         }
 
         binding.tvMyPageBoardStrg.setOnClickListener {
-            val intent = Intent(context, MyBoardActivity::class.java)
-            intent.putExtra("user_id", user_id)
-            startActivity(intent)
+
+            val bundle = Bundle()
+            bundle.putString("user_id", user_id)
+            val myBoardFragment = MyBoardFragment()
+            myBoardFragment.arguments = bundle
+            myBoardFragment.setArguments(bundle)
+            mainActivity.supportFragmentManager.beginTransaction().replace(
+                R.id.flMain,
+                MyBoardFragment()
+                    .apply {
+                        arguments = Bundle().apply {
+                            putString("user_id", user_id)
+                        }
+                    }
+            ).commit()
+//            val intent = Intent(context, MyBoardActivity::class.java)
+//            intent.putExtra("user_id", user_id)
+//            startActivity(intent)
         }
 
         //회원탈퇴
@@ -201,5 +231,23 @@ class MyPageFragment : Fragment() {
         })
     }
 
+    fun receiveLocation(block: (location: Location) -> Unit) {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
+                requireContext(),
+                ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+        fusedLocationProviderClient.lastLocation
+            .addOnSuccessListener { location ->
+                block(location)
+                Log.d("test-location", location.toString())
+            }
+    }
 
 }

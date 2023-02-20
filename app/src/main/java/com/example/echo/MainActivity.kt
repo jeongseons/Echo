@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ProcessLifecycleOwner
+import androidx.preference.PreferenceManager
 import com.example.echo.board.BoardFragment
 import com.example.echo.group.GroupFragment
 import com.example.echo.myPage.MyCourseFragment
@@ -29,8 +30,8 @@ private var backKeyPressedTime: Long = 0
 class MainActivity : AppCompatActivity(), LifecycleObserver {
     var user_id = ""
     var moveCk = ""
-
     var check = false
+
 
     private var mSensorManager: SensorManager? = null
     private var mAccelerometer: Sensor? = null
@@ -39,6 +40,12 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val sosCheck = sharedPreferences.getBoolean("pfSos", true)
+        val pushCheck = sharedPreferences.getBoolean("pfPush", true)
+        Log.d("test-sos", sosCheck.toString())
+        Log.d("test-push", pushCheck.toString())
 
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
 
@@ -59,9 +66,10 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         mShakeDetector!!.setOnShakeListener(object : SensorService.OnShakeListener {
             override fun onShake(count: Int) {
                 //감지시 할 작업 작성
-                val intent = Intent(applicationContext, CountActivity::class.java)
-                startActivity(intent)
-
+                if(sosCheck) {
+                    val intent = Intent(applicationContext, CountActivity::class.java)
+                    startActivity(intent)
+                }
                 //백그라운드일시 포그라운드로 전환
                 val am = getSystemService(ACTIVITY_SERVICE) as ActivityManager
                 val tasks = am.getRunningTasks(100)
@@ -95,15 +103,24 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
         supportFragmentManager.beginTransaction().replace(
             R.id.flMain,
-            HomeFragment()
+            RecordMapFragment()
         ).commit()
 
-        moveCk = intent.getStringExtra("tvMapSaveAlt").toString()
-        if(moveCk.isNotEmpty()) {
-                         supportFragmentManager.beginTransaction().replace(
-                             R.id.flMain,
-                             RecordMapFragment()
-                         ).commit()
+//        moveCk = intent.getStringExtra("tvMapSaveAlt").toString()
+//        if(moveCk.isNotEmpty()) {
+//                         supportFragmentManager.beginTransaction().replace(
+//                             R.id.flMain,
+//                             RecordMapFragment()
+//                         ).commit()
+//        }
+
+        var myPageMove = intent.getBooleanExtra("myPageMove", false)
+        Log.d("test-move", myPageMove.toString())
+        if(myPageMove) {
+            supportFragmentManager.beginTransaction().replace(
+                R.id.flMain,
+                MyPageFragment()
+            ).commit()
         }
 
         bnvMain.setOnItemSelectedListener { item ->

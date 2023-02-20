@@ -7,8 +7,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.echo.MainActivity
 import com.example.echo.RetrofitBuilder
@@ -39,12 +41,22 @@ class MyCourseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val mainActivity = (activity as MainActivity)
+                mainActivity.changeFragment(2)
+            }
+        })
 
         binding = FragmentMyCourseBinding.inflate(layoutInflater, container, false)
         adapter = MyCourseAdapter(requireContext(), myCourseList)
         binding.rvMyCourse.adapter = adapter
         binding.rvMyCourse.layoutManager = LinearLayoutManager(context)
 
+        binding.imgMyCourseMoveBack.setOnClickListener {
+            val mainActivity = (activity as MainActivity)
+            mainActivity.changeFragment(2)
+        }
 
         // 경로 내부로 이동
         adapter.setOnItemClickListener(object : MyCourseAdapter.OnItemClickListener {
@@ -102,7 +114,26 @@ class MyCourseFragment : Fragment() {
     }
 
     fun deleteSelectedCourse(courseSeqList: ArrayList<Int>) {
-
+        val call = RetrofitBuilder.courseApi.deleteSelectedCourse(courseSeqList)
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>
+            ) {
+                Log.d("test-삭제후", response.body().toString())
+                if(response.isSuccessful) {
+                    Toast.makeText(
+                        requireContext(), "정상적으로 삭제되었습니다",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }else{
+                    Toast.makeText(
+                        requireContext(), "다시 시도해주세요",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+            }
+        })
     }
 
 

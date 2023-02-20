@@ -89,34 +89,57 @@ class CourseDetailActivity : AppCompatActivity()  {
 
         //경로 수정
         binding.tvCourseDetailModify.setOnClickListener {
+//            DialogCourseModify(this).show("경로 정보 저장")
+            AlertDialog.Builder(this)
+                .setMessage("경로 정보 수정")
+                .setView(R.layout.dialog_course_modify)
+                .show()
+                .also { alertDialog ->
 
-            DialogCourseModify(this).show("경로 정보 저장")
+                    if(alertDialog == null) {
+                        return@also
+                    }
 
-//            AlertDialog.Builder(this)
-//                .setMessage("경로 정보 수정")
-//                .setView(R.layout.dialog_course_modify)
-//                .show()
-//                .also { alertDialog ->
-//
-//                    if(alertDialog == null) {
-//                        return@also
-//                    }
-//
-//                    alertDialog.findViewById<EditText>(R.id.etCourseModifyTitle)?.setText(course_title)
-//                    val rdoCourseModifyType = alertDialog.findViewById<RadioGroup>(R.id.rdoCourseModifyType)
-//                    val rdoCourseModifyPublic = alertDialog.findViewById<RadioButton>(R.id.rdoCourseModifyPublic)
-//                    val rdoCourseModifyClosed = alertDialog.findViewById<RadioButton>(R.id.rdoCourseModifyClosed)
-//
-//                    if(course_open=="y") rdoCourseModifyPublic?.isChecked = true
-//                    if(course_open=="n") rdoCourseModifyClosed?.isChecked = true
-////                    val password = alertDialog.findViewById<EditText>(R.id.password)?.text
-////                    val button = alertDialog.findViewById<MaterialButton>(R.id.button)
-////
-////                    button?.setOnClickListener {
-////                        alertDialog.dismiss()
-////                        Log.d("MyTag", "userName : $userName, password : $password")
-////                    }
-//                }
+                    val etCourseModifyTitle = alertDialog.findViewById<EditText>(R.id.etCourseModifyTitle)
+                    val rdoCourseModifyType = alertDialog.findViewById<RadioGroup>(R.id.rdoCourseModifyType)
+                    val rdoCourseModifyPublic = alertDialog.findViewById<RadioButton>(R.id.rdoCourseModifyPublic)
+                    val rdoCourseModifyClosed = alertDialog.findViewById<RadioButton>(R.id.rdoCourseModifyClosed)
+
+                    etCourseModifyTitle?.setText(course_title)
+                    if(course_open=="y") rdoCourseModifyPublic?.isChecked = true
+                    if(course_open=="n") rdoCourseModifyClosed?.isChecked = true
+
+                    val btnCourseModifyOk = alertDialog.findViewById<android.widget.Button>(R.id.btnCourseModifyOk)
+                    val btnCourseModifyCancel = alertDialog.findViewById<android.widget.Button>(R.id.btnCourseModifyCancel)
+
+                    var modifiedCourseOpen = ""
+
+                    rdoCourseModifyType?.setOnCheckedChangeListener { _, checkedId ->
+                        Log.d(" ", "RadioButton is Clicked")
+                        when (checkedId) {
+                            R.id.rdoCourseModifyPublic -> {
+                                modifiedCourseOpen = "y"
+                            }
+                            R.id.rdoCourseModifyClosed -> {
+                                modifiedCourseOpen = "n"
+                            }
+                        }
+                        Log.d("test-수정 변경", modifiedCourseOpen)
+
+                    }
+
+                    btnCourseModifyCancel?.setOnClickListener {
+                        alertDialog.dismiss()
+                    }
+
+                    btnCourseModifyOk?.setOnClickListener {
+                        val modifiedCourseTitle = etCourseModifyTitle?.text.toString()
+                        var modifiedCourse = ModifiedCourse(course_seq, modifiedCourseTitle, modifiedCourseOpen)
+                        modifyCourse(modifiedCourse)
+                        alertDialog.dismiss()
+                    }
+
+                }
         }
 
 
@@ -312,6 +335,31 @@ class CourseDetailActivity : AppCompatActivity()  {
                 if(response.isSuccessful) {
                     Toast.makeText(
                         this@CourseDetailActivity, "정상적으로 삭제되었습니다",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    finish()
+                }else{
+                    Toast.makeText(
+                        this@CourseDetailActivity, "다시 시도해주세요",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.d("test-가입실패", t.localizedMessage)
+            }
+        })
+    }
+
+    fun modifyCourse(modifiedCourse: ModifiedCourse){
+        val call = RetrofitBuilder.courseApi.modifyCourse(modifiedCourse)
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>
+            ) {
+                Log.d("test-변경후", response.body().toString())
+                if(response.isSuccessful) {
+                    Toast.makeText(
+                        this@CourseDetailActivity, "정상적으로 변경되었습니다",
                         Toast.LENGTH_SHORT
                     ).show()
                     finish()
