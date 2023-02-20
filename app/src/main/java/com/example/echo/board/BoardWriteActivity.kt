@@ -33,6 +33,7 @@ class BoardWriteActivity : AppCompatActivity() {
     var modifyCk = ""
     var fileCk = false
     var board_seq = 0
+    var course_seq = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBoardWriteBinding.inflate(layoutInflater)
@@ -57,7 +58,8 @@ class BoardWriteActivity : AppCompatActivity() {
 
         binding.btnBoardWriteCourse.setOnClickListener {
             val intent = Intent(this, BoardCourseActivity::class.java)
-            startActivity(intent)
+            courseLauncher.launch(intent)
+            Log.d("test-이미지업로드", binding.imgBoardWriteRoute.drawable.toString())
         }
 
         // 글 수정시 내용 불러오기
@@ -72,7 +74,8 @@ class BoardWriteActivity : AppCompatActivity() {
             var board_dt = intent.getStringExtra("board_dt")
             var user_id = intent.getStringExtra("user_id")
             var mnt_name = intent.getStringExtra("mnt_name")
-
+            course_seq = intent.getIntExtra("course_seq", 0)
+            val course_img = intent.getStringExtra("course_img")
             binding.tvBoardWriteLine.text = "게시글 수정"
             binding.btnBoardWrtePost.text = "게시글 수정"
             binding.etBoardWriteTitle.setText(board_title)
@@ -84,6 +87,13 @@ class BoardWriteActivity : AppCompatActivity() {
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .into(binding.imgBoardWritePic)
+            }
+            if (course_img!!.isNotEmpty()) {
+                Glide.with(this)
+                    .load(course_img)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(binding.imgBoardWriteRoute)
             }
         }
 
@@ -127,7 +137,8 @@ class BoardWriteActivity : AppCompatActivity() {
                         board_file,
                         null,
                         user_id,
-                        mnt_name
+                        mnt_name,
+                        course_seq
                     )
                     Log.d("test-글수정시", board.toString())
                     modifyBoard(board)
@@ -139,7 +150,8 @@ class BoardWriteActivity : AppCompatActivity() {
                         board_file,
                         null,
                         user_id,
-                        mnt_name
+                        mnt_name,
+                        course_seq
                     )
                     Log.d("test-글작성시", board.toString())
                     addBoard(board)
@@ -151,6 +163,21 @@ class BoardWriteActivity : AppCompatActivity() {
         //받아올 결과값이 맞는지 확인 과정
         if (it.resultCode == RESULT_OK) binding.imgBoardWritePic.setImageURI(it.data?.data)
         if (it.data?.data.toString()!=null) fileCk = true
+    }
+
+    val courseLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == RESULT_OK) {
+            val intent = it.data
+            course_seq = intent!!.getIntExtra("course_seq", 0)
+            val course_img = intent!!.getStringExtra("course_img")
+            Log.d("test-런처", course_seq.toString())
+            Log.d("test-런처", course_img!!)
+            Glide.with(this)
+                .load(course_img)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(binding.imgBoardWriteRoute)
+        }
     }
 
     fun imgUpload(key : String) {
