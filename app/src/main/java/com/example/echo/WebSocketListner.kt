@@ -31,10 +31,11 @@ open class WebSocketListener : WebSocketListener() {
     @RequiresApi(Build.VERSION_CODES.O)
     val toDate = LocalDateTime.now()
     lateinit var now: String
-    lateinit var mySessionId:String
+    lateinit var
+            mySessionId:String
     lateinit var adapter: TalkAdapter
 
-    val thread = TimerThread()
+    var thread = TimerThread()
 
     val handler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: android.os.Message) {
@@ -101,6 +102,7 @@ open class WebSocketListener : WebSocketListener() {
                             "me"
                         )
                     )
+                    thread = TimerThread()
                     thread.start()
 //                    DetailTalkFragment.adapter.notifyDataSetChanged()
                 }
@@ -115,6 +117,7 @@ open class WebSocketListener : WebSocketListener() {
                             "other"
                         )
                     )
+                    thread = TimerThread()
                     thread.start()
 //                    DetailTalkFragment.adapter.notifyDataSetChanged()
                 }
