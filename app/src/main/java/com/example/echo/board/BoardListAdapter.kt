@@ -74,6 +74,8 @@ class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardListVO
                 intent.putExtra("board_dt", filteredList.board_dt)
                 intent.putExtra("user_id", filteredList.user_id)
                 intent.putExtra("mnt_name", filteredList.mnt_name)
+                intent.putExtra("course_seq", filteredList.course_seq)
+                intent.putExtra("course_img", filteredList.course_img)
                 intent.putExtra("board_reco_cnt", filteredList.board_reco_cnt.toString())
 
                 context.startActivity(intent)
@@ -101,12 +103,17 @@ class BoardListAdapter(var context: Context, var BoardList:ArrayList<BoardListVO
                 holder.tvBoardRecoCount.text = filteredList.board_reco_cnt.toString()
                 holder.tvBoardMntName.text = filteredList.mnt_name
                 holder.tvBoardCommCount.text = filteredList.board_cmt_cnt.toString()
-                if(filteredList.board_file.isEmpty()) {
-                    holder.imgBoardPic.visibility = View.INVISIBLE
-                } else{
+                if(filteredList.board_file.isNotEmpty()) {
+                    Glide.with(context)
+                        .load(filteredList.board_file)
+                        .into(holder.imgBoardPic)
+                } else if(filteredList.course_seq!=0){
                 Glide.with(context)
-                    .load(filteredList.board_file)
-                    .into(holder.imgBoardPic)} //지역변수
+                    .load(filteredList.course_img)
+                    .into(holder.imgBoardPic)}
+                else{
+                    holder.imgBoardPic.visibility = View.INVISIBLE
+                }
 
         }
 

@@ -42,6 +42,8 @@ var user_id = ""
 var user_profile_img = ""
 var mainActivity: MainActivity = MainActivity()
 
+private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
 class MyPageFragment : Fragment() {
 
     override fun onAttach(context: Context) {
@@ -62,6 +64,9 @@ class MyPageFragment : Fragment() {
             user_id = user?.id.toString()
             getMyPage(user_id)
         }
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        receiveLocation {  }
 
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         val id = sharedPreferences.getBoolean("pfPush", false)
@@ -102,9 +107,24 @@ class MyPageFragment : Fragment() {
         }
 
         binding.tvMyPageBoardStrg.setOnClickListener {
-            val intent = Intent(context, MyBoardActivity::class.java)
-            intent.putExtra("user_id", user_id)
-            startActivity(intent)
+
+            val bundle = Bundle()
+            bundle.putString("user_id", user_id)
+            val myBoardFragment = MyBoardFragment()
+            myBoardFragment.arguments = bundle
+            myBoardFragment.setArguments(bundle)
+            mainActivity.supportFragmentManager.beginTransaction().replace(
+                R.id.flMain,
+                MyBoardFragment()
+                    .apply {
+                        arguments = Bundle().apply {
+                            putString("user_id", user_id)
+                        }
+                    }
+            ).commit()
+//            val intent = Intent(context, MyBoardActivity::class.java)
+//            intent.putExtra("user_id", user_id)
+//            startActivity(intent)
         }
 
         //회원탈퇴
@@ -211,5 +231,23 @@ class MyPageFragment : Fragment() {
         })
     }
 
+    fun receiveLocation(block: (location: Location) -> Unit) {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
+                requireContext(),
+                ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+        fusedLocationProviderClient.lastLocation
+            .addOnSuccessListener { location ->
+                block(location)
+                Log.d("test-location", location.toString())
+            }
+    }
 
 }

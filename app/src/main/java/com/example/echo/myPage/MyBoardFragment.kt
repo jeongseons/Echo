@@ -1,41 +1,37 @@
 package com.example.echo.myPage
 
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.echo.MainActivity
+import com.example.echo.R
 import com.example.echo.RetrofitBuilder
-import com.example.echo.databinding.FragmentMyCourseBinding
-import com.example.echo.path.CourseInfo
-import com.example.echo.path.CourseList
-import com.kakao.sdk.user.UserApiClient
+import com.example.echo.board.BoardDetailActivity
+import com.example.echo.board.BoardListVO
+import com.example.echo.databinding.FragmentMyBoardBinding
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MyCourseFragment : Fragment() {
-
-    var myCourseList = ArrayList<CourseList>()
-    lateinit var binding: FragmentMyCourseBinding
-    lateinit var adapter: MyCourseAdapter
-
+class MyBoardFragment : Fragment() {
+    var myBoardList = ArrayList<BoardListVO>()
+    lateinit var adapter: MyBoardAdapter
+    private lateinit var binding: FragmentMyBoardBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var user_id = arguments?.getString("user_id").toString()
         Log.d("test", user_id)
-        getMyCourse(user_id)
+        getMyBoard(user_id)
     }
 
     override fun onCreateView(
@@ -50,86 +46,80 @@ class MyCourseFragment : Fragment() {
             }
         })
 
-        binding = FragmentMyCourseBinding.inflate(layoutInflater, container, false)
-        adapter = MyCourseAdapter(requireContext(), myCourseList)
-        binding.rvMyCourse.adapter = adapter
-        binding.rvMyCourse.layoutManager = LinearLayoutManager(context)
+        binding = FragmentMyBoardBinding.inflate(layoutInflater)
+        adapter = MyBoardAdapter(requireContext(), myBoardList)
+        binding.rvMyBoard.adapter = adapter
+        binding.rvMyBoard.layoutManager = LinearLayoutManager(requireContext())
 
-        binding.imgMyCourseMoveBack.setOnClickListener {
-            val mainActivity = (activity as MainActivity)
-            mainActivity.changeFragment(2)
-        }
-
-        // 경로 내부로 이동
-        adapter.setOnItemClickListener(object : MyCourseAdapter.OnItemClickListener {
+//         각 게시글 클릭 이벤트 - 게시글 내부로 이동
+        adapter.setOnItemClickListener(object : MyBoardAdapter.OnItemClickListener {
             override fun onItemClick(view: View, position: Int) {
-                val intent = Intent(context, CourseDetailActivity::class.java)
-                intent.putExtra("course_seq", myCourseList[position].course_seq)
-                intent.putExtra("course_title", myCourseList[position].course_title)
-                intent.putExtra("course_time", myCourseList[position].course_time)
-                intent.putExtra("course_alt", myCourseList[position].course_alt)
-                intent.putExtra("course_distance", myCourseList[position].course_distance)
-                intent.putExtra("course_start_dt", myCourseList[position].course_start_dt)
-                intent.putExtra("course_end_dt", myCourseList[position].course_end_dt)
-                intent.putExtra("course_open", myCourseList[position].course_open)
-                intent.putExtra("course_user_id", myCourseList[position].user_id)
-                intent.putExtra("course_img",myCourseList[position].course_img)
+                val intent = Intent(requireContext(), BoardDetailActivity::class.java)
+                intent.putExtra("board_seq", myBoardList[position].board_seq.toString())
+                intent.putExtra("board_title", myBoardList[position].board_title)
+                intent.putExtra("board_content", myBoardList[position].board_content)
+                intent.putExtra("board_file", myBoardList[position].board_file)
+                intent.putExtra("user_nick", myBoardList[position].user_nick)
+                intent.putExtra("board_dt", myBoardList[position].board_dt)
+                intent.putExtra("user_id", myBoardList[position].user_id)
+                intent.putExtra("mnt_name", myBoardList[position].mnt_name)
+                intent.putExtra("board_reco_cnt", myBoardList[position].board_reco_cnt.toString())
+                intent.putExtra("user_profile_img", myBoardList[position].user_profile_img)
+                intent.putExtra("course_seq", myBoardList[position].course_seq)
+                intent.putExtra("course_img", myBoardList[position].course_img)
                 startActivity(intent)
             }
         })
 
-        binding.tvMyCourseDelete.setOnClickListener {
+        binding.tvMyBoardDelete.setOnClickListener {
             val dialog: AlertDialog.Builder = AlertDialog.Builder(
                 requireContext(),
                 android.R.style.ThemeOverlay_Material_Dialog_Alert
             )
             dialog.setMessage("정말로 삭제하시겠습니까?")
-                .setTitle("경로 삭제")
+                .setTitle("글 삭제")
                 .setPositiveButton("아니오", DialogInterface.OnClickListener { dialog, which ->
                     Log.i("Dialog", "취소")
                 })
                 .setNeutralButton("예",
                     DialogInterface.OnClickListener { dialog, which ->
-                        deleteSelectedCourse(adapter.selectDelete())
+                        deleteSelectedBoard(adapter.selectDelete())
                     })
                 .show()
         }
 
-        binding.tvMyCourseSelect.setOnClickListener(object : View.OnClickListener {
+        binding.tvMyBoardSelect.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 adapter.setCheckAll()
                 adapter.notifyDataSetChanged()
             }
         })
 
-//        return inflater.inflate(R.layout.fragment_my_course, container, false)
         return binding.root
-
     }
 
-    fun getMyCourse(user_id:String) {
-        myCourseList.clear()
-        val call = RetrofitBuilder.courseApi.getCourse(user_id)
-        call.enqueue(object : Callback<List<CourseList>> {
-            override fun onResponse(call: Call<List<CourseList>>, response: Response<List<CourseList>>) {
+
+    fun getMyBoard(user_id:String){
+        myBoardList.clear()
+        val call = RetrofitBuilder.boardApi.getBoard(user_id)
+        call.enqueue(object : Callback<List<BoardListVO>> {
+            override fun onResponse(call: Call<List<BoardListVO>>, response: Response<List<BoardListVO>>) {
                 if(response.isSuccessful&& response.body()?.size!!>0){
                     for(i in 0 until response.body()!!.size){
-                        myCourseList.add(response.body()!!.get(i))
+                        myBoardList.add(response.body()!!.get(i))
                     }
                 }
-                myCourseList.reverse()
+                myBoardList.reverse()
                 adapter.notifyDataSetChanged()
-                Log.d("test-전부조회",myCourseList.toString())
             }
-            override fun onFailure(call: Call<List<CourseList>>, t: Throwable) {
-                Log.d("test-전부조회", t.localizedMessage)
+            override fun onFailure(call: Call<List<BoardListVO>>, t: Throwable) {
 
             }
         })
     }
 
-    fun deleteSelectedCourse(courseSeqList: ArrayList<Int>) {
-        val call = RetrofitBuilder.courseApi.deleteSelectedCourse(courseSeqList)
+    fun deleteSelectedBoard(boardSeqList: ArrayList<Int>) {
+        val call = RetrofitBuilder.boardApi.deleteSelectedBoard(boardSeqList)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>
             ) {
@@ -150,6 +140,5 @@ class MyCourseFragment : Fragment() {
             }
         })
     }
-
 
 }

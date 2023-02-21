@@ -2,12 +2,14 @@ package com.example.echo.path
 
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.echo.MainActivity
@@ -292,6 +294,24 @@ class MapSaveActivity : AppCompatActivity(), MapFragment4.OnConnectedListener {
         else dist = (Math.round(dist / 100) * 100).toDouble()
         // 1000 -> 1km
         return dist
+    }
+
+    override fun onBackPressed() {
+        val dialog: AlertDialog.Builder = AlertDialog.Builder(
+            this,
+            android.R.style.ThemeOverlay_Material_Dialog_Alert
+        )
+        dialog.setMessage("저장하지 않고 뒤로 가시겠습니까?")
+            .setTitle("아직 경로가 저장되지 않았습니다")
+            .setPositiveButton("아니오", DialogInterface.OnClickListener { dialog, which ->
+                Log.i("Dialog", "취소")
+            })
+            .setNeutralButton("예",
+                DialogInterface.OnClickListener { dialog, which ->
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                })
+            .show()
     }
 
 }

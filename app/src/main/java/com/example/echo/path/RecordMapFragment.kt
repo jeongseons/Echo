@@ -94,6 +94,7 @@ lateinit var tvMapCurrentLocation2:TextView
 lateinit var tvMapCurrentTime2:TextView
 
 var startCk = false
+var startFirst = true
 
 
 class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
@@ -322,7 +323,7 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
         return simpleDateFormat.format(date)
     }
 
-    //TODO : start 누르는 순간 기록 시작. upload 누를 시 firestore에 업로드
+    //TODO : start 누르는 순간 기록 시작
     inner class MyLocationCallback : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult?) {
             super.onLocationResult(locationResult!!)
@@ -361,10 +362,14 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
                     before_location[0] = startLatLng.latitude
                     before_location[1] = startLatLng.longitude
                     mMap?.moveCamera(CameraUpdateFactory.newLatLng(startLatLng))
-                    mMap?.addMarker(
-                        MarkerOptions()
-                        .position(startLatLng)
-                        .title("출발지점"))
+                    if(startFirst) {
+                        mMap?.addMarker(
+                            MarkerOptions()
+                                .position(startLatLng)
+                                .title("출발지점")
+                        )
+                        startFirst = false
+                    }
                     startCk = false
                 }
 
@@ -413,8 +418,8 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
                         polylineOptions.visible(true)   // 선이 보여질지/안보여질지 옵션.
 
                         mMap?.addPolyline(polylineOptions)
+                        mMap?.moveCamera(CameraUpdateFactory.newLatLng(latLng))
                     }
-                    mMap?.moveCamera(CameraUpdateFactory.newLatLng(latLng))
 
                 }
                 Log.d("test-기록버튼클릭", recordStart.toString())

@@ -9,6 +9,10 @@
         android:title="환경 설정" />
     <SwitchPreference
         android:defaultValue="false"
+        android:key="pfSos"
+        android:title="SOS 요청" />
+    <SwitchPreference
+        android:defaultValue="false"
         android:key="pfPush"
         android:title="Push 알림" />
     <SwitchPreference

@@ -22,6 +22,8 @@ import com.example.echo.board.social.CommentAdapter
 import com.example.echo.board.social.CommentVO
 import com.example.echo.board.social.RecoVO
 import com.example.echo.databinding.ActivityBoardDetailBinding
+import com.example.echo.myPage.CourseMapActivity
+import com.example.echo.path.MapVO
 import com.kakao.sdk.common.util.KakaoCustomTabsClient
 import com.kakao.sdk.share.ShareClient
 import com.kakao.sdk.share.WebSharerClient
@@ -42,6 +44,8 @@ class BoardDetailActivity : AppCompatActivity() {
     var board_seq = 0
     lateinit var adapter: CommentAdapter
     var cmtList = ArrayList<CmtListVO>()
+    var mapList = ArrayList<MapVO>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +67,8 @@ class BoardDetailActivity : AppCompatActivity() {
         var board_dt = intent.getStringExtra("board_dt")
         var user_id = intent.getStringExtra("user_id")
         var mnt_name = intent.getStringExtra("mnt_name")
+        var course_seq = intent.getIntExtra("course_seq",0)
+        var course_img = intent.getStringExtra("course_img")
         var board_reco_cnt = intent.getStringExtra("board_reco_cnt")
 
         binding.tvBoardDetailTitle.text = board_title
@@ -83,7 +89,23 @@ class BoardDetailActivity : AppCompatActivity() {
         } else {
             Glide.with(this)
                 .load(board_file)
-                .into(binding.imgBoardDetailPic) //지역변수
+                .into(binding.imgBoardDetailPic)
+        }
+
+        if(course_seq!=0){
+            Glide.with(this)
+                .load(course_img)
+                .into(binding.imgBoardDetailCourse)
+            getMap(course_seq)
+        }else{
+            binding.imgBoardDetailCourse.visibility = View.GONE
+        }
+
+        binding.imgBoardDetailCourse.setOnClickListener {
+            val intent = Intent(this, CourseMapActivity::class.java)
+            Log.d("test-map넘기기",mapList.toString())
+            intent.putExtra("mapList",mapList)
+            startActivity(intent)
         }
 
         // 작성자 확인
@@ -109,6 +131,8 @@ class BoardDetailActivity : AppCompatActivity() {
             intent.putExtra("board_dt", board_dt)
             intent.putExtra("user_id", user_id)
             intent.putExtra("mnt_name", mnt_name)
+            intent.putExtra("course_seq",course_seq)
+            intent.putExtra("course_img",course_img)
             startActivity(intent)
         }
 
@@ -196,7 +220,6 @@ class BoardDetailActivity : AppCompatActivity() {
                     DialogInterface.OnClickListener { dialog, which ->
                         deleteBoard(board_seq!!)
                     })
-//                .setCancelable(false) // 백버튼으로 팝업창이 닫히지 않도록 한다.
                 .show()
         }
 
@@ -381,6 +404,25 @@ class BoardDetailActivity : AppCompatActivity() {
 
             }
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+            }
+        })
+    }
+
+    fun getMap(course_seq: Int) {
+        mapList.clear()
+        val call = RetrofitBuilder.courseApi.getMap(course_seq)
+        call.enqueue(object : Callback<List<MapVO>> {
+            override fun onResponse(call: Call<List<MapVO>>, response: Response<List<MapVO>>) {
+                if(response.isSuccessful&& response.body()?.size!!>0){
+                    for(i in 0 until response.body()!!.size){
+                        mapList.add(response.body()!!.get(i))
+                    }
+                }
+                Log.d("test-getMap",mapList.toString())
+            }
+            override fun onFailure(call: Call<List<MapVO>>, t: Throwable) {
+                Log.d("test-getMap", t.localizedMessage)
+
             }
         })
     }
