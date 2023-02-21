@@ -13,7 +13,8 @@
         android:layout_marginStart="42dp"
         android:layout_marginTop="8dp"
         android:text="0.0km"
-        android:textSize="14sp"
+        android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/textView37"
         app:layout_constraintTop_toBottomOf="@+id/tvMapSaveDistance" />
 
@@ -24,6 +25,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="총 고도"
+        android:textColor="#000000"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView35" />
@@ -34,7 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="0.00km"
-        android:textSize="14sp"
+        android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/textView35"
         app:layout_constraintTop_toTopOf="@+id/textView35" />
 
@@ -45,6 +49,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="총 이동거리"
+        android:textColor="#000000"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView32" />
@@ -55,7 +61,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:text="00:00:00"
-        android:textSize="14sp"
+        android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/textView32"
         app:layout_constraintTop_toTopOf="@+id/textView32" />
 
@@ -64,8 +71,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
         android:text="공개여부"
+        android:textColor="#000000"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvGroupSettingDel" />
@@ -74,8 +83,9 @@
         android:id="@+id/tvNewGroupDateTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:text="산행 기록 작성"
+        android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/btnSaveBack"
         app:layout_constraintStart_toEndOf="@+id/btnSaveBack"
@@ -83,20 +93,20 @@
 
     <Button
         android:id="@+id/btnMapSave"
-        android:layout_width="70dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_style"
         android:text="저장"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rdoMapSaveType" />
 
     <ImageView
         android:id="@+id/imgMapSave"
         android:layout_width="0dp"
         android:layout_height="240dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -112,6 +122,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:text="제목"
+        android:textColor="#000000"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView37" />
@@ -123,6 +135,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="소요시간"
+        android:textColor="#000000"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flMap2" />
@@ -156,7 +170,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back" />
@@ -164,7 +178,7 @@
     <EditText
         android:id="@+id/etMapSaveTitle"
         android:layout_width="0dp"
-        android:layout_height="28dp"
+        android:layout_height="30dp"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/border"
@@ -210,7 +224,6 @@
         android:layout_width="400dp"
         android:layout_height="300dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
         android:layout_marginEnd="8dp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"

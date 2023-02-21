@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back" />
@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="경로 제목"
+        android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgCourseDetailBack"
         app:layout_constraintStart_toEndOf="@+id/imgCourseDetailBack"
@@ -41,6 +42,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCourseDetailEndTimeText" />
+
+    <View
+        android:id="@+id/view22"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/border_boxcolor"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCourseDetailTotalDistance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvCourseDetailTotalDistanceText" />
 
     <FrameLayout
         android:id="@+id/flCourseDetail"
@@ -63,6 +76,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="시작지점"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCourseDetailTitle" />
 
@@ -73,6 +87,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="종료시간"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCourseDetailStartTimeText" />
 
@@ -83,6 +98,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="시작시간"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCourseDetailStartPoint" />
 
@@ -92,6 +108,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="00:00:00"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="@+id/tvCourseDetailStartTimeText"
         app:layout_constraintStart_toEndOf="@+id/tvCourseDetailStartTimeText"
         app:layout_constraintTop_toBottomOf="@+id/tvCourseDetailStartPoint"
@@ -102,6 +119,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0.00km"
+        android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/tvCourseDetailTotalDistanceText"
         app:layout_constraintStart_toStartOf="@+id/tvCourseDetailTotalDistanceText"
         app:layout_constraintTop_toBottomOf="@+id/tvCourseDetailTotalDistanceText" />
@@ -112,6 +131,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="00:00:00"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="@+id/tvCourseDetailEndTimeText"
         app:layout_constraintStart_toEndOf="@+id/tvCourseDetailEndTimeText"
         app:layout_constraintTop_toTopOf="@+id/tvCourseDetailEndTimeText"
@@ -122,6 +142,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0.0km"
+        android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/tvCourseDetailTotalAltText"
         app:layout_constraintStart_toStartOf="@+id/tvCourseDetailTotalAltText"
         app:layout_constraintTop_toBottomOf="@+id/tvCourseDetailTotalAltText" />
@@ -131,6 +153,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="총 거리"
+        android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvCourseDetailTotalTimeText"
         app:layout_constraintEnd_toStartOf="@+id/tvCourseDetailTotalAltText"
         app:layout_constraintHorizontal_bias="0.452"
@@ -143,6 +167,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="00:00:00"
+        android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/tvCourseDetailTotalTimeText"
         app:layout_constraintStart_toStartOf="@+id/tvCourseDetailTotalTimeText"
         app:layout_constraintTop_toBottomOf="@+id/tvCourseDetailTotalTimeText" />
@@ -153,6 +179,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
         android:text="총 고도"
+        android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvCourseDetailTotalDistanceText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvCourseDetailTotalDistanceText" />
@@ -162,8 +190,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="총 소요시간"
+        android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgCourseDetailCloseup" />
 
@@ -173,6 +203,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="시작지점 주소"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="@+id/tvCourseDetailStartPoint"
         app:layout_constraintStart_toEndOf="@+id/tvCourseDetailStartPoint"
         app:layout_constraintTop_toTopOf="@+id/tvCourseDetailStartPoint" />
@@ -183,6 +214,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="수정"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="@+id/tvCourseDetailDelete"
         app:layout_constraintEnd_toStartOf="@+id/tvCourseDetailDelete"
         app:layout_constraintTop_toTopOf="@+id/tvCourseDetailDelete" />
@@ -194,6 +226,7 @@
         android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
         android:text="삭제"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

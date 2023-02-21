@@ -36,12 +36,9 @@ class IntroActivity : AppCompatActivity() {
         KakaoSdk.init(this, "f5b248e1f5c7496e71b711e2650daf28")
 
         var imgKakaoLogin = findViewById<ImageView>(R.id.imgKakaoLogin)
-        var btnIntroTest = findViewById<Button>(R.id.btnIntroTest)
 
-        btnIntroTest.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
+
+
 
         var keyHash = Utility.getKeyHash(this)
         Log.d("key", keyHash)

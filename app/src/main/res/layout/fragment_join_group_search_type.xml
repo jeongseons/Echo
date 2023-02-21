@@ -76,10 +76,8 @@
         android:id="@+id/spJoinGroupTypeArea"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView28"
         app:layout_constraintEnd_toEndOf="@+id/spJoinGroupTypeType"
-        app:layout_constraintStart_toEndOf="@+id/textView28"
         app:layout_constraintTop_toTopOf="@+id/textView28" />
 
     <Spinner

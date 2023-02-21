@@ -276,9 +276,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="등록된 댓글이 없습니다"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:textColor="#171717"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/noComment1"
                 app:layout_constraintStart_toStartOf="@+id/noComment1"
                 app:layout_constraintTop_toBottomOf="@+id/noComment3" />
@@ -299,9 +298,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="가장 먼저 댓글을 등록해보세요!"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:textColor="#171717"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/noComment2"
                 app:layout_constraintStart_toStartOf="@+id/noComment2"
                 app:layout_constraintTop_toBottomOf="@+id/noComment2" />

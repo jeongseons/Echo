@@ -261,16 +261,14 @@
                 android:id="@+id/tvGroupSettingDetail"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 android:background="#F3F3F3"
                 android:elevation="5dp"
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
                 android:text="TextView"
-                app:layout_constraintEnd_toEndOf="@+id/view"
-                app:layout_constraintStart_toStartOf="@+id/view"
+                app:layout_constraintEnd_toEndOf="@+id/view23"
+                app:layout_constraintStart_toStartOf="@+id/view23"
                 app:layout_constraintTop_toBottomOf="@+id/tvGroupSettingLevel" />
 
             <TextView
@@ -305,6 +303,19 @@
                 app:layout_constraintEnd_toEndOf="@+id/textViewGroupSetting7"
                 app:layout_constraintStart_toStartOf="@+id/textViewGroupSetting7"
                 app:layout_constraintTop_toBottomOf="@+id/textViewGroupSetting7" />
+
+            <View
+                android:id="@+id/view23"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/border_boxcolor"
+                android:elevation="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvGroupSettingArea"
+                app:layout_constraintEnd_toEndOf="@+id/view"
+                app:layout_constraintStart_toStartOf="@+id/view"
+                app:layout_constraintTop_toTopOf="@+id/textViewGroupSetting2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
