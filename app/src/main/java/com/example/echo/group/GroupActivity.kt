@@ -1,36 +1,28 @@
 package com.example.echo.group
 
-import android.content.ContentValues.TAG
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.hardware.SensorManager
+import android.net.Uri
 import android.os.Bundle
-import android.system.Os.close
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.util.Log
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.echo.HomeFragment
 import com.example.echo.R
 import com.example.echo.WebSocketListener
-import com.example.echo.board.BoardFragment
-import com.example.echo.group.detail.*
-import com.example.echo.myPage.MyPageFragment
-import com.example.echo.path.PathFragment
-import com.gmail.bishoybasily.stomp.lib.Event
-import com.gmail.bishoybasily.stomp.lib.StompClient
+import com.example.echo.group.detail.DetailDateFragment
+import com.example.echo.group.detail.DetailPersonFragment
+import com.example.echo.group.detail.DetailSettingFragment
+import com.example.echo.group.detail.DetailTalkFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import io.reactivex.disposables.Disposable
-import io.reactivex.internal.subscriptions.SubscriptionHelper.cancel
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.WebSocket
-import org.json.JSONObject
-import java.net.URISyntaxException
-import java.util.concurrent.TimeUnit
-import kotlin.properties.Delegates
 
 class GroupActivity : AppCompatActivity() {
 
@@ -75,7 +67,7 @@ class GroupActivity : AppCompatActivity() {
         if(grNum != null) {
             Log.d("test", grNum.toString())
             request = Request.Builder()
-                .url("ws://211.223.140.57:8099/echo/chatting/${grNum}")
+                .url("ws://smartin.kbizit.kr:8234/echo/chatting/${grNum}")
                 .build()
             testSocket = client.newWebSocket(request, listener)
         }
@@ -83,8 +75,6 @@ class GroupActivity : AppCompatActivity() {
 //        if (grNum != null) {
 //            runChatSocket()
 //        }
-
-
 
         supportFragmentManager.beginTransaction().replace(
             R.id.flGroup,
@@ -124,8 +114,18 @@ class GroupActivity : AppCompatActivity() {
         }
 
     }
-
     fun changeFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(
+            R.id.flGroup,
+            fragment
+        ).commit()
+    }
+
+    fun changeFragment(fragment: Fragment, x:Double, y:Double) {
+        val bundle = Bundle(2)
+        bundle.putDouble("Lat", x)
+        bundle.putDouble("Lng", y)
+        fragment.setArguments(bundle)
         supportFragmentManager.beginTransaction().replace(
             R.id.flGroup,
             fragment

@@ -17,6 +17,7 @@
         android:required="true" />
 
     <application
+
         android:name=".utils.GlobalApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -56,6 +57,13 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name=".group.EditGroupInfoActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
 
         <service
             android:name=".service.SensorService"
@@ -70,15 +78,6 @@
                 android:value="" />
         </activity>
 
-
-        <activity
-            android:name=".group.EditGroupInfoActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.Dialog">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
         <activity
             android:name=".group.JoinGroupProfileActivity"
             android:exported="false"
@@ -87,7 +86,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".group.JoinGroupActivity"
             android:exported="false">
@@ -112,8 +110,8 @@
 
         <activity
             android:name=".group.detail.AddNewGroupDateActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.Dialog">
+            android:theme="@style/Theme.MaterialComponents.Dialog"
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

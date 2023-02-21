@@ -1,5 +1,6 @@
 package com.example.echo.myPage
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.echo.MainActivity
 import com.example.echo.R
@@ -70,7 +72,20 @@ class MyBoardFragment : Fragment() {
         })
 
         binding.tvMyBoardDelete.setOnClickListener {
-            deleteSelectedBoard(adapter.selectDelete())
+            val dialog: AlertDialog.Builder = AlertDialog.Builder(
+                requireContext(),
+                android.R.style.ThemeOverlay_Material_Dialog_Alert
+            )
+            dialog.setMessage("정말로 삭제하시겠습니까?")
+                .setTitle("글 삭제")
+                .setPositiveButton("아니오", DialogInterface.OnClickListener { dialog, which ->
+                    Log.i("Dialog", "취소")
+                })
+                .setNeutralButton("예",
+                    DialogInterface.OnClickListener { dialog, which ->
+                        deleteSelectedBoard(adapter.selectDelete())
+                    })
+                .show()
         }
 
         binding.tvMyBoardSelect.setOnClickListener(object : View.OnClickListener {

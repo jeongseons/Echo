@@ -32,7 +32,7 @@ class DetailLocationFragment : Fragment() {
         mapDetailLocation.onCreate(savedInstanceState)
         mapDetailLocation.onResume()
 
-        val location : LatLng = LatLng(35.14986000000000,126.91983000000000)
+        val location : LatLng = LatLng(requireArguments().getDouble("Lat"), requireArguments().getDouble("Lng"))
         initMap(location)
 
         btnDetailLocPrev.setOnClickListener {
