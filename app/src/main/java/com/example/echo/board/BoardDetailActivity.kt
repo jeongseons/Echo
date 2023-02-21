@@ -220,7 +220,6 @@ class BoardDetailActivity : AppCompatActivity() {
                     DialogInterface.OnClickListener { dialog, which ->
                         deleteBoard(board_seq!!)
                     })
-//                .setCancelable(false) // 백버튼으로 팝업창이 닫히지 않도록 한다.
                 .show()
         }
 
