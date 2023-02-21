@@ -89,7 +89,7 @@ class TalkAdapter(
         holder.tvLTalkTime.text = talkList[position].date
         holder.tvRTalkTime.text = talkList[position].date
 
-        if (true) {//내가 친 채팅
+        if (talkList[position].ui=="me") {//내가 친 채팅
             holder.tvRTalkTime.text = talkList[position].date
             holder.tvRTalkContent.setText(talkList[position].content)
 
