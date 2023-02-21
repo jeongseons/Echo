@@ -79,7 +79,7 @@ open class WebSocketListener : WebSocketListener() {
         if(receiveMsg.message!=null) {
 
             Log.d("세션 아이디 확인1","$mySessionId")
-            if(mySessionId=="0"){
+            if(mySessionId=="0"){ //비어있을때 소켓이 열린다.
                 mySessionId = receiveMsg.sessionId
             }
             Log.d("세션 아이디 확인2","$mySessionId")
@@ -91,6 +91,8 @@ open class WebSocketListener : WebSocketListener() {
             now = toDate.format(DateTimeFormatter.ofPattern("HH:mm"))
                 threadck = true
 
+                if(mySessionId==receiveMsg.sessionId) {
+
                     talkList.add(
                         Message(
                             msg.msg,
@@ -99,13 +101,27 @@ open class WebSocketListener : WebSocketListener() {
                             now,
                             msg.Lat.toDouble(),
                             msg.Lng.toDouble(),
+                            "me"
                         )
                     )
-
                     thread = TimerThread()
                     thread.start()
-
-                Log.d("Socket", "talklist확인: $talkList")
+                }
+                else if(mySessionId!=receiveMsg.sessionId){
+                    talkList.add(
+                        Message(
+                            msg.msg,
+                            msg.sender,
+                            msg.proId,
+                            now,
+                            msg.Lat.toDouble(),
+                            msg.Lng.toDouble(),
+                            "other"
+                        )
+                    )
+                    thread = TimerThread()
+                    thread.start()
+                }
             }
 
         }
