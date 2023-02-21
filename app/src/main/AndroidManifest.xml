@@ -70,10 +70,6 @@
                 android:value="" />
         </activity>
 
-        <service
-            android:name=".SensorService"
-            android:enabled="true"
-            android:exported="true" />
 
         <activity
             android:name=".group.EditGroupInfoActivity"
@@ -91,6 +87,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <activity
             android:name=".group.JoinGroupActivity"
             android:exported="false">
