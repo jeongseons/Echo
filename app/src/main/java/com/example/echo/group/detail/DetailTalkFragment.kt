@@ -68,6 +68,21 @@ class DetailTalkFragment : Fragment() {
         val btnTalkchat2 = view.findViewById<Button>(R.id.btnTalkchat2)
         val btnTalkchat3 = view.findViewById<Button>(R.id.btnTalkchat3)
         val rvtalk = view.findViewById<RecyclerView>(R.id.rvtalk)
+        val ivTalkchat = view.findViewById<ImageView>(R.id.ivTalkchat)
+
+        ivTalkchat.setOnClickListener {View.OnClickListener() {
+            Log.d("text", "test")
+            if (btnTalkchat1.visibility == View.VISIBLE) {
+                btnTalkchat1.visibility = View.GONE
+                btnTalkchat2.visibility = View.GONE
+                btnTalkchat3.visibility = View.GONE
+            } else {
+                btnTalkchat1.visibility = View.VISIBLE
+                btnTalkchat2.visibility = View.VISIBLE
+                btnTalkchat3.visibility = View.VISIBLE
+            }
+        }
+        }
 
         UserApiClient.instance.me { user, error ->
             if (error != null) {
