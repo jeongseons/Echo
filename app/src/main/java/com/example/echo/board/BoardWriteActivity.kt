@@ -60,7 +60,6 @@ class BoardWriteActivity : AppCompatActivity() {
         binding.btnBoardWriteCourse.setOnClickListener {
             val intent = Intent(this, BoardCourseActivity::class.java)
             courseLauncher.launch(intent)
-            Log.d("test-이미지업로드", binding.imgBoardWriteRoute.drawable.toString())
         }
 
         // 글 수정시 내용 불러오기
