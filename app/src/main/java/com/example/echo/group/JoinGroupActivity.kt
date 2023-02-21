@@ -1,5 +1,6 @@
 package com.example.echo.group
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -35,12 +36,21 @@ class JoinGroupActivity : AppCompatActivity() {
             ).commit()
         }
 
-        btnJoinGroupSearchType.setOnClickListener { item ->
+
+        btnJoinGroupSearchType.setOnClickListener {
+                item ->
             supportFragmentManager.beginTransaction().replace(
                 R.id.flJoinGroupSearch,
                 JoinGroupSearchTypeFragment()
             ).commit()
         }
+
+//        btnJoinGroupSearchType.setOnClickListener { item ->
+//            supportFragmentManager.beginTransaction().replace(
+//                R.id.flJoinGroupSearch,
+//                JoinGroupSearchTypeFragment()
+//            ).commit()
+//        }
         
         //뒤로가기 버튼 클릭 시 액티비티 종료
         imgJoinGroupMoveBack.setOnClickListener{
