@@ -49,6 +49,7 @@ class DetailTalkFragment : Fragment() {
     var userLat = 0.0
     var userLng = 0.0
     lateinit var nick:String
+    lateinit var id:String
 
     companion object{
         lateinit var adapter: TalkAdapter
@@ -73,7 +74,7 @@ class DetailTalkFragment : Fragment() {
                 Log.e(ContentValues.TAG, "사용자 정보 요청 실패", error)
             }
             else if (user != null) {
-                val id = user.id.toString()
+                id = user.id.toString()
                 getMyPage(id)
             }
         }
@@ -88,18 +89,18 @@ class DetailTalkFragment : Fragment() {
 
         btnTalkchat1.setOnClickListener {//확인했습니다
             receiveLocation {  }
-            testSocket.send("{\"msg\":\"확인했습니다\", \"sender\":\"${nick}\", " +
-                    "\"Lat\":\"${userLat}\", \"Lng\":\"${userLng}\"}")
+            testSocket.send("{\"msg\":\"확인했습니다!\", \"sender\":\"${nick}\", " +
+                    "\"Lat\":\"${userLat}\", \"Lng\":\"${userLng}\", \"proId\":\"${id}\"}")
         }
         btnTalkchat2.setOnClickListener {//기다려주세요
             receiveLocation {  }
-            testSocket.send("{\"msg\":\"기다려주세요\", \"sender\":\"${nick}\", " +
-                    "\"Lat\":\"${userLat}\", \"Lng\":\"${userLng}\"}")
+            testSocket.send("{\"msg\":\"기다려주세요!\", \"sender\":\"${nick}\", " +
+                    "\"Lat\":\"${userLat}\", \"Lng\":\"${userLng}\", \"proId\":\"${id}\"}")
         }
         btnTalkchat3.setOnClickListener {//다쳤습니다
             receiveLocation {  }
-            testSocket.send("{\"msg\":\"다쳤습니다\", \"sender\":\"${nick}\", " +
-                    "\"Lat\":\"${userLat}\", \"Lng\":\"${userLng}\"}")
+            testSocket.send("{\"msg\":\"다쳤습니다!\", \"sender\":\"${nick}\", " +
+                    "\"Lat\":\"${userLat}\", \"Lng\":\"${userLng}\", \"proId\":\"${id}\"}")
         }
 
 //        //더미 데이터

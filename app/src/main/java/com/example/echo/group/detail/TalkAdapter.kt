@@ -13,11 +13,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.echo.R
+import com.example.echo.RetrofitBuilder
 import com.example.echo.group.GroupActivity
 import com.example.echo.group.Message
+import com.example.echo.myPage.MyPageVO
 import com.example.echo.myPage.binding
 import com.example.echo.myPage.user_profile_img
 import com.kakao.sdk.user.UserApiClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class TalkAdapter(
     val context: Context, val talkList: ArrayList<Message>
@@ -38,7 +43,6 @@ class TalkAdapter(
 
         val activity = context as GroupActivity
 
-//        프로필 클릭시 해당 인원의 위치 표시
 
         init {
             //다른 유저
@@ -46,7 +50,7 @@ class TalkAdapter(
             tvLTalkContent = itemView.findViewById(R.id.tvLTalkContent)
             tvLTalkTime = itemView.findViewById(R.id.tvLTalkTime)
             tvTalkNick = itemView.findViewById(R.id.tvTalkNick)
-            imgTalkL = itemView.findViewById(R.id.imgTalkR)
+            imgTalkL = itemView.findViewById(R.id.imgTalkL)
 
             // 해당 다른 유저의 현재 위치를 실시간으로 보여주는 화면으로 전환
             imgTalkPro.setOnClickListener {
@@ -60,7 +64,7 @@ class TalkAdapter(
             //나
             imgTalkR = itemView.findViewById(R.id.imgTalkR)
             tvRTalkTime = itemView.findViewById(R.id.tvRTalkTime)
-            tvRTalkContent = itemView.findViewById(R.id.tvRTalkTime)
+            tvRTalkContent = itemView.findViewById(R.id.tvRTalkContent)
         }
     }
 
@@ -72,33 +76,37 @@ class TalkAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        val user_id = ""
-//        ${user_id}
+        val user_id = talkList[position].proId
+
         //프로필 사진
             Glide.with(context!!)
-                .load("https://firebasestorage.googleapis.com/v0/b/echo-73cf6.appspot.com/o/2617009803.png?alt=media")
+                .load("https://firebasestorage.googleapis.com/v0/b/echo-73cf6.appspot.com/o/${user_id}.png?alt=media")
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .into(holder.imgTalkPro)
 
-        holder.tvLTalkContent.setText(talkList[position].content)
-        holder.tvLTalkTime.text = talkList[position].date
 
-        if (talkList[position].ui == "me") {//내가 친 채팅
+        holder.tvLTalkTime.text = talkList[position].date
+        holder.tvRTalkTime.text = talkList[position].date
+
+        if (true) {//내가 친 채팅
+            holder.tvRTalkTime.text = talkList[position].date
+            holder.tvRTalkContent.setText(talkList[position].content)
+
+            holder.imgTalkR.visibility = View.VISIBLE
+            holder.tvRTalkTime.visibility = View.VISIBLE
+            holder.tvRTalkContent.visibility = View.VISIBLE
+
             holder.imgTalkL.visibility = View.GONE
             holder.imgTalkPro.visibility = View.GONE
             holder.tvLTalkContent.visibility = View.GONE
             holder.tvLTalkTime.visibility = View.GONE
             holder.tvTalkNick.visibility = View.GONE
 
-            holder.imgTalkR.visibility = View.VISIBLE
-            holder.tvRTalkTime.visibility = View.VISIBLE
-            holder.tvRTalkContent.visibility = View.VISIBLE
-
-            holder.tvRTalkContent.setText(talkList[position].content)
-            holder.tvRTalkTime.text = talkList[position].date
-
         } else {//남이 친 채팅
+            holder.tvLTalkContent.setText(talkList[position].content)
+            holder.tvTalkNick.setText(talkList[position].sender)
+
             holder.imgTalkL.visibility = View.VISIBLE
             holder.imgTalkPro.visibility = View.VISIBLE
             holder.tvLTalkContent.visibility = View.VISIBLE
@@ -108,7 +116,6 @@ class TalkAdapter(
             holder.imgTalkR.visibility = View.GONE
             holder.tvRTalkTime.visibility = View.GONE
             holder.tvRTalkContent.visibility = View.GONE
-
         }
 
 
@@ -117,5 +124,24 @@ class TalkAdapter(
     override fun getItemCount(): Int {
         return talkList.size
     }
+
+//    fun getMyPage(user_id: String) {
+//        val call = RetrofitBuilder.userApi.getMyPage(user_id)
+//        call.enqueue(object : Callback<MyPageVO> {
+//            override fun onResponse(
+//                call: Call<MyPageVO>, response: Response<MyPageVO>,
+//            ) {
+//                if (response.isSuccessful) {
+//                    Log.d("text-마이페이지", "실행중")
+//                    var body = response.body()!!
+//                    Log.d("text-마이페이지", body.toString())
+//                    myNick = body.user_nick
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<MyPageVO>, t: Throwable) {
+//            }
+//        })
+//    }
 
 }

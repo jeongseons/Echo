@@ -14,6 +14,16 @@
         app:layout_constraintStart_toStartOf="@+id/imgTalkR"
         app:layout_constraintTop_toTopOf="@+id/imgTalkR" />
 
+    <TextView
+        android:id="@+id/tvLTalkContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="gravity"
+        app:layout_constraintBottom_toBottomOf="@+id/imgTalkL"
+        app:layout_constraintEnd_toEndOf="@+id/imgTalkL"
+        app:layout_constraintStart_toStartOf="@+id/imgTalkL"
+        app:layout_constraintTop_toTopOf="@+id/imgTalkL" />
+
     <ImageView
         android:id="@+id/imgTalkR"
         android:layout_width="150dp"
@@ -63,16 +73,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/imgTalkPro"
         app:layout_constraintStart_toEndOf="@+id/imgTalkPro"
         app:srcCompat="@drawable/chat_left" />
-
-    <TextView
-        android:id="@+id/tvLTalkContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAlignment="gravity"
-        app:layout_constraintBottom_toBottomOf="@+id/imgTalkL"
-        app:layout_constraintEnd_toEndOf="@+id/imgTalkL"
-        app:layout_constraintStart_toStartOf="@+id/imgTalkL"
-        app:layout_constraintTop_toTopOf="@+id/imgTalkL" />
 
     <TextView
         android:id="@+id/tvLTalkTime"

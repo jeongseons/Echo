@@ -26,7 +26,7 @@ open class WebSocketListener : WebSocketListener() {
 
     val gson = Gson()
     var receiveMsg = ReceiveMsg("0","0", "0")
-    var msg = Msg("0","0","0","0")
+    var msg = Msg("0","0","0","0", "0")
 
     @RequiresApi(Build.VERSION_CODES.O)
     val toDate = LocalDateTime.now()
@@ -90,37 +90,20 @@ open class WebSocketListener : WebSocketListener() {
             if(msg.msg!=null){//메시지를 보내거나 받을때만
             now = toDate.format(DateTimeFormatter.ofPattern("HH:mm"))
                 threadck = true
-                if(mySessionId==receiveMsg.sessionId) {
 
                     talkList.add(
                         Message(
                             msg.msg,
                             msg.sender,
+                            msg.proId,
                             now,
                             msg.Lat.toDouble(),
                             msg.Lng.toDouble(),
-                            "me"
                         )
                     )
+
                     thread = TimerThread()
                     thread.start()
-//                    DetailTalkFragment.adapter.notifyDataSetChanged()
-                }
-                else if(mySessionId!=receiveMsg.sessionId){
-                    talkList.add(
-                        Message(
-                            msg.msg,
-                            msg.sender,
-                            now,
-                            msg.Lat.toDouble(),
-                            msg.Lng.toDouble(),
-                            "other"
-                        )
-                    )
-                    thread = TimerThread()
-                    thread.start()
-//                    DetailTalkFragment.adapter.notifyDataSetChanged()
-                }
 
                 Log.d("Socket", "talklist확인: $talkList")
             }
