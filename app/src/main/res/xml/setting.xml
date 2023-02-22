@@ -2,13 +2,9 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:allowDividerAbove="false">
-    <EditTextPreference
-        android:defaultValue="Default value"
-        android:gravity="center"
-        android:key="etPreference"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:title="환경 설정" />
+    <PreferenceCategory android:title="환경설정">
+
+    </PreferenceCategory>
     <SwitchPreference
         android:defaultValue="false"
         android:key="pfSos"

@@ -67,8 +67,10 @@ class ReviseActivity : AppCompatActivity() {
 
         if(user_type != "n") {//비공개
             binding.swProfileShare.isChecked=false
+            binding.tvProfileShare.text="프로필 비공개 상태입니다."
         }else{//공개
             binding.swProfileShare.isChecked=true
+            binding.tvProfileShare.text="프로필 공개 상태입니다."
         }
 
 
@@ -76,12 +78,11 @@ class ReviseActivity : AppCompatActivity() {
             if (isChecked) {//공개
                 // switchButton이 체크된 경우
                 user_type = "n"
-                binding.tvProfileShare.text="프로필 공개 상태입니다."
 
             } else {//비공개
                 // switchButton이 체크되지 않은 경우
                 user_type = "y"
-                binding.tvProfileShare.text="프로필 비공개 상태입니다."
+
 
             }
         })

@@ -70,8 +70,16 @@ class MyPageFragment : Fragment() {
 
 
         //프로필 비공개 표시
-        binding.imgLockPro
-        binding.tvLockPro
+        if(user_type!="n"){//공개
+            binding.imgLockPro.visibility=View.GONE
+            binding.tvLockPro.visibility=View.GONE
+
+        }else {//비공개
+            binding.imgLockPro.visibility=View.VISIBLE
+            binding.tvLockPro.visibility=View.VISIBLE
+        }
+        binding.imgLockPro.visibility
+        binding.tvLockPro.visibility
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
         receiveLocation {  }

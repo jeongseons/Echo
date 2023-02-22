@@ -39,6 +39,20 @@
                 app:layout_constraintTop_toTopOf="@+id/imgGroupSettingProfile"
                 app:layout_constraintVertical_bias="0.0" />
 
+            <View
+                android:id="@+id/view23"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/border_boxcolor"
+                android:elevation="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvGroupSettingArea"
+                app:layout_constraintEnd_toEndOf="@+id/view"
+                app:layout_constraintHorizontal_bias="0.50"
+                app:layout_constraintStart_toStartOf="@+id/view"
+                app:layout_constraintTop_toTopOf="@+id/textViewGroupSetting2" />
+
             <TextView
                 android:id="@+id/tvGroupSettingEdit"
                 android:layout_width="wrap_content"
@@ -103,14 +117,14 @@
                 android:id="@+id/textViewGroupSetting2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:elevation="10dp"
                 android:text="산행 분류"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/view"
+                app:layout_constraintStart_toStartOf="@+id/view23"
                 app:layout_constraintTop_toBottomOf="@+id/tvGroupSettingMax" />
 
             <TextView
@@ -130,12 +144,12 @@
                 android:id="@+id/textViewGroupSetting3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:elevation="10dp"
                 android:text="활동 지역"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/guideline9"
                 app:layout_constraintStart_toEndOf="@+id/textViewGroupSetting2"
                 app:layout_constraintTop_toTopOf="@+id/textViewGroupSetting2" />
 
@@ -152,19 +166,26 @@
                 app:layout_constraintStart_toStartOf="@+id/textViewGroupSetting3"
                 app:layout_constraintTop_toBottomOf="@+id/textViewGroupSetting3" />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.50" />
+
             <TextView
                 android:id="@+id/textViewGroupSetting4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:elevation="10dp"
                 android:text="난이도"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/textViewGroupSetting3"
-                app:layout_constraintStart_toEndOf="@+id/textViewGroupSetting3"
-                app:layout_constraintTop_toTopOf="@+id/textViewGroupSetting3" />
+                app:layout_constraintStart_toStartOf="@+id/guideline9"
+                app:layout_constraintTop_toTopOf="@+id/textViewGroupSetting3"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/tvGroupSettingLevel"
@@ -183,13 +204,13 @@
                 android:id="@+id/textViewGroupSetting5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:elevation="10dp"
                 android:text="성별"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/textViewGroupSetting3"
+                app:layout_constraintEnd_toStartOf="@+id/textViewGroupSetting6"
                 app:layout_constraintStart_toEndOf="@+id/textViewGroupSetting4"
                 app:layout_constraintTop_toTopOf="@+id/textViewGroupSetting3" />
 
@@ -210,14 +231,14 @@
                 android:id="@+id/textViewGroupSetting6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:elevation="10dp"
                 android:text="연령대"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/textViewGroupSetting3"
-                app:layout_constraintStart_toEndOf="@+id/textViewGroupSetting5"
+                app:layout_constraintEnd_toEndOf="@+id/view23"
                 app:layout_constraintTop_toTopOf="@+id/textViewGroupSetting3" />
 
             <TextView
@@ -305,19 +326,6 @@
                 app:layout_constraintEnd_toEndOf="@+id/textViewGroupSetting7"
                 app:layout_constraintStart_toStartOf="@+id/textViewGroupSetting7"
                 app:layout_constraintTop_toBottomOf="@+id/textViewGroupSetting7" />
-
-            <View
-                android:id="@+id/view23"
-                android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/border_boxcolor"
-                android:elevation="5dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvGroupSettingArea"
-                app:layout_constraintEnd_toEndOf="@+id/view"
-                app:layout_constraintStart_toStartOf="@+id/view"
-                app:layout_constraintTop_toTopOf="@+id/textViewGroupSetting2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
