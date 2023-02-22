@@ -88,7 +88,7 @@ class CountActivity : AppCompatActivity() {
                 Thread.sleep(1000)
 
                 if (i == 0) {
-                    val tt = Intent(Intent.ACTION_CALL, Uri.parse("tel:119"))
+                    val tt = Intent(Intent.ACTION_CALL, Uri.parse("tel:01075168705"))
                     startActivity(tt)
                 }
             }

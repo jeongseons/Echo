@@ -6,6 +6,7 @@ package com.example.echo
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.os.Bundle
@@ -13,6 +14,7 @@ import android.util.Log
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.preference.PreferenceManager
@@ -90,6 +92,20 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
         var keyHash = Utility.getKeyHash(this)
         Log.d("key", keyHash)
+
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.CALL_PHONE
+            ) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            // 승인이 안되어있는 상태라면 알림창을 띄워서 승인할 수 있도록
+            // ActivityCompat은 확인하는 기능, 요청하는 기능이 둘 다 들어가 있음
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.CALL_PHONE), 0
+            )
+        }
 
 
 

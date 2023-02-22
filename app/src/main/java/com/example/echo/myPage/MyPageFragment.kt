@@ -71,12 +71,12 @@ class MyPageFragment : Fragment() {
 
         //프로필 비공개 표시
         if(user_type!="n"){//공개
-            binding.imgLockPro.visibility=View.GONE
-            binding.tvLockPro.visibility=View.GONE
-
-        }else {//비공개
             binding.imgLockPro.visibility=View.VISIBLE
             binding.tvLockPro.visibility=View.VISIBLE
+
+        }else {//비공개
+            binding.imgLockPro.visibility=View.GONE
+            binding.tvLockPro.visibility=View.GONE
         }
         binding.imgLockPro.visibility
         binding.tvLockPro.visibility
