@@ -71,7 +71,7 @@ class DetailPersonFragment : Fragment() {
                                     response.body()!!.get(i).group_auth,
                                     response.body()!!.get(i).user_nick,
                                     response.body()!!.get(i).user_id,
-                                    "n"
+                                    response.body()!!.get(i).user_type
                                 )
                             )
 
