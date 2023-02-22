@@ -48,10 +48,10 @@
         app:layout_constraintBottom_toBottomOf="@+id/imgTalkR"
         app:layout_constraintEnd_toEndOf="@+id/imgTalkL" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgTalkPro"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
@@ -66,6 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:text="철수"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="@+id/imgTalkPro"
         app:layout_constraintStart_toEndOf="@+id/imgTalkPro"
         app:layout_constraintTop_toTopOf="@+id/imgTalkPro"
@@ -77,6 +78,7 @@
         android:layout_height="54dp"
         app:layout_constraintBottom_toBottomOf="@+id/imgTalkPro"
         app:layout_constraintStart_toEndOf="@+id/imgTalkPro"
+        app:layout_constraintTop_toBottomOf="@+id/tvTalkNick"
         app:srcCompat="@drawable/chat_left" />
 
     <TextView

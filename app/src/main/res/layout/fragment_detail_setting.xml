@@ -14,8 +14,8 @@
         android:id="@+id/scrollView4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-61dp">
+        tools:layout_editor_absoluteX="-148dp"
+        tools:layout_editor_absoluteY="26dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
@@ -237,7 +237,7 @@
                 android:id="@+id/textViewGroupSetting7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:text="대기 중인 가입 신청"
                 android:textColor="#000000"
                 android:textSize="16sp"
@@ -251,7 +251,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="70dp"
+                android:layout_marginBottom="100dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/view"
                 app:layout_constraintStart_toStartOf="@+id/view"
@@ -264,9 +264,11 @@
                 android:layout_marginTop="16dp"
                 android:background="#F3F3F3"
                 android:elevation="5dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
                 android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/view23"
                 app:layout_constraintStart_toStartOf="@+id/view23"
                 app:layout_constraintTop_toBottomOf="@+id/tvGroupSettingLevel" />
