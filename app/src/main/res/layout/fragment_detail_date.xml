@@ -32,6 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
+                    android:background="@drawable/button_style"
                     android:text="새로운 일정 추가하기"
                     app:layout_constraintEnd_toEndOf="@+id/rvDetailGroupDate"
                     app:layout_constraintStart_toStartOf="@+id/rvDetailGroupDate"

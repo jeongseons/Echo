@@ -50,6 +50,10 @@ class MyBoardFragment : Fragment() {
         adapter = MyBoardAdapter(requireContext(), myBoardList)
         binding.rvMyBoard.adapter = adapter
         binding.rvMyBoard.layoutManager = LinearLayoutManager(requireContext())
+        binding.imgMyBoardMoveBack.setOnClickListener {
+            val mainActivity = (activity as MainActivity)
+            mainActivity.changeFragment(2)
+        }
 
 //         각 게시글 클릭 이벤트 - 게시글 내부로 이동
         adapter.setOnItemClickListener(object : MyBoardAdapter.OnItemClickListener {

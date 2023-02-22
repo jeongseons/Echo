@@ -35,6 +35,7 @@ import com.gmail.bishoybasily.stomp.lib.StompClient
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.kakao.sdk.user.UserApiClient
+import kotlinx.android.synthetic.main.fragment_my_page.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -68,20 +69,21 @@ class DetailTalkFragment : Fragment() {
         val btnTalkchat2 = view.findViewById<Button>(R.id.btnTalkchat2)
         val btnTalkchat3 = view.findViewById<Button>(R.id.btnTalkchat3)
         val rvtalk = view.findViewById<RecyclerView>(R.id.rvtalk)
-        val ivTalkchat = view.findViewById<ImageView>(R.id.ivTalkchat)
+        val imgChatBox = view.findViewById<ImageView>(R.id.imgChatBox)
 
-        ivTalkchat.setOnClickListener {View.OnClickListener() {
-            Log.d("text", "test")
-            if (btnTalkchat1.visibility == View.VISIBLE) {
-                btnTalkchat1.visibility = View.GONE
-                btnTalkchat2.visibility = View.GONE
-                btnTalkchat3.visibility = View.GONE
-            } else {
-                btnTalkchat1.visibility = View.VISIBLE
-                btnTalkchat2.visibility = View.VISIBLE
-                btnTalkchat3.visibility = View.VISIBLE
+
+        imgChatBox.setOnClickListener {
+            if(imgChatBox.tag==false){
+                btnTalkchat1.visibility=View.GONE
+                btnTalkchat2.visibility=View.GONE
+                btnTalkchat3.visibility=View.GONE
+                imgChatBox.tag = true
+            }else{
+                btnTalkchat1.visibility=View.VISIBLE
+                btnTalkchat2.visibility=View.VISIBLE
+                btnTalkchat3.visibility=View.VISIBLE
+                imgChatBox.tag = false
             }
-        }
         }
 
         UserApiClient.instance.me { user, error ->
