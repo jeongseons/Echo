@@ -40,6 +40,7 @@ import java.util.jar.Manifest
 lateinit var binding: FragmentMyPageBinding
 var user_id = ""
 var user_profile_img = ""
+var user_type = ""
 var mainActivity: MainActivity = MainActivity()
 
 private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -84,6 +85,7 @@ class MyPageFragment : Fragment() {
             intent.putExtra("user_id", user_id)
             intent.putExtra("user_nick", binding.tvMyPageNick.text)
             intent.putExtra("user_profile_img", user_profile_img)
+            intent.putExtra("user_type", user_type)
             startActivity(intent)
         }
 
@@ -186,6 +188,9 @@ class MyPageFragment : Fragment() {
                     Log.d("text-마이페이지", "실행중")
                     var body = response.body()!!
                     user_profile_img = body.user_profile_img
+                    user_type = body.user_type
+                    Log.d("user_type-값", user_type)
+                    Log.d("user_profile_img-값", user_profile_img)
                     Log.d("text-마이페이지", body.toString())
                     binding.tvMyPageNick.text = body.user_nick
                     binding.tvMyPageBirth.text =
@@ -201,6 +206,7 @@ class MyPageFragment : Fragment() {
                         .into(binding.imgMyPagePic)
                     binding.tvMyPageBoardCnt.text = body.user_board_cnt
                     binding.tvMyPageCourseCnt.text = body.user_course_cnt
+
                 }
             }
 

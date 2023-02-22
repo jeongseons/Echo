@@ -37,6 +37,9 @@ RecyclerView.Adapter<GroupListAdapter.ViewHolder>(){
                     Log.d("socket", "소켓 닫아줌/")
                     GroupActivity.closeSocket()
                 }
+                if(WebSocketListener.talkList.size>0){
+                    WebSocketListener.talkList.clear()
+                }
                 val intent = Intent(context, GroupActivity :: class.java)
                 intent.putExtra("title", grouplist[adapterPosition].group_name)
                 intent.putExtra("num", grouplist[adapterPosition].group_seq)

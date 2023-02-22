@@ -20,9 +20,8 @@
         android:id="@+id/imgDetialPersonProfilePic"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgDetailPersonProfileBack"
         tools:srcCompat="@tools:sample/avatars" />
@@ -31,14 +30,36 @@
         android:id="@+id/tvDetailPersonProfileNick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:text="닉네임"
         android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imgDetialPersonProfilePic"
-        app:layout_constraintStart_toStartOf="@+id/imgDetialPersonProfilePic"
-        app:layout_constraintTop_toBottomOf="@+id/imgDetialPersonProfilePic" />
+        app:layout_constraintStart_toEndOf="@+id/imgDetialPersonProfilePic"
+        app:layout_constraintTop_toTopOf="@+id/imgDetialPersonProfilePic" />
+
+    <ImageView
+        android:id="@+id/imgProfileLock"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bnvDetailPerson"
+        app:srcCompat="@drawable/ic_baseline_lock_person_24" />
+
+    <TextView
+        android:id="@+id/tvProfileLock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="비공개 프로필 입니다"
+        android:textColor="#000000"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/imgProfileLock"
+        app:layout_constraintStart_toStartOf="@+id/imgProfileLock"
+        app:layout_constraintTop_toBottomOf="@+id/imgProfileLock" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bnvDetailPerson"
@@ -51,8 +72,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDetailPersonProfileBirth"
-        app:menu="@menu/detail_person_item" />
+        app:layout_constraintTop_toBottomOf="@+id/imgDetialPersonProfilePic"
+        app:menu="@menu/detail_person_item" >
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <FrameLayout
         android:id="@+id/flDetailPerson"
@@ -70,38 +93,32 @@
         android:id="@+id/tvDetailPersonProfileBirth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
         android:text="2000.01.01"
         android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDetailPersonProfileNick" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgCakeImage"
+        app:layout_constraintStart_toEndOf="@+id/imgCakeImage"
+        app:layout_constraintTop_toTopOf="@+id/imgCakeImage" />
 
     <TextView
         android:id="@+id/tvDetailPersonProfileGender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="-200dp"
+        android:layout_marginStart="8dp"
         android:text="(여성)"
         android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/tvDetailPersonProfileBirth"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.589"
-        app:layout_constraintStart_toEndOf="@+id/tvDetailPersonProfileBirth"
-        app:layout_constraintTop_toTopOf="@+id/tvDetailPersonProfileBirth"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintBottom_toBottomOf="@+id/tvDetailPersonProfileNick"
+        app:layout_constraintStart_toEndOf="@+id/tvDetailPersonProfileNick"
+        app:layout_constraintTop_toTopOf="@+id/tvDetailPersonProfileNick" />
 
-    <TextView
-        android:id="@+id/tvDetailPersonProfileClose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="비공개"
-        android:textColor="#000000"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDetailPersonProfileNick" />
+    <ImageView
+        android:id="@+id/imgCakeImage"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintStart_toStartOf="@+id/tvDetailPersonProfileNick"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailPersonProfileNick"
+        app:srcCompat="@drawable/ic_baseline_cake_24" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

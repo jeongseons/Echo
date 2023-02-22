@@ -3,28 +3,26 @@ package com.example.echo.myPage
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.Editable
 import android.util.Log
+import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.echo.RetrofitBuilder
-import com.example.echo.auth.IntroActivity
 import com.example.echo.auth.UserVO
 import com.example.echo.databinding.ActivityReviseBinding
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import com.kakao.sdk.user.UserApiClient
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
+
 
 class ReviseActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReviseBinding
@@ -42,6 +40,7 @@ class ReviseActivity : AppCompatActivity() {
         val user_id = intent.getStringExtra("user_id")
         val user_nick = intent.getStringExtra("user_nick")
         val user_profile_img = intent.getStringExtra("user_profile_img")
+        var user_type = intent.getStringExtra("user_type")
 
         binding.etReviseUserNick.setText(user_nick)
         Glide.with(this)
@@ -62,8 +61,31 @@ class ReviseActivity : AppCompatActivity() {
         binding.btnRevise.setOnClickListener {
             imgUpload(user_id!!)
             var revisedNick = binding.etReviseUserNick.text.toString()
-            modifyUser(user_id, revisedNick)
+            modifyUser(user_id, revisedNick, user_type!!)
         }
+
+
+        if(user_type != "n") {//비공개
+            binding.swProfileShare.isChecked=false
+        }else{//공개
+            binding.swProfileShare.isChecked=true
+        }
+
+
+        binding.swProfileShare.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { compoundButton, isChecked ->
+            if (isChecked) {//공개
+                // switchButton이 체크된 경우
+                user_type = "n"
+                binding.tvProfileShare.text="프로필 공개 상태입니다."
+
+            } else {//비공개
+                // switchButton이 체크되지 않은 경우
+                user_type = "y"
+                binding.tvProfileShare.text="프로필 비공개 상태입니다."
+
+            }
+        })
+
 
 
     }
@@ -99,8 +121,8 @@ class ReviseActivity : AppCompatActivity() {
         }
     }
 
-    fun modifyUser(user_id: String, revisedNick: String){
-        val revisedUser = UserVO(user_id,revisedNick,"","","")
+    fun modifyUser(user_id: String, revisedNick: String, user_type:String){
+        val revisedUser = UserVO(user_id,revisedNick,"","","", user_type)
         val call = RetrofitBuilder.userApi.modifyUser(revisedUser)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>

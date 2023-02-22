@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.echo.MainActivity
 import com.example.echo.R
 import com.example.echo.RetrofitBuilder
 import com.example.echo.board.BoardListVO
@@ -30,13 +31,45 @@ class DetailPersonProfileActivity : AppCompatActivity() {
         binding = ActivityDetailPersonProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.imgDetailPersonProfileBack.setOnClickListener {
+            finish()
+        }
+
         val user_nick = intent.getStringExtra("user_nick")
         val user_id = intent.getStringExtra("user_id")
         val user_profile_img = intent.getStringExtra("user_profile_img")
+        val user_type = intent.getStringExtra("user_type")
 
-        if (user_id != null) {
-            getPersonProfile(user_id)
+        Log.d("값확인-비공개여부",user_type.toString())
+
+
+        //비공개시 프로필 숨기기
+        if(user_type != "n"){//프로필 비공개시
+            binding.tvDetailPersonProfileGender.visibility=View.GONE
+            binding.tvDetailPersonProfileBirth.visibility=View.GONE
+            binding.imgCakeImage.visibility=View.GONE
+            binding.flDetailPerson.visibility=View.GONE
+
+
+            binding.imgProfileLock.visibility=View.VISIBLE
+            binding.tvProfileLock.visibility=View.VISIBLE
+
+        }else{//프로필 공개 시
+
+            binding.tvDetailPersonProfileGender.visibility=View.VISIBLE
+            binding.tvDetailPersonProfileBirth.visibility=View.VISIBLE
+            binding.imgCakeImage.visibility=View.VISIBLE
+
+
+            binding.imgProfileLock.visibility=View.GONE
+            binding.tvProfileLock.visibility=View.GONE
+
+            if (user_id != null) {
+                getPersonProfile(user_id)
+            }
         }
+
+
 
         binding.tvDetailPersonProfileNick.text = user_nick
 
@@ -106,9 +139,13 @@ class DetailPersonProfileActivity : AppCompatActivity() {
 
                     boardList.reverse()
                     courseList.reverse()
+                    
+                    val year = personInfo.user_birthdate.subSequence(0,4)
+                    val month = personInfo.user_birthdate.subSequence(4,6)
+                    val day = personInfo.user_birthdate.subSequence(6,8)
 
-                    binding.tvDetailPersonProfileGender.text = personInfo.user_gender
-                    binding.tvDetailPersonProfileBirth.text = personInfo.user_birthdate
+                    binding.tvDetailPersonProfileGender.text = "(${personInfo.user_gender}성)"
+                    binding.tvDetailPersonProfileBirth.text = "${year}년 ${month}월 ${day}일"
 
                     var personBoardFragment = PersonBoardFragment()
                     var bundle = Bundle()

@@ -21,7 +21,6 @@ import com.example.echo.group.detail.CalendarDecorate.*
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
-import kotlinx.android.synthetic.main.fragment_detail_date.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

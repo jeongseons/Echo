@@ -31,7 +31,6 @@ import com.kakao.sdk.template.model.Content
 import com.kakao.sdk.template.model.FeedTemplate
 import com.kakao.sdk.template.model.Link
 import com.kakao.sdk.user.UserApiClient
-import kotlinx.android.synthetic.main.dialog_course_modify.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback

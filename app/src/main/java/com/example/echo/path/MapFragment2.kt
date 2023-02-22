@@ -24,7 +24,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
-import kotlinx.android.synthetic.main.fragment_map2.*
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
