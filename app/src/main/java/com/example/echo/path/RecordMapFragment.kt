@@ -170,9 +170,9 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
             pauseTimer()
             endTime = getNowTime()
             fusedLocationProviderClient.removeLocationUpdates(locationCallback)
-            if(latlngArray.size == 0){
-                Toast.makeText(context,"아직 이동하지 않으셨습니다", Toast.LENGTH_LONG).show()
-            }else {
+//            if(latlngArray.size == 0){
+//                Toast.makeText(context,"아직 이동하지 않으셨습니다", Toast.LENGTH_LONG).show()
+//            }else {
                 val intent = Intent(requireContext(), MapSaveActivity::class.java)
                 intent.putExtra("latlngArray",latlngArray)
                 intent.putExtra("totalTime",tvMapTotalTime.text)
@@ -182,7 +182,7 @@ class RecordMapFragment : Fragment(),    MapFragment3.OnConnectedListener,
                 intent.putExtra("endTime",endTime)
                 intent.putExtra("speed", "${averSpeed}km/h")
                 startActivity(intent)
-            }
+//            }
         }
 
         return view
