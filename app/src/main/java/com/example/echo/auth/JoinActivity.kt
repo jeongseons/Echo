@@ -17,7 +17,6 @@ import com.example.echo.RetrofitBuilder
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.kakao.sdk.user.UserApiClient
-import kotlinx.android.synthetic.main.activity_join.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,6 +30,7 @@ class JoinActivity : AppCompatActivity() {
     var user_nick = ""
     var isJoinSuccess = ""
     lateinit var imgJoinUserProfileEdit: ImageView
+    lateinit var imgJoinUserProfileProfile: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,7 @@ class JoinActivity : AppCompatActivity() {
         var etJoinUserNick = findViewById<EditText>(R.id.etJoinUserNick)
         imgJoinUserProfileEdit = findViewById(R.id.imgJoinUserProfileEdit)
 
-        val imgJoinUserProfileProfile = findViewById<ImageView>(R.id.imgJoinUserProfileProfile)
+        imgJoinUserProfileProfile = findViewById(R.id.imgJoinUserProfileProfile)
 
         imgJoinUserProfileProfile.setImageResource(R.drawable.profile)
         var rdoUserGender = findViewById<RadioGroup>(R.id.rdoUserGender)

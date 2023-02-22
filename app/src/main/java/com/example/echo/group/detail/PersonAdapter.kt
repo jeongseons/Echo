@@ -45,7 +45,7 @@ class PersonAdapter(
                 val intent = Intent(context, DetailPersonProfileActivity::class.java)
                 intent.putExtra("user_nick", personlist[adapterPosition].user_nick)
                 intent.putExtra("user_id", personlist[adapterPosition].user_id)
-                intent.putExtra("user_profile_img",personlist[position].user_profile_img)
+                intent.putExtra("user_profile_img",personlist[adapterPosition].user_profile_img)
                 context.startActivity(intent)
             }
 
@@ -53,7 +53,8 @@ class PersonAdapter(
                 val intent = Intent(context, DetailPersonProfileActivity::class.java)
                 intent.putExtra("user_nick", personlist[adapterPosition].user_nick)
                 intent.putExtra("user_id", personlist[adapterPosition].user_id)
-                intent.putExtra("user_profile_img",personlist[position].user_profile_img)
+                intent.putExtra("user_profile_img",personlist[adapterPosition].user_profile_img)
+                intent.putExtra("user_type",personlist[adapterPosition].user_type)
                 context.startActivity(intent)
             }
 

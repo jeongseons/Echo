@@ -87,14 +87,22 @@
         android:id="@+id/switch1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="프로필 공개"
-        android:textOff="비공개"
-        android:textOn="공개"
+        android:layout_marginTop="100dp"
+        android:text="프로필 공개 여부"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/etReviseUserNick"
         app:layout_constraintStart_toStartOf="@+id/etReviseUserNick"
         app:layout_constraintTop_toBottomOf="@+id/etReviseUserNick" />
+
+    <TextView
+        android:id="@+id/textView48"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="프로필 공개 상태입니다."
+        app:layout_constraintEnd_toEndOf="@+id/switch1"
+        app:layout_constraintStart_toStartOf="@+id/switch1"
+        app:layout_constraintTop_toBottomOf="@+id/switch1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

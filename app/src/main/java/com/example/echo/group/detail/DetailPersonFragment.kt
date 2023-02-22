@@ -70,7 +70,8 @@ class DetailPersonFragment : Fragment() {
                                     response.body()!!.get(i).user_profile_img,
                                     response.body()!!.get(i).group_auth,
                                     response.body()!!.get(i).user_nick,
-                                    response.body()!!.get(i).user_id
+                                    response.body()!!.get(i).user_id,
+                                    "n"
                                 )
                             )
 

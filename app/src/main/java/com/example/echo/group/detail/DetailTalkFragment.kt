@@ -29,17 +29,15 @@ import com.example.echo.group.GroupListAdapter
 import com.example.echo.group.GroupVO
 import com.example.echo.group.Message
 import com.example.echo.myPage.MyPageVO
-import com.example.echo.myPage.binding
-import com.example.echo.myPage.user_profile_img
-import com.gmail.bishoybasily.stomp.lib.StompClient
+
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.kakao.sdk.user.UserApiClient
-import kotlinx.android.synthetic.main.fragment_my_page.view.*
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.security.acl.Group
+
 
 
 class DetailTalkFragment : Fragment() {

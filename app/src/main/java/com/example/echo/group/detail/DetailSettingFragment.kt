@@ -22,7 +22,6 @@ import com.example.echo.group.AddGroupActivity
 import com.example.echo.group.EditGroupInfoActivity
 import com.example.echo.group.JoinGroupVO
 import com.kakao.sdk.user.UserApiClient
-import kotlinx.android.synthetic.main.fragment_detail_setting.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,6 +43,7 @@ class DetailSettingFragment : Fragment() {
     lateinit var tvGroupSettingGender : TextView
     lateinit var tvGroupSettingDetail : TextView
     lateinit var imgGroupSettingProfile : ImageView
+    lateinit var textView44 : TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,7 +74,7 @@ class DetailSettingFragment : Fragment() {
         val rvGroupSettingJoinList = view.findViewById<RecyclerView>(R.id.rvGroupSettingJoinList)
         val tvGroupSettingDel = view.findViewById<TextView>(R.id.tvGroupSettingDel)
         val tvGroupSettingOut = view.findViewById<TextView>(R.id.tvGroupSettingOut)
-        val textView44 = view.findViewById<TextView>(R.id.textView44)
+        textView44 = view.findViewById(R.id.textView44)
 
 
         //모임명 셋팅
@@ -185,7 +185,8 @@ class DetailSettingFragment : Fragment() {
                                     response.body()!!.get(i).user_profile_img,
                                     response.body()!!.get(i).group_auth,
                                     response.body()!!.get(i).user_nick,
-                                    response.body()!!.get(i).user_id
+                                    response.body()!!.get(i).user_id,
+                                   "n"
                                 )
                             )
 
