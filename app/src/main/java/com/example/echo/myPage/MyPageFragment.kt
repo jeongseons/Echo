@@ -58,12 +58,19 @@ class MyPageFragment : Fragment() {
     ): View
     ? {
 
+
+
         binding = FragmentMyPageBinding.inflate(layoutInflater, container, false)
         binding.imgMyPagePic.setImageResource(R.drawable.p1)
         UserApiClient.instance.me { user, error ->
             user_id = user?.id.toString()
             getMyPage(user_id)
         }
+
+
+        //프로필 비공개 표시
+        binding.imgLockPro
+        binding.tvLockPro
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
         receiveLocation {  }
