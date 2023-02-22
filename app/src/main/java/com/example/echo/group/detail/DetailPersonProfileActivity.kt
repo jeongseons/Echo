@@ -48,6 +48,7 @@ class DetailPersonProfileActivity : AppCompatActivity() {
             binding.tvDetailPersonProfileGender.visibility=View.GONE
             binding.tvDetailPersonProfileBirth.visibility=View.GONE
             binding.imgCakeImage.visibility=View.GONE
+            binding.flDetailPerson.visibility=View.GONE
 
 
             binding.imgProfileLock.visibility=View.VISIBLE

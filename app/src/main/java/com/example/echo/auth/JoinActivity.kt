@@ -142,7 +142,7 @@ class JoinActivity : AppCompatActivity() {
             }
 
             if(joinCk) {
-                var user = UserVO(user_id, user_nick, user_birthdate, user_profile_img, user_gender)
+                var user = UserVO(user_id, user_nick, user_birthdate, user_profile_img, user_gender,"n")
                 joinUser(user)
             }
         }
